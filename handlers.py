@@ -11,6 +11,10 @@ def home_page():
 def personal_default_page():
     return render_template('personal/default.html')
 
+@site.route('/issues')
+def personal_issues_page():
+    return render_template('personal/current_projects.html')
+
 @site.route('/project_create')
 def projects_create_page():
     return render_template('projects/create_project.html')

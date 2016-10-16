@@ -1,9 +1,9 @@
 {% extends "layout.html" %}
 {% block container %}
     <section class="content-header">
-        <h1>Profile</h1>
+        <h1>Project Name  </h1>
         <ol class="breadcrumb">
-          <li><a href='../dashboard.html'><i class="fa fa-dashboard"></i> Homepage</a></li>
+          <li><a href="{{ url_for('site.home_page') }}"><i class="fa fa-dashboard"></i> Homepage</a></li>
           <li><a href="#">Projects</a></li>
           <li class="active"><a href="#">Project Name</a></li>
         </ol>

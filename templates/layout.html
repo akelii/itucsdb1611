@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../static/admin_lte/css/AdminLTE.min.css">
-  <link rel="stylesheet" href="../static/admin_lte/css/skins/skin-black.min.css">
+  <link rel="stylesheet" href="../static/admin_lte/css/skins/all-skins.min.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -168,7 +168,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="{{ url_for('site.personal_default_page') }}"><i class="fa fa-child"></i> Profile</a></li>
-                    <li><a href="personal/current_projects.html"><i class="fa fa-tasks"></i> My Issues</a></li>
+                    <li><a href="{{ url_for('site.personal_issues_page') }}"><i class="fa fa-tasks"></i> My Issues</a></li>
                     <li><a href="personal/cv.html"><i class="fa fa-file-text-o"></i> CV</a></li>
                     <li><a href="personal/cv.html"><i class="fa fa-gear"></i> Settings</a></li>
                 </ul>
