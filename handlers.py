@@ -10,3 +10,11 @@ def home_page():
 @site.route('/personal')
 def personal_default_page():
     return render_template('personal/default.html')
+
+@site.route('/project_create')
+def projects_create_page():
+    return render_template('projects/create_project.html')
+
+@site.route('/project_search')
+def projects_search_page():
+    return render_template('projects/search_project.html')

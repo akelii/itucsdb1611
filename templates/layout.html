@@ -195,8 +195,8 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="projects/search_project.html"><i class="fa fa-search"></i> Search for Projects</a></li>
-                    <li><a href="projects/create_project.html"><i class="fa fa-plus"></i> Create Project</a></li>
+                    <li><a href="{{ url_for('site.projects_search_page') }}"><i class="fa fa-search"></i> Search for Projects</a></li>
+                    <li><a href="{{ url_for('site.projects_create_page') }}"><i class="fa fa-plus"></i> Create Project</a></li>
                 </ul>
             </li>
             <li class="treeview">
