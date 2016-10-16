@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block container %}
+    <section class="content-header">
+      <h1>
+        Profile
+      </h1>
+      <ol class="breadcrumb">
+          <li><a href="{{ url_for('site.home_page') }}"><i class="fa fa-dashboard"></i> Homepage</a></li>
+          <li><a href="#">Personal</a></li>
+          <li class="active"><a href="#">Profile</a></li>
+      </ol>
+    </section>
+
+    <section class="content">
+    <div class="callout callout-info">
+        <h4>
+            <i class="fa fa-info"></i>  Note:
+        </h4>
+        This page has been enhanced for personal profile. You can see own profile in here.
+    </div>
+    </section>
+{% endblock %}

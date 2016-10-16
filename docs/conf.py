@@ -43,11 +43,11 @@ source_suffix = '.rst'
 # The master toctree document.
 master_doc = 'index'
 
-# General information about the project.
+# General information about the projects.
 project = 'itucsdb'
 copyright = '2015, Team Name'
 
-# The version info for the project you're documenting, acts as replacement for
+# The version info for the projects you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
 # built documents.
 #
@@ -110,7 +110,7 @@ html_theme = 'default'
 #html_theme_path = []
 
 # The name for this set of Sphinx documents.  If None, it defaults to
-# "<project> v<release> documentation".
+# "<projects> v<release> documentation".
 #html_title = None
 
 # A shorter title for the navigation bar.  Default is the same as html_title.
@@ -242,7 +242,7 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
   ('index', 'itucsdb', 'itucsdb Documentation',
-   'Team Name', 'itucsdb', 'One line description of project.',
+   'Team Name', 'itucsdb', 'One line description of projects.',
    'Miscellaneous'),
 ]
 
