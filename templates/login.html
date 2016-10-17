@@ -40,13 +40,13 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="dashboard.html">AcademicFreelance</a>
+    <a href="{{ url_for('site.home_page') }}">AcademicFreelance</a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
     <p class="login-box-msg">Sign in to start your AcademicFreelance life</p>
 
-    <form action="dashboard.html" method="post">
+    <form action="{{ url_for('site.home_page') }}" method="post">
       <div class="form-group has-feedback">
         <input type="email" class="form-control" placeholder="Email">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
