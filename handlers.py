@@ -34,3 +34,15 @@ def connections_following_people():
 @site.route('/project_connections')
 def connections_following_projects():
     return render_template('connections/following_projects.html')
+
+@site.route('/cv')
+def personal_cv_page():
+    return render_template('personal/cv.html')
+
+@site.route('/settings')
+def personal_settings_page():
+    return render_template('personal/settings.html')
+
+@site.route('/people_search')
+def people_search_person_page():
+    return render_template('people/search_person.html')
