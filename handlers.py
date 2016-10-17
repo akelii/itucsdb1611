@@ -46,3 +46,11 @@ def personal_settings_page():
 @site.route('/people_search')
 def people_search_person_page():
     return render_template('people/search_person.html')
+
+@site.route('/login')
+def login_page():
+    return render_template('login.html')
+
+@site.route('/logout')
+def logout_page():
+    return render_template('logout.html')
