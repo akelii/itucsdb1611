@@ -20,7 +20,8 @@ import psycopg2 as dbapi2
 #    app = create_app()
 #    app.run()
 
-
+app = Flask(__name__)
+app.register_blueprint(site)
 
 def get_elephantsql_dsn(vcap_services):
     """Returns the data source name for ElephantSQL."""
@@ -47,5 +48,5 @@ if __name__ == '__main__':
     else:
         app.config['dsn'] = """user='dxxbzlpn' password='b_e_BTFVmUQvEpr-arXGfL25XHdaVrCX'
                                host='jumbo.db.elephantsql.com' port=5432 dbname='dxxbzlpn'"""
-        
+    app.secret_key = os.urandom(32)
     app.run(host='0.0.0.0', port=port, debug=debug)
