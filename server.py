@@ -4,6 +4,7 @@ from flask import  request, redirect, url_for
 from handlers import  site
 import datetime
 import os
+import psycopg2 as dbapi2
 
 #def create_app():
 #    app = Flask(__name__)
