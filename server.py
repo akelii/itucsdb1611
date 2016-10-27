@@ -48,6 +48,4 @@ if __name__ == '__main__':
         app.config['dsn'] = """user='dxxbzlpn' password='b_e_BTFVmUQvEpr-arXGfL25XHdaVrCX'
                                host='jumbo.db.elephantsql.com' port=5432 dbname='dxxbzlpn'"""
         
-    app = Flask(__name__)
-    app.register_blueprint(site)
     app.run(host='0.0.0.0', port=port, debug=debug)
