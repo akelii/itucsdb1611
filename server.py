@@ -34,6 +34,38 @@ def get_elephantsql_dsn(vcap_services):
     return dsn
 
 
+@app.route('/init_db')
+def init_db():
+    with dbapi2.connect(app.config['dsn']) as connection:
+        cursor = connection.cursor()
+
+        query = """CREATE TABLE IF NOT EXISTS CVInformationType (
+				ObjectId INTEGER PRIMARY KEY NOT NULL,
+				Name VARCHAR(50) NOT NULL,
+				Deleted BIT NOT NULL
+                )"""
+        cursor.execute(query)
+
+        query = """CREATE TABLE IF NOT EXISTS Department (
+				ObjectId INTEGER PRIMARY KEY NOT NULL,
+				Name VARCHAR(50) NOT NULL,
+				Deleted BIT NOT NULL
+                )"""
+        cursor.execute(query)
+
+        query = """CREATE TABLE IF NOT EXISTS Information (
+				ObjectId INTEGER PRIMARY KEY NOT NULL,
+				FOREIGN KEY(PersonId) REFERENCES Person(ObjectId) ON DELETE CASCADE,
+				FOREIGN KEY(InformationTypeId) REFERENCES InformationType(ObjectId) ON DELETE SET NULL,
+				Description VARCHAR(500) NOT NULL,
+				Deleted BIT NOT NULL
+                )"""
+        cursor.execute(query)
+
+    return redirect(url_for('home_page'))
+
+
+
 
 if __name__ == '__main__':
     VCAP_APP_PORT = os.getenv('VCAP_APP_PORT')
