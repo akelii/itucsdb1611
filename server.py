@@ -179,11 +179,15 @@ def init_db():
         cursor.execute("""ALTER TABLE CV ADD  FOREIGN KEY(PersonId) REFERENCES Person(ObjectId) ON DELETE CASCADE""")
         cursor.execute( """ALTER TABLE CVInformation ADD  FOREIGN KEY(CVInformationTypeId) REFERENCES CVInformationType(ObjectId) ON DELETE SET NULL""")
 	
-	cursor.execute("""ALTER TABLE Team ADD  FOREIGN KEY(MemberId) REFERENCES Person(ObjectId) ON DELETE CASCADE""")
-	cursor.execute("""ALTER TABLE Team ADD  FOREIGN KEY(ProjectId) REFERENCES Project(ObjectId) ON DELETE CASCADE""")
-	cursor.execute("""ALTER TABLE CVInformation ADD  FOREIGN KEY(CvId) REFERENCES CV(ObjectId) ON DELETE CASCADE""")
-	cursor.execute("""ALTER TABLE Person ADD  FOREIGN KEY(AccountTypeId) REFERENCES AccountType(ObjectId) ON DELETE CASCADE""")
-    return redirect(url_for('site.home_page'))
+	    cursor.execute("""ALTER TABLE Team ADD  FOREIGN KEY(MemberId) REFERENCES Person(ObjectId) ON DELETE CASCADE""")
+	    cursor.execute("""ALTER TABLE Team ADD  FOREIGN KEY(ProjectId) REFERENCES Project(ObjectId) ON DELETE CASCADE""")
+	    cursor.execute("""ALTER TABLE CVInformation ADD  FOREIGN KEY(CVId) REFERENCES CV(ObjectId) ON DELETE CASCADE""")
+	    cursor.execute("""ALTER TABLE Person ADD  FOREIGN KEY(AccountTypeId) REFERENCES AccountType(ObjectId) ON DELETE CASCADE""")
+        cursor.execute("""ALTER TABLE Person ADD FOREIGN KEY(TitleId) REFERENCES Title(ObjectId) ON DELETE CASCADE""")
+        cursor.execute("""ALTER TABLE Project ADD FOREIGN KEY(ProjectTypeId) REFERENCES ProjectType(ObjectId) ON DELETE CASCADE""")
+        cursor.execute("""ALTER TABLE Project ADD FOREIGN KEY (ProjectThesisTypeId) REFERENCES ProjectThesisType(ObjectId) ON DELETE CASCADE""")
+        cursor.execute("""ALTER TABLE Project ADD FOREIGN KEY (DepartmentId) REFERENCES Department(ObjectId) ON DELETE CASCADE""")
+        return redirect(url_for('site.home_page'))
     
 
 
