@@ -193,6 +193,8 @@ def init_db():
         cursor.execute("""INSERT INTO ProjectType (Name, Deleted) VALUES ('Tubitak Projects' , '0')""")
         cursor.execute("""INSERT INTO Title (Name, Deleted) VALUES ('Prof.' , '0')""")
         cursor.execute("""INSERT INTO AccountType (AccountTypeName, Deleted) VALUES ('Student', '0')""")
+        cursor.execute("""INSERT INTO Department (Name, Deleted) VALUES ('Computer Science', '0')""")
+
         return redirect(url_for('site.home_page'))
     
 
