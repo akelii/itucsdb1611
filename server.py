@@ -94,7 +94,7 @@ def init_db():
                         ObjectId SERIAL PRIMARY KEY NOT NULL,
                         Name VARCHAR(50) NOT NULL,
                         Deleted BIT NOT NULL
-                  )"""
+                )"""
         cursor.execute(query)
 
         query = """CREATE TABLE IF NOT EXISTS ProjectThesisType(
