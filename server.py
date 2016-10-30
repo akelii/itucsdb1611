@@ -40,114 +40,140 @@ def init_db():
         cursor = connection.cursor()
 
         query = """CREATE TABLE IF NOT EXISTS CVInformationType (
-				ObjectId SERIAL PRIMARY KEY NOT NULL,
-				Name VARCHAR(50) NOT NULL,
-				Deleted BIT NOT NULL
-                )"""
+                ObjectId SERIAL PRIMARY KEY,
+                Name VARCHAR(50) NOT NULL,
+                Deleted BIT NOT NULL
+        )"""
         cursor.execute(query)
 
         query = """CREATE TABLE IF NOT EXISTS Department (
-				ObjectId SERIAL PRIMARY KEY NOT NULL,
-				Name VARCHAR(50) NOT NULL,
-				Deleted BIT NOT NULL
-                )"""
+                ObjectId SERIAL PRIMARY KEY,
+                Name VARCHAR(50) NOT NULL,
+                Deleted BIT NOT NULL
+        )"""
         cursor.execute(query)
 
         query = """CREATE TABLE IF NOT EXISTS Information (
-				ObjectId SERIAL PRIMARY KEY NOT NULL,
-				PersonId INTEGER NOT NULL,
-				InformationTypeId INTEGER NOT NULL,
-				Description VARCHAR(500) NOT NULL,
-				Deleted BIT NOT NULL
-                )"""
+                ObjectId SERIAL PRIMARY KEY,
+                PersonId INTEGER NOT NULL,
+                InformationTypeId INTEGER NOT NULL,
+                Description VARCHAR(500) NOT NULL,
+                Deleted BIT NOT NULL
+        )"""
         cursor.execute(query)
 
         query = """CREATE TABLE IF NOT EXISTS AccountType(
-                ObjectId SERIAL PRIMARY KEY NOT NULL,
+                ObjectId SERIAL PRIMARY KEY,
                 AccountTypeName VARCHAR(50) NOT NULL,
-                Deleted BIT NOT NULL,
+                Deleted BIT NOT NULL
         )"""
         cursor.execute(query)
 
         query = """CREATE TABLE IF NOT EXISTS CV(
-                ObjectId SERIAL PRIMARY KEY NOT NULL,
+                ObjectId SERIAL PRIMARY KEY,
                 PersonId INTEGER NOT NULL,
                 CreatedDate TIMESTAMP NOT NULL,
                 UpdatedDate TIMESTAMP NOT NULL,
-                Deleted BIT NOT NULL,
+                Deleted BIT NOT NULL
 
         )"""
         cursor.execute(query)
 
         query = """CREATE TABLE IF NOT EXISTS CVInformation(
-                ObjectId SERIAL PRIMARY KEY NOT NULL,
+                ObjectId SERIAL PRIMARY KEY,
                 CVId INTEGER NOT NULL,
                 Description VARCHAR(500) NOT NULL,
                 CVInformationTypeId INTEGER NOT NULL,
-                StartDate DATE NULLABLE ,
-                EndDate DATE NULLABLE,
-                DELETED BIT NOT NULL,
+                StartDate TIMESTAMP ,
+                EndDate TIMESTAMP ,
+                DELETED BIT NOT NULL
         )"""
         cursor.execute(query)
 
         query = """CREATE TABLE IF NOT EXISTS ProjectType(
-                        ObjectId SERIAL PRIMARY KEY NOT NULL,
-                        Name VARCHAR(50) NOT NULL,
-                        Deleted BIT NOT NULL
-                )"""
+                ObjectId SERIAL PRIMARY KEY,
+                Name VARCHAR(50) NOT NULL,
+                Deleted BIT NOT NULL
+        )"""
         cursor.execute(query)
 
         query = """CREATE TABLE IF NOT EXISTS ProjectThesisType(
-                        ObjectId SERIAL PRIMARY KEY NOT NULL,
-                        Name VARCHAR(50) NOT NULL,
-                        Deleted BIT NOT NULL
-                         )"""
+                ObjectId SERIAL PRIMARY KEY,
+                Name VARCHAR(50) NOT NULL,
+                Deleted BIT NOT NULL
+        )"""
         cursor.execute(query)
 
         query = """CREATE TABLE IF NOT EXISTS ProjectStatusType(
-                        ObjectId SERIAL PRIMARY KEY NOT NULL,
-                        Name VARCHAR(50) NOT NULL,
-                        Deleted BIT NOT NULL
-                         )"""
+                ObjectId SERIAL PRIMARY KEY,
+                Name VARCHAR(50) NOT NULL,
+                Deleted BIT NOT NULL
+        )"""
         cursor.execute(query)
 
         query = """CREATE TABLE IF NOT EXISTS Person(
-                        ObjectId SERIAL PRIMARY KEY NOT NULL,
-                        FirstName VARCHAR(50) NOT NULL,
-                        LastName VARCHAR(50) NOT NULL,
-			AccountTypeId INTEGER NOT NULL,
-			E-Mail VARCHAR(100) NOT NULL,
-			Password VARCHAR(50) NOT NULL,
-			Gender BIT NULLABLE,
-			TitleId INTEGER NOT NULL,
-			PhotoPath VARCHAR(250) NULLABLE,
-                        Deleted BIT NOT NULL
-                         )"""
+                ObjectId SERIAL PRIMARY KEY,
+                FirstName VARCHAR(50) NOT NULL,
+                LastName VARCHAR(50) NOT NULL,
+			    AccountTypeId INTEGER NOT NULL,
+			    E_Mail VARCHAR(100) NOT NULL,
+			    Password VARCHAR(50) NOT NULL,
+			    Gender BIT,
+			    TitleId INTEGER NOT NULL,
+			    PhotoPath VARCHAR(250),
+                Deleted BIT NOT NULL
+        )"""
         cursor.execute(query)
 
         query = """CREATE TABLE IF NOT EXISTS InformationType(
-                        ObjectId SERIAL PRIMARY KEY NOT NULL,
-                        Name VARCHAR(50) NOT NULL,
-                        Deleted BIT NOT NULL
-                         )"""
+                ObjectId SERIAL PRIMARY KEY,
+                Name VARCHAR(50) NOT NULL,
+                Deleted BIT NOT NULL
+        )"""
         cursor.execute(query)
 
         query = """CREATE TABLE IF NOT EXISTS Project(
-                        ObjectId SERIAL PRIMARY KEY NOT NULL,
-                        Name VARCHAR(50) NOT NULL,
-			ProjectTypeId INTEGER NOT NULL,
-			ProjectThesisTypeId INTEGER NULLABLE,
-			DepartmentId INTEGER NOT NULL,
-			ProjectStatusTypeId INTEGER NOT NULL,
-			StartDate TIMESTAMP NOT NULL,
-			EndDate TIMESTAMP NULLABLE,
-			MemberLimit INTEGER NULLABLE,
-			TeamId INTEGER NOT NULL,
-			CreatedByPersonId INTEGER NOT NULL,
-			ProjectManagerId INTEGER NOT NULL,
-                        Deleted BIT NOT NULL
-                         )"""
-        cursor.execute(query)	
+                ObjectId SERIAL PRIMARY KEY,
+                Name VARCHAR(50) NOT NULL,
+			    ProjectTypeId INTEGER NOT NULL,
+			    ProjectThesisTypeId INTEGER,
+			    DepartmentId INTEGER NOT NULL,
+			    ProjectStatusTypeId INTEGER NOT NULL,
+			    StartDate TIMESTAMP NOT NULL,
+			    EndDate TIMESTAMP,
+			    MemberLimit INTEGER,
+			    TeamId INTEGER NOT NULL,
+			    CreatedByPersonId INTEGER NOT NULL,
+			    ProjectManagerId INTEGER NOT NULL,
+                Deleted BIT NOT NULL
+        )"""
+        cursor.execute(query)
+
+        query = """CREATE TABLE IF NOT EXISTS Team(
+                ObjectId SERIAL PRIMARY KEY,
+                ProjectId INTEGER NOT NULL,
+                MemberId INTEGER NOT NULL,
+                Deleted BIT NOT NULL
+        )"""
+        cursor.execute(query)
+
+        query = """CREATE TABLE IF NOT EXISTS WorkLog (
+                ObjectId SERIAL PRIMARY KEY,
+                ProjectId INTEGER NOT NULL,
+                CommitMessage VARCHAR(500) NOT NULL,
+                CreatedDate TIMESTAMP NOT NULL,
+                CreatorPersonId INTEGER NOT NULL,
+                Deleted BIT NOT NULL
+        )"""
+        cursor.execute(query)
+
+        query = """CREATE TABLE IF NOT EXISTS Title(
+                ObjectId SERIAL PRIMARY KEY,
+                Name VARCHAR(50) NOT NULL,
+                Deleted BIT NOT NULL
+        )"""
+        cursor.execute(query)
+
     return redirect(url_for('site.home_page'))
     
 
