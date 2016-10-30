@@ -40,50 +40,50 @@ def init_db():
         cursor = connection.cursor()
 
         query = """CREATE TABLE IF NOT EXISTS CVInformationType (
-				ObjectId INTEGER PRIMARY KEY NOT NULL,
+				ObjectId SERIAL PRIMARY KEY NOT NULL,
 				Name VARCHAR(50) NOT NULL,
 				Deleted BIT NOT NULL
                 )"""
         cursor.execute(query)
 
         query = """CREATE TABLE IF NOT EXISTS Department (
-				ObjectId INTEGER PRIMARY KEY NOT NULL,
+				ObjectId SERIAL PRIMARY KEY NOT NULL,
 				Name VARCHAR(50) NOT NULL,
 				Deleted BIT NOT NULL
                 )"""
         cursor.execute(query)
 
         query = """CREATE TABLE IF NOT EXISTS Information (
-				ObjectId INTEGER PRIMARY KEY NOT NULL,
-				FOREIGN KEY(PersonId) REFERENCES Person(ObjectId) ON DELETE CASCADE,
-				FOREIGN KEY(InformationTypeId) REFERENCES InformationType(ObjectId) ON DELETE SET NULL,
+				ObjectId SERIAL PRIMARY KEY NOT NULL,
+				PersonId INTEGER NOT NULL,
+				InformationTypeId INTEGER NOT NULL,
 				Description VARCHAR(500) NOT NULL,
 				Deleted BIT NOT NULL
                 )"""
         cursor.execute(query)
 
         query = """CREATE TABLE IF NOT EXISTS AccountType(
-                ObjectId INTEGER PRIMARY KEY NOT NULL,
+                ObjectId SERIAL PRIMARY KEY NOT NULL,
                 AccountTypeName VARCHAR(50) NOT NULL,
                 Deleted BIT NOT NULL,
         )"""
         cursor.execute(query)
 
         query = """CREATE TABLE IF NOT EXISTS CV(
-                ObjectId INTEGER PRIMARY KEY NOT NULL,
-                FOREIGN KEY(PersonId) REFERENCES Person(ObjectId) ON DELETE CASCADE,
-                CreatedDate DATE NOT NULL,
-                UpdatedDate DATE NOT NULL,
+                ObjectId SERIAL PRIMARY KEY NOT NULL,
+                PersonId INTEGER NOT NULL,
+                CreatedDate TIMESTAMP NOT NULL,
+                UpdatedDate TIMESTAMP NOT NULL,
                 Deleted BIT NOT NULL,
 
         )"""
         cursor.execute(query)
 
         query = """CREATE TABLE IF NOT EXISTS CVInformation(
-                ObjectId INTEGER PRIMARY KEY NOT NULL,
-                FOREIGN KEY(CVId) REFERENCES CV(ObjectId) ON DELETE CASCADE,
+                ObjectId SERIAL PRIMARY KEY NOT NULL,
+                CVId INTEGER NOT NULL,
                 Description VARCHAR(500) NOT NULL,
-                FOREIGN KEY (CVInformationTypeId) REFERENCES CVInformationType(ObjectId) ON DELETE CASCADE,
+                CVInformationTypeId INTEGER NOT NULL,
                 StartDate DATE NULLABLE ,
                 EndDate DATE NULLABLE,
                 DELETED BIT NOT NULL,
@@ -110,7 +110,44 @@ def init_db():
                         Deleted BIT NOT NULL
                          )"""
         cursor.execute(query)
-
+	
+        query = """CREATE TABLE IF NOT EXISTS Person(
+                        ObjectId SERIAL PRIMARY KEY NOT NULL,
+                        FirstName VARCHAR(50) NOT NULL,
+                        LastName VARCHAR(50) NOT NULL,
+			AccountTypeId INTEGER NOT NULL,
+			E-Mail VARCHAR(100) NOT NULL,
+			Password VARCHAR(50) NOT NULL,
+			Gender BIT NULLABLE,
+			TitleId INTEGER NOT NULL,
+			PhotoPath VARCHAR(250) NULLABLE,
+                        Deleted BIT NOT NULL
+                         )"""
+        cursor.execute(query)
+	
+        query = """CREATE TABLE IF NOT EXISTS InformationType(
+                        ObjectId SERIAL PRIMARY KEY NOT NULL,
+                        Name VARCHAR(50) NOT NULL,
+                        Deleted BIT NOT NULL
+                         )"""
+        cursor.execute(query)
+	
+        query = """CREATE TABLE IF NOT EXISTS Project(
+                        ObjectId SERIAL PRIMARY KEY NOT NULL,
+                        Name VARCHAR(50) NOT NULL,
+			ProjectTypeId INTEGER NOT NULL,
+			ProjectThesisTypeId INTEGER NULLABLE,
+			DepartmentId INTEGER NOT NULL,
+			ProjectStatusTypeId INTEGER NOT NULL,
+			StartDate TIMESTAMP NOT NULL,
+			EndDate TIMESTAMP NULLABLE,
+			MemberLimit INTEGER NULLABLE,
+			TeamId INTEGER NOT NULL,
+			CreatedByPersonId INTEGER NOT NULL,
+			ProjectManagerId INTEGER NOT NULL,
+                        Deleted BIT NOT NULL
+                         )"""
+        cursor.execute(query)	
     return redirect(url_for('site.home_page'))
     
 
