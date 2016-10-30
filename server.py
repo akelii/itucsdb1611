@@ -89,8 +89,8 @@ def init_db():
                 DELETED BIT NOT NULL,
         )"""
         cursor.execute(query)
-	
-	query = """CREATE TABLE IF NOT EXISTS ProjectType(
+
+        query = """CREATE TABLE IF NOT EXISTS ProjectType(
                         ObjectId SERIAL PRIMARY KEY NOT NULL,
                         Name VARCHAR(50) NOT NULL,
                         Deleted BIT NOT NULL
@@ -110,7 +110,7 @@ def init_db():
                         Deleted BIT NOT NULL
                          )"""
         cursor.execute(query)
-	
+
         query = """CREATE TABLE IF NOT EXISTS Person(
                         ObjectId SERIAL PRIMARY KEY NOT NULL,
                         FirstName VARCHAR(50) NOT NULL,
@@ -124,14 +124,14 @@ def init_db():
                         Deleted BIT NOT NULL
                          )"""
         cursor.execute(query)
-	
+
         query = """CREATE TABLE IF NOT EXISTS InformationType(
                         ObjectId SERIAL PRIMARY KEY NOT NULL,
                         Name VARCHAR(50) NOT NULL,
                         Deleted BIT NOT NULL
                          )"""
         cursor.execute(query)
-	
+
         query = """CREATE TABLE IF NOT EXISTS Project(
                         ObjectId SERIAL PRIMARY KEY NOT NULL,
                         Name VARCHAR(50) NOT NULL,
