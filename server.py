@@ -62,24 +62,24 @@ def init_db():
                 )"""
         cursor.execute(query)
 
-        query = """CREATE TABLE IF NOT EXISTS AccountType{
+        query = """CREATE TABLE IF NOT EXISTS AccountType(
                 ObjectId INTEGER PRIMARY KEY NOT NULL,
                 AccountTypeName VARCHAR(50) NOT NULL,
                 Deleted BIT NOT NULL,
-        }"""
+        )"""
         cursor.execute(query)
 
-        query = """CREATE TABLE IF NOT EXISTS CV{
+        query = """CREATE TABLE IF NOT EXISTS CV(
                 ObjectId INTEGER PRIMARY KEY NOT NULL,
                 FOREIGN KEY(PersonId) REFERENCES Person(ObjectId) ON DELETE CASCADE,
                 CreatedDate DATE NOT NULL,
                 UpdatedDate DATE NOT NULL,
                 Deleted BIT NOT NULL,
 
-        }"""
+        )"""
         cursor.execute(query)
 
-        query = """CREATE TABLE IF NOT EXISTS CVInformation{
+        query = """CREATE TABLE IF NOT EXISTS CVInformation(
                 ObjectId INTEGER PRIMARY KEY NOT NULL,
                 FOREIGN KEY(CVId) REFERENCES CV(ObjectId) ON DELETE CASCADE,
                 Description VARCHAR(500) NOT NULL,
@@ -87,7 +87,7 @@ def init_db():
                 StartDate DATE NULLABLE ,
                 EndDate DATE NULLABLE,
                 DELETED BIT NOT NULL,
-        }"""
+        )"""
         cursor.execute(query)
 	
 	query = """CREATE TABLE IF NOT EXISTS ProjectType(
