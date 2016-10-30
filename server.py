@@ -62,6 +62,34 @@ def init_db():
                 )"""
         cursor.execute(query)
 
+        query = """CREATE TABLE IF NOT EXISTS AccountType{
+                ObjectId INTEGER PRIMARY KEY NOT NULL,
+                AccountTypeName VARCHAR(50) NOT NULL,
+                Deleted BIT NOT NULL,
+        }"""
+        cursor.execute(query)
+
+        query = """CREATE TABLE IF NOT EXISTS CV{
+                ObjectId INTEGER PRIMARY KEY NOT NULL,
+                FOREIGN KEY(PersonId) REFERENCES Person(ObjectId) ON DELETE CASCADE,
+                CreatedDate DATE NOT NULL,
+                UpdatedDate DATE NOT NULL,
+                Deleted BIT NOT NULL,
+
+        }"""
+        cursor.execute(query)
+
+        query = """CREATE TABLE IF NOT EXISTS CVInformation{
+                ObjectId INTEGER PRIMARY KEY NOT NULL,
+                FOREIGN KEY(CVId) REFERENCES CV(ObjectId) ON DELETE CASCADE,
+                Description VARCHAR(500) NOT NULL,
+                FOREIGN KEY (CVInformationTypeId) REFERENCES CVInformationType(ObjectId) ON DELETE CASCADE,
+                StartDate DATE NULLABLE ,
+                EndDate DATE NULLABLE,
+                DELETED BIT NOT NULL,
+        }"""
+        cursor.execute(query)
+
     return redirect(url_for('home_page'))
 
 
