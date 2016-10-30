@@ -178,7 +178,11 @@ def init_db():
         cursor.execute("""ALTER TABLE Information ADD  FOREIGN KEY(InformationTypeId) REFERENCES InformationType(ObjectId) ON DELETE SET NULL""")
         cursor.execute("""ALTER TABLE CV ADD  FOREIGN KEY(PersonId) REFERENCES Person(ObjectId) ON DELETE CASCADE""")
         cursor.execute( """ALTER TABLE CVInformation ADD  FOREIGN KEY(CVInformationTypeId) REFERENCES CVInformationType(ObjectId) ON DELETE SET NULL""")
-
+	
+	cursor.execute("""ALTER TABLE Team ADD  FOREIGN KEY(MemberId) REFERENCES Person(ObjectId) ON DELETE CASCADE""")
+	cursor.execute("""ALTER TABLE Team ADD  FOREIGN KEY(ProjectId) REFERENCES Project(ObjectId) ON DELETE CASCADE""")
+	cursor.execute("""ALTER TABLE CVInformation ADD  FOREIGN KEY(CvId) REFERENCES CV(ObjectId) ON DELETE CASCADE""")
+	cursor.execute("""ALTER TABLE Person ADD  FOREIGN KEY(AccountTypeId) REFERENCES AccountType(ObjectId) ON DELETE CASCADE""")
     return redirect(url_for('site.home_page'))
     
 
