@@ -89,9 +89,30 @@ def init_db():
                 DELETED BIT NOT NULL,
         }"""
         cursor.execute(query)
+	
+	query = """CREATE TABLE IF NOT EXISTS ProjectType(
+                        ObjectId SERIAL PRIMARY KEY NOT NULL,
+                        Name VARCHAR(50) NOT NULL,
+                        Deleted BIT NOT NULL
+                  )"""
+        cursor.execute(query)
 
-    return redirect(url_for('home_page'))
+        query = """CREATE TABLE IF NOT EXISTS ProjectThesisType(
+                        ObjectId SERIAL PRIMARY KEY NOT NULL,
+                        Name VARCHAR(50) NOT NULL,
+                        Deleted BIT NOT NULL
+                         )"""
+        cursor.execute(query)
 
+        query = """CREATE TABLE IF NOT EXISTS ProjectStatusType(
+                        ObjectId SERIAL PRIMARY KEY NOT NULL,
+                        Name VARCHAR(50) NOT NULL,
+                        Deleted BIT NOT NULL
+                         )"""
+        cursor.execute(query)
+
+    return redirect(url_for('site.home_page'))
+    
 
 
 
