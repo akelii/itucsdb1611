@@ -186,14 +186,20 @@ def init_db():
         cursor.execute("""ALTER TABLE Project ADD FOREIGN KEY(ProjectTypeId) REFERENCES ProjectType(ObjectId) ON DELETE CASCADE""")
         cursor.execute("""ALTER TABLE Project ADD FOREIGN KEY (ProjectThesisTypeId) REFERENCES ProjectThesisType(ObjectId) ON DELETE CASCADE""")
         cursor.execute("""ALTER TABLE Project ADD FOREIGN KEY (DepartmentId) REFERENCES Department(ObjectId) ON DELETE CASCADE""")
+        cursor.execute("""ALTER TABLE Project ADD FOREIGN KEY (ProjectStatusTypeId) REFERENCES ProjectStatusType(ObjectId) ON DELETE CASCADE""")
+        cursor.execute("""ALTER TABLE Project ADD FOREIGN KEY (CreatedByPersonId) REFERENCES Person(ObjectId) ON DELETE CASCADE""")
+        cursor.execute("""ALTER TABLE Project ADD FOREIGN KEY (ProjectManagerId) REFERENCES Person(ObjectId) ON DELETE CASCADE""")
         cursor.execute("""ALTER TABLE Worklog ADD  FOREIGN KEY(CreatorPersonId) REFERENCES Person(ObjectId) ON DELETE SET NULL""")
         cursor.execute("""ALTER TABLE Worklog ADD  FOREIGN KEY(ProjectId) REFERENCES Project(ObjectId) ON DELETE SET NULL""")
         cursor.execute("""ALTER TABLE Project ADD  FOREIGN KEY(TeamId) REFERENCES Team(ObjectId) ON DELETE SET NULL """)
+
+
 
         cursor.execute("""INSERT INTO ProjectType (Name, Deleted) VALUES ('Tubitak Projects' , '0')""")
         cursor.execute("""INSERT INTO Title (Name, Deleted) VALUES ('Prof.' , '0')""")
         cursor.execute("""INSERT INTO AccountType (AccountTypeName, Deleted) VALUES ('Student', '0')""")
         cursor.execute("""INSERT INTO Department (Name, Deleted) VALUES ('Computer Science', '0')""")
+        cursor.execute("""INSERT INTO Department (Name, Deleted) VALUES ('Civil Engineering', '0')""")
 
         return redirect(url_for('site.home_page'))
     
@@ -211,7 +217,7 @@ if __name__ == '__main__':
     if VCAP_SERVICES is not None:
         app.config['dsn'] = get_elephantsql_dsn(VCAP_SERVICES)
     else:
-        app.config['dsn'] = """user='dxxbzlpn' password='b_e_BTFVmUQvEpr-arXGfL25XHdaVrCX'
-                               host='jumbo.db.elephantsql.com' port=5432 dbname='dxxbzlpn'"""
+        app.config['dsn'] = """user='postgres' password='b_e_BTFVmUQvEpr-arXGfL25XHdaVrCX'
+                               host='localhost' port=5432 dbname='dxxbzlpn'"""
     app.secret_key = os.urandom(32)
     app.run(host='0.0.0.0', port=port, debug=debug)
