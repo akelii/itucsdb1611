@@ -178,15 +178,16 @@ def init_db():
         cursor.execute("""ALTER TABLE Information ADD  FOREIGN KEY(InformationTypeId) REFERENCES InformationType(ObjectId) ON DELETE SET NULL""")
         cursor.execute("""ALTER TABLE CV ADD  FOREIGN KEY(PersonId) REFERENCES Person(ObjectId) ON DELETE CASCADE""")
         cursor.execute("""ALTER TABLE CVInformation ADD  FOREIGN KEY(CVInformationTypeId) REFERENCES CVInformationType(ObjectId) ON DELETE SET NULL""")
+        cursor.execute("""ALTER TABLE CVInformation ADD  FOREIGN KEY(CVId) REFERENCES CV(ObjectId) ON DELETE CASCADE""")
         cursor.execute("""ALTER TABLE Team ADD  FOREIGN KEY(MemberId) REFERENCES Person(ObjectId) ON DELETE CASCADE""")
         cursor.execute("""ALTER TABLE Team ADD  FOREIGN KEY(ProjectId) REFERENCES Project(ObjectId) ON DELETE CASCADE""")
-        cursor.execute("""ALTER TABLE CVInformation ADD  FOREIGN KEY(CVId) REFERENCES CV(ObjectId) ON DELETE CASCADE""")
         cursor.execute("""ALTER TABLE Person ADD  FOREIGN KEY(AccountTypeId) REFERENCES AccountType(ObjectId) ON DELETE CASCADE""")
         cursor.execute("""ALTER TABLE Person ADD FOREIGN KEY(TitleId) REFERENCES Title(ObjectId) ON DELETE CASCADE""")
         cursor.execute("""ALTER TABLE Project ADD FOREIGN KEY(ProjectTypeId) REFERENCES ProjectType(ObjectId) ON DELETE CASCADE""")
         cursor.execute("""ALTER TABLE Project ADD FOREIGN KEY (ProjectThesisTypeId) REFERENCES ProjectThesisType(ObjectId) ON DELETE CASCADE""")
         cursor.execute("""ALTER TABLE Project ADD FOREIGN KEY (DepartmentId) REFERENCES Department(ObjectId) ON DELETE CASCADE""")
         cursor.execute("""ALTER TABLE Project ADD FOREIGN KEY (ProjectStatusTypeId) REFERENCES ProjectStatusType(ObjectId) ON DELETE CASCADE""")
+        cursor.execute("""ALTER TABLE Project ADD  FOREIGN KEY(TeamId) REFERENCES Team(ObjectId) ON DELETE SET NULL """)
         cursor.execute("""ALTER TABLE Project ADD FOREIGN KEY (CreatedByPersonId) REFERENCES Person(ObjectId) ON DELETE CASCADE""")
         cursor.execute("""ALTER TABLE Project ADD FOREIGN KEY (ProjectManagerId) REFERENCES Person(ObjectId) ON DELETE CASCADE""")
         cursor.execute("""ALTER TABLE Worklog ADD  FOREIGN KEY(CreatorPersonId) REFERENCES Person(ObjectId) ON DELETE SET NULL""")
@@ -195,12 +196,32 @@ def init_db():
         cursor.execute("""ALTER TABLE Project ADD  COLUMN ProjectDescription VARCHAR(500) NOT NULL""")
 
 
+
         cursor.execute("""INSERT INTO ProjectType (Name, Deleted) VALUES ('Tubitak Projects' , '0')""")
         cursor.execute("""INSERT INTO Title (Name, Deleted) VALUES ('Prof.' , '0')""")
         cursor.execute("""INSERT INTO AccountType (AccountTypeName, Deleted) VALUES ('Student', '0')""")
         cursor.execute("""INSERT INTO Department (Name, Deleted) VALUES ('Computer Science', '0')""")
         cursor.execute("""INSERT INTO Department (Name, Deleted) VALUES ('Civil Engineering', '0')""")
-
+        cursor.execute("""INSERT INTO AccountType (AccountTypeName, Deleted) VALUES ('Student', '0'), ('Academic', '0')""")
+        cursor.execute("""INSERT INTO CVInformationType (Name, Deleted) VALUES ('Education', '0'), ('Ability', '0'), ('Experience', '0'), ('Language', '0')""")
+        cursor.execute("""INSERT INTO ProjectType (Name, Deleted) VALUES ('Tubitak Projects' , '0'), ('Competition Projects' , '0'), ('International Conference Projects' , '0'),
+                      ('National Conference Projects' , '0'), ('Commercial Projects' , '0'), ('StartUp Project' , '0')""")
+        cursor.execute("""INSERT INTO ProjectThesisType (Name, Deleted) VALUES ('Bachelor Projects', '0'), ('Master Projects', '0'), ('PhD Projects', '0')""")
+        cursor.execute("""INSERT INTO ProjectStatusType (Name, Deleted) VALUES ('standby', '0'), ('onprogress', '0'), ('done', '0')""")
+        cursor.execute("""INSERT INTO Title (Name, Deleted) VALUES ('Prof.' , '0'), ('Prof. Dr.' , '0'), ('Doç. Dr.' , '0'), ('Yrd. Doç. Dr.' , '0'), ('Öğr. Gör.' , '0'), ('Araş. Gör.' , '0'),
+                      ('Uzman' , '0'), ('Okutman' , '0'), ('Yrd. Doç' , '0'), ('Doç.' , '0'), ('Mühendis' , '0'), ('Asistan' , '0')""")
+        cursor.execute("""INSERT INTO Department (Name, Deleted) VALUES ('Computer Engineering', '0'), ('Civil Engineering', '0'), ('Astronautical Engineering', '0'),
+                      ('Molecular Biology and Genetics', '0'), ('Geomatics Engineering', '0'), ('Maritime Transportation and Management Engineering', '0'),
+                      ('Marine Engineering', '0'), ('Mineral Processing Engineering ', '0'), ('Electrical Engineering', '0'),
+                      ('Manufacturing Engineering', '0'), ('Interior Architecture', '0'), ('Mechatronics', '0'), ('Electronics and Communication Engineering', '0'),
+                      ('Bioengineering', '0'), ('Humanities and Social Sciences', '0'), ('Control and Automation Engineering', '0'), ('Environmental Engineering', '0'),
+                      ('Industrial Engineering', '0'), ('Physics Engineering ', '0'), ('Food Engineering', '0'), ('Geophysics Engineering', '0'), ('Geological Engineering', '0'),
+                      ('Chemistry', '0'), ('Chemistry Engineering', '0'), ('Mining Engineering', '0'), ('Mechanical Engineering', '0'), ('Mathematical Engineering ', '0'),
+                      ('Metallurgical and Materials Engineering', '0'), ('Meteorological Engineering', '0'), ('Aeronautical Engineering', '0'), ('Aeronautical Engineering', '0'),
+                      ('Economics', '0'), ('Textile Engineering', '0'), ('Urban and Regional Planning', '0'), ('Petroleum and Natural Gas Engineering', '0'), ('Landscape Architecture', '0')""")
+        cursor.execute("""INSERT INTO InformationType (Name, Deleted) VALUES ('E-Mail', '0'), ('Telephone', '0'), ('Twitter', '0'),
+                          ('LinkedIn', '0'), ('Facebook', '0'),('Instagram', '0'),('Blog', '0'),('MySpace', '0'),
+                          ('Tumblr', '0'),('Address', '0')""")
         return redirect(url_for('site.home_page'))
     
 
