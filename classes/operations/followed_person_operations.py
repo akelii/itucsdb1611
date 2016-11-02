@@ -16,3 +16,22 @@ class followed_person_operations:
             cursor.execute(query, (followed_person.PersonId, followed_person.FollowedPersonId))
             connection.commit()
             self.last_key = cursor.lastrowid
+
+    # ObjectId'ye gore bir eleman doner.
+    def GetFollowedPersonByObjectId(self, key):
+        with dbapi2.connect(dsn) as connection:
+            cursor = connection.cursor()
+            query = "SELECT PersonId, FollowedPersonId, StartDate FROM FollowedPerson WHERE (ObjectId=%s and Deleted='0')"
+            cursor.execute(query, (key,))
+            result = cursor.fetchone()
+        return result
+
+    # Veritabanindaki deleted'ı true olmayan butun elemanlari ceker
+    def GetFollowedPersonList(self):
+        with dbapi2.connect(dsn) as connection:
+            cursor = connection.cursor()
+            query = "SELECT PersonId, FollowedPersonId, StartDate FROM FollowedPerson WHERE (Deleted='0')"
+            cursor.execute(query)
+            results = cursor.fetchall()
+        return results
+

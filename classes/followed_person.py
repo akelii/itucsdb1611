@@ -1,10 +1,10 @@
 
 class FollowedPerson:
-    def __init__(self, objectId, personId, followedPersonId, startDate):
+    def __init__(self, objectId, personId, followedPersonId, startDate, deleted):
         self.ObjectId = objectId
         self.PersonId = personId
         self.FollowedPersonId = followedPersonId
         self.StartDate = startDate
-        self.Deleted = 0
+        self.Deleted = deleted
 
 
