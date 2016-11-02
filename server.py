@@ -2,11 +2,12 @@ from flask import Flask
 from flask import render_template, Blueprint
 from flask import  request, redirect, url_for
 from handlers import  site
-import datetime
+from datetime import datetime
 import os
 import re
 import json
 import psycopg2 as dbapi2
+
 
 #def create_app():
 #    app = Flask(__name__)
@@ -42,14 +43,14 @@ def init_db():
         query = """CREATE TABLE IF NOT EXISTS CVInformationType (
                 ObjectId SERIAL PRIMARY KEY,
                 Name VARCHAR(50) NOT NULL,
-                Deleted BIT NOT NULL
+                Deleted BOOLEAN NOT NULL
         )"""
         cursor.execute(query)
 
         query = """CREATE TABLE IF NOT EXISTS Department (
                 ObjectId SERIAL PRIMARY KEY,
                 Name VARCHAR(50) NOT NULL,
-                Deleted BIT NOT NULL
+                Deleted BOOLEAN NOT NULL
         )"""
         cursor.execute(query)
 
@@ -58,14 +59,14 @@ def init_db():
                 PersonId INTEGER NOT NULL,
                 InformationTypeId INTEGER NOT NULL,
                 Description VARCHAR(500) NOT NULL,
-                Deleted BIT NOT NULL
+                Deleted BOOLEAN NOT NULL
         )"""
         cursor.execute(query)
 
         query = """CREATE TABLE IF NOT EXISTS AccountType(
                 ObjectId SERIAL PRIMARY KEY,
                 AccountTypeName VARCHAR(50) NOT NULL,
-                Deleted BIT NOT NULL
+                Deleted BOOLEAN NOT NULL
         )"""
         cursor.execute(query)
 
@@ -74,7 +75,7 @@ def init_db():
                 PersonId INTEGER NOT NULL,
                 CreatedDate TIMESTAMP NOT NULL,
                 UpdatedDate TIMESTAMP NOT NULL,
-                Deleted BIT NOT NULL
+                Deleted BOOLEAN NOT NULL
 
         )"""
         cursor.execute(query)
@@ -86,28 +87,28 @@ def init_db():
                 CVInformationTypeId INTEGER NOT NULL,
                 StartDate TIMESTAMP ,
                 EndDate TIMESTAMP ,
-                DELETED BIT NOT NULL
+                DELETED BOOLEAN NOT NULL
         )"""
         cursor.execute(query)
 
         query = """CREATE TABLE IF NOT EXISTS ProjectType(
                 ObjectId SERIAL PRIMARY KEY,
                 Name VARCHAR(50) NOT NULL,
-                Deleted BIT NOT NULL
+                Deleted BOOLEAN NOT NULL
         )"""
         cursor.execute(query)
 
         query = """CREATE TABLE IF NOT EXISTS ProjectThesisType(
                 ObjectId SERIAL PRIMARY KEY,
                 Name VARCHAR(50) NOT NULL,
-                Deleted BIT NOT NULL
+                Deleted BOOLEAN NOT NULL
         )"""
         cursor.execute(query)
 
         query = """CREATE TABLE IF NOT EXISTS ProjectStatusType(
                 ObjectId SERIAL PRIMARY KEY,
                 Name VARCHAR(50) NOT NULL,
-                Deleted BIT NOT NULL
+                Deleted BOOLEAN NOT NULL
         )"""
         cursor.execute(query)
 
@@ -118,23 +119,24 @@ def init_db():
 			    AccountTypeId INTEGER NOT NULL,
 			    E_Mail VARCHAR(100) NOT NULL,
 			    Password VARCHAR(50) NOT NULL,
-			    Gender BIT,
+			    Gender BOOLEAN,
 			    TitleId INTEGER NOT NULL,
 			    PhotoPath VARCHAR(250),
-                Deleted BIT NOT NULL
+                Deleted BOOLEAN NOT NULL
         )"""
         cursor.execute(query)
 
         query = """CREATE TABLE IF NOT EXISTS InformationType(
                 ObjectId SERIAL PRIMARY KEY,
                 Name VARCHAR(50) NOT NULL,
-                Deleted BIT NOT NULL
+                Deleted BOOLEAN NOT NULL
         )"""
         cursor.execute(query)
 
         query = """CREATE TABLE IF NOT EXISTS Project(
                 ObjectId SERIAL PRIMARY KEY,
                 Name VARCHAR(50) NOT NULL,
+                Description VARCHAR(1000) NOT NULL,
 			    ProjectTypeId INTEGER NOT NULL,
 			    ProjectThesisTypeId INTEGER,
 			    DepartmentId INTEGER NOT NULL,
@@ -145,7 +147,7 @@ def init_db():
 			    TeamId INTEGER NOT NULL,
 			    CreatedByPersonId INTEGER NOT NULL,
 			    ProjectManagerId INTEGER NOT NULL,
-                Deleted BIT NOT NULL
+                Deleted BOOLEAN NOT NULL
         )"""
         cursor.execute(query)
 
@@ -153,7 +155,7 @@ def init_db():
                 ObjectId SERIAL PRIMARY KEY,
                 ProjectId INTEGER NOT NULL,
                 MemberId INTEGER NOT NULL,
-                Deleted BIT NOT NULL
+                Deleted BOOLEAN NOT NULL
         )"""
         cursor.execute(query)
 
@@ -163,14 +165,32 @@ def init_db():
                 CommitMessage VARCHAR(500) NOT NULL,
                 CreatedDate TIMESTAMP NOT NULL,
                 CreatorPersonId INTEGER NOT NULL,
-                Deleted BIT NOT NULL
+                Deleted BOOLEAN NOT NULL
         )"""
         cursor.execute(query)
 
         query = """CREATE TABLE IF NOT EXISTS Title(
                 ObjectId SERIAL PRIMARY KEY,
                 Name VARCHAR(50) NOT NULL,
-                Deleted BIT NOT NULL
+                Deleted BOOLEAN NOT NULL
+        )"""
+        cursor.execute(query)
+
+        query = """CREATE TABLE IF NOT EXISTS FollowedPerson(
+                ObjectId SERIAL PRIMARY KEY,
+                PersonId INT NOT NULL,
+                FollowedPersonId INT NOT NULL,
+                StartDate TIMESTAMP NOT NULL,
+                Deleted BOOLEAN NOT NULL
+        )"""
+        cursor.execute(query)
+
+        query = """CREATE TABLE IF NOT EXISTS FollowedProject(
+                ObjectId SERIAL PRIMARY KEY,
+                PersonId INT NOT NULL,
+                FollowedProjectId INT NOT NULL,
+                StartDate TIMESTAMP NOT NULL,
+                Deleted BOOLEAN NOT NULL
         )"""
         cursor.execute(query)
 
@@ -193,8 +213,10 @@ def init_db():
         cursor.execute("""ALTER TABLE Worklog ADD  FOREIGN KEY(CreatorPersonId) REFERENCES Person(ObjectId) ON DELETE SET NULL""")
         cursor.execute("""ALTER TABLE Worklog ADD  FOREIGN KEY(ProjectId) REFERENCES Project(ObjectId) ON DELETE SET NULL""")
         cursor.execute("""ALTER TABLE Project ADD  FOREIGN KEY(TeamId) REFERENCES Team(ObjectId) ON DELETE SET NULL """)
-        cursor.execute("""ALTER TABLE Project ADD  COLUMN ProjectDescription VARCHAR(500) NOT NULL""")
-
+        cursor.execute("""ALTER TABLE FollowedPerson ADD  FOREIGN KEY(PersonId) REFERENCES Person(ObjectId) ON DELETE SET NULL """)
+        cursor.execute("""ALTER TABLE FollowedPerson ADD  FOREIGN KEY(FollowedPersonId) REFERENCES Person(ObjectId) ON DELETE SET NULL """)
+        cursor.execute("""ALTER TABLE FollowedProject ADD  FOREIGN KEY(PersonId) REFERENCES Person(ObjectId) ON DELETE SET NULL """)
+        cursor.execute("""ALTER TABLE FollowedProject ADD  FOREIGN KEY(FollowedProjectId) REFERENCES Project(ObjectId) ON DELETE SET NULL """)
 
 
         cursor.execute("""INSERT INTO ProjectType (Name, Deleted) VALUES ('Tubitak Projects' , '0')""")
@@ -222,9 +244,9 @@ def init_db():
         cursor.execute("""INSERT INTO InformationType (Name, Deleted) VALUES ('E-Mail', '0'), ('Telephone', '0'), ('Twitter', '0'),
                           ('LinkedIn', '0'), ('Facebook', '0'),('Instagram', '0'),('Blog', '0'),('MySpace', '0'),
                           ('Tumblr', '0'),('Address', '0')""")
-        return redirect(url_for('site.home_page'))
-    
 
+#        cursor.execute("""INSERT INTO Team (ProjectId, MemberId, Deleted) VALUES ('1', 1 , '0')""")
+        return redirect(url_for('site.home_page'))
 
 
 if __name__ == '__main__':
@@ -233,12 +255,16 @@ if __name__ == '__main__':
         port, debug = int(VCAP_APP_PORT), False
     else:
         port, debug = 5000, True
-        
+
     VCAP_SERVICES = os.getenv('VCAP_SERVICES')
     if VCAP_SERVICES is not None:
         app.config['dsn'] = get_elephantsql_dsn(VCAP_SERVICES)
     else:
-        app.config['dsn'] = """user='dxxbzlpn' password='b_e_BTFVmUQvEpr-arXGfL25XHdaVrCX'
-                               host='jumbo.db.elephantsql.com' port=5432 dbname='dxxbzlpn'"""
+        app.config['dsn'] = """user='postgres' password='b_e_BTFVmUQvEpr-arXGfL25XHdaVrCX'
+                               host='localhost' port=5432 dbname='dxxbzlpn'"""
     app.secret_key = os.urandom(32)
+
     app.run(host='0.0.0.0', port=port, debug=debug)
+
+
+

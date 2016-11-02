@@ -1,15 +1,18 @@
 from flask import Blueprint, render_template
+from templates_operations.personal.default import *
+
 
 
 site = Blueprint('site', __name__)
+
 
 @site.route('/')
 def home_page():
     return  render_template('dashboard.html')
 
-@site.route('/personal')
+@site.route('/personal', methods=["GET", "POST"])
 def personal_default_page():
-    return render_template('personal/default.html')
+    return personal_default_page_config(request.method)
 
 @site.route('/issues')
 def personal_issues_page():
