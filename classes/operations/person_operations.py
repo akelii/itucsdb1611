@@ -10,15 +10,15 @@ class person_operations:
     def AddPerson(self, person):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
-            query = "INSERT INTO Person (FirstName, LastName, AccountTypeId, E_Mail, Password, Gender, TitleId, PhotoPath, Deleted) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, FALSE )"
-            cursor.execute(query, (person.FirstName, person.LastName, person.AccountTypeId, person.E_Mail, person.Password, person.Gender, person.TitleId, person.PhotoPath))
+            query = "INSERT INTO Person (FirstName, LastName, AccountTypeId, Email, Password, Gender, TitleId, PhotoPath, Deleted) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, FALSE )"
+            cursor.execute(query, (person.FirstName, person.LastName, person.AccountTypeId, person.Email, person.Password, person.Gender, person.TitleId, person.PhotoPath))
             connection.commit()
             self.last_key = cursor.lastrowid
 
     def GetPersonByObjectId(self, key):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
-            query = """SELECT Person.ObjectId, FirstName || ' ' || LastName as FullName, AccountType.AccountTypeName, E_Mail, Password, Gender, Title.Name, PhotoPath
+            query = """SELECT Person.ObjectId, FirstName || ' ' || LastName as FullName, AccountType.AccountTypeName, Email, Password, Gender, Title.Name, PhotoPath
                         FROM Person
                         INNER JOIN AccountType ON (Person.AccountTypeId = AccountType.ObjectId)
                         INNER JOIN Title ON (Person.TitleId = Title.ObjectId)
@@ -31,7 +31,7 @@ class person_operations:
     def GetPersonList(self):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
-            query = """SELECT Person.ObjectId, FirstName || ' ' || LastName as FullName, AccountType.AccountTypeName, E_Mail, Password, Gender, Title.Name, PhotoPath
+            query = """SELECT Person.ObjectId, FirstName || ' ' || LastName as FullName, AccountType.AccountTypeName, Email, Password, Gender, Title.Name, PhotoPath
                         FROM Person
                         INNER JOIN AccountType ON (Person.AccountTypeId = AccountType.ObjectId)
                         INNER JOIN Title ON (Person.TitleId = Title.ObjectId)

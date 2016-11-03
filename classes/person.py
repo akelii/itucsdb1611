@@ -5,7 +5,7 @@ class Person:
         self.FirstName = firstName
         self.LastName = lastName
         self.AccountTypeId = accountTypeId
-        self.E_Mail = eMail
+        self.Email = eMail
         self.Password = password
         self.Gender = gender
         self.TitleId = titleId
