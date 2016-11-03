@@ -7,16 +7,15 @@ from classes.operations.person_operations import person_operations
 from classes.operations.followed_person_operations import followed_person_operations
 
 def personal_default_page_config(request):
-    if  'delete' in request.form and request.method == 'POST':
-        store = person_operations()
+    store = person_operations()
+    if  request and 'delete' in request.form and request.method == 'POST':
         p = store.GetPersonByObjectId(request.form['delete'])
         store.DeletePerson(request.form['delete'])
-    store_person = person_operations()
     store_followedperson = followed_person_operations()
-    Current_Person = store_person.GetPersonByObjectId(1)  # SONRADAN DUZELT
+    Current_Person = store.GetPersonByObjectId(1)  # SONRADAN DUZELT
     listFollowing = store_followedperson.GetFollowedPersonListByPersonId(1)
     listFollowers = store_followedperson.GetFollowedPersonListByFollowedPersonId(1)
-    listPerson = store_person.GetPersonList()
+    listPerson = store.GetPersonList()
     now = datetime.now()
     return render_template('personal/default.html', current_time=now.ctime(), Current_Person=Current_Person,
                            listFollowing=listFollowing, listFollowers=listFollowers, listPerson=listPerson)
