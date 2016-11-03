@@ -14,7 +14,6 @@ class person_operations:
             cursor.execute(query, (person.FirstName, person.LastName, person.AccountTypeId, person.E_Mail, person.Password, person.Gender, person.TitleId, person.PhotoPath))
             connection.commit()
             self.last_key = cursor.lastrowid
-        return cursor.lastrowid
 
     def GetPersonByObjectId(self, key):
         with dbapi2.connect(dsn) as connection:
@@ -29,28 +28,50 @@ class person_operations:
             result = cursor.fetchone()
         return result
 
-    def update_person(self, key, firstName, lastName, accountTypeId, e_Mail, password, gender, titleId, photoPath, deleted ):
-        with dbapi2.connect(self.dbfile) as connection:
-            cursor =connection.cursor()
-            query = "UPDATE Person SET FirstName=?, LastName=?, AccountTypeId=?, E_Mail=?, Password=?, Gender=?, TitleId=?, PhotoPath=?, Deleted=? WHERE (ObjectId=?)"
-            cursor.execute(query, (firstName, lastName, accountTypeId, e_Mail, password, gender, titleId, photoPath, deleted, key))
+    def GetPersonList(self):
+        with dbapi2.connect(dsn) as connection:
+            cursor = connection.cursor()
+            query = """SELECT Person.ObjectId, FirstName || ' ' || LastName as FullName, AccountType.AccountTypeName, E_Mail, Password, Gender, Title.Name, PhotoPath
+                        FROM Person
+                        INNER JOIN AccountType ON (Person.AccountTypeId = AccountType.ObjectId)
+                        INNER JOIN Title ON (Person.TitleId = Title.ObjectId)
+                        ORDER BY Person.ObjectId"""
+            cursor.execute(query)
+            connection.commit()
+            data_array = []
+            results = cursor.fetchall()
+            for person in results:
+                data_array.append(
+                    {
+                        'ObjectId': person[0],
+                        'PersonFullName': person[1],
+                        'AccountTypeName': person[2],
+                        'eMail': person[3],
+                        'Password': person[4],
+                        'Gender': person[5],
+                        'TitleName': person[6],
+                        'PhotoPath': person[7]
+                    }
+                )
+        return results
+
+    def UpdatePerson(self, key, firstName, lastName, accountTypeId, eMail, password, gender, titleId, photoPath, deleted ):
+        with dbapi2.connect(dsn) as connection:
+            cursor = connection.cursor()
+            cursor.execute(
+                """UPDATE Person SET FirstName = %s, LastName = %s, AccountTypeId = %s, eMail = %s, Password = %s, Gender = %s, TitleId = %s, PhotoPath = %s, Deleted = %s WHERE (ObjectId=%s)""",
+                (firstName, lastName, accountTypeId, eMail, password, gender,titleId, photoPath, deleted, key))
             connection.commit()
 
 
-    def delete_person(self, key):
-        with dbapi2.connect(self.dbfile) as connection:
+    def DeletePerson(self, key):
+        with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
-            query = "DELETE FROM Person WHERE (ObjectId=?)"
+            query = """DELETE FROM Person WHERE (ObjectId=%s)"""
             cursor.execute(query, (key,))
             connection.commit()
 
 
 
-    def get_people(self):
-        with dbapi2.connect(self.dbfile) as connection:
-            cursor = connection.cursor()
-            query = "SELECT FirstName, LastName, AccountTypeId, E_Mail, Password, Gender, TitleId, PhotoPath, Deleted FROM Person ORDER BY ObjectId"
-            cursor.execute(query)
-            people = [(key, Person(FirstName, LastName, AccountTypeId, E_Mail, Password, Gender, TitleId, PhotoPath, Deleted)) for key, FirstName, LastName, AccountTypeId, E_Mail, Password, Gender, TitleId, PhotoPath, Deleted in cursor]
-        return people
+
 

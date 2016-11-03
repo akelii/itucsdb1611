@@ -117,7 +117,7 @@ def init_db():
                 FirstName VARCHAR(50) NOT NULL,
                 LastName VARCHAR(50) NOT NULL,
 			    AccountTypeId INTEGER NOT NULL,
-			    E_Mail VARCHAR(100) NOT NULL,
+			    eMail VARCHAR(100) NOT NULL,
 			    Password VARCHAR(50) NOT NULL,
 			    Gender BOOLEAN,
 			    TitleId INTEGER NOT NULL,
@@ -261,7 +261,7 @@ if __name__ == '__main__':
         app.config['dsn'] = get_elephantsql_dsn(VCAP_SERVICES)
     else:
         app.config['dsn'] = """user='postgres' password='b_e_BTFVmUQvEpr-arXGfL25XHdaVrCX'
-                               host='jumbo.db.elephantsql.com' port=5432 dbname='dxxbzlpn'"""
+                               host='localhost' port=5432 dbname='dxxbzlpn'"""
     app.secret_key = os.urandom(32)
 
     app.run(host='0.0.0.0', port=port, debug=debug)

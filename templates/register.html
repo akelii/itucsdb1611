@@ -19,15 +19,15 @@
     <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
-  <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="../../dist/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="../static/admin_lte/css/AdminLTE.min.css">
   <!-- iCheck -->
-  <link rel="stylesheet" href="../../plugins/iCheck/square/blue.css">
+  <link rel="stylesheet" href="../static/plugins/iCheck/square/blue.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -45,24 +45,46 @@
   <div class="register-box-body">
     <p class="login-box-msg">Register a new membership</p>
 
-    <form action="http://itucsdb1611.mybluemix.net" method="post">
-      <div class="form-group has-feedback">
-        <input type="text" class="form-control" placeholder="Full name">
+    <form role="form" action="" method="post">
+        <div class="form-group has-feedback">
+        <input type="text" class="form-control" name="firstName" placeholder="First name">
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
-      <div class="form-group has-feedback">
-        <input type="email" class="form-control" placeholder="Email">
-        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+        <div class="form-group has-feedback">
+        <input type="text" class="form-control" name="lastName" placeholder="Last name">
+        <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
-      <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Password">
+        <div class="form-group has-feedback">
+            <select name="account" id="account" class="form-control">
+                 <option value="-1">Select Account Type</option>
+                {% for foo in listAccount %}
+                    <option value='{{ foo[0] }}'>{{ foo[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group has-feedback">
+        <input type="email" class="form-control" name="eMail" placeholder="Email">
+        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+        </div>
+        <div class="form-group has-feedback">
+        <input type="password" class="form-control" name="pswd" placeholder="Password">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
-      <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Retype password">
+        <div class="form-group has-feedback">
+        <input type="password" class="form-control" name="rePaswd" placeholder="Retype password">
         <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
       </div>
-      <div class="row">
+         <!-- GENDER -->
+        <div class="form-group has-feedback">
+            <select name='title' id="title" class="form-control">
+                 <option value="-1">Select Title</option>
+                {% for foo in listTitle %}
+                    <option value='{{ foo[0] }}'>{{ foo[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+                <!-- PHOTO -->
+        <div class="row">
         <div class="col-xs-8">
           <div class="checkbox icheck">
             <label>
@@ -72,32 +94,21 @@
         </div>
         <!-- /.col -->
         <div class="col-xs-4">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">Register</button>
+          <button type="submit" name="register" class="btn btn-primary btn-block btn-flat">Register</button>
         </div>
         <!-- /.col -->
       </div>
     </form>
-
-<!--    <div class="social-auth-links text-center">
-      <p>- OR -</p>
-      <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign up using
-        Facebook</a>
-      <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign up using
-        Google+</a>
-    </div> -->
-
     <a href="{{ url_for('site.login_page') }}" class="text-center">I already have a membership</a>
   </div>
-  <!-- /.form-box -->
 </div>
-<!-- /.register-box -->
 
 <!-- jQuery 2.2.3 -->
-<script src="../../plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="../static/plugins/jQuery/jquery-2.2.3.min.js"></script>
 <!-- Bootstrap 3.3.6 -->
-<script src="../../bootstrap/js/bootstrap.min.js"></script>
+<script src="../static/bootstrap/js/bootstrap.min.js"></script>
 <!-- iCheck -->
-<script src="../../plugins/iCheck/icheck.min.js"></script>
+<script src="../static/plugins/iCheck/icheck.min.js"></script>
 <script>
   $(function () {
     $('input').iCheck({
@@ -108,4 +119,4 @@
   });
 </script>
 </body>
-</html></html>
+</html>

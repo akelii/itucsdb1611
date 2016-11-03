@@ -111,3 +111,19 @@ class followed_person_operations:
                 )
         return results
 
+    def UpdatePerson(self, key, personId, followedPersonId, startDate, deleted ):
+        with dbapi2.connect(dsn) as connection:
+            cursor = connection.cursor()
+            cursor.execute(
+                """UPDATE FollowedPerson SET PersonId = %s, FollowedPersonId = %s, StartDate = %s, Deleted = %s WHERE (ObjectId=%s)""",
+                (personId, followedPersonId, startDate, deleted, key))
+            connection.commit()
+
+
+    def DeletePerson(self, key):
+        with dbapi2.connect(dsn) as connection:
+            cursor = connection.cursor()
+            query = """DELETE FROM FollowedPerson WHERE (ObjectId=%s)"""
+            cursor.execute(query, (key,))
+            connection.commit()
+

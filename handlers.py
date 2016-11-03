@@ -4,6 +4,7 @@ from templates_operations.projects.create_project import *
 from templates_operations.projects.search_project import*
 from templates_operations.projects.project_details import*
 from templates_operations.personal.cv import *
+from templates_operations.register import*
 
 site = Blueprint('site', __name__)
 
@@ -37,9 +38,9 @@ def projects_details_page(key):
  #   return project_details_page_config(request.method)
 
 
-@site.route('/register')
+@site.route('/register', methods=["GET", "POST"])
 def register_page():
-    return render_template('register.html')
+    return register_page_config(request)
 
 @site.route('/people_connections')
 def connections_following_people():
