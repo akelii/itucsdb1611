@@ -3,6 +3,7 @@ from templates_operations.personal.default import *
 from templates_operations.projects.create_project import *
 from templates_operations.projects.search_project import*
 from templates_operations.projects.project_details import*
+from templates_operations.personal.cv import *
 
 site = Blueprint('site', __name__)
 
@@ -48,9 +49,9 @@ def connections_following_people():
 def connections_following_projects():
     return render_template('connections/following_projects.html')
 
-@site.route('/cv')
+@site.route('/cv',methods=["GET", "POST"])
 def personal_cv_page():
-    return render_template('personal/cv.html')
+    return personal_cv_page_config(request.method)
 
 @site.route('/settings')
 def personal_settings_page():

@@ -1,17 +1,273 @@
 {% extends "layout.html" %}
 {% block container %}
     <section class="content-header">
-      <h1>
-        Profile
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href='{{ url_for('site.home_page') }}'><i class="fa fa-dashboard"></i> Homepage</a></li>
-        <li><a href='#'><i class="fa fa-dashboard"></i> Personal</a></li>
-        <li class="active">My CV</li>
-      </ol>
+        <h1>
+            CV
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href='{{ url_for('site.home_page') }}'><i class="fa fa-dashboard"></i> Homepage</a></li>
+            <li><a href='#'><i class="fa fa-dashboard"></i> Personal</a></li>
+            <li class="active">My CV</li>
+        </ol>
     </section>
 
     <section class="content">
+
+
+
+
+
+
+
+
+        <div class="input-group margin" style="width: 50%">
+            <h3>Education</h3>
+            <form action="{{ action }}" method="POST">
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle pull-right" type="button" data-toggle="dropdown">
+                        <span ><i class="fa fa-plus"></i> </span></button>
+                    <ul class="dropdown-menu" style="border: 2px #f2f2f2">
+                        <li>Description:  &emsp;&emsp;&emsp;&emsp;&emsp;   Startdate: &emsp;&emsp;  Enddate:</li>
+                        <li>    <div class="row">
+                            <div class="col-xs-5">
+                                <textarea class="form-control" name="description" value="{{ Description }}" rows="1"  ></textarea>
+                            </div>
+                            <div class="col-xs-3">
+                                <input type="text" class="form-control" name='startdate' >
+                            </div>
+                            <div class="col-xs-3">
+                                <input type="text" class="form-control"  name='enddate'  >
+                            </div>
+                        </div>                                    </li>
+                        <li><button type="submit" name="add"  value="1">Add</button></li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+        <div class="progress progress-xxs"style="width: 50%">
+            <div class="progress-bar progress-bar-blue " role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+            </div>
+        </div>
+        <ul>
+            {% for key, cvInformation in cvInformations %}
+                {% if cvInformation.CVInformationTypeId==1 %}
+                    <li style="width: 50%" >{{ cvInformation.Description }} {{ cvInformation.StartDate }} {{ cvInformation.EndDate }}
+                        <form form action="{{ action }}" method="POST">
+                            <input type=hidden value="{{cvInformation.ObjectId}}" name="delete_id"/>
+                            <div class="box-tools pull-right" >
+                                <button type="submit" class="btn btn-box-tool" name="add" value="delete"><i class="fa fa-times"></i>
+                                </button>
+                            </div>                         <div class="dropdown">
+                    <button class="btn btn-box-tool dropdown-toggle pull-right" type="button" data-toggle="dropdown">
+                        <span ><i class="fa fa-edit"></i> </span></button>
+                    <ul class="dropdown-menu pull-right" style="border: 2px #f2f2f2">
+                        <li>Updated Education:    </li>
+                        <li>Description:   &emsp;&emsp;&emsp;&emsp;&emsp;  Startdate:  &emsp;&emsp;  Enddate:</li>
+                        <li>    <div class="row">
+                            <div class="col-xs-5">
+                                <textarea class="form-control" name="description" value="{{ Description }}" rows="1"  ></textarea>
+                            </div>
+                            <div class="col-xs-3">
+                                <input type="text" class="form-control" name='startdate' >
+                            </div>
+                            <div class="col-xs-3">
+                                <input type="text" class="form-control"  name='enddate'  >
+                            </div>
+                        </div>                                    </li>
+
+                        <li><button type="submit" name="add" method="post" value="update">Update</button></li>
+                    </ul>
+                </div>
+                        </form>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+
+
+
+
+        <div class="input-group margin" style="width: 50%">
+            <h3>Experiences</h3>
+            <form action="{{ action }}" method="POST">
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle pull-right" type="button" data-toggle="dropdown">
+                        <span ><i class="fa fa-plus"></i> </span></button>
+                    <ul class="dropdown-menu" style="border: 2px #f2f2f2">
+                        <li>Description: &emsp;&emsp;&emsp;&emsp;&emsp;    Startdate:  &emsp;&emsp; Enddate:</li>
+                        <li>    <div class="row">
+                            <div class="col-xs-5">
+                                <textarea class="form-control"  name="description" value="{{ Description }}"  rows="1"  ></textarea>
+                            </div>
+                            <div class="col-xs-3">
+                                <input type="text" class="form-control" name="startdate" placeholder="mm/yyyy">
+                            </div>
+                            <div class="col-xs-3">
+                                <input type="text" class="form-control"  name="enddate" placeholder="mm/yyyy">
+                            </div>
+                        </div>                                    </li>
+                        <li><button type="submit" name="add"  value="3">Add</button></li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+        <div class="progress progress-xxs"style="width: 50%">
+            <div class="progress-bar progress-bar-blue " role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+            </div>
+        </div>
+        <ul>
+            {% for key, cvInformation in cvInformations %}
+                {% if cvInformation.CVInformationTypeId == 3 %}
+                    <li style="width: 50%">{{ cvInformation.Description }} {{ cvInformation.StartDate }} {{ cvInformation.EndDate }}
+                        <form form action="{{ action }}" method="POST">
+                            <input type=hidden value="{{cvInformation.ObjectId}}" name="delete_id"/>
+                            <div class="box-tools pull-right" >
+                                <button type="submit" class="btn btn-box-tool" name="add" value="delete"><i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                             <div class="dropdown">
+                    <button class="btn btn-box-tool dropdown-toggle pull-right" type="button" data-toggle="dropdown">
+                        <span ><i class="fa fa-edit"></i> </span></button>
+                    <ul class="dropdown-menu pull-right" style="border: 2px #f2f2f2">
+                       <li>Updated Experince:    </li>
+                        <li>Description:  &emsp;&emsp;&emsp;&emsp;&emsp;  Startdate:  &emsp;&emsp; Enddate:</li>
+                        <li>    <div class="row">
+                            <div class="col-xs-5">
+                                <textarea class="form-control" name="description" value="{{ Description }}" rows="1"  ></textarea>
+                            </div>
+                            <div class="col-xs-3">
+                                <input type="text" class="form-control" name='startdate' >
+                            </div>
+                            <div class="col-xs-3">
+                                <input type="text" class="form-control"  name='enddate'  >
+                            </div>
+                        </div>                                    </li>
+                        <li><button type="submit" name="add" method="post" value="update">Update</button></li>
+                    </ul>
+                </div>
+                        </form>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+
+
+
+
+
+
+        <div class="input-group margin" style="width: 50%">
+            <h3>Abilities</h3>
+            <form action="{{ action }}" method="POST">
+                <div class="dropdown" >
+                    <button class="btn btn-primary dropdown-toggle pull-right" type="button" data-toggle="dropdown">
+                        <span ><i class="fa fa-plus"></i> </span></button>
+                    <ul class="dropdown-menu" style="border: 2px #f2f2f2">
+                        <li>Description:  </li>
+                        <li>
+                            <div class="col-xs-ao">
+                                <input type="text" name="description" value="{{ Description }}" class="form-control">
+                            </div>
+                        </li>
+                        <li><button type="submit" name="add"  value="2">Add</button></li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+        <div class="progress progress-xxs"style="width: 50%">
+            <div class="progress-bar progress-bar-blue " role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+            </div>
+        </div>
+        <ul>
+            {% for key, cvInformation in cvInformations %}
+                {% if cvInformation.CVInformationTypeId == 2  %}
+                    <li style="width: 50%">{{ cvInformation.Description }}
+                        <form form action="{{ action }}" method="POST"   >
+                            <input type=hidden value="{{cvInformation.ObjectId}}" name="delete_id"/>
+                            <div class="box-tools pull-right" >
+                                <button type="submit" class="btn btn-box-tool" name="add" value="delete"><i class="fa fa-times"></i>
+                                </button>
+                                </div>
+                                 <div class="dropdown">
+                    <button class="btn btn-box-tool dropdown-toggle pull-right" type="button" data-toggle="dropdown">
+                        <span ><i class="fa fa-edit"></i> </span></button>
+                    <ul class="dropdown-menu pull-right" style="border: 2px #f2f2f2">
+                        <li>Updated Ability:    </li>
+                        <li>
+                            <div class="col-xs-10">
+                                <input type="text" name="description" value="{{ Description }}" class="form-control" >
+                            </div>
+                        </li>
+                        <li><button type="submit" name="add" method="post" value="update">Update</button></li>
+                    </ul>
+                </div>
+                        </form>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+
+
+
+
+        <div class="input-group margin" style="width: 50%">
+            <h3>Languages</h3>
+            <form action="{{ action }}" method="POST">
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle pull-right" type="button" data-toggle="dropdown">
+                        <span ><i class="fa fa-plus"></i> </span></button>
+                    <ul class="dropdown-menu" style="border: 2px #f2f2f2">
+                        <li>Language:    </li>
+                        <li>
+                            <div class="col-xs-10">
+                                <input type="text" name="description" value="{{ Description }}" class="form-control" >
+                            </div>
+                        </li>
+                        <li><button type="submit" name="add" method="post" value="4">Add</button></li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+        <div class="progress progress-xxs"style="width: 50%">
+            <div class="progress-bar progress-bar-blue " role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+            </div>
+        </div>
+        <ul>
+            {% for key, cvInformation in cvInformations %}
+                {% if cvInformation.CVInformationTypeId==4 %}
+                    <li style="width: 50%">{{ cvInformation.Description }}
+                        <form form action="{{ action }}" method="POST">
+                            <input type=hidden value="{{cvInformation.ObjectId}}" name="delete_id"/>
+
+                            <div class="box-tools pull-right" >
+                                <button type="submit" class="btn btn-box-tool" name="add" value="delete"><i class="fa fa-times"></i>
+                                </button>
+                            </div>
+       <div class="dropdown">
+                    <button class="btn btn-box-tool dropdown-toggle pull-right" type="button" data-toggle="dropdown">
+                        <span ><i class="fa fa-edit"></i> </span></button>
+                    <ul class="dropdown-menu pull-right" style="border: 2px #f2f2f2">
+                        <li>Updated Language:    </li>
+                        <li>
+                            <div class="col-xs-10">
+                                <input type="text" name="description" value="{{ Description }}" class="form-control" >
+                            </div>
+                        </li>
+                        <li><button type="submit" name="add" method="post" value="update">Update</button></li>
+                    </ul>
+                </div>
+                        </form>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+
+
+
+
+
+
+
 
     </section>
 {% endblock %}
