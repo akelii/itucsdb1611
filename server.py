@@ -221,7 +221,6 @@ def init_db():
 
         cursor.execute("""INSERT INTO ProjectType (Name, Deleted) VALUES ('Tubitak Projects' , '0')""")
         cursor.execute("""INSERT INTO Title (Name, Deleted) VALUES ('Prof.' , '0')""")
-        cursor.execute("""INSERT INTO AccountType (AccountTypeName, Deleted) VALUES ('Student', '0')""")
         cursor.execute("""INSERT INTO Department (Name, Deleted) VALUES ('Computer Science', '0')""")
         cursor.execute("""INSERT INTO Department (Name, Deleted) VALUES ('Civil Engineering', '0')""")
         cursor.execute("""INSERT INTO AccountType (AccountTypeName, Deleted) VALUES ('Student', '0'), ('Academic', '0')""")
@@ -231,7 +230,7 @@ def init_db():
         cursor.execute("""INSERT INTO ProjectThesisType (Name, Deleted) VALUES ('Bachelor Projects', '0'), ('Master Projects', '0'), ('PhD Projects', '0')""")
         cursor.execute("""INSERT INTO ProjectStatusType (Name, Deleted) VALUES ('standby', '0'), ('onprogress', '0'), ('done', '0')""")
         cursor.execute("""INSERT INTO Title (Name, Deleted) VALUES ('Prof.' , '0'), ('Prof. Dr.' , '0'), ('Doç. Dr.' , '0'), ('Yrd. Doç. Dr.' , '0'), ('Öğr. Gör.' , '0'), ('Araş. Gör.' , '0'),
-                      ('Uzman' , '0'), ('Okutman' , '0'), ('Yrd. Doç' , '0'), ('Doç.' , '0'), ('Mühendis' , '0'), ('Asistan' , '0')""")
+                      ('Uzman' , '0'), ('Okutman' , '0'), ('Yrd. Doç' , '0'), ('Doç.' , '0'), ('Engineer' , '0'), ('Asistant' , '0'), ('Student' , '0')""")
         cursor.execute("""INSERT INTO Department (Name, Deleted) VALUES ('Computer Engineering', '0'), ('Civil Engineering', '0'), ('Astronautical Engineering', '0'),
                       ('Molecular Biology and Genetics', '0'), ('Geomatics Engineering', '0'), ('Maritime Transportation and Management Engineering', '0'),
                       ('Marine Engineering', '0'), ('Mineral Processing Engineering ', '0'), ('Electrical Engineering', '0'),
