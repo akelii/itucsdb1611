@@ -144,7 +144,7 @@ def init_db():
 			    StartDate TIMESTAMP NOT NULL,
 			    EndDate TIMESTAMP,
 			    MemberLimit INTEGER,
-			    TeamId INTEGER NOT NULL,
+			    TeamId INTEGER,
 			    CreatedByPersonId INTEGER NOT NULL,
 			    ProjectManagerId INTEGER NOT NULL,
                 Deleted BOOLEAN NOT NULL
@@ -243,7 +243,8 @@ def init_db():
         cursor.execute("""INSERT INTO InformationType (Name, Deleted) VALUES ('E-Mail', '0'), ('Telephone', '0'), ('Twitter', '0'),
                           ('LinkedIn', '0'), ('Facebook', '0'),('Instagram', '0'),('Blog', '0'),('MySpace', '0'),
                           ('Tumblr', '0'),('Address', '0')""")
-
+#        cursor.execute("""INSERT INTO Person (firstname, lastname, accounttypeid, e_mail, password, gender, titleid, photopath, deleted) VALUES('Gulcin', 'Baykal', 1, 'baykalg@itu.edu.tr', '1234', NULL, 1, NULL, false""")
+#        cursor.execute("""INSERT INTO Person (firstname, lastname, accounttypeid, e_mail, password, gender, titleid, photopath, deleted) VALUES('Elif', 'Ak', 1, 'akeli@itu.edu.tr', '1234', NULL, 1, NULL, false""")
 #        cursor.execute("""INSERT INTO Team (ProjectId, MemberId, Deleted) VALUES ('1', 1 , '0')""")
         return redirect(url_for('site.home_page'))
 
@@ -260,10 +261,10 @@ if __name__ == '__main__':
         app.config['dsn'] = get_elephantsql_dsn(VCAP_SERVICES)
     else:
         app.config['dsn'] = """user='postgres' password='b_e_BTFVmUQvEpr-arXGfL25XHdaVrCX'
-                               host='localhost' port=5432 dbname='dxxbzlpn'"""
+                               host='jumbo.db.elephantsql.com' port=5432 dbname='dxxbzlpn'"""
     app.secret_key = os.urandom(32)
 
-    app.run(host='0.0.0.0', port=port, debug=debug)
-
+#    app.run(host='0.0.0.0', port=port, debug=debug)
+    app.run()
 
 
