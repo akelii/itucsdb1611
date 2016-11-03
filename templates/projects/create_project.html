@@ -11,67 +11,64 @@
 
 
     <section class="content">
-    <div class="row">
-        <div class="col-md-6">
-            <div class="box box-warning">
-                <div class="box-body">
-                    <form role="form">
-                        <div class="form-group">
-                            <label>Project Name</label>
-                            <input type="text" class="form-control" placeholder="Enter">
-                        </div>
-                        <div class="form-group">
-                            <label>Project Type</label>
-                            <select class="form-control">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Project Description</label>
-                            <textarea class="form-control" rows="4" placeholder="Enter"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Department</label>
-                            <select class="form-control">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Start Date</label>
-                            <div class="input-group">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-calendar">
-                                    </i>
-                                </div>
-                                <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="box box-warning">
+                    <div class="box-body">
+                        <form role="form" action="" method="post" name="create_project" class="form-horizontal">
+                            <div class="form-group">
+                                <label>Project Name</label>
+                                <input type="text" class="form-control" name="project_name" placeholder="Enter">
                             </div>
-                            <label>End Date</label>
-                            <div class="input-group">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-calendar">
-                                     </i>
-                                </div>
-                                <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask>
+                            <div class="form-group">
+                                <label>Project Type</label>
+                                <select class="form-control">
+                                    <option name="1">Tubitak</option>
+                                </select>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Member Limit</label>
-                            <input type="text" class="form-control" placeholder="Enter">
-                        </div>
-                        <div class="form-group">
-                            <label>Project Manager</label>
-                            <input type="text" class="form-control" placeholder="Enter">
-                        </div>
-                    </form>
+                            <div class="form-group">
+                                <label>Project Description</label>
+                                <textarea class="form-control" name="project_description" rows="4" placeholder="Enter"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Department</label>
+                                <select class="form-control">
+                                    <option name="1">Computer Engineering</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Start Date</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar">
+                                        </i>
+                                    </div>
+                                    <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask>
+                                </div>
+                                <label>End Date</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar">
+                                        </i>
+                                    </div>
+                                    <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Member Limit</label>
+                                <input type="number" class="form-control" name="limit" placeholder="Enter">
+                            </div>
+                            <div class="form-group">
+                                <label>Project Manager</label>
+                                <input type="text" class="form-control" name="manager" placeholder="Enter">
+                            </div>
+                            <div class="box-footer">
+                                <button type="submit" name="save" value="Add" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     </section>
 {% endblock %}
