@@ -15,7 +15,7 @@ def home_page():
 
 @site.route('/personal', methods=["GET", "POST"])
 def personal_default_page():
-    return personal_default_page_config(request.method)
+    return personal_default_page_config(request)
 
 @site.route('/issues')
 def personal_issues_page():

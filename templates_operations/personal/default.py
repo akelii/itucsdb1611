@@ -6,17 +6,20 @@ from datetime import datetime
 from classes.operations.person_operations import person_operations
 from classes.operations.followed_person_operations import followed_person_operations
 
-def personal_default_page_config(submit_type):
-    if submit_type == 'GET':
-        store_person = person_operations()
-        store_followedperson = followed_person_operations()
-        Current_Person = store_person.GetPersonByObjectId(1) #SONRADAN DUZELT
-        listFollowing = store_followedperson.GetFollowedPersonListByPersonId(1)
-        listFollowers = store_followedperson.GetFollowedPersonListByFollowedPersonId(1)
-        now = datetime.now()
-        return render_template('personal/default.html', current_time=now.ctime(), Current_Person=Current_Person, listFollowing=listFollowing, listFollowers=listFollowers)
-
-
+def personal_default_page_config(request):
+    if  'delete' in request.form and request.method == 'POST':
+        store = person_operations()
+        p = store.GetPersonByObjectId(request.form['delete'])
+        store.DeletePerson(request.form['delete'])
+    store_person = person_operations()
+    store_followedperson = followed_person_operations()
+    Current_Person = store_person.GetPersonByObjectId(1)  # SONRADAN DUZELT
+    listFollowing = store_followedperson.GetFollowedPersonListByPersonId(1)
+    listFollowers = store_followedperson.GetFollowedPersonListByFollowedPersonId(1)
+    listPerson = store_person.GetPersonList()
+    now = datetime.now()
+    return render_template('personal/default.html', current_time=now.ctime(), Current_Person=Current_Person,
+                           listFollowing=listFollowing, listFollowers=listFollowers, listPerson=listPerson)
 #if submit_type == 'GET':
 #    store = followed_person_operations()
     # result = store.GetFollowedPersonByObjectId(2)
