@@ -1,7 +1,8 @@
 from flask import Blueprint, render_template
 from templates_operations.personal.default import *
-
-
+from templates_operations.projects.create_project import *
+from templates_operations.projects.search_project import*
+from templates_operations.projects.project_details import*
 
 site = Blueprint('site', __name__)
 
@@ -18,13 +19,22 @@ def personal_default_page():
 def personal_issues_page():
     return render_template('personal/current_projects.html')
 
-@site.route('/project_create')
+@site.route('/project_create', methods=["GET", "POST"])
 def projects_create_page():
-    return render_template('projects/create_project.html')
+    return project_create_page_config(request.method)
+ #   return render_template('projects/create_project.html')
 
-@site.route('/project_search')
+@site.route('/project_search', methods=["GET", "POST"])
 def projects_search_page():
-    return render_template('projects/search_project.html')
+    return project_search_page_config(request.method)
+ #   return render_template('projects/search_project.html')
+
+
+@site.route('/project_search/<int:key>', methods=["GET", "POST"])
+def projects_details_page(key):
+    return project_details_page_config(request.method, key)
+ #   return project_details_page_config(request.method)
+
 
 @site.route('/register')
 def register_page():
