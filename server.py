@@ -264,7 +264,7 @@ if __name__ == '__main__':
                                host='jumbo.db.elephantsql.com' port=5432 dbname='dxxbzlpn'"""
     app.secret_key = os.urandom(32)
 
-#    app.run(host='0.0.0.0', port=port, debug=debug)
-    app.run()
+    app.run(host='0.0.0.0', port=port, debug=debug)
+    
 
 
