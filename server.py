@@ -193,7 +193,32 @@ def init_db():
                 Deleted BOOLEAN NOT NULL
         )"""
         cursor.execute(query)
-
+        query = """CREATE TABLE IF NOT EXISTS Message(
+                ObjectId SERIAL PRIMARY KEY,
+                SenderId INT NOT NULL,
+                RecieverId INT NOT NULL,
+                IsRead BOOLEAN NOT NULL,
+                MessageContent VARCHAR(400),
+                SendDate TIMESTAMP NOT NULL,
+                ReadDate TIMESTAMP NOT NULL,
+                UpdateDate TIMESTAMP NOT NULL,
+                Deleted BOOLEAN NOT NULL
+        )"""
+        cursor.execute(query)
+        query = """CREATE TABLE IF NOT EXISTS Experience(
+                ObjectId SERIAL PRIMARY KEY,
+                CVId INT NOT NULL,
+                CompanyName VARCHAR(100),
+                Description VARCHAR(100),
+                ExperiencePosition VARCHAR(100),
+                StartDate TIMESTAMP NOT NULL,
+                EndDate TIMESTAMP NOT NULL,
+                Deleted BOOLEAN NOT NULL
+        )"""
+        cursor.execute(query)
+        cursor.execute( """ALTER TABLE Message ADD  FOREIGN KEY(SenderId) REFERENCES Person(ObjectId) ON DELETE SET NULL""")
+        cursor.execute( """ALTER TABLE Message ADD  FOREIGN KEY(RecieverId) REFERENCES Person(ObjectId) ON DELETE SET NULL""")
+        cursor.execute( """ALTER TABLE Experience ADD  FOREIGN KEY(CVId) REFERENCES CV(ObjectId) ON DELETE  CASCADE """)
         cursor.execute("""ALTER TABLE Information ADD  FOREIGN KEY(PersonId) REFERENCES Person(ObjectId) ON DELETE CASCADE""")
         cursor.execute("""ALTER TABLE Information ADD  FOREIGN KEY(InformationTypeId) REFERENCES InformationType(ObjectId) ON DELETE SET NULL""")
         cursor.execute("""ALTER TABLE CV ADD  FOREIGN KEY(PersonId) REFERENCES Person(ObjectId) ON DELETE CASCADE""")
