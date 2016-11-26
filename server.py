@@ -151,10 +151,31 @@ def init_db():
         )"""
         cursor.execute(query)
 
+        query = """CREATE TABLE IF NOT EXISTS Language(
+                ObjectId SERIAL PRIMARY KEY,
+                CVId INTEGER NOT NULL,
+                Name VARCHAR(50) NOT NULL,
+                Level VARCHAR(50) NOT NULL,
+                Deleted BOOLEAN NOT NULL
+        )"""
+        cursor.execute(query)
+
+        query = """CREATE TABLE IF NOT EXISTS PersonComment(
+                ObjectId SERIAL PRIMARY KEY,
+                PersonId INTEGER NOT NULL,
+                CommentedPersonId INTEGER NOT NULL,
+                Comment VARCHAR(500) NOT NULL,
+                CreateDate TIMESTAMP NOT NULL,
+                UpdateDate TIMESTAMP NOT NULL,
+                Deleted BOOLEAN NOT NULL
+        )"""
+        cursor.execute(query)
+
         query = """CREATE TABLE IF NOT EXISTS Team(
                 ObjectId SERIAL PRIMARY KEY,
                 ProjectId INTEGER NOT NULL,
                 MemberId INTEGER NOT NULL,
+                Duty VARCHAR(500) NOT NULL,
                 Deleted BOOLEAN NOT NULL
         )"""
         cursor.execute(query)
@@ -216,6 +237,11 @@ def init_db():
                 Deleted BOOLEAN NOT NULL
         )"""
         cursor.execute(query)
+        cursor.execute("""ALTER TABLE Team ADD FOREIGN KEY(MemberId) REFERENCES Person(ObjectId) ON DELETE SET NULL""")
+        cursor.execute("""ALTER TABLE Team ADD FOREIGN KEY(ProjectId) REFERENCES Project(ObjectId) ON DELETE SET NULL""")
+        cursor.execute("""ALTER TABLE PersonComment ADD FOREIGN KEY(CommentedPersonId) REFERENCES Person(ObjectId) ON DELETE SET NULL""")
+        cursor.execute("""ALTER TABLE PersonComment ADD FOREIGN KEY(PersonId) REFERENCES Person(ObjectId) ON DELETE SET NULL""")
+        cursor.execute("""ALTER TABLE Language ADD FOREIGN KEY(CVId) REFERENCES CV(ObjectId) ON DELETE SET NULL""")
         cursor.execute( """ALTER TABLE Message ADD  FOREIGN KEY(SenderId) REFERENCES Person(ObjectId) ON DELETE SET NULL""")
         cursor.execute( """ALTER TABLE Message ADD  FOREIGN KEY(RecieverId) REFERENCES Person(ObjectId) ON DELETE SET NULL""")
         cursor.execute( """ALTER TABLE Experience ADD  FOREIGN KEY(CVId) REFERENCES CV(ObjectId) ON DELETE  CASCADE """)
