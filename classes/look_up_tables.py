@@ -26,3 +26,36 @@ def GetAccountTypeList():
         cursor.execute(query)
         results = cursor.fetchall()
     return results
+
+def GetProjectType():
+    with dbapi2.connect(dsn) as connection:
+        cursor = connection.cursor()
+        query = """SELECT ObjectId, Name, Deleted FROM ProjectType WHERE Deleted = FALSE"""
+        cursor.execute(query)
+        results = cursor.fetchall()
+    return results
+
+def GetProjectThesisType():
+    with dbapi2.connect(dsn) as connection:
+        cursor = connection.cursor()
+        query = """SELECT ObjectId, Name, Deleted FROM ProjectThesisType WHERE Deleted = FALSE"""
+        cursor.execute(query)
+        results = cursor.fetchall()
+    return results
+
+def GetDepartment():
+    with dbapi2.connect(dsn) as connection:
+        cursor = connection.cursor()
+        query = """SELECT ObjectId, Name, Deleted FROM Department WHERE Deleted = FALSE"""
+        cursor.execute(query)
+        results = cursor.fetchall()
+    return results
+
+def GetProjectStatusType():
+    with dbapi2.connect(dsn) as connection:
+        cursor = connection.cursor()
+        query = """SELECT ObjectId, Name, Deleted FROM ProjectStatusType WHERE Deleted = FALSE"""
+        cursor.execute(query)
+        results = cursor.fetchall()
+    return results
+
