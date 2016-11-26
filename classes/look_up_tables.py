@@ -59,3 +59,26 @@ def GetProjectStatusType():
         results = cursor.fetchall()
     return results
 
+def GetLanguage():
+    with dbapi2.connect(dsn) as connection:
+        cursor = connection.cursor()
+        query = """SELECT * FROM Languages WHERE Deleted = FALSE"""
+        cursor.execute(query)
+        results = cursor.fetchall()
+    return results
+
+def GetPersonComment():
+    with dbapi2.connect(dsn) as connection:
+        cursor = connection.cursor()
+        query = """SELECT * FROM PersonComment WHERE Deleted = FALSE"""
+        cursor.execute(query)
+        results = cursor.fetchall()
+    return results
+
+def GetTeam():
+    with dbapi2.connect(dsn) as connection:
+        cursor = connection.cursor()
+        query = """SELECT * FROM Team WHERE Deleted = FALSE"""
+        cursor.execute(query)
+        results = cursor.fetchall()
+    return results
