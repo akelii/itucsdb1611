@@ -15,40 +15,40 @@ class personComment_operations:
             connection.commit()
             self.last_key = cursor.lastrowid
 
-    # Returns all comments made by a person, selected by person name
-    def GetPersonCommentsByPersonId(self, personName):
+    # Returns all comments made by a person, selected by person ID
+    def GetPersonCommentsByPersonId(self, personId):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
-            query = """SELECT PersonComment.Comment, p2.Name, PersonComment.UpdateDate
+            query = """SELECT PersonComment.ObjectId, p2.FirstName ||' '||  p2.LastName as FullName, PersonComment.Comment, PersonComment.UpdateDate
                        FROM PersonComment
                        INNER JOIN Person AS p1 ON(PersonComment.PersonId = p1.ObjectId)
                        INNER JOIN Person AS p2 ON(PersonComment.CommentedPersonId = p2.ObjectId)
-                       WHERE (p1.Name = %s)"""
-            cursor.execute(query, (personName))
+                       WHERE (p1.ObjectId = %s)"""
+            cursor.execute(query, (personId,))
             result = cursor.fetchall()
         return result
 
-    # Returns all comments received by a person, selected by person name
-    def GetPersonCommentsByPersonId(self, commentedPersonName):
+    # Returns all comments received by a person, selected by person ID
+    def GetPersonCommentsByCommentedPersonId(self, commentedPersonId):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
-            query = """SELECT p1.Name, PersonComment.Comment, PersonComment.UpdateDate
+            query = """SELECT PersonComment.ObjectId ,p1.FirstName ||' '||  p1.LastName as FullName, PersonComment.Comment, PersonComment.UpdateDate
                        FROM PersonComment
                        INNER JOIN Person AS p1 ON(PersonComment.PersonId = p1.ObjectId)
                        INNER JOIN Person AS p2 ON(PersonComment.CommentedPersonId = p2.ObjectId)
-                       WHERE (p2.Name = %s)"""
-            cursor.execute(query, (commentedPersonName))
+                       WHERE (p2.ObjectId = %s)"""
+            cursor.execute(query, (commentedPersonId,))
             result = cursor.fetchall()
         return result
 
 
 
-    def UpdatePersonComment(self, key, personId, commentedPersonId, comment, deleted ):
+    def UpdatePersonComment(self, key, comment ):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
             cursor.execute(
-                """UPDATE PersonComment SET PersonId = %s, CommentedPersonId = %s, Comment = %s, UpdateDate = ' "+str(datetime.datetime.now())+"', Deleted = %s WHERE (ObjectId=%s)""",
-                (personId, commentedPersonId, comment, deleted, key))
+                """UPDATE PersonComment SET  Comment = %s, UpdateDate = NOW(), Deleted = False WHERE (ObjectId=%s)""",
+                (comment, key))
             connection.commit()
 
 

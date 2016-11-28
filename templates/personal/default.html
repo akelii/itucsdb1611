@@ -57,6 +57,11 @@
                 <span class="label label-primary">Node.js</span>
               </p>
               <hr>
+                <strong><i class="fa fa-book margin-r-5"></i> Languages</strong>
+              <p>
+                <span class="label label-info">English</span>
+              </p>
+              <hr>
               <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
             </div>
@@ -69,6 +74,7 @@
               <li><a href="#followedProjects" data-toggle="tab">Followed Projects</a></li>
               <li><a href="#followedPeople" data-toggle="tab">Followed People</a></li>
               <li><a href="#settings" data-toggle="tab">Settings</a></li>
+                <li><a href = "#comments" data-toggle="tab">Comments</a></li>
             </ul>
             <div class="tab-content">
               <div class="active tab-pane" id="activeProjects">
@@ -323,6 +329,62 @@
                       {% endif %}
                   </div>
               </div>
+              <div class = "tab-pane clearfix" id = "comments">
+                  <div class = "col-md-6">
+                      {% if personComments %}
+                          <div class = "box box-primary">
+                              <div class="box-header with-border">
+                                  <h3 class="box-title">Comments about the Person</h3>
+                                  <div class="box-tools pull-right">
+                                      <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                      <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                                  </div>
+                              </div>
+                              <form method="post" action="/personal">
+                              <div class="box-body">
+                                  <ul class="products-list product-list-in-box">
+                                      {% for comment in personComments %}
+                                      <li class="item">
+                                          <div class="product-img">
+                                              <img src="http://icons.iconarchive.com/icons/sykonist/south-park/128/Cartman-Special-Olympics-icon.png" alt="Image">
+                                          </div>
+                                          <div class="product-info">
+                                              <a class="product-title">{{ comment[1] }}
+                                                  <span class="label label-default pull-right">
+                                                    <div class="input-group margin" style="width: 50%">
+                                                            <div class="dropdown" >
+                                                                <button name = "selectComment"  class="btn btn-primary dropdown-toggle pull-right" type="button" data-toggle="dropdown">
+                                                                    <span ><i class="fa fa-plus"></i> </span></button>
+                                                                <ul class="dropdown-menu" style="border: 2px #f2f2f2">
+                                                                    <li>Comment:  </li>
+                                                                    <li>
+                                                                        <div class="col-xs-ao">
+                                                                            <input type="text" name="updateComment"  class="form-control">
+                                                                        </div>
+                                                                    </li>
+                                                                    <input type="hidden" name="updateId" value="{{ comment[0] }}" class="form-control">
+                                                                    <li><button type="submit" value="Submit"  >Update</button></li>
+                                                                </ul>
+                                                            </div>
+                                                    </div>
+                                                    <button name="deleteComment" value="{{ comment[0] }}" type="submit" class="btn btn-box-tool" ><i class="fa fa-times"></i></button></span></a>
+                                              <p class="text-muted">{{ comment[2] }}</p>
+                                              <br>
+                                              <span class="product-description">{{ comment[3] }}</span>
+                                          </div>
+                                      </li>
+
+                                      {% endfor %}
+                                  </ul>
+                              </div>
+                              </form>
+                          </div>
+                  {% endif %}
+                  </div>
+              </div>
+
+
+
               <div class="tab-pane clearfix" id="settings">
                   <div class="col-md-6">
                       {% if listFollowing %}
