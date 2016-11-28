@@ -75,8 +75,8 @@ def init_db():
                 PersonId INTEGER NOT NULL,
                 CreatedDate TIMESTAMP NOT NULL,
                 UpdatedDate TIMESTAMP NOT NULL,
+                CvName VARCHAR(50),
                 Deleted BOOLEAN NOT NULL
-
         )"""
         cursor.execute(query)
 
@@ -237,8 +237,7 @@ def init_db():
                 Deleted BOOLEAN NOT NULL
         )"""
         cursor.execute(query)
-        cursor.execute("""ALTER TABLE CV  ADD COLUMN IF NOT EXISTS  CvName VARCHAR(50)""")
-        cursor.execute("""ALTER TABLE Team ADD FOREIGN KEY(MemberId) REFERENCES Person(ObjectId) ON DELETE SET NULL""")
+         cursor.execute("""ALTER TABLE Team ADD FOREIGN KEY(MemberId) REFERENCES Person(ObjectId) ON DELETE SET NULL""")
         cursor.execute("""ALTER TABLE Team ADD FOREIGN KEY(ProjectId) REFERENCES Project(ObjectId) ON DELETE SET NULL""")
         cursor.execute("""ALTER TABLE PersonComment ADD FOREIGN KEY(CommentedPersonId) REFERENCES Person(ObjectId) ON DELETE SET NULL""")
         cursor.execute("""ALTER TABLE PersonComment ADD FOREIGN KEY(PersonId) REFERENCES Person(ObjectId) ON DELETE SET NULL""")
