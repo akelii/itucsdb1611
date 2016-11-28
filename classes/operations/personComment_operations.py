@@ -7,11 +7,11 @@ class personComment_operations:
     def __init__(self):
         self.last_key=None
 
-    def AddPersonComment(self, personComment):
+    def AddPersonComment(self, personId, commentedPersonId, comment):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
             query = "INSERT INTO PersonComment (PersonId, CommentedPersonId, Comment, CreateDate, UpdateDate, Deleted) VALUES (%s, %s, %s, ' "+str(datetime.datetime.now())+"', ' "+str(datetime.datetime.now())+"', False)"
-            cursor.execute(query, (personComment.personId, personComment.commentedPersonId, personComment.Comment))
+            cursor.execute(query, (personId, commentedPersonId, comment))
             connection.commit()
             self.last_key = cursor.lastrowid
 
@@ -19,7 +19,7 @@ class personComment_operations:
     def GetPersonCommentsByPersonId(self, personId):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
-            query = """SELECT PersonComment.ObjectId, p2.FirstName ||' '||  p2.LastName as FullName, PersonComment.Comment, PersonComment.UpdateDate
+            query = """SELECT PersonComment.ObjectId, p2.FirstName ||' '||  p2.LastName as FullName, PersonComment.Comment, PersonComment.UpdateDate, p1.ObjectId, p2.ObjectId
                        FROM PersonComment
                        INNER JOIN Person AS p1 ON(PersonComment.PersonId = p1.ObjectId)
                        INNER JOIN Person AS p2 ON(PersonComment.CommentedPersonId = p2.ObjectId)
@@ -32,7 +32,7 @@ class personComment_operations:
     def GetPersonCommentsByCommentedPersonId(self, commentedPersonId):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
-            query = """SELECT PersonComment.ObjectId ,p1.FirstName ||' '||  p1.LastName as FullName, PersonComment.Comment, PersonComment.UpdateDate
+            query = """SELECT PersonComment.ObjectId ,p1.FirstName ||' '||  p1.LastName as FullName, PersonComment.Comment, PersonComment.UpdateDate, p1.ObjectId, p2.ObjectId
                        FROM PersonComment
                        INNER JOIN Person AS p1 ON(PersonComment.PersonId = p1.ObjectId)
                        INNER JOIN Person AS p2 ON(PersonComment.CommentedPersonId = p2.ObjectId)
@@ -41,7 +41,18 @@ class personComment_operations:
             result = cursor.fetchall()
         return result
 
-
+    # Returns object ids of persons that one of them comments and one of them is commented
+    def GetRelatedPersonsIdByCommentId(self, commentId):
+        with dbapi2.connect(dsn) as connection:
+            cursor = connection.cursor()
+            query = """SELECT p1.ObjectId, p2.ObjectId
+                       FROM PersonComment
+                       INNER JOIN Person AS p1 ON(PersonComment.PersonId = p1.ObjectId)
+                       INNER JOIN Person AS p2 ON(PersonComment.CommentedPersonId = p2.ObjectId)
+                       WHERE (PersonComment.ObjectId = %s)"""
+            cursor.execute(query, (commentId,))
+            result = cursor.fetchall()
+        return result
 
     def UpdatePersonComment(self, key, comment ):
         with dbapi2.connect(dsn) as connection:

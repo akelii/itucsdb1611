@@ -329,9 +329,10 @@
                       {% endif %}
                   </div>
               </div>
+
+
               <div class = "tab-pane clearfix" id = "comments">
                   <div class = "col-md-6">
-                      {% if personComments %}
                           <div class = "box box-primary">
                               <div class="box-header with-border">
                                   <h3 class="box-title">Comments about the Person</h3>
@@ -373,13 +374,28 @@
                                               <span class="product-description">{{ comment[3] }}</span>
                                           </div>
                                       </li>
-
                                       {% endfor %}
                                   </ul>
                               </div>
+                              <div class="input-group margin" style="width: 50%">
+                                  <div class="dropdown" >
+                                      <button name = "addComment"  class="btn btn-primary dropdown-toggle pull-right" type="button" data-toggle="dropdown">
+                                          <span ><i class="fa fa-plus"></i> </span></button>
+                                      <ul class="dropdown-menu" style="border: 2px #f2f2f2">
+                                          <li>Comment:  </li>
+                                          <li>
+                                              <div class="col-xs-ao">
+                                                  <input type="text" name="addComment"  class="form-control">
+                                              </div>
+                                          </li>
+                                          <input type="hidden" name="commentId" value="{{ personWhoComment }}" class="form-control">
+                                          <input type="hidden" name="commentedId" value="{{ personWhoCommented }}" class="form-control">
+                                          <li><button type="submit" value="Submit"  >Add Comment</button></li>
+                                      </ul>
+                                  </div>
+                              </div>
                               </form>
                           </div>
-                  {% endif %}
                   </div>
               </div>
 
