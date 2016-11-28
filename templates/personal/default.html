@@ -341,7 +341,6 @@
                                       <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
                                   </div>
                               </div>
-                              <form method="post" action="/personal">
                               <div class="box-body">
                                   <ul class="products-list product-list-in-box">
                                       {% for comment in personComments %}
@@ -353,8 +352,9 @@
                                               <a class="product-title">{{ comment[1] }}
                                                   <span class="label label-default pull-right">
                                                     <div class="input-group margin" style="width: 50%">
+                                                        <form method="post" action="/personal">
                                                             <div class="dropdown" >
-                                                                <button name = "selectComment"  class="btn btn-primary dropdown-toggle pull-right" type="button" data-toggle="dropdown">
+                                                                <button class="btn btn-primary dropdown-toggle pull-right" type="button" data-toggle="dropdown">
                                                                     <span ><i class="fa fa-plus"></i> </span></button>
                                                                 <ul class="dropdown-menu" style="border: 2px #f2f2f2">
                                                                     <li>Comment:  </li>
@@ -367,8 +367,13 @@
                                                                     <li><button type="submit" value="Submit"  >Update</button></li>
                                                                 </ul>
                                                             </div>
+                                                        </form>
                                                     </div>
-                                                    <button name="deleteComment" value="{{ comment[0] }}" type="submit" class="btn btn-box-tool" ><i class="fa fa-times"></i></button></span></a>
+                                                    <form method = "post" action="/personal">
+                                                        <button name="deleteComment" value="{{ comment[0] }}" type="submit" class="btn btn-box-tool" ><i class="fa fa-times"></i></button>
+                                                    </form>
+                                                  </span>
+                                              </a>
                                               <p class="text-muted">{{ comment[2] }}</p>
                                               <br>
                                               <span class="product-description">{{ comment[3] }}</span>
@@ -377,9 +382,11 @@
                                       {% endfor %}
                                   </ul>
                               </div>
+                              </form>
+                          <form method="post" action="/personal">
                               <div class="input-group margin" style="width: 50%">
                                   <div class="dropdown" >
-                                      <button name = "addComment"  class="btn btn-primary dropdown-toggle pull-right" type="button" data-toggle="dropdown">
+                                      <button class="btn btn-primary dropdown-toggle pull-right" type="button" data-toggle="dropdown">
                                           <span ><i class="fa fa-plus"></i> </span></button>
                                       <ul class="dropdown-menu" style="border: 2px #f2f2f2">
                                           <li>Comment:  </li>
@@ -394,7 +401,7 @@
                                       </ul>
                                   </div>
                               </div>
-                              </form>
+                          </form>
                           </div>
                   </div>
               </div>

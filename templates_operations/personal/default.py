@@ -13,7 +13,7 @@ def personal_default_page_config(request):
     if  request and 'delete' in request.form and request.method == 'POST':
         p = store.GetPersonByObjectId(request.form['delete'])
         store.DeletePerson(request.form['delete'])
-    elif request and 'deleteComment' in request.form and request.method == 'POST':
+    if request and 'deleteComment' in request.form and request.method == 'POST':
         comments.DeleteTeam(request.form['deleteComment'])
     elif request and 'updateComment' in request.form and request.method == 'POST':
         selectedComment = request.form['updateId']
