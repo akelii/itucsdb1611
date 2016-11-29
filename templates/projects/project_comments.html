@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+{% block container %}
+
+    <section class="content">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+            <form role="form" action="" method="post" name="create_project_comment" class="form-horizontal">
+                <ul class="timeline timeline-inverse">
+                    {% for project_comment in project_comments %}
+
+                      <li class="time-label">
+                            <span class="bg-teal-active">
+                              Tarih
+                            </span>
+                      </li>
+                      <li>
+                        <i class="fa fa-search bg-purple"></i>
+
+                        <div class="timeline-item">
+                          <span class="time"><i class="fa fa-clock-o"></i> saat</span>
+
+                          <h3 class="timeline-header"><a href="#">{{ project_comment[0] }} {{ project_comment[1] }}</a> Yorum Yapanın Hesap Tipi</h3>
+                          <div class="timeline-body">
+                            {{ project_comment[2] }}
+                          </div>
+                          <div class="timeline-footer">
+                            <button type="submit" name="delete" value="{{ project_comment[3] }}" class="btn btn-primary btn-xs">Delete</button>
+
+                              <button class="btn btn-box-tool" type="button" data-toggle="dropdown">
+                                  <i class="fa fa-pencil-square-o fa-2x"></i>
+                              </button>
+                              <ul class="dropdown-menu" style="border: 2px #f2f2f2">
+                                  <li>Editted Comment:</li>
+                                  <li>
+                                      <div class="col-xs-ao">
+                                          <input type="text" name="newComment" class="form-control">
+                                      </div>
+                                  </li>
+                                  <li>
+                                      <button type="submit" name="edit" value="{{ project_comment[3] }}" class="btn btn-danger btn-xs">Edit</button>
+                                  </li>
+                              </ul>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <i class="fa fa-clock-o bg-gray"></i>
+                      </li>
+
+                    {% endfor %}
+                </ul>
+            </form>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+    </section>
+{% endblock %}
