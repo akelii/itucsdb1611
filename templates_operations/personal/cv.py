@@ -9,17 +9,27 @@ from classes.operations.CVInformation_operations import cv_information_operation
 from classes.CVInformation import CVInformation
 from classes.Experience import Experience
 from classes.operations.Experience_operations import experience_operations
+from classes.operations.language_operations import language_operations
 
 def personal_cv_page_config(submit_type):
     store = cv_information_operations()
+    languages=language_operations()
     t = experience_operations()
     now = datetime.now()
     if submit_type == 'GET':
         cvInformations=store.get_cv_information_s()
         experiences=t.get_experience_s()
-        return render_template('personal/cv.html',cvInformations=cvInformations, experiences=experiences,current_time=now.ctime(),)
+        allLanguages = languages.GetAllLanguagesByCVId('0')
+        return render_template('personal/cv.html',cvInformations=cvInformations, languages = allLanguages, experiences=experiences,current_time=now.ctime(),)
     else:
-        if request.form['add']=="delete":
+        if request and 'deleteLanguage' in request.form and request.method=='POST':
+            deleteIndex = request.form['deleteLanguage']
+            languages.DeleteLanguage(deleteIndex)
+            allLanguages = languages.GetAllLanguagesByCVId('1')
+            return render_template('personal/cv.html', languages=allLanguages)
+
+
+        elif request.form['add']=="delete":
             key =request.form['delete_id']
             store.delete_cv_information(key)
         elif request.form['add']=="update":

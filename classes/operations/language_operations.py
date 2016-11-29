@@ -25,10 +25,10 @@ class language_operations:
         return result
 
     # Returns all languages selected by CVId
-    def GetAllLanguages(self, key):
+    def GetAllLanguagesByCVId(self, key):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
-            query = """SELECT Language.Name, Language.Level FROM Language INNER JOIN CV ON(Language.CVId = CV.ObjectId) WHERE (CV.ObjectId = %s)"""
+            query = """SELECT Language.ObjectId, Language.CVId, Language.Name, Language.Level FROM Language INNER JOIN CV ON(Language.CVId = CV.ObjectId) WHERE (CV.ObjectId = %s)"""
             cursor.execute(query, (key))
             result = cursor.fetchall()
         return result

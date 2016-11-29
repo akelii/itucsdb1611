@@ -331,6 +331,46 @@
                                                                 class="fa fa-plus-square-o"></i> Add</a>
                                                         </li>
                                                     </ul>
+
+                                                    {% for language in languages %}
+                                                    <div class="tab-content">
+                                                        <div class="tab-pane active" id="">
+                                                            <div class="">
+                                                                <div class="box-body">
+                                                                    <ul class="products-list product-list-in-box">
+                                                                        <li class="item">
+                                                                            <div class="product-img">
+
+
+                                                                                <form method = "post" action="{{ action }}">
+                                                                                    <button name="deleteLanguage" value="{{ language[0] }}" type="submit" class="btn btn-box-tool" ><i class="fa fa-times"></i></button>
+                                                                                </form>
+
+
+
+                                                                                <a href="#"><i
+                                                                                        class="fa fa-pencil-square-o fa-2x"></i></a>&nbsp;
+
+
+
+                                                                            </div>
+                                                                            <div class="product-info">
+                                                                                <a href="javascript:void(0)"
+                                                                                   class="product-title">{{ language[2] }}
+                                                                                </a>
+                                                                                <span class="product-description">
+                                                                                    {{ language[3] }}
+                                                                                </span>
+                                                                            </div>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {% endfor %}
+
+
                                                 </div>
                                             </div>
                                         </div>
