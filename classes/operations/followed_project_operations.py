@@ -19,12 +19,12 @@ class followed_project_operations:
     def GetFollowedProjectByObjectId(self, key):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
-            query = """SELECT FollowedProject.ObjectId ,PersonId, ProjectType, Description,
-                       FollowedProjectId ,p2.Name as FollowedProjectName, StartDate
-                       FROM FollowedProject
-                       INNER JOIN Person as p1 ON (FollowedProject.PersonId = p1.ObjectId)
-                       INNER JOIN Project as p2 ON (FollowedProject.FollowedProjectId = p2.ObjectId)
-                       WHERE (FollowedProject.ObjectId=%s and FollowedProject.Deleted='0')"""
+            query = """SELECT FollowedProject.ObjectId, PersonId, ProjectTypeId, p2.Name as ProjectType,
+                        Description, FollowedProjectId, p1.Name as FollowedProjectName, FollowedProject.StartDate
+                        FROM FollowedProject
+                        INNER JOIN Project as p1 ON p1.ObjectId = FollowedProject.FollowedProjectId
+                        INNER JOIN  ProjectType p2 ON p2.ObjectId = p1.ProjectTypeId
+                        WHERE (FollowedProject.ObjectId=%s and FollowedProject.Deleted='0')"""
             cursor.execute(query, (key,))
             result = cursor.fetchone()
         return result
@@ -32,12 +32,12 @@ class followed_project_operations:
     def GetFollowedProjectList(self):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
-            query = """SELECT FollowedProject.ObjectId, PersonId, ProjectType, Description,
-                        FollowedProjectId, p2.Name as FollowedProjectName,StartDate
+            query = """SELECT FollowedProject.ObjectId, PersonId, ProjectTypeId, p2.Name as ProjectType,
+                        Description, FollowedProjectId, p1.Name as FollowedProjectName, FollowedProject.StartDate
                         FROM FollowedProject
-                        INNER JOIN Person as p1 ON p1.ObjectId = FollowedProject.PersonId
-                        INNER JOIN Project as p2 ON p2.ObjectId = FollowedProject.FollowedProjectId
-                        WHERE FollowedProject.Deleted='0')"""
+                        INNER JOIN Project as p1 ON p1.ObjectId = FollowedProject.FollowedProjectId
+                        INNER JOIN  ProjectType p2 ON p2.ObjectId = p1.ProjectTypeId
+                        WHERE (FollowedProject.Deleted='0') """
             cursor.execute(query)
             connection.commit()
             results = cursor.fetchall()
@@ -47,12 +47,12 @@ class followed_project_operations:
     def GetFollowedProjectListByPersonId(self, key):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
-            query = """SELECT FollowedProject.ObjectId, PersonId, ProjectType, Description,
-                        FollowedProjectId, p2.Name as FollowedProjectName,StartDate
+            query = """SELECT FollowedProject.ObjectId, PersonId, ProjectTypeId, p2.Name as ProjectType,
+                        Description, FollowedProjectId, p1.Name as FollowedProjectName, FollowedProject.StartDate
                         FROM FollowedProject
-                        INNER JOIN Person as p1 ON p1.ObjectId = FollowedProject.PersonId
-                        INNER JOIN Project as p2 ON p2.ObjectId = FollowedProject.FollowedProjectId
-                        WHERE FollowedProject.PersonId = %s and FollowedProject.Deleted='0')"""
+                        INNER JOIN Project as p1 ON p1.ObjectId = FollowedProject.FollowedProjectId
+                        INNER JOIN  ProjectType p2 ON p2.ObjectId = p1.ProjectTypeId
+                        WHERE (FollowedProject.PersonId = %s and FollowedProject.Deleted='0')"""
             cursor.execute(query, (key,))
             connection.commit()
             results = cursor.fetchall()
@@ -62,12 +62,12 @@ class followed_project_operations:
     def GetFollowerPersonListByFollowedProjectId(self, key):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
-            query = """SELECT FollowedProject.ObjectId, PersonId, ProjectType, Description,
-                        FollowedProjectId, p2.Name as FollowedProjectName,StartDate
+            query = """SELECT FollowedProject.ObjectId, PersonId, ProjectTypeId, p2.Name as ProjectType,
+                        Description, FollowedProjectId, p1.Name as FollowedProjectName, FollowedProject.StartDate
                         FROM FollowedProject
-                        INNER JOIN Person as p1 ON p1.ObjectId = FollowedProject.PersonId
-                        INNER JOIN Project as p2 ON p2.ObjectId = FollowedProject.FollowedProjectId
-                        WHERE FollowedProject.FollowedProjectId = %s and FollowedProject.Deleted='0')"""
+                        INNER JOIN Project as p1 ON p1.ObjectId = FollowedProject.FollowedProjectId
+                        INNER JOIN  ProjectType p2 ON p2.ObjectId = p1.ProjectTypeId
+                        WHERE (FollowedProject.FollowedProjectId = %s and FollowedProject.Deleted='0')"""
             cursor.execute(query, (key,))
             connection.commit()
             results = cursor.fetchall()
