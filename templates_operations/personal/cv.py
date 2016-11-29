@@ -15,13 +15,11 @@ from classes.operations.education_operations import education_operations
 
 def personal_cv_page_config(submit_type):
     store = cv_information_operations()
-    languages=language_operations()
     t = experience_operations()
     now = datetime.now()
     if submit_type == 'GET':
         cvInformations=store.get_cv_information_s()
         experiences=t.get_experience_s()
-        allLanguages = languages.GetAllLanguagesByCVId('1')
         return render_template('personal/cv.html',cvInformations=cvInformations, current_time=now.ctime(),)
 
 
