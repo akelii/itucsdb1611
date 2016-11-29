@@ -26,6 +26,14 @@ class education_operations:
             result = cursor.fetchall()
         return result
 
+    def UpdateEducation(self, key, schoolname, description, grade, startdate, enddate):
+        with dbapi2.connect(dsn) as connection:
+            cursor = connection.cursor()
+            cursor.execute(
+                """UPDATE Education SET SchoolName = %s, Description = %s, GraduationGrade = %s, StartDate = %s, EndDate = %s WHERE (ObjectId=%s)""",
+                (schoolname, description, grade, startdate, enddate, key))
+            connection.commit()
+
     def DeleteEducation(self, key):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()

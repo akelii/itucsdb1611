@@ -62,7 +62,16 @@ def personal_cv_pagewithkey_config(submit_type, key):
             listEducation = store_education.GetEducationListByCVId(key)
         elif request and 'deleteEducation' in request.form and request.method == 'POST':
             deleteIndex = request.form['deleteEducation']
-            store_education.DeleteEducation(deleteIndex)
+            store_education.DeleteEducationWithoutStore(deleteIndex)
+            listEducation = store_education.GetEducationListByCVId(key)
+        elif request and 'txtUpdateSchoolName' in request.form and request.method == 'POST':
+            txtUpdateSchoolName = request.form['txtUpdateSchoolName']
+            txtUpdateSchoolDesc = request.form['txtUpdateSchoolDesc']
+            dpUpdateSchoolStart = request.form['dpUpdateSchoolStart']
+            dpUpdateSchoolEnd = request.form['dpUpdateSchoolEnd']
+            txtUpdateGrade = request.form['txtUpdateGrade']
+            id = request.form['hfUpdateEducationId']
+            store_education.UpdateEducation(id, txtUpdateSchoolName,txtUpdateSchoolDesc,txtUpdateGrade,dpUpdateSchoolStart,dpUpdateSchoolEnd)
             listEducation = store_education.GetEducationListByCVId(key)
         elif request.form['add'] == "delete":
             key = request.form['delete_id']

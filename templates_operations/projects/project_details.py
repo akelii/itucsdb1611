@@ -18,8 +18,7 @@ def project_details_page_config(submit_type, key):
         project = store.get_project(key)
         project_comments = store_comment.get_project_comments(key)
         return render_template('projects/project_details.html', project=project, project_comments=project_comments)
-
-
+   
 
 
 
