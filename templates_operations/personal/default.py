@@ -25,7 +25,7 @@ def personal_default_page_config(request):
         newComment = request.form['addComment']
         comments.AddPersonComment(personId, commentedPersonId, newComment)
     store_followedperson = followed_person_operations()
-    Current_Person = store.GetPersonByObjectId(1)  # SONRADAN DUZELT
+    Current_Person = store.GetPersonByObjectId(1)  # LOGIN DUZELT
     listFollowing = store_followedperson.GetFollowedPersonListByPersonId(1)
     listFollowers = store_followedperson.GetFollowedPersonListByFollowedPersonId(1)
     personComments = comments.GetPersonCommentsByCommentedPersonId(Current_Person[0])
