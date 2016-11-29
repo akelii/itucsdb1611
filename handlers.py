@@ -33,21 +33,9 @@ def projects_create_page():
 def projects_search_page():
     return project_search_page_config(request.method)
 
-@site.route('/project_update/<int:key>', methods=["GET", "POST"])
-def projects_update_page(key):
-    return project_update_page_config(request.method, key)
-
 @site.route('/project_details/<int:key>', methods=["GET", "POST"])
 def projects_details_page(key):
     return project_details_page_config(request.method, key)
-
-@site.route('/project_comments/<int:key>', methods=["GET", "POST"])
-def projects_comments_page(key):
-    return project_comments_page_config(request.method, key)
-
-@site.route('/project_add_comment/<int:key>', methods=["GET", "POST"])
-def projects_add_comments_page(key):
-    return project_add_comments_page_config(request.method, key)
 
 @site.route('/register', methods=["GET", "POST"])
 def register_page():
