@@ -78,22 +78,22 @@
                                     <div id="collapseTwo" class="panel-collapse collapse" aria-expanded="true"
                                          style="height: 0px;">
                                         <div class="box-body">
-                                            <div class="col-md-6">
-                                                <div class="nav-tabs-custom">
-                                                    <ul class="nav nav-tabs pull-right">
+                                            <div class="nav-tabs-custom">
+                                                <ul class="nav nav-tabs pull-right">
 
-                                                        <li class="pull-left header"><a href="#" data-toggle="modal"
-                                                                                        data-target="#EducationModal"><i
-                                                                class="fa fa-plus-square-o"></i> Add</a>
-                                                        </li>
-                                                    </ul>
-                                                    <div class="tab-content">
-                                                        <div class="tab-pane active" id="">
-                                                            <div class="">
-                                                                <div class="box-body">
-                                                                    <form method="post" action="/personal">
-                                                                        <ul class="products-list product-list-in-box">
-                                                                            {% for education in listEducation %}
+                                                    <li class="pull-left header"><a href="#" data-toggle="modal"
+                                                                                    data-target="#EducationModal"><i
+                                                            class="fa fa-plus-square-o"></i> Add</a>
+                                                    </li>
+                                                </ul>
+                                                {% for education in listEducation %}
+                                                    <div class="col-md-6">
+                                                        <div class="tab-content">
+                                                            <div class="tab-pane active" id="">
+                                                                <div class="">
+                                                                    <div class="box-body">
+                                                                        <form method="post" action="/personal">
+                                                                            <ul class="products-list product-list-in-box">
                                                                                 <li class="item">
                                                                                     <div class="product-img">
                                                                                         <a href="#"><i
@@ -104,22 +104,23 @@
                                                                                     <div class="product-info">
                                                                                         <a href="javascript:void(0)"
                                                                                            class="product-title"> {{ education[1] }}
-                                                                                            <span class="label label-default pull-right">2013 - 2018</span></a>
+                                                                                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="label label-default">2013 - 2018</span></a>
                                                                                         <span class="product-description">
                                                                                     {{ education[2] }}
                                                                                 </span>
                                                                                     </div>
                                                                                 </li>
-                                                                            {% endfor %}
 
 
-                                                                        </ul>
-                                                                    </form>
+                                                                            </ul>
+                                                                        </form>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                {% endfor %}
+
                                             </div>
                                         </div>
                                     </div>
@@ -395,17 +396,16 @@
                                     <div id="collapseFour" class="panel-collapse collapse" aria-expanded="false"
                                          style="height: 0px;">
                                         <div class="box-body">
-                                            <div class="col-md-6">
-                                                <div class="nav-tabs-custom">
-                                                    <ul class="nav nav-tabs pull-right">
+                                            <div class="nav-tabs-custom">
+                                                <ul class="nav nav-tabs pull-right">
 
-                                                        <li class="pull-left header"><a href="#" data-toggle="modal"
-                                                                                        data-target="#LanguageModal"><i
-                                                                class="fa fa-plus-square-o"></i> Add</a>
-                                                        </li>
-                                                    </ul>
-
-                                                    {% for language in languages %}
+                                                    <li class="pull-left header"><a href="#" data-toggle="modal"
+                                                                                    data-target="#LanguageModal"><i
+                                                            class="fa fa-plus-square-o"></i> Add</a>
+                                                    </li>
+                                                </ul>
+                                                {% for language in languages %}
+                                                    <div class="col-md-4">
                                                         <div class="tab-content">
                                                             <div class="tab-pane active" id="">
                                                                 <div class="">
@@ -421,15 +421,12 @@
                                                                                                 value="{{ language[0] }}"
                                                                                                 type="submit"
                                                                                                 class="btn btn-box-tool">
-                                                                                            <i class="fa fa-times"></i>
-                                                                                        </button>
+                                                                                            <i class="fa fa-times-circle fa-2x"></i>
+                                                                                        </button>&nbsp;
+                                                                                        <button name="" value="" type="" class="btn btn-box-tool"><i
+                                                                                            class="fa fa-pencil-square-o fa-2x"></i></button>
+                                                                                        &nbsp;
                                                                                     </form>
-
-
-                                                                                    <a href="#"><i
-                                                                                            class="fa fa-pencil-square-o fa-2x"></i></a>&nbsp;
-
-
                                                                                 </div>
                                                                                 <div class="product-info">
                                                                                     <a href="javascript:void(0)"
@@ -445,41 +442,40 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    {% endfor %}
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
 
 
+                                        </div>
+                                    </div>
+                                    <div class="panel box box-default">
+                                        <div class="box-header with-border">
+                                            <h4 class="box-title">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive"
+                                                   class="collapsed" aria-expanded="false"><i class="fa fa-star"></i>
+                                                    Skill
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseFive" class="panel-collapse collapse" aria-expanded="false"
+                                             style="height: 0px;">
+                                            <div class="box-body">
+                                                <div class="col-md-6">
+                                                    <div class="nav-tabs-custom">
+                                                        <ul class="nav nav-tabs pull-right">
+
+                                                            <li class="pull-left header"><a href="#" data-toggle="modal"
+                                                                                            data-target="#SkillModal"><i
+                                                                    class="fa fa-plus-square-o"></i> Add</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="panel box box-default">
-                                    <div class="box-header with-border">
-                                        <h4 class="box-title">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive"
-                                               class="collapsed" aria-expanded="false"><i class="fa fa-star"></i>
-                                                Skill
-                                            </a>
-                                        </h4>
-                                    </div>
-                                    <div id="collapseFive" class="panel-collapse collapse" aria-expanded="false"
-                                         style="height: 0px;">
-                                        <div class="box-body">
-                                            <div class="col-md-6">
-                                                <div class="nav-tabs-custom">
-                                                    <ul class="nav nav-tabs pull-right">
-
-                                                        <li class="pull-left header"><a href="#" data-toggle="modal"
-                                                                                        data-target="#SkillModal"><i
-                                                                class="fa fa-plus-square-o"></i> Add</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </form>
                     </div>
                 </div>
