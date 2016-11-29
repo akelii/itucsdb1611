@@ -3,7 +3,7 @@
     <section class="content-header">
         <h1>Search Project</h1>
         <ol class="breadcrumb">
-          <li><a href='../dashboard.html'><i class="fa fa-dashboard"></i> Homepage</a></li>
+          <li><a href='{{ url_for('site.home_page') }}'><i class="fa fa-dashboard"></i> Homepage</a></li>
           <li><a href="#">Projects</a></li>
           <li class="active"><a href="search_project.html">Search Project</a></li>
         </ol>
@@ -37,6 +37,7 @@
                               <th>Project Title</th>
                               <th>Project Description</th>
                                 <th>Project ID</th>
+                                <th>Department</th>
                             </tr>
                             {% for project in projects %}
                             <tr>
@@ -44,13 +45,15 @@
                                 <td>{{ project[1] }}</td>
                                 <td>{{ project[2] }}</td>
                                 <td>{{ project[0] }}</td>
+                                <td>{{ project[3] }}</td>
                             </tr>
                             {% endfor %}
                       </tbody></table>
                         <div class="box-footer">
                             <button type="submit" name="delete" value="Delete" class="btn btn-primary">Delete</button>
-                            <!--<button type="submit" name="delete" value="Delete" class="btn btn-primary">Delete</button>-->
-
+                            <button type="submit" name="details" value="Details" class="btn btn-primary">Details</button>
+                            <button type="submit" name="add_comment" value="Add_Comment" class="btn btn-primary">Add Comment</button>
+                            <button type="submit" name="show_comments" value="Show_Comments" class="btn btn-primary">Show Comments</button>
                         </div>
 
                 </div>
