@@ -33,12 +33,12 @@ class language_operations:
             result = cursor.fetchall()
         return result
 
-    def UpdateLanguage(self, key, cvId, name, level, deleted ):
+    def UpdateLanguage(self, key, name, level ):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
             cursor.execute(
-                """UPDATE Language SET CVId = %s, Name = %s, Level = %s, Deleted = %s WHERE (ObjectId=%s)""",
-                (cvId, name, level, deleted, key))
+                """UPDATE Language SET Name = %s, Level = %s WHERE (ObjectId=%s)""",
+                (name, level, key))
             connection.commit()
 
 

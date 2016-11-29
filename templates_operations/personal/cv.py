@@ -45,9 +45,14 @@ def personal_cv_pagewithkey_config(submit_type, key):
         elif request and 'newLanguageName' in request.form and request.method == 'POST':
             newLanguageName = request.form['newLanguageName']
             newLevel = request.form['newLanguageLevel']
-            languages.AddLanguage('1', newLanguageName, newLevel)
-            allLanguages = languages.GetAllLanguagesByCVId('1')
-            return render_template('personal/cv.html', languages=allLanguages)
+            languages.AddLanguage(key, newLanguageName, newLevel)
+            allLanguages = languages.GetAllLanguagesByCVId(key)
+        elif request and 'updateLanguageName' in request.form and request.method == 'POST':
+            updateName = request.form['updateLanguageName']
+            updateLevel = request.form['updateLanguageLevel']
+            ID = request.form['updateLanguageId']
+            languages.UpdateLanguage(ID, updateName, updateLevel)
+            allLanguages = languages.GetAllLanguagesByCVId(key)
         elif request.form['add'] == "delete":
             key = request.form['delete_id']
             store.delete_cv_information(key)

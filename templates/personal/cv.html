@@ -422,11 +422,32 @@
                                                                                                 type="submit"
                                                                                                 class="btn btn-box-tool">
                                                                                             <i class="fa fa-times-circle fa-2x"></i>
-                                                                                        </button>&nbsp;
-                                                                                        <button name="" value="" type="" class="btn btn-box-tool"><i
-                                                                                            class="fa fa-pencil-square-o fa-2x"></i></button>
-                                                                                        &nbsp;
+                                                                                        </button>
                                                                                     </form>
+                                                                                    <form method="post" action="{{ action }}">
+                                                                                        <div class="dropdown" >
+                                                                                            <button class="btn btn-box-tool" type="button" data-toggle="dropdown">
+                                                                                                <i class="fa fa-pencil-square-o fa-2x"></i> </button>
+                                                                                                <ul class="dropdown-menu" style="border: 2px #f2f2f2">
+                                                                                                    <li>Language Name:  </li>
+                                                                                                    <li>
+                                                                                                        <div class="col-xs-ao">
+                                                                                                            <input type="text" name="updateLanguageName"  class="form-control">
+                                                                                                        </div>
+                                                                                                    </li>
+                                                                                                    <li>Language Level:  </li>
+                                                                                                    <li>
+                                                                                                        <div class="col-xs-ao">
+                                                                                                            <input type="text" name="updateLanguageLevel"  class="form-control">
+                                                                                                            <input type="hidden" name="updateLanguageId"  value= "{{ language[0] }}" class="form-control">
+                                                                                                        </div>
+                                                                                                    </li>
+                                                                                                    <li><button type="submit" value="Submit"  >Update</button></li>
+                                                                                                </ul>
+                                                                                            </div>
+                                                                                    </form>&nbsp;
+
+
                                                                                 </div>
                                                                                 <div class="product-info">
                                                                                     <a href="javascript:void(0)"
