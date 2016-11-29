@@ -259,6 +259,15 @@ def init_db():
         )"""
         cursor.execute(query)
 
+        query = """CREATE TABLE IF NOT EXISTS Skill(
+                        ObjectId SERIAL PRIMARY KEY,
+                        CVId INTEGER NOT NULL,
+                        Name VARCHAR(50) NOT NULL,
+                        Level VARCHAR(50) NOT NULL,
+                        Deleted BOOLEAN NOT NULL
+                )"""
+        cursor.execute(query)
+
 
         cursor.execute("""ALTER TABLE Team ADD FOREIGN KEY(MemberId) REFERENCES Person(ObjectId) ON DELETE SET NULL""")
         cursor.execute("""ALTER TABLE Team ADD FOREIGN KEY(ProjectId) REFERENCES Project(ObjectId) ON DELETE SET NULL""")
@@ -292,6 +301,8 @@ def init_db():
         cursor.execute("""ALTER TABLE FollowedProject ADD  FOREIGN KEY(PersonId) REFERENCES Person(ObjectId) ON DELETE SET NULL """)
         cursor.execute("""ALTER TABLE FollowedProject ADD  FOREIGN KEY(FollowedProjectId) REFERENCES Project(ObjectId) ON DELETE SET NULL """)
         cursor.execute("""ALTER TABLE Education ADD FOREIGN KEY (CVId) REFERENCES CV(ObjectId) ON DELETE CASCADE """)
+        cursor.execute("""ALTER TABLE Skill ADD FOREIGN KEY(CVId) REFERENCES CV(ObjectId) ON DELETE CASCADE """)
+
 
         cursor.execute("""INSERT INTO AccountType (AccountTypeName, Deleted) VALUES ('Student', '0'), ('Academic', '0')""")
         cursor.execute("""INSERT INTO CVInformationType (Name, Deleted) VALUES ('Education', '0'), ('Ability', '0'), ('Experience', '0'), ('Language', '0')""")
