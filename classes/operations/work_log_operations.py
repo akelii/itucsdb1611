@@ -11,7 +11,7 @@ class work_log_operations:
     def AddWorkLog(self, work_log):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
-            query = "INSERT INTO (ProjectId, CommitMessage, CreateDate, CreatorPersonId, Deleted) VALUES (%s, %s,' "+str(datetime.datetime.now())+" ', %s, False)"
+            query = "INSERT INTO WorkLog (ProjectId, CommitMessage, CreatedDate, CreatorPersonId, Deleted) VALUES (%s, %s,' "+str(datetime.datetime.now())+" ', %s, False)"
             cursor.execute(query, (work_log.ProjectId, work_log.CommitMessage, work_log.CreatorPersonId))
             connection.commit()
             self.last_key = cursor.lastrowid
@@ -19,7 +19,7 @@ class work_log_operations:
     def GetWorkLogByObjectId(self, key):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
-            query = """SELECT WorkLog.ObjectId, CommitMessage, CreateDate, CreatorPersonId ,p1.FirstName || ' ' || p1.LastName as CreatorPersonName
+            query = """SELECT WorkLog.ObjectId, CommitMessage, CreatedDate, CreatorPersonId ,p1.FirstName || ' ' || p1.LastName as CreatorPersonName,
                                    ProjectId, p2.Name as ProjectName
                                    FROM WorkLog
                                    INNER JOIN Person as p1 ON (WorkLog.CreatorPersonId = p1.ObjectId)
@@ -33,7 +33,7 @@ class work_log_operations:
     def GetAllWorkLogs(self):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
-            query = """SELECT WorkLog.ObjectId, CommitMessage, CreateDate, CreatorPersonId ,p1.FirstName || ' ' || p1.LastName as CreatorPersonName
+            query = """SELECT WorkLog.ObjectId, CommitMessage, CreatedDate, CreatorPersonId ,p1.FirstName || ' ' || p1.LastName as CreatorPersonName,
                                           ProjectId, p2.Name as ProjectName
                                           FROM WorkLog
                                           INNER JOIN Person as p1 ON (WorkLog.CreatorPersonId = p1.ObjectId)
@@ -47,7 +47,7 @@ class work_log_operations:
     def GetWorkLogByProjectId(self, key):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
-            query = """SELECT WorkLog.ObjectId, CommitMessage, CreateDate, CreatorPersonId ,p1.FirstName || ' ' || p1.LastName as CreatorPersonName
+            query = """SELECT WorkLog.ObjectId, CommitMessage, CreatedDate, CreatorPersonId ,p1.FirstName || ' ' || p1.LastName as CreatorPersonName,
                                           ProjectId, p2.Name as ProjectName
                                           FROM WorkLog
                                           INNER JOIN Person as p1 ON (WorkLog.CreatorPersonId = p1.ObjectId)
@@ -61,7 +61,7 @@ class work_log_operations:
     def GetFollowedProjectsWorkLogs(self, key): #takip edilen projelerin loglarını dashboardda göstermek için
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
-            query = """SELECT WorkLog.ObjectId, CommitMessage, CreateDate, CreatorPersonId ,p1.FirstName || ' ' || p1.LastName as CreatorPersonName
+            query = """SELECT WorkLog.ObjectId, CommitMessage, CreatedDate, CreatorPersonId ,p1.FirstName || ' ' || p1.LastName as CreatorPersonName,
                                           ProjectId, p2.Name as ProjectName
                                           FROM WorkLog
                                           INNER JOIN Person as p1 ON (WorkLog.CreatorPersonId = p1.ObjectId)

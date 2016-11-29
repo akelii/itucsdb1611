@@ -14,26 +14,66 @@
     </section>
 
     <section class="content">
+    {%  if cvs[0]  is  none %}
         <div class="callout callout-warning">
-            <h4>Be attention!</h4>
-            <p>It couldn't any CV record belong to you! Quickly add a new one!</p>
+            <h4>Attention here!</h4>
+            <p>There aren't any CV record that belongs to you! Quickly add a new one!</p>
         </div>
-        <div class="row">
+    {% endif %}
 
+    {% for key, cv in cvs %}
+        <div class="row">
             <div class="col-lg-3 col-xs-6">
                 <div class="small-box bg-gray-active">
                     <div class="inner">
                         <h3>CV</h3>
-                        <p>{{ CurrentCV[4] }}</p>
+
+                        <h2>{{ cv.CVName }}</h2>
                     </div>
                     <div class="icon">
                         <i class="fa fa-file-text-o"></i>
                     </div>
-                    <a href={{ url_for('site.personal_cv_pagewithkey', key=1) }} class="small-box-footer">Let's look
-                        your CV <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href={{ url_for('site.personal_cv_pagewithkey', key=cv.ObjectId) }} class="small-box-footer">Let's look
+                        your {{ cv.CVName }} CV <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
         </div>
+    {% endfor %}
+
+    <div class="form-group">
+                  <label></label>
+                        <div class="pull-left header"><a href="#" data-toggle="modal"
+                                                                                        data-target="#CVModal"><i
+                                                                class="fa fa-plus-square-o"></i> Add CV</a>
+                                                        </div>
+                </div>
+   <form  method="POST" action="" role="form">
+            <div class="modal fade" id="CVModal" tabindex="-1" role="dialog" aria-labelledby="CVModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="CVModalLabel">New Cv</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="txtSchoolName">CV Name</label>
+                            <input type="text" class="form-control" id="txtSchoolName" name="CvName" value="{{ CvName }}" placeholder="Enter CV name">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit"  name="New_CV"  class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+</form>
+
+
+
+
         <div class="row">
             <div class="col-md-12">
                 <div class="box box-solid">
