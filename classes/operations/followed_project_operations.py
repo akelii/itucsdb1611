@@ -19,8 +19,8 @@ class followed_project_operations:
     def GetFollowedProjectByObjectId(self, key):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
-            query = """SELECT FollowedProject.ObjectId ,PersonId ,p1.FirstName || ' ' || p1.LastName as PersonFullName
-                       ,FollowedProjectId ,p2.Name as FollowedProjectName,StartDate
+            query = """SELECT FollowedProject.ObjectId ,PersonId, ProjectType, Description,
+                       FollowedProjectId ,p2.Name as FollowedProjectName, StartDate
                        FROM FollowedProject
                        INNER JOIN Person as p1 ON (FollowedProject.PersonId = p1.ObjectId)
                        INNER JOIN Project as p2 ON (FollowedProject.FollowedProjectId = p2.ObjectId)
@@ -29,16 +29,30 @@ class followed_project_operations:
             result = cursor.fetchone()
         return result
 
-    # Belirtilen PersonId'ye sahip personın takip ettigi projeler
-    def GetFollowedProjectListByPersonId(self, key):
+    def GetFollowedProjectList(self):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
-            query = """SELECT FollowedProject.ObjectId, PersonId, p1.FirstName || ' ' || p1.LastName as PersonFullName,
+            query = """SELECT FollowedProject.ObjectId, PersonId, ProjectType, Description,
                         FollowedProjectId, p2.Name as FollowedProjectName,StartDate
                         FROM FollowedProject
                         INNER JOIN Person as p1 ON p1.ObjectId = FollowedProject.PersonId
                         INNER JOIN Project as p2 ON p2.ObjectId = FollowedProject.FollowedProjectId
-                        WHERE FollowedProject.PersonId = %s"""
+                        WHERE FollowedProject.Deleted='0')"""
+            cursor.execute(query)
+            connection.commit()
+            results = cursor.fetchall()
+        return results
+
+    # Belirtilen PersonId'ye sahip personın takip ettigi projeler
+    def GetFollowedProjectListByPersonId(self, key):
+        with dbapi2.connect(dsn) as connection:
+            cursor = connection.cursor()
+            query = """SELECT FollowedProject.ObjectId, PersonId, ProjectType, Description,
+                        FollowedProjectId, p2.Name as FollowedProjectName,StartDate
+                        FROM FollowedProject
+                        INNER JOIN Person as p1 ON p1.ObjectId = FollowedProject.PersonId
+                        INNER JOIN Project as p2 ON p2.ObjectId = FollowedProject.FollowedProjectId
+                        WHERE FollowedProject.PersonId = %s and FollowedProject.Deleted='0')"""
             cursor.execute(query, (key,))
             connection.commit()
             results = cursor.fetchall()
@@ -48,12 +62,12 @@ class followed_project_operations:
     def GetFollowerPersonListByFollowedProjectId(self, key):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
-            query = """SELECT FollowedProject.ObjectId, PersonId, p1.FirstName || ' ' || p1.LastName as PersonFullName,
+            query = """SELECT FollowedProject.ObjectId, PersonId, ProjectType, Description,
                         FollowedProjectId, p2.Name as FollowedProjectName,StartDate
                         FROM FollowedProject
                         INNER JOIN Person as p1 ON p1.ObjectId = FollowedProject.PersonId
                         INNER JOIN Project as p2 ON p2.ObjectId = FollowedProject.FollowedProjectId
-                        WHERE FollowedProject.FollowedProjectId = %s"""
+                        WHERE FollowedProject.FollowedProjectId = %s and FollowedProject.Deleted='0')"""
             cursor.execute(query, (key,))
             connection.commit()
             results = cursor.fetchall()
@@ -66,10 +80,10 @@ class followed_project_operations:
             cursor.execute(query, (key,))
             connection.commit()
 
-    def UpdateFollowedProject(self, key, personId, followedProjectId, startDate):
+    def UpdateFollowedProject(self, key): #takip etmeye başlama zamanı update ediliyor, listede daha üstte görünecek
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
-            query = """UPDATE FollowedProject SET PersonId=%s FollowedProjectId=%s StartDate=%s WHERE (ObjectId=%s)"""
-            cursor.execute(query, (personId, followedProjectId, startDate, key))
+            query = """UPDATE FollowedProject SET StartDate=' "+str(datetime.datetime.now())+"' WHERE (ObjectId=%s)"""
+            cursor.execute(query, (key,))
             connection.commit()
 
