@@ -20,21 +20,25 @@
             <p>There aren't any CV record that belongs to you! Quickly add a new one!</p>
         </div>
     {% endif %}
+
+    {% for key, cv in cvs %}
         <div class="row">
             <div class="col-lg-3 col-xs-6">
                 <div class="small-box bg-gray-active">
                     <div class="inner">
                         <h3>CV</h3>
-                        <p>{{ CurrentCV[4] }}</p>
+
+                        <h2>{{ cv.CVName }}</h2>
                     </div>
                     <div class="icon">
                         <i class="fa fa-file-text-o"></i>
                     </div>
-                    <a href={{ url_for('site.personal_cv_pagewithkey', key=1) }} class="small-box-footer">Let's look
-                        your CV <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href={{ url_for('site.personal_cv_pagewithkey', key=cv.ObjectId) }} class="small-box-footer">Let's look
+                        your {{ cv.CVName }} CV <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
         </div>
+    {% endfor %}
 
     <div class="form-group">
                   <label></label>
@@ -67,15 +71,7 @@
         </div>
 </form>
 
-    <div class="form-group">
-                  <label>Select CV</label>
-                  <select class="form-control">
-                   {% for key, cv in cvs %}
 
-                    <option>{{ cv.CvName }}  <input type=hidden value="{{cv.ObjectId}}" name="object_id"/></option>
-                  {%  endfor %}
-                  </select>
-                </div>
 
 
         <div class="row">

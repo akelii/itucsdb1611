@@ -23,8 +23,10 @@ def personal_cv_page_config(submit_type):
         cvInformations=store.get_cv_information_s()
         experiences=t.get_experience_s()
         cvs=store_CV.get_cvs()
-        return render_template('personal/cv.html',cvs=cvs,cvInformations=cvInformations, CurrentCV=0, current_time=now.ctime(),)
-
+        return render_template('personal/cv.html',experiences=experiences,cvs=cvs,cvInformations=cvInformations, CurrentCV=0, current_time=now.ctime(),)
+    else :
+        return render_template('personal/cv.html', experiences=experiences, cvs=cvs, cvInformations=cvInformations,
+                               CurrentCV=0, current_time=now.ctime(), )
 
 
 def personal_cv_pagewithkey_config(submit_type, key):
