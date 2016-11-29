@@ -37,11 +37,11 @@ class experience_operations:
 
 
 
-    def add_experience(self, experience):
+    def add_experience(self, CVId, Description, CompanyName, ExperiencePosition,StartDate,EndDate):
        with dbapi2.connect(dsn) as connection:
            cursor = connection.cursor()
            query = "INSERT INTO Experience (CVId, Description, CompanyName, ExperiencePosition, StartDate, EndDate, DELETED) VALUES (%s, %s, %s, %s, %s, %s, FALSE)"
-           cursor.execute(query, ( experience.CVId, experience.Description,experience.CompanyName, experience.ExperiencePosition, experience.StartDate, experience.EndDate ))
+           cursor.execute(query, ( CVId, Description,CompanyName, ExperiencePosition, StartDate, EndDate ))
            connection.commit()
            self.last_key = cursor.lastrowid
        return cursor.lastrowid

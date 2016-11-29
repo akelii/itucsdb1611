@@ -29,7 +29,8 @@ class cv_operations:
     def update_cv(self, key):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
-            query = "UPDATE CV SET UpdatedDate=' " + str(datetime.datetime.now()) + "' WHERE (ObjectId=%s)"
+            query = "UPDATE CV SET UpdatedDate=NOW() WHERE ObjectId=(select cvid from education where objectid=%s)"
+            key=str(key)
             cursor.execute(query, (key))
             connection.commit()
 
@@ -40,13 +41,14 @@ class cv_operations:
             query = "DELETE FROM CV WHERE (ObjectId=%s)"
             cursor.execute(query, (key))
             connection.commit()
+            cursor.close()
 
 
-    def add_cv(self, cv):
+    def add_cv(self, cv,s1,s2):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
-            query = "INSERT INTO CV (ObjectId, PersonId, CreatedDate, UpdatedDate, Deleted) VALUES (%s, %s, %s, %s, 'FALSE')"
-            cursor.execute(query, (
-                cv.ObjectId, cv.PersonId, "+str(datetime.datetime.now())+", "+str(datetime.datetime.now())+"))
+            query = "INSERT INTO CV ( PersonId, CreatedDate, UpdatedDate, CvName, Deleted) VALUES (%s, %s, %s, %s,%s, 'FALSE')"
+            cursor.execute(query, ('1',s1,s2,cv))
             connection.commit()
             self.last_key = cursor.lastrowid
+        return cursor.lastrowid
