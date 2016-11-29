@@ -1,75 +1,131 @@
 {% extends "layout.html" %}
 {% block container %}
-    {% set action = url_for('site.projects_details_page', key=key) if key else url_for('site.projects_search_page') %}
+
     <section class="content">
         <div class="row">
-        <div class="col-md-3"></div>
-        <div class="col-md-9">
-        <form role="form" action="{{ action }}" method="post" name="search_project" class="form-horizontal">
+            <div class="col-md-3"></div>
+            <div class="col-md-9">
 
-          <div class="nav-tabs-custom">
-            <ul class="nav nav-tabs">
-              <li class="active"><a href="#projectDetails" data-toggle="tab">Project Details</a></li>
-              <li><a href="#members" data-toggle="tab">Members</a></li>
-                <!--<li><a href="#projectComments" data-toggle="tab">Project's Comments</a></li>-->
+                <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#projectDetails" data-toggle="tab">Project Details</a></li>
+                    <li><a href="#members" data-toggle="tab">Members</a></li>
+                    <li><a href="#projectComments" data-toggle="tab">Project's Comments</a></li>
+                    <li><a href="#settings" data-toggle="tab">Settings</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="active tab-pane" id="projectDetails">
+                    <div class="box-body">
+                        <form role="form" action="{{ url_for('site.projects_search_page')}}" method="get" name="search_project" class="form-horizontal">
+                            <p>Project Name : {{ project[0] }}</p>
+                            <p>Project Type : {{ project[2] }}</p>
+                            <p>Project Description : {{ project[1] }}</p>
+                            <p>Department : {{ project[3] }}</p>
+                            <p>Status : {{ project[4] }}</p>
+                            <p>Created By : {{ project[5] }}  {{ project[6] }}</p>
+                        </form>
+                        <form role="form" action="{{ url_for('site.projects_details_page', key=project[7])}}" method="post">
+                            <div class="form-group">
+                                <label>New Project Name</label>
+                                <input type="text" class="form-control" name="project_name" placeholder="Enter">
+                            </div>
+                            <div class="form-group">
+                                <label>New Project Description</label>
+                                <textarea class="form-control" name="project_description" rows="4" placeholder="Enter"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>New End Date</label>
+                                <div class="input-group date">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar">
+                                        </i>
+                                    </div>
+                                    <input type="text" class="form-control pull-right" id="datepicker">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>New Member Limit</label>
+                                <input type="number" class="form-control" name="limit" placeholder="Enter">
+                            </div>
+                            <div class="form-group">
+                                <label>New Project Manager</label>
+                                <input type="text" class="form-control" name="manager" placeholder="Enter">
+                            </div>
+                            <button type="submit" name="update" value="{{ project[7] }}" class="btn btn-primary">Update</button>
+                        </form>
+                    </div>
+                  </div>
+                    <div class="tab-pane" id="members">
+                      <div class="col-md-12"></div>
+                    </div>
+                  <div class="tab-pane" id="projectComments">
+                      <div class="box-body">
+                          <form role="form" action="{{ url_for('site.projects_search_page')}}" method="post" name="create_project_comment" class="form-horizontal">
+                            <ul class="timeline timeline-inverse">
+                                {% for project_comment in project_comments %}
 
-              <li><a href="#settings" data-toggle="tab">Settings</a></li>
-            </ul>
-            <div class="tab-content">
-              <div class="active tab-pane" id="projectDetails">
-                <div class="post">
+                                  <li class="time-label">
+                                        <span class="bg-teal-active">
+                                          Tarih
+                                        </span>
+                                  </li>
+                                  <li>
+                                    <i class="fa fa-search bg-purple"></i>
 
-                    <p>Project Name : {{ project[0] }}</p>
-                    <p>Project Type : {{ project[2] }}</p>
-                    <p>Project Description : {{ project[1] }}</p>
-                    <p>Department : {{ project[3] }}</p>
-                    <p>Status : {{ project[4] }}</p>
-                    <p>Created By : {{ project[5] }}  {{ project[6] }}</p>
-                    <button type="submit" name="update" value="{{ project[7] }}" class="btn btn-primary">Update</button>
+                                    <div class="timeline-item">
+                                      <span class="time"><i class="fa fa-clock-o"></i> saat</span>
 
+                                      <h3 class="timeline-header"><a href="#">{{ project_comment[0] }} {{ project_comment[1] }}</a> Yorum Yapanın Hesap Tipi</h3>
+                                      <div class="timeline-body">
+                                        {{ project_comment[2] }}
+                                      </div>
+                                       <form role="form" action="{{ url_for('site.projects_details_page', key=project[7])}}" method="post">
+                                          <div class="timeline-footer">
+                                        <button type="submit" name="delete" value="{{ project_comment[3] }}" class="btn btn-primary btn-xs">Delete</button>
+
+                                          <button class="btn btn-box-tool" type="button" data-toggle="dropdown">
+                                              <i class="fa fa-pencil-square-o fa-2x"></i>
+                                          </button>
+                                          <ul class="dropdown-menu" style="border: 2px #f2f2f2">
+                                              <li>Editted Comment:</li>
+                                              <li>
+                                                  <div class="col-xs-ao">
+                                                      <input type="text" name="newComment" class="form-control">
+                                                  </div>
+                                              </li>
+                                              <li>
+                                                  <button type="submit" name="edit" value="{{ project_comment[3] }}" class="btn btn-danger btn-xs">Edit</button>
+                                              </li>
+                                          </ul>
+                                      </div>
+                                       </form>
+
+                                    </div>
+                                  </li>
+                                  <li>
+                                    <i class="fa fa-clock-o bg-gray"></i>
+                                  </li>
+
+                                {% endfor %}
+                            </ul>
+                          </form>
+                          <form role="form" action="{{ url_for('site.projects_details_page', key=project[7])}}" method="post">
+
+                                <div class="form-group">
+                                    <label>Add Comment</label>
+                                    <textarea class="form-control" name="project_comment" rows="4" placeholder="Enter"></textarea>
+                                </div>
+                                <button type="submit" name="addComment" value="AddComment" class="btn btn-danger btn-xs">Add</button>
+                          </form>
+                      </div>
+                  </div>
+
+                  <div class="tab-pane" id="settings">
+                      <div class="col-md-6"></div>
+                  </div>
                 </div>
               </div>
-
-              <div class="tab-pane clearfix" id="members">
-                  <div class="col-md-12">
-                      {% if listFollowing %}
-                          {% for following in listFollowing %}
-                              <div class="box box-solid">
-                                  <div class="box-header with-border">
-                                      <h3 class="box-title">Latest Members</h3>
-                                  </div>
-                              </div>
-                        <div class="box-body no-padding">
-                            <ul class="users-list clearfix">
-                                <li>
-                                    <img src="http://icons.iconarchive.com/icons/sykonist/south-park/128/Cartman-Special-Olympics-icon.png" alt="User Image">
-                                    <a class="users-list-name" href="#">{{ following[4] }}</a>
-                                    <span class="users-list-date">Today</span>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="box-footer text-center">
-                            <a href="#" class="uppercase">View All Connections!</a>
-                        </div>
-                  </div>
-                          {% endfor %}
-                       {% else %}
-                          <div class="callout callout-info">
-                              <h4>
-                                  <i class="fa fa-info"></i>  Note:
-                              </h4>You can see all the people that you follow in that page!
-                          </div>
-                              {% endif %}
-
-              </div>
-              <div class="tab-pane clearfix" id="settings">
-                  <div class="col-md-6"></div>
-              </div>
-              </div>
             </div>
-
-        </form>
-        </div>
         </div>
     </section>
 {% endblock %}
