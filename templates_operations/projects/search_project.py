@@ -24,21 +24,4 @@ def project_search_page_config(submit_type):
         elif 'check' and 'details' in request.form:
             key = request.form['check']
             return redirect(url_for('site.projects_details_page', key=key))
-        #elif 'check' and 'add_comment' in request.form:
-            #return render_template('projects/project_comment_add.html')
-         #   key = request.form['check']
-          #  return redirect(url_for('site.projects_add_comments_page', key=key))
-        #elif 'check' and 'show_comments' in request.form:
-        #    key = request.form['check']
-        #    return redirect(url_for('site.projects_comments_page', key=key))
-    #        return redirect(url_for('site.projects_update_page'),  key=key)
-    #    else:
-    #        key = 5
-    #        return redirect(url_for('site.projects_update_page'), key=key)
- #       elif 'check' and 'update' in request.form:
- #           key = request.form.getlist('check')
- #           project = store.get_project(int(key))
- #           return redirect(url_for('site.projects_details_page'), projects = project)
-         #   return render_template('projects/project_details.html', projects= project)
-
-
+        
