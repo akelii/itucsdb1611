@@ -12,19 +12,21 @@ from classes.operations.Experience_operations import experience_operations
 from classes.operations.language_operations import language_operations
 from classes.education import Education
 from classes.operations.education_operations import education_operations
-
+from classes.CV import CV
 def personal_cv_page_config(submit_type):
     store = cv_information_operations()
     t = experience_operations()
     now = datetime.now()
     store_CV = cv_operations()
-
+    cvInformations = store.get_cv_information_s()
+    experiences = t.get_experience_s()
+    cvs = store_CV.get_cvs()
     if submit_type == 'GET':
-        cvInformations=store.get_cv_information_s()
-        experiences=t.get_experience_s()
-        cvs=store_CV.get_cvs()
         return render_template('personal/cv.html',experiences=experiences,cvs=cvs,cvInformations=cvInformations, CurrentCV=0, current_time=now.ctime(),)
     else :
+        if request and 'Add_CV' in request.form:
+            cvname=request.form['CvName']
+            store_CV.add_cv(cvname,now,now)
         return render_template('personal/cv.html', experiences=experiences, cvs=cvs, cvInformations=cvInformations,
                                CurrentCV=0, current_time=now.ctime(), )
 
@@ -41,7 +43,7 @@ def personal_cv_pagewithkey_config(submit_type, key):
     experiences = t.get_experience_s()
     allLanguages = languages.GetAllLanguagesByCVId(key)
     cvs = store_CV.get_cvs()
-
+    updateOnEducation = "False"
     if submit_type == 'POST':
         if request and 'deleteLanguage' in request.form and request.method == 'POST':
             deleteIndex = request.form['deleteLanguage']
@@ -67,10 +69,12 @@ def personal_cv_pagewithkey_config(submit_type, key):
             e = Education(None, key, txtSchoolName, txtSchoolDesc, txtGrade, dpSchoolStart, dpSchoolEnd, False)
             store_education.AddEducation(e)
             listEducation = store_education.GetEducationListByCVId(key)
+            updateOnEducation = "TRUE"
         elif request and 'deleteEducation' in request.form and request.method == 'POST':
             deleteIndex = request.form['deleteEducation']
             store_education.DeleteEducationWithoutStore(deleteIndex)
             listEducation = store_education.GetEducationListByCVId(key)
+            updateOnEducation = "TRUE"
         elif request and 'txtUpdateSchoolName' in request.form and request.method == 'POST':
             txtUpdateSchoolName = request.form['txtUpdateSchoolName']
             txtUpdateSchoolDesc = request.form['txtUpdateSchoolDesc']
@@ -80,6 +84,7 @@ def personal_cv_pagewithkey_config(submit_type, key):
             id = request.form['hfUpdateEducationId']
             store_education.UpdateEducation(id, txtUpdateSchoolName,txtUpdateSchoolDesc,txtUpdateGrade,dpUpdateSchoolStart,dpUpdateSchoolEnd)
             listEducation = store_education.GetEducationListByCVId(key)
+            updateOnEducation = "TRUE"
         elif request.form['add'] == "delete":
             key = request.form['delete_id']
             store.delete_cv_information(key)
@@ -90,6 +95,9 @@ def personal_cv_pagewithkey_config(submit_type, key):
         elif request.form['add'] == "delete_experience":
             key = request.form['delete_id']
             t.delete_experience(key)
+        elif request.form['add']=="delete_cv":
+            key = request.form['delete_id']
+            store_CV.delete_cv(key)
         elif request.form['update_ex'] == "update_experience":
             key = request.form['delete_id']
             description = request.form['description']
@@ -98,18 +106,23 @@ def personal_cv_pagewithkey_config(submit_type, key):
             key = request.form['delete_id']
             description = request.form['description']
             t.update_experience(key, description, now, now, companyName, experiencepos)
-
+        elif request and 'Add_CV' in request.form and request.method == 'POST':
+            cvname=request.form['CvName']
+            store_CV.add_cv(cvname,now,now)
+            cvs=store_CV.get_cvs()
         elif request.form['add_ex'] == "add_experience":
             description = request.form['description']
             experience_position = request.form['experience_position']
             companyName = request.form['companyName']
-            experience = Experience(None, '2', description, companyName, None, None, experience_position)
-            t.add_experience(experience)
+            t.add_experience(CurrentCV[1], description, companyName, experience_position, now, now )
+
 
         else:
             description = request.form['description']
             idtype = request.form['add']
             cvinfo = CVInformation(None, '2', description, idtype, None, None)
             store.add_cv_information(cvinfo)
+    if updateOnEducation=="TRUE":
+        store_CV.update_cv(key)
     return render_template('personal/cv.html', cvs=cvs,CurrentCV=CurrentCV, languages = allLanguages, experiences=experiences, listEducation=listEducation,
                                    current_time=now.ctime())

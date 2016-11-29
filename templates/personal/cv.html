@@ -37,6 +37,20 @@
                         your {{ cv.CVName }} CV <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
+        <div class="col-lg-3 col-xs-5">                                         <form form action="{{ action }}"
+                                                                                          method="POST">
+                                                                                        <input type=hidden
+                                                                                               value="{{ cv.ObjectId }}"
+                                                                                               name="delete_id"/>
+                                                                                        <button type="submit"
+                                                                                                class="btn btn-box-tool"
+                                                                                                name="add"
+                                                                                                value="delete_cv">
+                                                                                            <i class="fa fa-times-circle fa-2x"></i>
+                                                                                        </button>
+                                                                                        &nbsp;
+                                                                                    </form>
+    </div>
         </div>
     {% endfor %}
 
@@ -47,7 +61,7 @@
                                                                 class="fa fa-plus-square-o"></i> Add CV</a>
                                                         </div>
                 </div>
-   <form  method="POST" action="" role="form">
+   <form  role="form" action="" method="POST" name="Add_CV" >
             <div class="modal fade" id="CVModal" tabindex="-1" role="dialog" aria-labelledby="CVModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -59,7 +73,7 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="txtSchoolName">CV Name</label>
-                            <input type="text" class="form-control" id="txtSchoolName" name="CvName" value="{{ CvName }}" placeholder="Enter CV name">
+                            <input type="text" class="form-control" id="txtSchoolName" name="CvName"  placeholder="Enter CV name">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -674,9 +688,9 @@
                         </form>
                     </div>
                 </div>
+                            Date Created = {{ CurrentCV[2]}} | Date Updated = {{ CurrentCV[3] }}
             </div>
         </div>
-
         <div class="modal fade" id="EducationModal" tabindex="-1" role="dialog" aria-labelledby="EducationModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
