@@ -160,6 +160,15 @@ def init_db():
         )"""
         cursor.execute(query)
 
+        query = """CREATE TABLE IF NOT EXISTS ProjectComment(
+                ObjectId SERIAL PRIMARY KEY,
+                PersonId INTEGER NOT NULL,
+                CommentedProjectId INTEGER NOT NULL,
+                Comment VARCHAR(500) NOT NULL,
+                Deleted BOOLEAN NOT NULL
+        )"""
+        cursor.execute(query)
+
         query = """CREATE TABLE IF NOT EXISTS PersonComment(
                 ObjectId SERIAL PRIMARY KEY,
                 PersonId INTEGER NOT NULL,
@@ -284,10 +293,6 @@ def init_db():
         cursor.execute("""ALTER TABLE FollowedProject ADD  FOREIGN KEY(FollowedProjectId) REFERENCES Project(ObjectId) ON DELETE SET NULL """)
         cursor.execute("""ALTER TABLE Education ADD FOREIGN KEY (CVId) REFERENCES CV(ObjectId) ON DELETE CASCADE """)
 
-        cursor.execute("""INSERT INTO ProjectType (Name, Deleted) VALUES ('Tubitak Projects' , '0')""")
-        cursor.execute("""INSERT INTO Title (Name, Deleted) VALUES ('Prof.' , '0')""")
-        cursor.execute("""INSERT INTO Department (Name, Deleted) VALUES ('Computer Science', '0')""")
-        cursor.execute("""INSERT INTO Department (Name, Deleted) VALUES ('Civil Engineering', '0')""")
         cursor.execute("""INSERT INTO AccountType (AccountTypeName, Deleted) VALUES ('Student', '0'), ('Academic', '0')""")
         cursor.execute("""INSERT INTO CVInformationType (Name, Deleted) VALUES ('Education', '0'), ('Ability', '0'), ('Experience', '0'), ('Language', '0')""")
         cursor.execute("""INSERT INTO ProjectType (Name, Deleted) VALUES ('Tubitak Projects' , '0'), ('Competition Projects' , '0'), ('International Conference Projects' , '0'),
@@ -311,7 +316,6 @@ def init_db():
 
         return redirect(url_for('site.home_page'))
 
-
 if __name__ == '__main__':
     VCAP_APP_PORT = os.getenv('VCAP_APP_PORT')
     if VCAP_APP_PORT is not None:
@@ -328,6 +332,8 @@ if __name__ == '__main__':
     app.secret_key = os.urandom(32)
 
     app.run(host='0.0.0.0', port=port, debug=debug)
+
+
     
 
 
