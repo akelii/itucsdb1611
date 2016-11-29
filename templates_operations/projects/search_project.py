@@ -24,4 +24,4 @@ def project_search_page_config(submit_type):
         elif 'check' and 'details' in request.form:
             key = request.form['check']
             return redirect(url_for('site.projects_details_page', key=key))
-        
+
