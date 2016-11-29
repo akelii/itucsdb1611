@@ -7,11 +7,11 @@ class language_operations:
     def __init__(self):
         self.last_key=None
 
-    def AddLanguage(self, language):
+    def AddLanguage(self, languageCVId, languageName, languageLevel):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
-            query = "INSERT INTO Language (CVId, Name, Level, Deleted) VALUES (%s, %s, %s, False)"
-            cursor.execute(query, (language.CVId, language.Name, language.Level))
+            query = "INSERT INTO Language (CVId, Name, Level) VALUES (%s, %s, %s)"
+            cursor.execute(query, (languageCVId, languageName, languageLevel))
             connection.commit()
             self.last_key = cursor.lastrowid
 

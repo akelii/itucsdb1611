@@ -42,6 +42,12 @@ def personal_cv_pagewithkey_config(submit_type, key):
             deleteIndex = request.form['deleteLanguage']
             languages.DeleteLanguage(deleteIndex)
             allLanguages = languages.GetAllLanguagesByCVId(key)
+        elif request and 'newLanguageName' in request.form and request.method == 'POST':
+            newLanguageName = request.form['newLanguageName']
+            newLevel = request.form['newLanguageLevel']
+            languages.AddLanguage('1', newLanguageName, newLevel)
+            allLanguages = languages.GetAllLanguagesByCVId('1')
+            return render_template('personal/cv.html', languages=allLanguages)
         elif request.form['add'] == "delete":
             key = request.form['delete_id']
             store.delete_cv_information(key)
