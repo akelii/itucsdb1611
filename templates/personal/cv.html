@@ -24,7 +24,7 @@
                 <div class="small-box bg-gray-active">
                     <div class="inner">
                         <h3>CV</h3>
-                        <p>CV Name</p>
+                        <p>{{ CurrentCV[4] }}</p>
                     </div>
                     <div class="icon">
                         <i class="fa fa-file-text-o"></i>
@@ -92,19 +92,35 @@
                                                             <div class="tab-pane active" id="">
                                                                 <div class="">
                                                                     <div class="box-body">
-                                                                        <form method="post" action="/personal">
+                                                                        <form method="post" action="{{ action }}">
                                                                             <ul class="products-list product-list-in-box">
                                                                                 <li class="item">
                                                                                     <div class="product-img">
-                                                                                        <a href="#"><i
-                                                                                                class="fa fa-times-circle fa-2x"></i></a>&nbsp;
-                                                                                        <a href="#"><i
-                                                                                                class="fa fa-pencil-square-o fa-2x"></i></a>&nbsp;
+                                                                                        <button name="deleteEducation"
+                                                                                                value="{{ education[0] }}"
+                                                                                                type="submit"
+                                                                                                class="btn btn-box-tool">
+                                                                                            <i class="fa fa-times-circle fa-2x"></i>
+                                                                                        </button>
+                                                                                        &nbsp;
+                                                                                        <button name="updateEducation"
+                                                                                                value="{{ education[0] }}"
+                                                                                                type="button"
+                                                                                                class="btn btn-box-tool">
+                                                                                            <i class="fa fa-pencil-square-o fa-2x"></i>
+                                                                                        </button>
+                                                                                        &nbsp;
                                                                                     </div>
                                                                                     <div class="product-info">
                                                                                         <a href="javascript:void(0)"
                                                                                            class="product-title"> {{ education[1] }}
-                                                                                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="label label-default">2013 - 2018</span></a>
+                                                                                            &nbsp;&nbsp;&nbsp;&nbsp;<span
+                                                                                                    class="label label-default">{{ education[4] }} - {{ education[5] }}</span>&nbsp;
+                                                                                            {% if education[3] is not none %}
+                                                                                                <span
+                                                                                                        class="label label-primary">Graduation Grade: {{ education[3] }}</span>
+                                                                                            {% endif %}
+                                                                                        </a>
                                                                                         <span class="product-description">
                                                                                     {{ education[2] }}
                                                                                 </span>
@@ -423,31 +439,14 @@
                                                                                                 class="btn btn-box-tool">
                                                                                             <i class="fa fa-times-circle fa-2x"></i>
                                                                                         </button>
+                                                                                        &nbsp;
+                                                                                        <button name="" value="" type=""
+                                                                                                class="btn btn-box-tool">
+                                                                                            <i
+                                                                                                    class="fa fa-pencil-square-o fa-2x"></i>
+                                                                                        </button>
+                                                                                        &nbsp;
                                                                                     </form>
-                                                                                    <form method="post" action="{{ action }}">
-                                                                                        <div class="dropdown" >
-                                                                                            <button class="btn btn-box-tool" type="button" data-toggle="dropdown">
-                                                                                                <i class="fa fa-pencil-square-o fa-2x"></i> </button>
-                                                                                                <ul class="dropdown-menu" style="border: 2px #f2f2f2">
-                                                                                                    <li>Language Name:  </li>
-                                                                                                    <li>
-                                                                                                        <div class="col-xs-ao">
-                                                                                                            <input type="text" name="updateLanguageName"  class="form-control">
-                                                                                                        </div>
-                                                                                                    </li>
-                                                                                                    <li>Language Level:  </li>
-                                                                                                    <li>
-                                                                                                        <div class="col-xs-ao">
-                                                                                                            <input type="text" name="updateLanguageLevel"  class="form-control">
-                                                                                                            <input type="hidden" name="updateLanguageId"  value= "{{ language[0] }}" class="form-control">
-                                                                                                        </div>
-                                                                                                    </li>
-                                                                                                    <li><button type="submit" value="Submit"  >Update</button></li>
-                                                                                                </ul>
-                                                                                            </div>
-                                                                                    </form>&nbsp;
-
-
                                                                                 </div>
                                                                                 <div class="product-info">
                                                                                     <a href="javascript:void(0)"
@@ -511,48 +510,53 @@
                                 aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title" id="EducationModalLabel">Education</h4>
                     </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="txtSchoolName">School Name</label>
-                            <input type="text" class="form-control" id="txtSchoolName" placeholder="Enter school name">
-                        </div>
-                        <div class="form-group">
-                            <label for="txtSchoolDesc">Description</label>
-                            <input type="text" class="form-control" id="txtSchoolDesc"
-                                   placeholder="Field of studies etc.">
-                        </div>
-                        <div class="form-group">
-                            <label>Start Year:</label>
+                    <form role="form" , action="" method="post">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="txtSchoolName">School Name</label>
+                                <input type="text" class="form-control" id="txtSchoolName" name="txtSchoolName"
+                                       placeholder="Enter school name">
+                            </div>
+                            <div class="form-group">
+                                <label for="txtSchoolDesc">Description</label>
+                                <input type="text" class="form-control" id="txtSchoolDesc" name="txtSchoolDesc"
+                                       placeholder="Field of studies etc.">
+                            </div>
+                            <div class="form-group">
+                                <label>Start Year:</label>
 
-                            <div class="input-group date">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
+                                <div class="input-group date">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input type="text" id="dpSchoolStar" class="form-control pull-right"
+                                           name="dpSchoolStart"
+                                           placeholder="Enter start year">
                                 </div>
-                                <input type="text" id="dpSchoolStar" class="form-control pull-right"
-                                       placeholder="Enter start year">
+                            </div>
+                            <div class="form-group">
+                                <label>End Year (Or expected graduation year):</label>
+
+                                <div class="input-group date">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input type="text" id="dpSchoolEnd" class="form-control pull-right"
+                                           name="dpSchoolEnd"
+                                           placeholder="Enter end year">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtGrade">Graduation Grade</label>
+                                <input type="text" class="form-control" id="txtGrade" name="txtGrade"
+                                       placeholder="Enter graduation grade">
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label>End Year (Or expected graduation year):</label>
-
-                            <div class="input-group date">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
-                                </div>
-                                <input type="text" id="dpSchoolEnd" class="form-control pull-right"
-                                       placeholder="Enter end year">
-                            </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" value="SchoolSubmit" class="btn btn-primary">Save</button>
                         </div>
-                        <div class="form-group">
-                            <label for="txtGrade">Graduation Grade</label>
-                            <input type="text" class="form-control" id="txtGrade"
-                                   placeholder="Enter graduation grade">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save</button>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -571,12 +575,12 @@
                             <div class="form-group">
                                 <label for="txtLanguageName">Language Name</label>
                                 <input type="text" class="form-control" id="txtLanguageName" name="newLanguageName"
-                                    placeholder="Enter language you know">
+                                       placeholder="Enter language you know">
                             </div>
                             <div class="form-group">
                                 <label for="txtLanguageLevel">Level</label>
                                 <input type="text" class="form-control" id="txtLanguageLevel" name="newLanguageLevel"
-                                    placeholder="Enter language level">
+                                       placeholder="Enter language level">
                             </div>
                         </div>
                         <div class="modal-footer">

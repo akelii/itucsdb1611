@@ -20,7 +20,7 @@ def personal_cv_page_config(submit_type):
     if submit_type == 'GET':
         cvInformations=store.get_cv_information_s()
         experiences=t.get_experience_s()
-        return render_template('personal/cv.html',cvInformations=cvInformations, current_time=now.ctime(),)
+        return render_template('personal/cv.html',cvInformations=cvInformations, CurrentCV=0, current_time=now.ctime(),)
 
 
 
@@ -51,6 +51,19 @@ def personal_cv_pagewithkey_config(submit_type, key):
             ID = request.form['updateLanguageId']
             languages.UpdateLanguage(ID, updateName, updateLevel)
             allLanguages = languages.GetAllLanguagesByCVId(key)
+        elif request and 'txtSchoolName' in request.form and request.method == 'POST':
+            txtSchoolName = request.form['txtSchoolName']
+            txtSchoolDesc = request.form['txtSchoolDesc']
+            dpSchoolStart = request.form['dpSchoolStart']
+            dpSchoolEnd = request.form['dpSchoolEnd']
+            txtGrade = request.form['txtGrade']
+            e = Education(None, key, txtSchoolName, txtSchoolDesc, txtGrade, dpSchoolStart, dpSchoolEnd, False)
+            store_education.AddEducation(e)
+            listEducation = store_education.GetEducationListByCVId(key)
+        elif request and 'deleteEducation' in request.form and request.method == 'POST':
+            deleteIndex = request.form['deleteEducation']
+            store_education.DeleteEducation(deleteIndex)
+            listEducation = store_education.GetEducationListByCVId(key)
         elif request.form['add'] == "delete":
             key = request.form['delete_id']
             store.delete_cv_information(key)

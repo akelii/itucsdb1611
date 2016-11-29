@@ -20,8 +20,22 @@ class education_operations:
             query = """SELECT Education.ObjectId, SchoolName, Description, GraduationGrade, StartDate, EndDate
                         FROM Education
                         INNER JOIN CV ON (Education.CVId = CV.ObjectId)
-                        WHERE (Education.CVId=%s)"""
+                        WHERE (Education.CVId=%s AND Education.Deleted IS NOT True)"""
             cursor.execute(query, (key,))
             connection.commit()
             result = cursor.fetchall()
         return result
+
+    def DeleteEducation(self, key):
+        with dbapi2.connect(dsn) as connection:
+            cursor = connection.cursor()
+            query = """UPDATE Education SET Deleted = True WHERE (ObjectId=%s)"""
+            cursor.execute(query, (key,))
+            connection.commit()
+
+    def DeleteEducationWithoutStore(self, key):
+        with dbapi2.connect(dsn) as connection:
+            cursor = connection.cursor()
+            query = """DELETE FROM Education WHERE (ObjectId=%s)"""
+            cursor.execute(query, (key,))
+            connection.commit()

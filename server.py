@@ -244,8 +244,8 @@ def init_db():
                 SchoolName VARCHAR(256) NOT NULL,
                 Description VARCHAR(256),
                 GraduationGrade VARCHAR(100),
-                StartDate TIMESTAMP NOT NULL,
-                EndDate TIMESTAMP,
+                StartDate VARCHAR(20) NOT NULL,
+                EndDate VARCHAR(20),
                 Deleted BOOLEAN NOT NULL
         )"""
         cursor.execute(query)
