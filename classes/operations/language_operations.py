@@ -29,7 +29,7 @@ class language_operations:
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
             query = """SELECT Language.ObjectId, Language.CVId, Language.Name, Language.Level FROM Language INNER JOIN CV ON(Language.CVId = CV.ObjectId) WHERE (CV.ObjectId = %s)"""
-            cursor.execute(query, (key))
+            cursor.execute(query, (key,))
             result = cursor.fetchall()
         return result
 

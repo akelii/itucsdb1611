@@ -54,6 +54,10 @@ def connections_following_projects():
 def personal_cv_page():
     return personal_cv_page_config(request.method)
 
+@site.route('/cv/<int:key>',methods=["GET", "POST"])
+def personal_cv_pagewithkey(key):
+    return personal_cv_pagewithkey_config(request.method, key)
+
 @site.route('/settings')
 def personal_settings_page():
     return render_template('personal/settings.html')

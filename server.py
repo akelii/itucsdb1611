@@ -237,6 +237,20 @@ def init_db():
                 Deleted BOOLEAN NOT NULL
         )"""
         cursor.execute(query)
+
+        query = """CREATE TABLE IF NOT EXISTS Education(
+                ObjectId SERIAL PRIMARY KEY,
+                CVId INT NOT NULL,
+                SchoolName VARCHAR(256) NOT NULL,
+                Description VARCHAR(256),
+                GraduationGrade VARCHAR(100),
+                StartDate TIMESTAMP NOT NULL,
+                EndDate TIMESTAMP,
+                Deleted BOOLEAN NOT NULL
+        )"""
+        cursor.execute(query)
+
+
         cursor.execute("""ALTER TABLE Team ADD FOREIGN KEY(MemberId) REFERENCES Person(ObjectId) ON DELETE SET NULL""")
         cursor.execute("""ALTER TABLE Team ADD FOREIGN KEY(ProjectId) REFERENCES Project(ObjectId) ON DELETE SET NULL""")
         cursor.execute("""ALTER TABLE PersonComment ADD FOREIGN KEY(CommentedPersonId) REFERENCES Person(ObjectId) ON DELETE SET NULL""")
@@ -268,7 +282,7 @@ def init_db():
         cursor.execute("""ALTER TABLE FollowedPerson ADD  FOREIGN KEY(FollowedPersonId) REFERENCES Person(ObjectId) ON DELETE SET NULL """)
         cursor.execute("""ALTER TABLE FollowedProject ADD  FOREIGN KEY(PersonId) REFERENCES Person(ObjectId) ON DELETE SET NULL """)
         cursor.execute("""ALTER TABLE FollowedProject ADD  FOREIGN KEY(FollowedProjectId) REFERENCES Project(ObjectId) ON DELETE SET NULL """)
-
+        cursor.execute("""ALTER TABLE Education ADD FOREIGN KEY (CVId) REFERENCES CV(ObjectId) ON DELETE CASCADE """)
 
         cursor.execute("""INSERT INTO ProjectType (Name, Deleted) VALUES ('Tubitak Projects' , '0')""")
         cursor.execute("""INSERT INTO Title (Name, Deleted) VALUES ('Prof.' , '0')""")
@@ -294,9 +308,7 @@ def init_db():
         cursor.execute("""INSERT INTO InformationType (Name, Deleted) VALUES ('E-Mail', '0'), ('Telephone', '0'), ('Twitter', '0'),
                           ('LinkedIn', '0'), ('Facebook', '0'),('Instagram', '0'),('Blog', '0'),('MySpace', '0'),
                           ('Tumblr', '0'),('Address', '0')""")
-#        cursor.execute("""INSERT INTO Person (firstname, lastname, accounttypeid, e_mail, password, gender, titleid, photopath, deleted) VALUES('Gulcin', 'Baykal', 1, 'baykalg@itu.edu.tr', '1234', NULL, 1, NULL, false""")
-#        cursor.execute("""INSERT INTO Person (firstname, lastname, accounttypeid, e_mail, password, gender, titleid, photopath, deleted) VALUES('Elif', 'Ak', 1, 'akeli@itu.edu.tr', '1234', NULL, 1, NULL, false""")
-#        cursor.execute("""INSERT INTO Team (ProjectId, MemberId, Deleted) VALUES ('1', 1 , '0')""")
+
         return redirect(url_for('site.home_page'))
 
 

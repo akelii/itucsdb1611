@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AcademicFreelance</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AcademicFreelance</title>
     <link href=../static/admin_lte/img/favicon.ico rel=icon>
-  <!-- Tell the browser to be responsive to screen width -->
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <!-- Bootstrap 3.3.6 -->
-  <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="../static/admin_lte/css/AdminLTE.min.css">
-  <link rel="stylesheet" href="../static/admin_lte/css/skins/_all-skins.css">
-
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../static/admin_lte/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="../static/admin_lte/css/skins/_all-skins.css">
+    <link rel="stylesheet" href="../static/plugins/datepicker/datepicker3.css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
@@ -29,203 +29,218 @@
 <!-- Site wrapper -->
 <div class="wrapper">
 
-  <header class="main-header">
-    <!-- Logo -->
-    <a href="{{ url_for('site.home_page') }}" class="logo">
-      <span class="logo-mini"><b>Ac</b>Fe</span>
-      <span class="logo-lg"><b>Academic</b>Freelance</span>
-    </a>
-    <nav class="navbar navbar-static-top">
-      <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </a>
-
-      <div class="navbar-custom-menu">
-        <ul class="nav navbar-nav">
-          <li class="dropdown messages-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-envelope-o"></i>
-              <span class="label label-success">4</span>
+    <header class="main-header">
+        <!-- Logo -->
+        <a href="{{ url_for('site.home_page') }}" class="logo">
+            <span class="logo-mini"><b>Ac</b>Fe</span>
+            <span class="logo-lg"><b>Academic</b>Freelance</span>
+        </a>
+        <nav class="navbar navbar-static-top">
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
             </a>
-            <ul class="dropdown-menu">
-              <li class="header">You have 4 messages</li>
-              <li>
-                <!-- inner menu: contains the actual data -->
-                <ul class="menu">
-                  <li><!-- start message -->
-                    <a href="#">
-                      <div class="pull-left">
-                        <img src="../static/admin_lte/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-                      </div>
-                      <h4>
-                        Support Team
-                        <small><i class="fa fa-clock-o"></i> 5 mins</small>
-                      </h4>
-                      <p>Why not buy a new awesome theme?</p>
-                    </a>
-                  </li>
-                  <!-- end message -->
+
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown messages-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-envelope-o"></i>
+                            <span class="label label-success">4</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="header">You have 4 messages</li>
+                            <li>
+                                <!-- inner menu: contains the actual data -->
+                                <ul class="menu">
+                                    <li><!-- start message -->
+                                        <a href="#">
+                                            <div class="pull-left">
+                                                <img src="../static/admin_lte/img/user2-160x160.jpg" class="img-circle"
+                                                     alt="User Image">
+                                            </div>
+                                            <h4>
+                                                Support Team
+                                                <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                                            </h4>
+                                            <p>Why not buy a new awesome theme?</p>
+                                        </a>
+                                    </li>
+                                    <!-- end message -->
+                                </ul>
+                            </li>
+                            <li class="footer"><a href="#">See All Messages</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown notifications-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-bell-o"></i>
+                            <span class="label label-warning">10</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="header">You have 10 notifications</li>
+                            <li>
+                                <ul class="menu">
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-exclamation-triangle text-aqua"></i> You have 1 project
+                                            assigned to you.
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="footer"><a href="#">View all</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown notifications-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-user-plus"></i>
+                            <span class="label label-info">3</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="header">You have 3 invitations</li>
+                            <li>
+                                <ul class="menu">
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="footer"><a href="#">View all</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="../static/admin_lte/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                            <span class="hidden-xs">John Doe</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="user-header">
+                                <img src="../static/admin_lte/img/user2-160x160.jpg" class="img-circle"
+                                     alt="User Image">
+
+                                <p>
+                                    John Doe - Web Developer
+                                    <small>Member since Nov. 2012</small>
+                                </p>
+                            </li>
+
+                            <li class="user-footer">
+                                <div class="pull-left">
+                                    <a href="{{ url_for('site.personal_default_page') }}"
+                                       class="btn btn-default btn-flat">Profile</a>
+                                </div>
+                                <div class="pull-right">
+                                    <a href="{{ url_for('site.logout_page') }}" class="btn btn-default btn-flat">Sign
+                                        out</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
-              </li>
-              <li class="footer"><a href="#">See All Messages</a></li>
-            </ul>
-          </li>
-          <li class="dropdown notifications-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-bell-o"></i>
-              <span class="label label-warning">10</span>
-            </a>
-            <ul class="dropdown-menu">
-                <li class="header">You have 10 notifications</li>
-                <li>
-                    <ul class="menu">
-                        <li>
-                            <a href="#">
-                                <i class="fa fa-exclamation-triangle text-aqua"></i> You have 1 project assigned to you.
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="footer"><a href="#">View all</a></li>
-            </ul>
-          </li>
-          <li class="dropdown notifications-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-user-plus"></i>
-              <span class="label label-info">3</span>
-            </a>
-            <ul class="dropdown-menu">
-                <li class="header">You have 3 invitations</li>
-                <li>
-                    <ul class="menu">
-                        <li>
-                            <a href="#">
-                                <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="footer"><a href="#">View all</a></li>
-            </ul>
-          </li>
-          <li class="dropdown user user-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="../static/admin_lte/img/user2-160x160.jpg" class="user-image" alt="User Image">
-              <span class="hidden-xs">John Doe</span>
-            </a>
-            <ul class="dropdown-menu">
-              <li class="user-header">
-                <img src="../static/admin_lte/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+            </div>
+        </nav>
+    </header>
 
-                <p>
-                  John Doe - Web Developer
-                  <small>Member since Nov. 2012</small>
-                </p>
-              </li>
 
-              <li class="user-footer">
-                <div class="pull-left">
-                  <a href="{{ url_for('site.personal_default_page') }}" class="btn btn-default btn-flat">Profile</a>
+    <aside class="main-sidebar">
+        <section class="sidebar">
+            <div class="user-panel">
+                <div class="pull-left image">
+                    <img src="../static/admin_lte/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                 </div>
-                <div class="pull-right">
-                  <a href="{{ url_for('site.logout_page') }}" class="btn btn-default btn-flat">Sign out</a>
+                <div class="pull-left info">
+                    <p>John Doe</p>
                 </div>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-    </nav>
-  </header>
-
-
-  <aside class="main-sidebar">
-    <section class="sidebar">
-      <div class="user-panel">
-        <div class="pull-left image">
-          <img src="../static/admin_lte/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-        </div>
-        <div class="pull-left info">
-          <p>John Doe</p>
-        </div>
-      </div>
-        <ul class="sidebar-menu">
-            <li class="header">MAIN NAVIGATION</li>
-            <li class="treeview active">
-                <a href="./">
-                    <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-                </a>
-            </li>
-            <li class="treeview">
-                <a href="personal/default.html">
-                    <i class="fa fa-user"></i>
-                    <span>Personal</span>
-                    <span class="pull-right-container">
+            </div>
+            <ul class="sidebar-menu">
+                <li class="header">MAIN NAVIGATION</li>
+                <li class="treeview active">
+                    <a href="./">
+                        <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="treeview">
+                    <a href="personal/default.html">
+                        <i class="fa fa-user"></i>
+                        <span>Personal</span>
+                        <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="{{ url_for('site.personal_default_page') }}"><i class="fa fa-child"></i> Profile</a></li>
-                    <li><a href="{{ url_for('site.personal_issues_page') }}"><i class="fa fa-tasks"></i> My Issues</a></li>
-                    <li><a href="{{ url_for('site.personal_cv_page') }}"><i class="fa fa-file-text-o"></i> CV</a></li>
-                    <li><a href="{{ url_for('site.personal_settings_page') }}"><i class="fa fa-gear"></i> Settings</a></li>
-                </ul>
-            </li>
-            <li class="treeview">
-                <a href="#"><i class="fa fa-share-alt"></i>
-                <span>Connections</span>
-                <span class="pull-right-container">
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="{{ url_for('site.personal_default_page') }}"><i class="fa fa-child"></i>
+                            Profile</a></li>
+                        <li><a href="{{ url_for('site.personal_issues_page') }}"><i class="fa fa-tasks"></i> My
+                            Issues</a></li>
+                        <li><a href="{{ url_for('site.personal_cv_page') }}"><i class="fa fa-file-text-o"></i> CV</a>
+                        </li>
+                        <li><a href="{{ url_for('site.personal_settings_page') }}"><i class="fa fa-gear"></i>
+                            Settings</a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#"><i class="fa fa-share-alt"></i>
+                        <span>Connections</span>
+                        <span class="pull-right-container">
                     <i class="fa fa-angle-left pull-right"></i>
                 </span></a>
-                <ul class="treeview-menu">
-                    <li><a href="{{ url_for('site.connections_following_people') }}"><i class="fa fa-users"></i> Following People</a></li>
-                    <li><a href="{{ url_for('site.connections_following_projects') }}"><i class="fa fa-files-o"></i> Following Projects</a></li>
-                </ul>
-            </li>
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-book"></i>
-                    <span>Projects</span>
-                    <span class="pull-right-container">
+                    <ul class="treeview-menu">
+                        <li><a href="{{ url_for('site.connections_following_people') }}"><i class="fa fa-users"></i>
+                            Following People</a></li>
+                        <li><a href="{{ url_for('site.connections_following_projects') }}"><i class="fa fa-files-o"></i>
+                            Following Projects</a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-book"></i>
+                        <span>Projects</span>
+                        <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="{{ url_for('site.projects_search_page') }}"><i class="fa fa-search"></i> Search for Projects</a></li>
-                    <li><a href="{{ url_for('site.projects_create_page') }}"><i class="fa fa-plus"></i> Create Project</a></li>
-                </ul>
-            </li>
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-users"></i>
-                    <span>People</span>
-                    <span class="pull-right-container">
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="{{ url_for('site.projects_search_page') }}"><i class="fa fa-search"></i> Search for
+                            Projects</a></li>
+                        <li><a href="{{ url_for('site.projects_create_page') }}"><i class="fa fa-plus"></i> Create
+                            Project</a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-users"></i>
+                        <span>People</span>
+                        <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="{{ url_for('site.people_search_person_page') }}"><i class="fa fa-search"></i>Search for People</a></li>
-                </ul>
-            </li>
-        </ul>
-    </section>
-  </aside>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="{{ url_for('site.people_search_person_page') }}"><i class="fa fa-search"></i>Search
+                            for People</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+    </aside>
 
-  <!-- =============================================== -->
+    <!-- =============================================== -->
 
-  <div class="content-wrapper">
-      {% block container %}{% endblock %}
-  </div>
-
-  <footer class="main-footer">
-    <div class="pull-right hidden-xs">
-      <b>Version</b> 1.1
+    <div class="content-wrapper">
+        {% block container %}{% endblock %}
     </div>
-    <strong>Copyright &copy; 2016 <a href="http://github.com/itucsdb1611/itucsdb1611"> AcademicFreelance </a></strong> All rights reserved.
-  </footer>
+
+    <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+            <b>Version</b> 1.1
+        </div>
+        <strong>Copyright &copy; 2016 <a href="http://github.com/itucsdb1611/itucsdb1611">
+            AcademicFreelance </a></strong> All rights reserved.
+    </footer>
 </div>
 <script src="../static/plugins/jQuery/jquery-2.2.3.min.js"></script>
 
@@ -238,5 +253,6 @@
 <script src="../static/admin_lte/js/app.min.js"></script>
 
 <script src="../static/admin_lte/js/demo.js"></script>
+<script src="../static/plugins/datepicker/bootstrap-datepicker.js"></script>
 </body>
 </html>
