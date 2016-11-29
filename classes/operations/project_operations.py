@@ -27,26 +27,33 @@ class project_operations:
             cursor.execute("""DELETE FROM Project WHERE (ObjectId=%s)""", (key,))
             connection.commit()
 
-    def update_project(self, key, title, project_description, project_type, project_thesis_type, department,
-                       project_status_type, start_date, end_date, member_limit, team, created_by, manager, deleted):
+    def update_project(self, key, title, project_description, end_date, member_limit, manager, deleted):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
             cursor.execute(
-                """UPDATE Project SET Name = %s, Description = %s, ProjectTypeId = %s, ProjectThesisTypeId = %s, DepartmentId = %s, ProjectStatusTypeId = %s, StartDate = %s, EndDate = %s, MemberLimit = %s, TeamId = %s, CreatedByPersonId = %s, ProjectManagerId = %s, Deleted = %s WHERE (ObjectId=%s)""",
-                (title, project_description, project_type, project_thesis_type, department, project_status_type,
-                 start_date, end_date, member_limit, team, created_by, manager, deleted, key))
+                """UPDATE Project SET Name = %s, Description = %s, EndDate = %s, MemberLimit = %s, ProjectManagerId = %s, Deleted = %s WHERE (ObjectId=%s)""",
+                (title, project_description, end_date, member_limit, manager, deleted, key))
             connection.commit()
 
     def get_project(self, key):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
-            cursor.execute("""SELECT Name, Description FROM Project WHERE (ObjectID=%s)""", (key,))
+            query = """SELECT Project.Name, Project.Description, ProjectType.Name, Department.Name, ProjectStatusType.Name, Person.FirstName, Person.LastName, Project.ObjectId FROM Project
+                              JOIN ProjectType ON(Project.ProjectTypeId=ProjectType.ObjectId)
+                              JOIN Department ON(Project.DepartmentId = Department.ObjectId)
+                              JOIN ProjectStatusType ON(Project.ProjectStatusTypeId=ProjectStatusType.ObjectId)
+                              JOIN Person ON(Project.CreatedByPersonId=Person.ObjectId)
+                              WHERE (Project.ObjectID = %s)"""
+            cursor.execute(query, (key,))
+            project = cursor.fetchone()
             connection.commit()
+        return project
 
     def get_projects(self):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
-            cursor.execute("""SELECT * FROM Project""")
+            cursor.execute("""SELECT Project.ObjectId, Project.Name, Description, Department.Name
+                              FROM Project JOIN Department ON(Project.DepartmentId = Department.ObjectId)""")
             projects = cursor.fetchall()
             connection.commit()
         return projects
