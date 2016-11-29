@@ -106,7 +106,9 @@
                                                                                         <button name="updateEducation"
                                                                                                 value="{{ education[0] }}"
                                                                                                 type="button"
-                                                                                                class="btn btn-box-tool">
+                                                                                                class="btn btn-box-tool"
+                                                                                                data-toggle="modal"
+                                                                                                data-target="#EducationUpdateModal">
                                                                                             <i class="fa fa-pencil-square-o fa-2x"></i>
                                                                                         </button>
                                                                                         &nbsp;
@@ -126,8 +128,6 @@
                                                                                 </span>
                                                                                     </div>
                                                                                 </li>
-
-
                                                                             </ul>
                                                                         </form>
                                                                     </div>
@@ -433,37 +433,51 @@
 
                                                                                     <form method="post"
                                                                                           action="{{ action }}">
-                                                                                        <button name="deleteLanguage"
-                                                                                                value="{{ language[0] }}"
-                                                                                                type="submit"
-                                                                                                class="btn btn-box-tool">
-                                                                                            <i class="fa fa-times-circle fa-2x"></i>
-                                                                                        </button>
-                                                                                    </form>
+                                                                                        <div class="dropdown">
+                                                                                            <button name="deleteLanguage"
+                                                                                                    value="{{ language[0] }}"
+                                                                                                    type="submit"
+                                                                                                    class="btn btn-box-tool">
+                                                                                                <i class="fa fa-times-circle fa-2x"></i>
+                                                                                            </button>
 
-                                                                                        <form method="post" action="{{ action }}">
- +                                                                                        <div class="dropdown" >
- +                                                                                            <button class="btn btn-box-tool" type="button" data-toggle="dropdown">
- +                                                                                                <i class="fa fa-pencil-square-o fa-2x"></i> </button>
- +                                                                                                <ul class="dropdown-menu" style="border: 2px #f2f2f2">
- +                                                                                                    <li>Language Name:  </li>
- +                                                                                                    <li>
- +                                                                                                        <div class="col-xs-ao">
- +                                                                                                            <input type="text" name="updateLanguageName"  class="form-control">
- +                                                                                                        </div>
- +                                                                                                    </li>
- +                                                                                                    <li>Language Level:  </li>
- +                                                                                                    <li>
- +                                                                                                        <div class="col-xs-ao">
- +                                                                                                            <input type="text" name="updateLanguageLevel"  class="form-control">
- +                                                                                                            <input type="hidden" name="updateLanguageId"  value= "{{ language[0] }}" class="form-control">
- +                                                                                                        </div>
- +                                                                                                    </li>
- +                                                                                                    <li><button type="submit" value="Submit"  >Update</button></li>
- +                                                                                                </ul>
- +                                                                                            </div>
- +                                                                                    </form>
-                                                                                        &nbsp;
+                                                                                            <button class="btn btn-box-tool"
+                                                                                                    type="button"
+                                                                                                    data-toggle="dropdown">
+                                                                                                <i class="fa fa-pencil-square-o fa-2x"></i>
+                                                                                            </button>
+                                                                                            <ul class="dropdown-menu"
+                                                                                                style="border: 2px #f2f2f2">
+                                                                                                <li>Language Name:</li>
+                                                                                                <li>
+                                                                                                    <div class="col-xs-ao">
+                                                                                                        <input type="text"
+                                                                                                               name="updateLanguageName"
+                                                                                                               class="form-control">
+                                                                                                    </div>
+                                                                                                </li>
+                                                                                                <li>Language Level:</li>
+                                                                                                <li>
+                                                                                                    <div class="col-xs-ao">
+                                                                                                        <input type="text"
+                                                                                                               name="updateLanguageLevel"
+                                                                                                               class="form-control"><input
+                                                                                                            type="hidden"
+                                                                                                            name="updateLanguageId"
+                                                                                                            value="{{ language[0] }}"
+                                                                                                            class="form-control">
+                                                                                                    </div>
+                                                                                                </li>
+                                                                                                <li>
+                                                                                                    <button type="submit"
+                                                                                                            value="Submit">
+                                                                                                        Update
+                                                                                                    </button>
+                                                                                                </li>
+                                                                                            </ul>
+                                                                                        </div>
+                                                                                    </form>
+                                                                                    &nbsp;
 
                                                                                 </div>
                                                                                 <div class="product-info">
@@ -579,7 +593,65 @@
             </div>
         </div>
 
+        <div class="modal fade" id="EducationUpdateModal" tabindex="-1" role="dialog"
+             aria-labelledby="EducationModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="EducationModalLabel">Education</h4>
+                    </div>
+                    <form role="form" , action="" method="post">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="txtSchoolName">School Name</label>
+                                <input type="text" class="form-control" id="txtSchoolName" name="txtSchoolName"
+                                       placeholder="Enter school name">
+                            </div>
+                            <div class="form-group">
+                                <label for="txtSchoolDesc">Description</label>
+                                <input type="text" class="form-control" id="txtSchoolDesc" name="txtSchoolDesc"
+                                       placeholder="Field of studies etc.">
+                            </div>
+                            <div class="form-group">
+                                <label>Start Year:</label>
 
+                                <div class="input-group date">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input type="text" id="dpSchoolStar" class="form-control pull-right"
+                                           name="dpSchoolStart"
+                                           placeholder="Enter start year">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>End Year (Or expected graduation year):</label>
+
+                                <div class="input-group date">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input type="text" id="dpSchoolEnd" class="form-control pull-right"
+                                           name="dpSchoolEnd"
+                                           placeholder="Enter end year">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtGrade">Graduation Grade</label>
+                                <input type="text" class="form-control" id="txtGrade" name="txtGrade"
+                                       placeholder="Enter graduation grade">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" value="SchoolSubmit" class="btn btn-primary">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
         <div class="modal fade" id="LanguageModal" tabindex="-1" role="dialog" aria-labelledby="LanguageModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -922,6 +994,9 @@
 
     <script type="javascript">
 
+        $(document).ready(function () {
+            alert("ready!");
+        });
         $(function () {
             debugger;
             $('#datepicker').datepicker({
