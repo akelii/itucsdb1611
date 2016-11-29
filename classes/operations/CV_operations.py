@@ -17,6 +17,14 @@ class cv_operations:
             result = cursor.fetchone()
         return result
 
+    def get_cvs(self):
+        with dbapi2.connect(dsn) as connection:
+            cursor = connection.cursor()
+            query = "SELECT ObjectId, PersonId, CreatedDate, UpdatedDate, CvName FROM CV"
+            cursor.execute(query)
+            cvs = [(key, CV(key, PersonId, CreatedDate, UpdatedDate, CvName)) for
+                   key, PersonId, CreatedDate, UpdatedDate, CvName in cursor]
+        return cvs
 
     def update_cv(self, key):
         with dbapi2.connect(dsn) as connection:

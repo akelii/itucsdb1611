@@ -17,10 +17,13 @@ def personal_cv_page_config(submit_type):
     store = cv_information_operations()
     t = experience_operations()
     now = datetime.now()
+    store_CV = cv_operations()
+
     if submit_type == 'GET':
         cvInformations=store.get_cv_information_s()
         experiences=t.get_experience_s()
-        return render_template('personal/cv.html',cvInformations=cvInformations, CurrentCV=0, current_time=now.ctime(),)
+        cvs=store_CV.get_cvs()
+        return render_template('personal/cv.html',cvs=cvs,cvInformations=cvInformations, CurrentCV=0, current_time=now.ctime(),)
 
 
 
@@ -35,6 +38,8 @@ def personal_cv_pagewithkey_config(submit_type, key):
     listEducation = store_education.GetEducationListByCVId(key)
     experiences = t.get_experience_s()
     allLanguages = languages.GetAllLanguagesByCVId(key)
+    cvs = store_CV.get_cvs()
+
     if submit_type == 'POST':
         if request and 'deleteLanguage' in request.form and request.method == 'POST':
             deleteIndex = request.form['deleteLanguage']
@@ -104,5 +109,5 @@ def personal_cv_pagewithkey_config(submit_type, key):
             idtype = request.form['add']
             cvinfo = CVInformation(None, '2', description, idtype, None, None)
             store.add_cv_information(cvinfo)
-    return render_template('personal/cv.html', CurrentCV=CurrentCV, languages = allLanguages, experiences=experiences, listEducation=listEducation,
+    return render_template('personal/cv.html', cvs=cvs,CurrentCV=CurrentCV, languages = allLanguages, experiences=experiences, listEducation=listEducation,
                                    current_time=now.ctime())
