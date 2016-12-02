@@ -1,106 +1,139 @@
 {% extends "layout.html" %}
 {% block container %}
     <section class="content-header">
-        <form role="form" action="" method="get" name="cv" class="form-horizontal">
-            <h1>
-                CV
-            </h1>
-            <ol class="breadcrumb">
-                <li><a href='{{ url_for('site.home_page') }}'><i class="fa fa-dashboard"></i> Homepage</a></li>
-                <li><a href='#'><i class="fa fa-dashboard"></i> Personal</a></li>
-                <li class="active">My CV</li>
-            </ol>
-        </form>
+        <h1>&nbsp;</h1>
+        <ol class="breadcrumb">
+            <li><a href='{{ url_for('site.home_page') }}'><i class="fa fa-dashboard"></i> Homepage</a></li>
+            <li><a href='{{ url_for('site.personal_default_page') }}'><i class="fa fa-dashboard"></i> Personal</a></li>
+            <li class="active">My CV</li>
+        </ol>
     </section>
 
     <section class="content">
-    {%  if cvs[0]  is  none %}
-        <div class="callout callout-warning">
-            <h4>Attention here!</h4>
-            <p>There aren't any CV record that belongs to you! Quickly add a new one!</p>
-        </div>
-    {% endif %}
+        {% if cvs[0]  is  none %}
+            <div class="callout callout-warning">
+                <h4>Attention here!</h4>
+                <p>There aren't any CV record that belongs to you! Quickly add a new one!</p>
+            </div>
+        {% endif %}
 
-    {% for key, cv in cvs %}
-        <div class="row">
-            <div class="col-lg-3 col-xs-6">
-                <div class="small-box bg-gray-active">
-                    <div class="inner">
-                        <h3>CV</h3>
 
-                        <h2>{{ cv.CVName }}</h2>
-                    </div>
-                    <div class="icon">
-                        <i class="fa fa-file-text-o"></i>
-                    </div>
-                    <a href={{ url_for('site.personal_cv_pagewithkey', key=cv.ObjectId) }} class="small-box-footer">Let's look
-                        your {{ cv.CVName }} CV <i class="fa fa-arrow-circle-right"></i></a>
+        <div class="box">
+            <div class="box-header with-border">
+                &nbsp;
+                <div class="box-tools pull-right">
+                    <b>
+                        <button data-toggle="modal"
+                                data-target="#CVModal" type="button" class="btn btn-box-tool btn-success btn-flat"
+                                style="color: white">&nbsp;&nbsp;<i class="fa fa-plus">&nbsp;&nbsp;<b>Add
+                            New One!</b>&nbsp;&nbsp;</i>
+                        </button>
+                    </b>
                 </div>
             </div>
-        <div class="col-lg-3 col-xs-5">                                         <form form action="{{ action }}"
-                                                                                          method="POST">
-                                                                                        <input type=hidden
-                                                                                               value="{{ cv.ObjectId }}"
-                                                                                               name="delete_id"/>
-                                                                                        <button type="submit"
-                                                                                                class="btn btn-box-tool"
-                                                                                                name="add"
-                                                                                                value="delete_cv">
-                                                                                            <i class="fa fa-times-circle fa-2x"></i>
-                                                                                        </button>
-                                                                                        &nbsp;
-                                                                                    </form>
-    </div>
+            <div class="box-body">
+                <p>&nbsp;&nbsp;You can choose below CV's to edit. Hurry up and choose one of them!</p>
+            </div>
         </div>
-    {% endfor %}
 
-    <div class="form-group">
-                  <label></label>
-                        <div class="pull-left header"><a href="#" data-toggle="modal"
-                                                                                        data-target="#CVModal"><i
-                                                                class="fa fa-plus-square-o"></i> Add CV</a>
-                                                        </div>
-                </div>
-   <form  role="form" action="" method="POST" name="Add_CV" >
-            <div class="modal fade" id="CVModal" tabindex="-1" role="dialog" aria-labelledby="CVModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="CVModalLabel">New Cv</h4>
+        <div class="row">
+            {% for key, cv in cvs %}
+                <div class="col-md-3 col-xs-6">
+                    <div class="small-box bg-teal-active">
+                        <div class="inner">
+                            <h3>CV</h3>
+                            <p>{{ cv.CVName }}</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-file-text-o"></i>
+                        </div>
+                        <a href={{ url_for('site.personal_cv_pagewithkey', key=cv.ObjectId) }} class="small-box-footer">
+                            Let's look right now! &nbsp;&nbsp;<i class="fa fa-arrow-circle-right"></i></a>
                     </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="txtSchoolName">CV Name</label>
-                            <input type="text" class="form-control" id="txtSchoolName" name="CvName"  placeholder="Enter CV name">
+                </div>
+                {#                <div class="col-lg-3 col-xs-5">
+                    <form form action="{{ action }}"
+                          method="POST">
+                        <input type=hidden
+                               value="{{ cv.ObjectId }}"
+                               name="delete_id"/>
+                        <button type="submit"
+                                class="btn btn-box-tool"
+                                name="add"
+                                value="delete_cv">
+                            <i class="fa fa-times-circle fa-2x"></i>
+                        </button>
+                        &nbsp;
+                    </form>
+                </div>#}
+            {% endfor %}
+        </div>
+        <form role="form" action="" method="POST" name="Add_CV">
+            <div class="modal fade" id="CVModal" tabindex="-1" role="dialog" aria-labelledby="CVModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="CVModalLabel">New Cv</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="txtCvName">CV Name</label>
+                                <input type="text" class="form-control" id="txtCvName" name="CvName"
+                                       placeholder="Enter CV name" value="">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" name="New_CV" class="btn btn-primary">Save</button>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit"  name="New_CV"  class="btn btn-primary">Save</button>
-                    </div>
                 </div>
             </div>
-        </div>
-</form>
+        </form>
 
+        {% if CurrentCV != 0 %}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-solid">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">CV Settings</h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-3 col-xs-4">
+                                    <div class="form-group">
+                                        <label for="cvName">CV Name</label>
+                                        <input size="6" type="text" class="form-control" id="cvName"
+                                               placeholder="Enter CV Name" value="{{ CurrentCV[4] }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-xs-4">
+                                    <div class="form-group">
+                                        <label for="cvName">Create Date</label>
+                                        <input disabled="disabled" size="6" type="text" class="form-control" id="cvName"
+                                               value="{{ CurrentCV[2].strftime('%d.%m.%Y  %H:%M') }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-xs-4">
+                                    <div class="form-group">
+                                        <label for="cvName">Last Update Date</label>
+                                        <input disabled="disabled" size="6" type="text" class="form-control" id="cvName"
+                                               value="{{ CurrentCV[3].strftime('%d.%m.%Y  %H:%M') }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-2 col-xs-4">
+                                    &nbsp;
+                                </div>
+                                <div class="col-md-1 col-xs-4">
+                                    <button type="button" class="btn btn-block btn-danger btn-flat"
+                                            onclick="return confirm('Are you sure to delete?')">Delete
+                                    </button>
+                                </div>
 
-
-
-        <div class="row">
-            <div class="col-md-12">
-                <div class="box box-solid">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">CV Settings</h3>
-                    </div>
-                    <div class="box-body">
-                        <form role="form">
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">CV Name</label>
-                                <input size="6" type="text" class="form-control" id="cvName"
-                                       placeholder="Enter CV Name">
                             </div>
+
                             <div class="box-group" id="accordion">
                                 <div class="panel box box-primary">
                                     <div class="box-header with-border">
@@ -113,10 +146,7 @@
                                     </div>
                                     <div id="collapseOne" class="panel-collapse collapse in" aria-expanded="false">
                                         <div class="box-body">
-                                            <i class="fa fa-language"></i>
-                                            <i class="fa fa-phone"></i>
                                         </div>
-
                                     </div>
                                 </div>
                                 <div class="panel box box-info">
@@ -239,7 +269,8 @@
                                                                                                         </div>
                                                                                                     </div>
                                                                                                     <div class="form-group">
-                                                                                                        <label>End Year
+                                                                                                        <label>End
+                                                                                                            Year
                                                                                                             (Or
                                                                                                             expected
                                                                                                             graduation
@@ -300,7 +331,8 @@
                                     <div class="box-header with-border">
                                         <h4 class="box-title">
                                             <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree"
-                                               class="collapsed" aria-expanded="false"><i class="fa fa-suitcase"></i>
+                                               class="collapsed" aria-expanded="false"><i
+                                                    class="fa fa-suitcase"></i>
                                                 Experience
                                             </a>
                                         </h4>
@@ -346,12 +378,14 @@
                                                                                         <input type=hidden
                                                                                                value="{{ experience.ObjectId }}"
                                                                                                name="delete_id"/>
-                                                                                        <a href="#" data-toggle="modal"
+                                                                                        <a href="#"
+                                                                                           data-toggle="modal"
                                                                                            data-target="#ExperienceUpdateModal"><i
                                                                                                 class="fa fa-pencil-square-o fa-2x"></i></a>&nbsp;
                                                                                         <div class="modal fade"
                                                                                              id="ExperienceUpdateModal"
-                                                                                             tabindex="-1" role="dialog"
+                                                                                             tabindex="-1"
+                                                                                             role="dialog"
                                                                                              aria-labelledby="ExperienceUpdateModalLabel">
                                                                                             <div class="modal-dialog"
                                                                                                  role="document">
@@ -468,11 +502,13 @@
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">
                                                                         <button type="button" class="close"
-                                                                                data-dismiss="modal" aria-label="Close"><span
+                                                                                data-dismiss="modal"
+                                                                                aria-label="Close"><span
                                                                                 aria-hidden="true">&times;</span>
                                                                         </button>
                                                                         <h4 class="modal-title"
-                                                                            id="ExperienceModalLabel">Experience</h4>
+                                                                            id="ExperienceModalLabel">
+                                                                            Experience</h4>
                                                                     </div>
                                                                     <form action="{{ action }}" method="POST">
                                                                         <div class="modal-body">
@@ -482,21 +518,24 @@
 
                                                                                 <label for="txtCompanyName">Company
                                                                                     Name</label>
-                                                                                <input type="text" class="form-control"
+                                                                                <input type="text"
+                                                                                       class="form-control"
                                                                                        id="txtCompanyName"
                                                                                        placeholder="Enter company name"
                                                                                        name="companyName">
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label for="txtDescriptionCompany">Description</label>
-                                                                                <input type="text" class="form-control"
+                                                                                <input type="text"
+                                                                                       class="form-control"
                                                                                        id="txtDescriptionCompany"
                                                                                        placeholder="Field of studies etc."
                                                                                        name="description">
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label for="txtPosition">Position</label>
-                                                                                <input type="text" class="form-control"
+                                                                                <input type="text"
+                                                                                       class="form-control"
                                                                                        id="txtPosition"
                                                                                        placeholder="Enter your position"
                                                                                        name="experience_position">
@@ -521,7 +560,8 @@
                                                                                     <div class="input-group-addon">
                                                                                         <i class="fa fa-calendar"></i>
                                                                                     </div>
-                                                                                    <input type="text" id="dpCompanyEnd"
+                                                                                    <input type="text"
+                                                                                           id="dpCompanyEnd"
                                                                                            class="form-control pull-right"
                                                                                            placeholder="Enter end year, leave blank is going on">
                                                                                 </div>
@@ -559,7 +599,8 @@
                                     <div class="box-header with-border">
                                         <h4 class="box-title">
                                             <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour"
-                                               class="collapsed" aria-expanded="false"><i class="fa fa-language"></i>
+                                               class="collapsed" aria-expanded="false"><i
+                                                    class="fa fa-language"></i>
                                                 Language
                                             </a>
                                         </h4>
@@ -603,7 +644,8 @@
                                                                                             </button>
                                                                                             <ul class="dropdown-menu"
                                                                                                 style="border: 2px #f2f2f2">
-                                                                                                <li>Language Name:</li>
+                                                                                                <li>Language Name:
+                                                                                                </li>
                                                                                                 <li>
                                                                                                     <div class="col-xs-ao">
                                                                                                         <input type="text"
@@ -612,7 +654,9 @@
                                                                                                                class="form-control">
                                                                                                     </div>
                                                                                                 </li>
-                                                                                                <li>Language Level:</li>
+                                                                                                <li>Language
+                                                                                                    Level:
+                                                                                                </li>
                                                                                                 <li>
                                                                                                     <div class="col-xs-ao">
                                                                                                         <input type="text"
@@ -661,8 +705,10 @@
                                     <div class="panel box box-default">
                                         <div class="box-header with-border">
                                             <h4 class="box-title">
-                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive"
-                                                   class="collapsed" aria-expanded="false"><i class="fa fa-star"></i>
+                                                <a data-toggle="collapse" data-parent="#accordion"
+                                                   href="#collapseFive"
+                                                   class="collapsed" aria-expanded="false"><i
+                                                        class="fa fa-star"></i>
                                                     Skill
                                                 </a>
                                             </h4>
@@ -674,7 +720,8 @@
                                                     <div class="nav-tabs-custom">
                                                         <ul class="nav nav-tabs pull-right">
 
-                                                            <li class="pull-left header"><a href="#" data-toggle="modal"
+                                                            <li class="pull-left header"><a href="#"
+                                                                                            data-toggle="modal"
                                                                                             data-target="#SkillModal"><i
                                                                     class="fa fa-plus-square-o"></i> Add</a>
                                                             </li>
@@ -685,12 +732,13 @@
                                         </div>
                                     </div>
                                 </div>
-                        </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                            Date Created = {{ CurrentCV[2]}} | Date Updated = {{ CurrentCV[3] }}
             </div>
-        </div>
+        {% endif %}
+
         <div class="modal fade" id="EducationModal" tabindex="-1" role="dialog" aria-labelledby="EducationModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -810,7 +858,7 @@
         </div>
 
 
-        <div class="input-group margin" style="width: 50%">
+        {#        <div class="input-group margin" style="width: 50%">
             <h3>Education</h3>
             <form action="{{ action }}" method="POST">
                 <div class="dropdown">
@@ -1087,14 +1135,13 @@
                     </li>
                 {% endif %}
             {% endfor %}
-        </ul>
+        </ul>#}
 
     </section>
 
-    <script type="javascript">
-
+    <script type="text/javascript">
         $(document).ready(function () {
-            alert("ready!");
+
         });
         $(function () {
             debugger;
