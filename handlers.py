@@ -9,6 +9,8 @@ from templates_operations.projects.project_comments import*
 from templates_operations.projects.project_add_comment import*
 from templates_operations.personal.cv import *
 from templates_operations.register import*
+from templates_operations.people.search_person import *
+from  templates_operations.people.person_detail import *
 
 site = Blueprint('site', __name__)
 
@@ -61,9 +63,13 @@ def personal_cv_pagewithkey(key):
 def personal_settings_page():
     return render_template('personal/settings.html')
 
-@site.route('/people_search')
+@site.route('/people_search', methods=["GET", "POST"])
 def people_search_person_page():
-    return render_template('people/search_person.html')
+    return people_search_person_page_config(request)
+
+@site.route('/person_detail/<int:key>', methods=["GET", "POST"])
+def people_person_detail_page(key):
+    return people_person_detail_page_config(request, key)
 
 @site.route('/login')
 def login_page():

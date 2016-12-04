@@ -9,6 +9,7 @@ import json
 import psycopg2 as dbapi2
 
 
+
 #def create_app():
 #    app = Flask(__name__)
 #    app.config.from_object('settings')
@@ -23,7 +24,7 @@ import psycopg2 as dbapi2
 
 app = Flask(__name__)
 app.register_blueprint(site)
-
+app.config['UPLOAD_FOLDER'] = 'static/user_images/'
 def get_elephantsql_dsn(vcap_services):
     """Returns the data source name for ElephantSQL."""
     parsed = json.loads(vcap_services)
@@ -118,7 +119,7 @@ def init_db():
                 LastName VARCHAR(50) NOT NULL,
 			    AccountTypeId INTEGER NOT NULL,
 			    eMail VARCHAR(100) NOT NULL,
-			    Password VARCHAR(50) NOT NULL,
+			    Password VARCHAR(400) NOT NULL,
 			    Gender BOOLEAN,
 			    TitleId INTEGER NOT NULL,
 			    PhotoPath VARCHAR(250),

@@ -36,7 +36,10 @@ def register_page_config(request):
                 filename = secure_filename(file.filename)
                 file.save(os.path.join('static/user_images', filename))
             else:
-                filename = 'noimage.jpg'
+                if gender == 'male':
+                    filename = 'noimage_male.jpg'
+                else:
+                    filename = 'noimage_female.jpg'
             p = Person(None, first_name, last_name, accountType, eMail, pswd, gender, title, filename, False)
             store.AddPerson(p)
             return render_template('dashboard.html')
