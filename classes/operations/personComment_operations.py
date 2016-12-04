@@ -32,11 +32,11 @@ class personComment_operations:
     def GetPersonCommentsByCommentedPersonId(self, commentedPersonId):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
-            query = """SELECT PersonComment.ObjectId ,p1.FirstName ||' '||  p1.LastName as FullName, PersonComment.Comment, PersonComment.UpdateDate, p1.ObjectId, p2.ObjectId
+            query = """SELECT PersonComment.ObjectId ,p1.FirstName ||' '||  p1.LastName as FullName, PersonComment.Comment, PersonComment.UpdateDate, p1.ObjectId, p2.ObjectId, p1.PhotoPath
                        FROM PersonComment
                        INNER JOIN Person AS p1 ON(PersonComment.PersonId = p1.ObjectId)
                        INNER JOIN Person AS p2 ON(PersonComment.CommentedPersonId = p2.ObjectId)
-                       WHERE (p2.ObjectId = %s)"""
+                       WHERE (p2.ObjectId = %s) ORDER BY PersonComment.CreateDate DESC"""
             cursor.execute(query, (commentedPersonId,))
             result = cursor.fetchall()
         return result

@@ -1,452 +1,647 @@
 {% extends "layout.html" %}
 {% block container %}
     <section class="content-header">
-      <h1>
-        Profile
-      </h1>
-      <ol class="breadcrumb">
-          <li><a href="{{ url_for('site.home_page') }}"><i class="fa fa-dashboard"></i> Homepage</a></li>
-          <li><a href="#">Personal</a></li>
-          <li class="active"><a href="#">Profile</a></li>
-      </ol>
+        <h1>
+            Profile
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="{{ url_for('site.home_page') }}"><i class="fa fa-dashboard"></i> Homepage</a></li>
+            <li><a href="#">Personal</a></li>
+            <li class="active"><a href="#">Profile</a></li>
+        </ol>
     </section>
 
     <section class="content">
-<div class="row">
-        <div class="col-md-3">
-          <!-- Profile Image -->
-          <div class="box box-primary">
-            <div class="box-body box-profile">
-              <img class="profile-user-img img-responsive img-circle" src="static/user_images/{{  Current_Person[7]|default('noimage.jpg') }}" alt="User profile picture">
-              <h3 class="profile-username text-center">{{ Current_Person[1] }}</h3>
-              <p class="text-muted text-center">{{ Current_Person[6] }}</p>
-              <ul class="list-group list-group-unbordered">
-                <li class="list-group-item">
-                  <b>Your Responsibilities</b> <a class="pull-right">4</a>
-                </li>
-                <li class="list-group-item">
-                  <b>Following</b> <a class="pull-right">{{ listFollowing|length }}</a>
-                </li>
-                <li class="list-group-item">
-                  <b>Followers</b> <a class="pull-right">{{ listFollowers|length }}</a>
-                </li>
-              </ul>
-            </div>
-          </div>
+        <div class="row">
+            <div class="col-md-3">
+                <!-- Profile Image -->
+                <div class="box box-primary">
+                    <div class="box-body box-profile">
+                        <img class="profile-user-img img-responsive img-circle"
+                             src="static/user_images/{{ Current_Person[7]|default('noimage.jpg') }}"
+                             alt="User profile picture">
+                        <h3 class="profile-username text-center">{{ Current_Person[1] }}</h3>
+                        <p class="text-muted text-center">{{ Current_Person[6] }}</p>
+                        <ul class="list-group list-group-unbordered">
+                            <li class="list-group-item">
+                                <b>Your Responsibilities</b> <a class="pull-right">4</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Following</b> <a class="pull-right">{{ listFollowing|length }}</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Followers</b> <a class="pull-right">{{ listFollowers|length }}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
 
-          <!-- About Me Box -->
-          <div class="box box-primary">
-            <div class="box-header with-border">
-              <h3 class="box-title">About Me</h3>
+                <!-- About Me Box -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">About Me</h3>
+                    </div>
+                    <div class="box-body">
+                        <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
+                        <p class="text-muted">
+                            B.S. in Computer Science from the Istanbul Technical University
+                        </p>
+                        <hr>
+                        <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
+                        <p class="text-muted">Istanbul, Turkey</p>
+                        <hr>
+                        <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
+                        <p>
+                            <span class="label label-danger">UI Design</span>
+                            <span class="label label-success">Coding</span>
+                            <span class="label label-info">Javascript</span>
+                            <span class="label label-warning">PHP</span>
+                            <span class="label label-primary">Node.js</span>
+                        </p>
+                        <hr>
+                        <strong><i class="fa fa-book margin-r-5"></i> Languages</strong>
+                        <p>
+                            <span class="label label-info">English</span>
+                        </p>
+                        <hr>
+                        <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+                    </div>
+                </div>
             </div>
-            <div class="box-body">
-              <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
-              <p class="text-muted">
-                B.S. in Computer Science from the Istanbul Technical University
-              </p>
-              <hr>
-              <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
-              <p class="text-muted">Istanbul, Turkey</p>
-              <hr>
-              <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
-              <p>
-                <span class="label label-danger">UI Design</span>
-                <span class="label label-success">Coding</span>
-                <span class="label label-info">Javascript</span>
-                <span class="label label-warning">PHP</span>
-                <span class="label label-primary">Node.js</span>
-              </p>
-              <hr>
-                <strong><i class="fa fa-book margin-r-5"></i> Languages</strong>
-              <p>
-                <span class="label label-info">English</span>
-              </p>
-              <hr>
-              <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-9">
-          <div class="nav-tabs-custom">
-            <ul class="nav nav-tabs">
-              <li class="active"><a href="#activeProjects" data-toggle="tab">Active Projects</a></li>
-              <li><a href="#followedProjects" data-toggle="tab">Followed Projects</a></li>
-              <li><a href="#followedPeople" data-toggle="tab">Followed People</a></li>
-              <li><a href="#settings" data-toggle="tab">Settings</a></li>
-                <li><a href = "#comments" data-toggle="tab">Comments</a></li>
-            </ul>
-            <div class="tab-content">
-              <div class="active tab-pane" id="activeProjects">
-                <div class="post">
-                  <div class="user-block">
+            <div class="col-md-9">
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#activeProjects" data-toggle="tab">Active Projects</a></li>
+                        <li><a href="#followedProjects" data-toggle="tab">Followed Projects</a></li>
+                        <li><a href="#followedPeople" data-toggle="tab">Followers | Following</a></li>
+                        <li><a href="#comments" data-toggle="tab">Comments</a></li>
+                        <li><a href="#settings" data-toggle="tab">Settings</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="active tab-pane" id="activeProjects">
+                            <div class="post">
+                                <div class="user-block">
                         <span class="username">
                           <a href="#">Project Name</a>
                           <a href="#" class="pull-right btn-box-tool"><i class="fa fa-edit fa-lg"></i></a>
                         </span>
-                    <span class="description">ProjectType</span>
-                  </div>
-                  <p>
-                    Project Description. Lorem ipsum represents a long-held tradition for designers,
-                    typographers and the like. Some people hate it and argue for
-                    its demise, but others ignore the hate as they create awesome
-                    tools to help create filler text for everyone from bacon lovers
-                  </p>
-                    <div class="col-md-1">&nbsp;</div>
-                    <div class="col-md-11">
-                    <div class="box box-default">
-                        <div class="box-header with-border">
-                          <h5 class="username"><a>Project Members</a></h5>
-                        </div>
-                      <div class="box-body">
-                        <img src="http://placehold.it/150x100" alt="..." class="margin">
-                        <img src="http://placehold.it/150x100" alt="..." class="margin">
-                        <img src="http://placehold.it/150x100" alt="..." class="margin">
-                        <img src="http://placehold.it/150x100" alt="..." class="margin">
-                      </div>
-                    </div>
-                    </div>
-                  <ul class="list-inline">
-                    <li><a href="#" class="link-black text-sm"><i class="fa fa-thumbs-o-up margin-r-5"></i> Like</a>
-                    </li>
-                    <li class="link-black"><span class="label label-warning">5</span></li>
-                  </ul>
-                </div>
-                <div class="post">
-                  <div class="user-block">
+                                    <span class="description">ProjectType</span>
+                                </div>
+                                <p>
+                                    Project Description. Lorem ipsum represents a long-held tradition for designers,
+                                    typographers and the like. Some people hate it and argue for
+                                    its demise, but others ignore the hate as they create awesome
+                                    tools to help create filler text for everyone from bacon lovers
+                                </p>
+                                <div class="col-md-1">&nbsp;</div>
+                                <div class="col-md-11">
+                                    <div class="box box-default">
+                                        <div class="box-header with-border">
+                                            <h5 class="username"><a>Project Members</a></h5>
+                                        </div>
+                                        <div class="box-body">
+                                            <img src="http://placehold.it/150x100" alt="..." class="margin">
+                                            <img src="http://placehold.it/150x100" alt="..." class="margin">
+                                            <img src="http://placehold.it/150x100" alt="..." class="margin">
+                                            <img src="http://placehold.it/150x100" alt="..." class="margin">
+                                        </div>
+                                    </div>
+                                </div>
+                                <ul class="list-inline">
+                                    <li><a href="#" class="link-black text-sm"><i
+                                            class="fa fa-thumbs-o-up margin-r-5"></i> Like</a>
+                                    </li>
+                                    <li class="link-black"><span class="label label-warning">5</span></li>
+                                </ul>
+                            </div>
+                            <div class="post">
+                                <div class="user-block">
                         <span class="username">
                           <a href="#">Project Name</a>
                           <a href="#" class="pull-right btn-box-tool"><i class="fa fa-edit fa-lg"></i></a>
                         </span>
-                    <span class="description">ProjectType</span>
-                  </div>
-                  <p>
-                    Project Description. Lorem ipsum represents a long-held tradition for designers,
-                    typographers and the like. Some people hate it and argue for
-                    its demise, but others ignore the hate as they create awesome
-                    tools to help create filler text for everyone from bacon lovers
-                  </p>
-                    <div class="col-md-1">&nbsp;</div>
-                    <div class="col-md-11">
-                    <div class="box box-default">
-                        <div class="box-header with-border">
-                          <h5 class="username"><a>Project Members</a></h5>
-                        </div>
-                      <div class="box-body">
-                        <img src="http://placehold.it/150x100" alt="..." class="margin">
-                        <img src="http://placehold.it/150x100" alt="..." class="margin">
-                        <img src="http://placehold.it/150x100" alt="..." class="margin">
-                        <img src="http://placehold.it/150x100" alt="..." class="margin">
-                      </div>
-                    </div>
-                    </div>
-                  <ul class="list-inline">
-                    <li><a href="#" class="link-black text-sm"><i class="fa fa-thumbs-o-up margin-r-5"></i> Like</a>
-                    </li>
-                      <li class="link-black"><span class="label label-warning">5</span></li>
-                  </ul>
-                </div>
-                <div class="post">
-                  <div class="user-block">
+                                    <span class="description">ProjectType</span>
+                                </div>
+                                <p>
+                                    Project Description. Lorem ipsum represents a long-held tradition for designers,
+                                    typographers and the like. Some people hate it and argue for
+                                    its demise, but others ignore the hate as they create awesome
+                                    tools to help create filler text for everyone from bacon lovers
+                                </p>
+                                <div class="col-md-1">&nbsp;</div>
+                                <div class="col-md-11">
+                                    <div class="box box-default">
+                                        <div class="box-header with-border">
+                                            <h5 class="username"><a>Project Members</a></h5>
+                                        </div>
+                                        <div class="box-body">
+                                            <img src="http://placehold.it/150x100" alt="..." class="margin">
+                                            <img src="http://placehold.it/150x100" alt="..." class="margin">
+                                            <img src="http://placehold.it/150x100" alt="..." class="margin">
+                                            <img src="http://placehold.it/150x100" alt="..." class="margin">
+                                        </div>
+                                    </div>
+                                </div>
+                                <ul class="list-inline">
+                                    <li><a href="#" class="link-black text-sm"><i
+                                            class="fa fa-thumbs-o-up margin-r-5"></i> Like</a>
+                                    </li>
+                                    <li class="link-black"><span class="label label-warning">5</span></li>
+                                </ul>
+                            </div>
+                            <div class="post">
+                                <div class="user-block">
                         <span class="username">
                           <a href="#">Project Name</a>
                           <a href="#" class="pull-right btn-box-tool"><i class="fa fa-edit fa-lg"></i></a>
                         </span>
-                    <span class="description">ProjectType</span>
-                  </div>
-                  <p>
-                    Project Description. Lorem ipsum represents a long-held tradition for designers,
-                    typographers and the like. Some people hate it and argue for
-                    its demise, but others ignore the hate as they create awesome
-                    tools to help create filler text for everyone from bacon lovers
-                  </p>
-                    <div class="col-md-1">&nbsp;</div>
-                    <div class="col-md-11">
-                    <div class="box box-default">
-                        <div class="box-header with-border">
-                          <h5 class="username"><a>Project Members</a></h5>
-                        </div>
-                      <div class="box-body">
-                        <img src="http://placehold.it/150x100" alt="..." class="margin">
-                        <img src="http://placehold.it/150x100" alt="..." class="margin">
-                        <img src="http://placehold.it/150x100" alt="..." class="margin">
-                        <img src="http://placehold.it/150x100" alt="..." class="margin">
-                      </div>
-                    </div>
-                    </div>
-                  <ul class="list-inline">
-                    <li><a href="#" class="link-black text-sm"><i class="fa fa-thumbs-o-up margin-r-5"></i> Like</a>
-                    </li>
-                      <li class="link-black"><span class="label label-warning">5</span></li>
-                  </ul>
-                </div>
-                <div class="post">
-                  <div class="user-block">
+                                    <span class="description">ProjectType</span>
+                                </div>
+                                <p>
+                                    Project Description. Lorem ipsum represents a long-held tradition for designers,
+                                    typographers and the like. Some people hate it and argue for
+                                    its demise, but others ignore the hate as they create awesome
+                                    tools to help create filler text for everyone from bacon lovers
+                                </p>
+                                <div class="col-md-1">&nbsp;</div>
+                                <div class="col-md-11">
+                                    <div class="box box-default">
+                                        <div class="box-header with-border">
+                                            <h5 class="username"><a>Project Members</a></h5>
+                                        </div>
+                                        <div class="box-body">
+                                            <img src="http://placehold.it/150x100" alt="..." class="margin">
+                                            <img src="http://placehold.it/150x100" alt="..." class="margin">
+                                            <img src="http://placehold.it/150x100" alt="..." class="margin">
+                                            <img src="http://placehold.it/150x100" alt="..." class="margin">
+                                        </div>
+                                    </div>
+                                </div>
+                                <ul class="list-inline">
+                                    <li><a href="#" class="link-black text-sm"><i
+                                            class="fa fa-thumbs-o-up margin-r-5"></i> Like</a>
+                                    </li>
+                                    <li class="link-black"><span class="label label-warning">5</span></li>
+                                </ul>
+                            </div>
+                            <div class="post">
+                                <div class="user-block">
                         <span class="username">
                           <a href="#">Project Name</a>
                           <a href="#" class="pull-right btn-box-tool"><i class="fa fa-edit fa-lg"></i></a>
                         </span>
-                    <span class="description">ProjectType</span>
-                  </div>
-                  <p>
-                    Project Description. Lorem ipsum represents a long-held tradition for designers,
-                    typographers and the like. Some people hate it and argue for
-                    its demise, but others ignore the hate as they create awesome
-                    tools to help create filler text for everyone from bacon lovers
-                  </p>
-                    <div class="col-md-1">&nbsp;</div>
-                    <div class="col-md-11">
-                    <div class="box box-default">
-                        <div class="box-header with-border">
-                          <h5 class="username"><a>Project Members</a></h5>
+                                    <span class="description">ProjectType</span>
+                                </div>
+                                <p>
+                                    Project Description. Lorem ipsum represents a long-held tradition for designers,
+                                    typographers and the like. Some people hate it and argue for
+                                    its demise, but others ignore the hate as they create awesome
+                                    tools to help create filler text for everyone from bacon lovers
+                                </p>
+                                <div class="col-md-1">&nbsp;</div>
+                                <div class="col-md-11">
+                                    <div class="box box-default">
+                                        <div class="box-header with-border">
+                                            <h5 class="username"><a>Project Members</a></h5>
+                                        </div>
+                                        <div class="box-body">
+                                            <img src="http://placehold.it/150x100" alt="..." class="margin">
+                                            <img src="http://placehold.it/150x100" alt="..." class="margin">
+                                            <img src="http://placehold.it/150x100" alt="..." class="margin">
+                                            <img src="http://placehold.it/150x100" alt="..." class="margin">
+                                        </div>
+                                    </div>
+                                </div>
+                                <ul class="list-inline">
+                                    <li><a href="#" class="link-black text-sm"><i
+                                            class="fa fa-thumbs-o-up margin-r-5"></i> Like</a>
+                                    </li>
+                                    <li class="link-black"><span class="label label-warning">5</span></li>
+                                </ul>
+                            </div>
                         </div>
-                      <div class="box-body">
-                        <img src="http://placehold.it/150x100" alt="..." class="margin">
-                        <img src="http://placehold.it/150x100" alt="..." class="margin">
-                        <img src="http://placehold.it/150x100" alt="..." class="margin">
-                        <img src="http://placehold.it/150x100" alt="..." class="margin">
-                      </div>
-                    </div>
-                    </div>
-                  <ul class="list-inline">
-                    <li><a href="#" class="link-black text-sm"><i class="fa fa-thumbs-o-up margin-r-5"></i> Like</a>
-                    </li>
-                      <li class="link-black"><span class="label label-warning">5</span></li>
-                  </ul>
-                </div>
-              </div>
-              <div class="tab-pane" id="followedProjects">
-                <ul class="timeline timeline-inverse">
-                  <li class="time-label">
+                        <div class="tab-pane" id="followedProjects">
+                            <ul class="timeline timeline-inverse">
+                                <li class="time-label">
                         <span class="bg-teal-active">
                           10 Feb. 2014
                         </span>
-                  </li>
-                  <li>
-                    <i class="fa fa-search bg-purple"></i>
-
-                    <div class="timeline-item">
-                      <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
-
-                      <h3 class="timeline-header"><a href="#">Project Name</a> Project Type</h3>
-                      <div class="timeline-body">
-                        Project description. Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                        weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                        jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                        quora plaxo ideeli hulu weebly balihoo...
-                      </div>
-                      <div class="timeline-footer">
-                        <a class="btn btn-primary btn-xs">View details</a>
-                        <a class="btn btn-danger btn-xs">Unfollow</a>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="time-label">
-                        <span class="bg-teal-active">
-                          10 Feb. 2014
-                        </span>
-                  </li>
-                  <li>
-                    <i class="fa fa-search bg-purple"></i>
-
-                    <div class="timeline-item">
-                      <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
-
-                      <h3 class="timeline-header"><a href="#">Project Name</a> Project Type</h3>
-                      <div class="timeline-body">
-                        Project description. Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                        weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                        jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                        quora plaxo ideeli hulu weebly balihoo...
-                      </div>
-                      <div class="timeline-footer">
-                        <a class="btn btn-primary btn-xs">View details</a>
-                        <a class="btn btn-danger btn-xs">Unfollow</a>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="time-label">
-                        <span class="bg-teal-active">
-                          10 Feb. 2014
-                        </span>
-                  </li>
-                  <li>
-                    <i class="fa fa-search bg-purple"></i>
-
-                    <div class="timeline-item">
-                      <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
-
-                      <h3 class="timeline-header"><a href="#">Project Name</a> Project Type</h3>
-                      <div class="timeline-body">
-                        Project description. Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                        weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                        jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                        quora plaxo ideeli hulu weebly balihoo...
-                      </div>
-                      <div class="timeline-footer">
-                        <a class="btn btn-primary btn-xs">View details</a>
-                        <a class="btn btn-danger btn-xs">Unfollow</a>
-                      </div>
-                    </div>
-                  </li>
-
-                  <li>
-                    <i class="fa fa-clock-o bg-gray"></i>
-                  </li>
-                </ul>
-                  <div class="box-footer text-center">
-                  <a href="#" class="uppercase">View All Projects!</a>
-                </div>
-              </div>
-              <div class="tab-pane clearfix" id="followedPeople">
-                  <div class="col-md-12">
-                      {% if listFollowing %}
-                          {% for following in listFollowing %}
-                              <div class="box box-solid">
-                                  <div class="box-header with-border">
-                                      <h3 class="box-title">Latest Members</h3>
-                                  </div>
-                        <div class="box-body no-padding">
-                            <ul class="users-list clearfix">
+                                </li>
                                 <li>
-                                    <img src="http://icons.iconarchive.com/icons/sykonist/south-park/128/Cartman-Special-Olympics-icon.png" alt="User Image">
-                                    <a class="users-list-name" href="#">{{ following[4] }}</a>
-                                    <span class="users-list-date">Today</span>
+                                    <i class="fa fa-search bg-purple"></i>
+
+                                    <div class="timeline-item">
+                                        <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
+
+                                        <h3 class="timeline-header"><a href="#">Project Name</a> Project Type</h3>
+                                        <div class="timeline-body">
+                                            Project description. Etsy doostang zoodles disqus groupon greplin oooj voxy
+                                            zoodles,
+                                            weebly ning heekya handango imeem plugg dopplr jibjab, movity
+                                            jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
+                                            quora plaxo ideeli hulu weebly balihoo...
+                                        </div>
+                                        <div class="timeline-footer">
+                                            <a class="btn btn-primary btn-xs">View details</a>
+                                            <a class="btn btn-danger btn-xs">Unfollow</a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="time-label">
+                        <span class="bg-teal-active">
+                          10 Feb. 2014
+                        </span>
+                                </li>
+                                <li>
+                                    <i class="fa fa-search bg-purple"></i>
+
+                                    <div class="timeline-item">
+                                        <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
+
+                                        <h3 class="timeline-header"><a href="#">Project Name</a> Project Type</h3>
+                                        <div class="timeline-body">
+                                            Project description. Etsy doostang zoodles disqus groupon greplin oooj voxy
+                                            zoodles,
+                                            weebly ning heekya handango imeem plugg dopplr jibjab, movity
+                                            jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
+                                            quora plaxo ideeli hulu weebly balihoo...
+                                        </div>
+                                        <div class="timeline-footer">
+                                            <a class="btn btn-primary btn-xs">View details</a>
+                                            <a class="btn btn-danger btn-xs">Unfollow</a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="time-label">
+                        <span class="bg-teal-active">
+                          10 Feb. 2014
+                        </span>
+                                </li>
+                                <li>
+                                    <i class="fa fa-search bg-purple"></i>
+
+                                    <div class="timeline-item">
+                                        <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
+
+                                        <h3 class="timeline-header"><a href="#">Project Name</a> Project Type</h3>
+                                        <div class="timeline-body">
+                                            Project description. Etsy doostang zoodles disqus groupon greplin oooj voxy
+                                            zoodles,
+                                            weebly ning heekya handango imeem plugg dopplr jibjab, movity
+                                            jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
+                                            quora plaxo ideeli hulu weebly balihoo...
+                                        </div>
+                                        <div class="timeline-footer">
+                                            <a class="btn btn-primary btn-xs">View details</a>
+                                            <a class="btn btn-danger btn-xs">Unfollow</a>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <i class="fa fa-clock-o bg-gray"></i>
                                 </li>
                             </ul>
+                            <div class="box-footer text-center">
+                                <a href="#" class="uppercase">View All Projects!</a>
+                            </div>
                         </div>
-                        <div class="box-footer text-center">
-                            <a href="#" class="uppercase">View All Connections!</a>
+                        <div class="tab-pane clearfix" id="followedPeople">
+                            <div class="col-md-6 col-xs-12">
+                                {% if listFollowers %}
+                                    <div class="box box-default">
+                                        <div class="box-header with-border">
+                                            <h3 class="box-title">Followers</h3>
+                                        </div>
+                                        <div class="box-body">
+                                            <ul class="users-list clearfix">
+                                                {% for follower in listFollowers %}
+                                                    <div class="col-md-4 col-xs-3">
+                                                        <li>
+                                                            <img width="75px" height="75px"
+                                                                 src="static/user_images/{{ follower[3] }}"
+                                                                 alt="User Image">
+                                                            <a data-toggle="tooltip" data-placement="bottom"
+                                                               title="View {{ follower[2] }} more!"
+                                                               class="users-list-name"
+                                                               href="{{ url_for('site.people_person_detail_page', key=follower[1]) }}">{{ follower[2] }}</a>
+                                                            <span class="users-list-date">{{ follower[6].strftime('%d.%m.%Y') }}</span>
+                                                        </li>
+                                                    </div>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    <div class="callout callout-default">
+                                        <form role="form" action="" method="post">
+                                            <p>You have no followers. &nbsp; <img width="20px" height="20px"
+                                                                                  src="http://image.flaticon.com/icons/png/512/42/42901.png">
+                                            </p>
+                                            <p><strong>Joining a project group may help to expand your network.</strong>
+                                            </p>
+                                            <button class="btn bg-orange-active btn-xs" name="searchProjectPage"
+                                                    type="submit">
+                                                <i class="fa fa-search"></i>&nbsp;&nbsp; Join a project right now!
+                                            </button>
+                                        </form>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6 col-xs-12">
+                                {% if listFollowing %}
+                                    <div class="box box-default">
+                                        <div class="box-header with-border">
+                                            <h3 class="box-title">Following</h3>
+                                        </div>
+                                        <div class="box-body">
+                                            <ul class="users-list clearfix">
+                                                {% for folllowing in listFollowing %}
+                                                    <div class="col-md-4 col-xs-3">
+                                                        <li>
+                                                            <img width="75px" height="75px"
+                                                                 src="static/user_images/{{ folllowing[5] }}"
+                                                                 alt="User Image">
+                                                            <a data-toggle="tooltip" data-placement="bottom"
+                                                               title="View {{ folllowing[4] }} more!"
+                                                               class="users-list-name"
+                                                               href="{{ url_for('site.people_person_detail_page', key=folllowing[3]) }}"
+                                                               class="users-list-name">{{ folllowing[4] }}</a>
+                                                            <span class="users-list-date">{{ folllowing[6].strftime('%d.%m.%Y') }}</span>
+                                                        </li>
+                                                    </div>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    <div class="callout callout-default">
+                                        <p>You aren't follow anyone.</p>
+                                        <button class="btn btn-warning btn-xs" name="searchPeoplePage"
+                                                type="submit">
+                                            <i class="fa fa-search"></i>&nbsp;&nbsp; Add a connection right now!
+                                        </button>
+                                    </div>
+                                {% endif %}
+                            </div>
                         </div>
-                    </div>
-                          {% endfor %}
-                  {% else %}
-                  <div class="callout callout-info">
-                      <h4>
-                          <i class="fa fa-info"></i>  Note:
-                      </h4>You can see all the people that you follow in that page!
-                  </div>
-                      {% endif %}
-                  </div>
-              </div>
 
 
-              <div class = "tab-pane clearfix" id = "comments">
-                  <div class = "col-md-6">
-                          <div class = "box box-primary">
-                              <div class="box-header with-border">
-                                  <h3 class="box-title">Comments about the Person</h3>
-                                  <div class="box-tools pull-right">
-                                      <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                                      <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                                  </div>
-                              </div>
-                              <div class="box-body">
-                                  <ul class="products-list product-list-in-box">
-                                      {% for comment in personComments %}
-                                      <li class="item">
-                                          <div class="product-img">
-                                              <img src="http://icons.iconarchive.com/icons/sykonist/south-park/128/Cartman-Special-Olympics-icon.png" alt="Image">
-                                          </div>
-                                          <div class="product-info">
-                                              <a class="product-title">{{ comment[1] }}
-                                                  <span class="label label-default pull-right">
+                        <div class="tab-pane clearfix" id="comments">
+                            <div class="col-md-6">
+                                <div class="box box-primary">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Comments about the Person</h3>
+                                        <div class="box-tools pull-right">
+                                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                                    class="fa fa-minus"></i></button>
+                                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i
+                                                    class="fa fa-times"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="box-body">
+                                        <ul class="products-list product-list-in-box">
+                                            {% for comment in personComments %}
+                                                <li class="item">
+                                                    <div class="product-img">
+                                                        <img src="http://icons.iconarchive.com/icons/sykonist/south-park/128/Cartman-Special-Olympics-icon.png"
+                                                             alt="Image">
+                                                    </div>
+                                                    <div class="product-info">
+                                                        <a class="product-title">{{ comment[1] }}
+                                                            <span class="label label-default pull-right">
                                                     <div class="input-group margin" style="width: 50%">
                                                         <form method="post" action="/personal">
-                                                            <div class="dropdown" >
-                                                                <button class="btn btn-primary dropdown-toggle pull-right" type="button" data-toggle="dropdown">
-                                                                    <span ><i class="fa fa-plus"></i> </span></button>
+                                                            <div class="dropdown">
+                                                                <button class="btn btn-primary dropdown-toggle pull-right"
+                                                                        type="button" data-toggle="dropdown">
+                                                                    <span><i class="fa fa-plus"></i> </span></button>
                                                                 <ul class="dropdown-menu" style="border: 2px #f2f2f2">
                                                                     <li>Comment:  </li>
                                                                     <li>
                                                                         <div class="col-xs-ao">
-                                                                            <input type="text" name="updateComment"  class="form-control">
+                                                                            <input type="text" name="updateComment"
+                                                                                   class="form-control">
                                                                         </div>
                                                                     </li>
-                                                                    <input type="hidden" name="updateId" value="{{ comment[0] }}" class="form-control">
-                                                                    <li><button type="submit" value="Submit"  >Update</button></li>
+                                                                    <input type="hidden" name="updateId"
+                                                                           value="{{ comment[0] }}"
+                                                                           class="form-control">
+                                                                    <li><button type="submit"
+                                                                                value="Submit">Update</button></li>
                                                                 </ul>
                                                             </div>
                                                         </form>
                                                     </div>
-                                                    <form method = "post" action="/personal">
-                                                        <button name="deleteComment" value="{{ comment[0] }}" type="submit" class="btn btn-box-tool" ><i class="fa fa-times"></i></button>
+                                                    <form method="post" action="/personal">
+                                                        <button name="deleteComment" value="{{ comment[0] }}"
+                                                                type="submit" class="btn btn-box-tool"><i
+                                                                class="fa fa-times"></i></button>
                                                     </form>
                                                   </span>
-                                              </a>
-                                              <p class="text-muted">{{ comment[2] }}</p>
-                                              <br>
-                                              <span class="product-description">{{ comment[3] }}</span>
-                                          </div>
-                                      </li>
-                                      {% endfor %}
-                                  </ul>
-                              </div>
-                              </form>
-                          <form method="post" action="/personal">
-                              <div class="input-group margin" style="width: 50%">
-                                  <div class="dropdown" >
-                                      <button class="btn btn-primary dropdown-toggle pull-right" type="button" data-toggle="dropdown">
-                                          <span ><i class="fa fa-plus"></i> </span></button>
-                                      <ul class="dropdown-menu" style="border: 2px #f2f2f2">
-                                          <li>Comment:  </li>
-                                          <li>
-                                              <div class="col-xs-ao">
-                                                  <input type="text" name="addComment"  class="form-control">
-                                              </div>
-                                          </li>
-                                          <input type="hidden" name="commentId" value="{{ personWhoComment }}" class="form-control">
-                                          <input type="hidden" name="commentedId" value="{{ personWhoCommented }}" class="form-control">
-                                          <li><button type="submit" value="Submit"  >Add Comment</button></li>
-                                      </ul>
-                                  </div>
-                              </div>
-                          </form>
-                          </div>
-                  </div>
-              </div>
+                                                        </a>
+                                                        <p class="text-muted">{{ comment[2] }}</p>
+                                                        <br>
+                                                        <span class="product-description">{{ comment[3] }}</span>
+                                                    </div>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                    </form>
+                                    <form method="post" action="/personal">
+                                        <div class="input-group margin" style="width: 50%">
+                                            <div class="dropdown">
+                                                <button class="btn btn-primary dropdown-toggle pull-right" type="button"
+                                                        data-toggle="dropdown">
+                                                    <span><i class="fa fa-plus"></i> </span></button>
+                                                <ul class="dropdown-menu" style="border: 2px #f2f2f2">
+                                                    <li>Comment:</li>
+                                                    <li>
+                                                        <div class="col-xs-ao">
+                                                            <input type="text" name="addComment" class="form-control">
+                                                        </div>
+                                                    </li>
+                                                    <input type="hidden" name="commentId" value="{{ personWhoComment }}"
+                                                           class="form-control">
+                                                    <input type="hidden" name="commentedId"
+                                                           value="{{ personWhoCommented }}" class="form-control">
+                                                    <li>
+                                                        <button type="submit" value="Submit">Add Comment</button>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
 
 
+                        <div class="tab-pane clearfix" id="settings">
+                            <form method="post" action="{{ action }}" class="form-horizontal"
+                                  enctype="multipart/form-data">
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">First Name</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="firstName"
+                                                       placeholder="Enter First Name"
+                                                       value="{{ Current_Person[8] }}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Last Name</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="lastName"
+                                                       placeholder="Enter Last Name"
+                                                       value="{{ Current_Person[9] }}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Account</label>
+                                            <div class="col-sm-10">
+                                                <select name="account" id="account" class="form-control">
+                                                    <option value="-1">Select Account Type</option>
+                                                    {% for foo in listAccount %}
+                                                        {% if foo[1] == Current_Person[2] %}
+                                                            <option selected="selected"
+                                                                    value='{{ foo[0] }}'>{{ foo[1] }}</option>
+                                                        {% else %}
+                                                            <option value='{{ foo[0] }}'>{{ foo[1] }}</option>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">E-Mail</label>
+                                            <div class="col-sm-10">
+                                                <input type="email" class="form-control" name="eMail"
+                                                       placeholder="Enter E-Mail"
+                                                       value="{{ Current_Person[3] }}">
+                                            </div>
+                                        </div>
+{#                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Current Password</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="currentpswd"
+                                                       placeholder="Enter Current Password">
+                                            </div>
+                                        </div>#}
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">New Password</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="pswd"
+                                                       placeholder="Enter New Password">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Confirm</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="repswd"
+                                                       placeholder="Confirm New Password">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Title</label>
+                                            <div class="col-sm-10">
+                                                <select name='title' id="title" class="form-control">
+                                                    <option value="-1">Select Title</option>
+                                                    {% for foo in listTitle %}
+                                                        {% if foo[1] == Current_Person[6] %}
+                                                            <option selected="selected"
+                                                                    value='{{ foo[0] }}'>{{ foo[1] }}</option>
+                                                        {% else %}
+                                                            <option value='{{ foo[0] }}'>{{ foo[1] }}</option>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">&nbsp;</label>
+                                            <div class="col-md-10">
+                                                <div class="iradio_minimal-blue checked">
+                                                    {% if Current_Person[5] %}
+                                                        <label>
+                                                            <input name="r1" value="male"
+                                                                   type="radio"> Male
+                                                        </label>
+                                                    {% else %}
+                                                        <label>
+                                                            <input name="r1" checked="checked" value="male" type="radio"> Male
+                                                        </label>
+                                                    {% endif %}
 
-              <div class="tab-pane clearfix" id="settings">
-                  <div class="col-md-6">
-                      {% if listFollowing %}
-                          <div class="box box-primary">
-                              <div class="box-header with-border">
-                                  <h3 class="box-title">Recently Added Products</h3>
-                                  <div class="box-tools pull-right">
-                                      <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                                      <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                                  </div>
-                              </div>
-                          <form method="post" action="/personal">
-                              <div class="box-body">
-                                  <ul class="products-list product-list-in-box">
-                                      {% for foo in listPerson %}
-                                      <li class="item">
-                                          <div class="product-img">
-                                              <img src="http://icons.iconarchive.com/icons/sykonist/south-park/128/Cartman-Special-Olympics-icon.png" alt="Image">
-                                          </div>
-                                          <div class="product-info">
-                                              <a class="product-title">{{ foo[1] }}
-                                                  <span class="label label-default pull-right"><button name="delete" value="{{ foo[0] }}" type="submit" class="btn btn-box-tool" ><i class="fa fa-times"></i></button></span></a>
-                                              <span class="product-description">{{ foo[3] }}</span>
-                                          </div>
-                                      </li>
-                                      {% endfor %}
-                                  </ul>
-                              </div>
-                              </form>
-                              <div class="box-footer text-center">
-                                  <a href="javascript:void(0)" class="uppercase">View All Products</a>
-                              </div>
-                          </div>
-                      {% endif %}
-                  </div>
-              </div>
-              </div>
+                                                </div>
+                                                <div class="iradio_minimal-blue">
+                                                    {% if Current_Person[5] %}
+                                                        <label>
+                                                            <input name="r1" checked="checked" value="female" type="radio"> Female
+                                                        </label>
+                                                    {% else %}
+                                                        <label>
+                                                            <input name="r1" value="female" type="radio"> Female
+                                                        </label>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <br>
+                                    <div class="col-md-2 col-xs-2"></div>
+                                    <div class="col-md-2 col-xs-4">
+                                        <img class="img-responsive img-bordered" height="150px"
+                                             width="150px"
+                                             src="static/user_images/{{ Current_Person[7] }}" alt="..." class="margin">
+                                    </div>
+                                    <div class="col-md-2 col-xs-4">
+                                        <label for="profileImage">Change Profile Image</label>
+                                        <input type="file" class="btn btn-default" id="profileImage" name="file"
+                                               accept="image/*"/>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-8">
+
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="submit" name="register"
+                                                class="btn btn-danger btn-block btn-flat">Cancel
+                                        </button>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="submit" name="saveProfileSettings"
+                                                class="btn btn-primary btn-block btn-flat">Save Changes
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
     </section>
+    <!-- jQuery 2.2.3 -->
+    <script src="../../static/plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <!-- Bootstrap 3.3.6 -->
+    <script src="../../static/bootstrap/js/bootstrap.min.js"></script>
+    <!-- iCheck -->
+    <script src="../../static/plugins/iCheck/icheck.min.js"></script>
+    <script>
+        $(function () {
+            $('input').iCheck({
+                checkboxClass: 'icheckbox_square-blue',
+                radioClass: 'iradio_square-blue',
+                increaseArea: '20%' // optional
+            });
+        });
+    </script>
 {% endblock %}
