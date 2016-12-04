@@ -62,11 +62,11 @@ class followed_person_operations:
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
             query = """SELECT FollowedPerson.ObjectId, PersonId, p1.FirstName || ' ' || p1.LastName as PersonFullName,
-                        FollowedPersonId, p2.FirstName || ' ' || p2.LastName as FollowedPersonFullName,StartDate
+                        FollowedPersonId, p2.FirstName || ' ' || p2.LastName as FollowedPersonFullName,p2.PhotoPath, StartDate
                         FROM FollowedPerson
                         INNER JOIN Person as p1 ON p1.ObjectId = FollowedPerson.PersonId
                         INNER JOIN Person as p2 ON p2.ObjectId = FollowedPerson.FollowedPersonId
-                        WHERE FollowedPerson.PersonId = %s"""
+                        WHERE FollowedPerson.PersonId = %s AND FollowedPerson.Deleted = '0' ORDER BY StartDate DESC"""
             cursor.execute(query, (key,))
             connection.commit()
             data_array = []
@@ -78,8 +78,9 @@ class followed_person_operations:
                         'PersonId': followed_person[1],
                         'PersonFullName': followed_person[2],
                         'FollowedPersonId': followed_person[3],
-                        'FollowedPersonFullName': followed_person[4],
-                        'StartDate': followed_person[5]
+                        'FollowedPersonFullName': followed_person[4], #Takip ettigi insanlar
+                        'FollowedPersonPhotoPath': followed_person[5],
+                        'StartDate': followed_person[6]
                     }
                 )
         return results
@@ -88,12 +89,12 @@ class followed_person_operations:
     def GetFollowedPersonListByFollowedPersonId(self, key):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
-            query = """SELECT FollowedPerson.ObjectId, PersonId, p1.FirstName || ' ' || p1.LastName as PersonFullName,
+            query = """SELECT FollowedPerson.ObjectId, PersonId, p1.FirstName || ' ' || p1.LastName as PersonFullName, p1.PhotoPath,
                         FollowedPersonId, p2.FirstName || ' ' || p2.LastName as FollowedPersonFullName,StartDate
                         FROM FollowedPerson
                         INNER JOIN Person as p1 ON p1.ObjectId = FollowedPerson.PersonId
                         INNER JOIN Person as p2 ON p2.ObjectId = FollowedPerson.FollowedPersonId
-                        WHERE FollowedPerson.FollowedPersonId = %s"""
+                        WHERE FollowedPerson.FollowedPersonId = %s AND FollowedPerson.Deleted = '0' ORDER BY StartDate DESC"""
             cursor.execute(query, (key,))
             connection.commit()
             data_array = []
@@ -103,15 +104,27 @@ class followed_person_operations:
                     {
                         'ObjectId': followed_person[0],
                         'PersonId': followed_person[1],
-                        'PersonFullName': followed_person[2],
-                        'FollowedPersonId': followed_person[3],
-                        'FollowedPersonFullName': followed_person[4],
-                        'StartDate': followed_person[5]
+                        'PersonFullName': followed_person[2], #O kisiyi kimler takip ediyor
+                        'PersonPhotoPath': followed_person[3],
+                        'FollowedPersonId': followed_person[4],
+                        'FollowedPersonFullName': followed_person[5],
+                        'StartDate': followed_person[6]
                     }
                 )
         return results
 
-    def UpdatePerson(self, key, personId, followedPersonId, startDate, deleted ):
+    # ObjectId'ye gore bir eleman doner.
+    def GetFollowedPersonByPersonIdAndFollowedPersonId(self, personid, followedpersonid):
+        with dbapi2.connect(dsn) as connection:
+            cursor = connection.cursor()
+            query = """SELECT FollowedPerson.ObjectId
+                       FROM FollowedPerson
+                       WHERE (FollowedPerson.PersonId=%s and FollowedPerson.FollowedPersonId=%s AND FollowedPerson.Deleted='0')"""
+            cursor.execute(query, (personid, followedpersonid))
+            result = cursor.fetchone()
+        return result
+
+    def UpdatePerson(self, key, personId, followedPersonId, startDate, deleted):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
             cursor.execute(
@@ -119,8 +132,15 @@ class followed_person_operations:
                 (personId, followedPersonId, startDate, deleted, key))
             connection.commit()
 
-
     def DeletePerson(self, key):
+        with dbapi2.connect(dsn) as connection:
+            cursor = connection.cursor()
+            cursor.execute(
+                """UPDATE FollowedPerson SET Deleted = TRUE WHERE (ObjectId=%s)""",
+                (key,))
+            connection.commit()
+
+    def DeletePersonWithoutStore(self, key):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
             query = """DELETE FROM FollowedPerson WHERE (ObjectId=%s)"""

@@ -1,15 +1,158 @@
 {% extends "layout.html" %}
 {% block container %}
     <section class="content-header">
-        <h1>Profile</h1>
+        <h1>Search People</h1>
         <ol class="breadcrumb">
-          <li><a href='{{ url_for('site.home_page') }}'><i class="fa fa-dashboard"></i> Homepage</a></li>
-          <li><a href="#">People</a></li>
-          <li class="active"><a href="#">Search People</a></li>
+            <li><a href='{{ url_for('site.home_page') }}'><i class="fa fa-dashboard"></i> Homepage</a></li>
+            <li><a href="#">People</a></li>
+            <li class="active"><a href="#">Search People</a></li>
         </ol>
     </section>
 
     <section class="content">
+        {#        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-default collapsed-box box-solid">
+                    <div style="background-color: #A2CEE8" class="box-header with-border">
+                        <h3 style="color: whitesmoke" class="box-title">Advanced Search</h3>
+                        <div class="box-tools pull-right">
+                            <button style="color: whitesmoke" type="button" class="btn btn-box-tool"
+                                    data-widget="collapse"><i
+                                    class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        On the progress...
+                    </div>
+                </div>
+            </div>
+        </div>#}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title"></h3>
+                    </div>
+                    <div class="box-body">
+                        <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table id="example1" class="table table-bordered table-striped dataTable"
+                                           role="grid" aria-describedby="example1_info">
+                                        <thead>
+                                        <tr role="row">
+                                            <th style="width: 30px;">
+                                            </th>
+                                            <th class="" tabindex="0" aria-controls="example1" rowspan="1"
+                                                colspan="1" aria-label="Browser: activate to sort column ascending"
+                                                aria-sort="descending" style="width: 70px;">
+                                                Title
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
+                                                colspan="1" aria-label="Platform(s): activate to sort column ascending"
+                                                style="width: 190px;">Full Name
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
+                                                colspan="1"
+                                                aria-label="Engine version: activate to sort column ascending"
+                                                style="width: 110px;">E-Mail
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
+                                                colspan="1" aria-label="CSS grade: activate to sort column ascending"
+                                                style="width: 10px;">Followers | Following
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
 
+                                        {% for person in listPerson %}
+                                            <tr role="row">
+                                                <form role="form" action="{{ action }}" method="POST">
+                                                    <td class="">
+                                                        <a href="{{ url_for('site.people_person_detail_page', key=person[0]) }}"
+                                                           class="btn btn-box-tool"
+                                                           data-toggle="tooltip" data-placement="bottom"
+                                                           title="Go person details">
+                                                            <i class="fa fa-search fa-2x"></i>
+                                                        </a>
+                                                        <button name="message" value="{{ person[0] }}" type="submit"
+                                                                class="btn btn-box-tool"
+                                                                data-toggle="tooltip" data-placement="bottom"
+                                                                title="Write a Message!">
+                                                            <i class="fa fa-envelope fa-2x"></i>
+                                                        </button>
+
+                                                        {% if person[10] %}
+                                                            <button name="unfollow" value="{{ person[0] }}"
+                                                                    type="submit"
+                                                                    class="btn btn-danger btn-xs"
+                                                                    data-toggle="tooltip" data-placement="bottom"
+                                                                    title="Break the following">
+                                                                Unfollow
+                                                            </button>
+                                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                            &nbsp;
+                                                        {% else %}
+                                                            <button name="follow" value="{{ person[0] }}" type="submit"
+                                                                    class="btn btn-primary btn-xs"
+                                                                    data-toggle="tooltip" data-placement="bottom"
+                                                                    title="Follow right now!">
+                                                                Follow
+                                                            </button>
+                                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                            &nbsp;&nbsp;&nbsp;&nbsp;
+                                                        {% endif %}
+                                                        <img class="img-circle img-bordered-sm" width="50px"
+                                                             height="50px"
+                                                             src="static/user_images/{{ person[7]|default('noimage.jpg') }}"
+                                                             alt="user image">
+                                                    </td>
+                                                </form>
+                                                <td class="sorting_1">
+                                                    {{ person[6] }}</td>
+                                                <td class="">{{ person[1] }}</td>
+                                                <td>{{ person[3] }}</td>
+                                                <td><span class="label bg-teal-active">{{ person[8] }}</span>
+                                                    &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                                                    <span class="label bg-purple-active">{{ person[9] }}</span></td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+        </div>
     </section>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(function () {
+                $('#example1').DataTable({
+                    "paging": true,
+                    "lengthChange": true,
+                    "searching": true,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false,
+                    "order": [],
+                    "aoColumns": [
+                        {"bSortable": false},
+                        {"bSortable": true},
+                        {"bSortable": true},
+                        {"bSortable": true},
+                        {"bSortable": true},
+                    ]
+                });
+            })
+
+        });
+
+    </script>
 {% endblock %}
