@@ -1,5 +1,5 @@
 import psycopg2 as dbapi2
-from classes.followed_project import FollowedProject
+from classes.work_log import  WorkLog
 import datetime
 from classes.model_config import dsn
 
@@ -38,7 +38,7 @@ class work_log_operations:
                                           FROM WorkLog
                                           INNER JOIN Person as p1 ON (WorkLog.CreatorPersonId = p1.ObjectId)
                                           INNER JOIN Project as p2 ON (WorkLog.ProjectId = p2.ObjectId)
-                                          WHERE Worklog.Deleted='0'"""
+                                          WHERE Worklog.Deleted='0' ORDER BY WorkLog.CreatedDate DESC"""
             cursor.execute(query)
             connection.commit()
             results = cursor.fetchall()
@@ -52,7 +52,7 @@ class work_log_operations:
                                           FROM WorkLog
                                           INNER JOIN Person as p1 ON (WorkLog.CreatorPersonId = p1.ObjectId)
                                           INNER JOIN Project as p2 ON (WorkLog.ProjectId = p2.ObjectId)
-                                          WHERE (WorkLog.ProjectId=%s and Worklog.Deleted='0')"""
+                                          WHERE (WorkLog.ProjectId=%s and Worklog.Deleted='0') ORDER BY WorkLog.CreatedDate DESC"""
             cursor.execute(query, (key,))
             connection.commit()
             results = cursor.fetchall()
@@ -66,7 +66,8 @@ class work_log_operations:
                                           FROM WorkLog
                                           INNER JOIN Person as p1 ON (WorkLog.CreatorPersonId = p1.ObjectId)
                                           INNER JOIN Project as p2 ON (WorkLog.ProjectId = p2.ObjectId)
-                                          WHERE (WorkLog.ProjectId = (SELECT FollowedProjectId FROM FollowedProject WHERE FollowedProject.PersonId = %s) and Worklog.Deleted='0')"""
+                                          WHERE (WorkLog.ProjectId = (SELECT FollowedProjectId FROM FollowedProject WHERE FollowedProject.PersonId = %s)
+                                          AND Worklog.Deleted='0') ORDER BY WorkLog.CreatedDate DESC """
             cursor.execute(query, (key,))
             connection.commit()
             results = cursor.fetchall()
