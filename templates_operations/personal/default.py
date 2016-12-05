@@ -52,12 +52,14 @@ def personal_default_page_config(request):
             filename = secure_filename(file.filename)
             file.save(os.path.join('static/user_images', filename))
         else:
-            if gender == 'male':
-                filename = 'noimage_male.jpg'
-            else:
+            if gender:
                 filename = 'noimage_female.jpg'
+            else:
+                filename = 'noimage_male.jpg'
+
         p = Person(1, first_name, last_name, accountType, eMail, pswd, gender, title, filename, False)
         PersonProvider.UpdatePerson(p)
+    Current_Person = PersonProvider.GetPersonByObjectId(1)  # LOGIN DUZELT
     FollowedPersonProvider = followed_person_operations()
     listFollowing = FollowedPersonProvider.GetFollowedPersonListByPersonId(1)
     listFollowers = FollowedPersonProvider.GetFollowedPersonListByFollowedPersonId(1)
