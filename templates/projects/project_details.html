@@ -9,6 +9,7 @@
                 <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#projectDetails" data-toggle="tab">Project Details</a></li>
+                    <li><a href="#worklogs" data-toggle="tab">Worklogs</a></li>
                     <li><a href="#members" data-toggle="tab">Members</a></li>
                     <li><a href="#projectComments" data-toggle="tab">Project's Comments</a></li>
                     <li><a href="#settings" data-toggle="tab">Settings</a></li>
@@ -55,6 +56,20 @@
                         </form>
                     </div>
                   </div>
+                <div class="tab-pane" id="worklogs">
+                      <div class="box-body">
+                         <!-- <ul class="timeline timeline-inverse"> -->
+                              {% for worklogs in worklogs %}
+                                    <div class="box">
+                                   <h3><a href="#">{{ worklogs[4] }}</a></h3>
+                                      <p>
+                                        {{ worklogs[1] }}
+                                      </p>
+                                  </div>
+                              {% endfor %}
+                        <!--  </ul> -->
+                      </div>
+                </div>
                     <div class="tab-pane" id="members">
                       <div class="col-md-12"></div>
                     </div>
@@ -75,7 +90,7 @@
                                     <div class="timeline-item">
                                       <span class="time"><i class="fa fa-clock-o"></i> saat</span>
 
-                                      <h3 class="timeline-header"><a href="#">{{ project_comment[0] }} {{ project_comment[1] }}</a> Yorum Yapanın Hesap Tipi</h3>
+                                      <h3 class="timeline-header"><a href="#">{{ project_comment[0] }} {{ project_comment[1] }}</a> Yorum YapanÄ±n Hesap Tipi</h3>
                                       <div class="timeline-body">
                                         {{ project_comment[2] }}
                                       </div>
