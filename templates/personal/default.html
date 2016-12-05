@@ -389,92 +389,128 @@
 
 
                         <div class="tab-pane clearfix" id="comments">
-                            <div class="col-md-6">
-                                <div class="box box-primary">
-                                    <div class="box-header with-border">
-                                        <h3 class="box-title">Comments about the Person</h3>
-                                        <div class="box-tools pull-right">
-                                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
-                                                    class="fa fa-minus"></i></button>
-                                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i
-                                                    class="fa fa-times"></i></button>
-                                        </div>
+                            <div class="col-md-12">
+                                <form method="post" action="{{ action }}">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-comment"></i></span>
+                                        <textarea name="addComment" class="form-control" rows="2"
+                                                  placeholder="Write a response to comments, leave a message to own comment wall"></textarea>
                                     </div>
-                                    <div class="box-body">
-                                        <ul class="products-list product-list-in-box">
-                                            {% for comment in personComments %}
-                                                <li class="item">
-                                                    <div class="product-img">
-                                                        <img src="http://icons.iconarchive.com/icons/sykonist/south-park/128/Cartman-Special-Olympics-icon.png"
-                                                             alt="Image">
-                                                    </div>
-                                                    <div class="product-info">
-                                                        <a class="product-title">{{ comment[1] }}
-                                                            <span class="label label-default pull-right">
-                                                    <div class="input-group margin" style="width: 50%">
-                                                        <form method="post" action="/personal">
-                                                            <div class="dropdown">
-                                                                <button class="btn btn-primary dropdown-toggle pull-right"
-                                                                        type="button" data-toggle="dropdown">
-                                                                    <span><i class="fa fa-plus"></i> </span></button>
-                                                                <ul class="dropdown-menu" style="border: 2px #f2f2f2">
-                                                                    <li>Comment:  </li>
-                                                                    <li>
-                                                                        <div class="col-xs-ao">
-                                                                            <input type="text" name="updateComment"
-                                                                                   class="form-control">
-                                                                        </div>
-                                                                    </li>
-                                                                    <input type="hidden" name="updateId"
-                                                                           value="{{ comment[0] }}"
-                                                                           class="form-control">
-                                                                    <li><button type="submit"
-                                                                                value="Submit">Update</button></li>
-                                                                </ul>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                    <form method="post" action="/personal">
-                                                        <button name="deleteComment" value="{{ comment[0] }}"
-                                                                type="submit" class="btn btn-box-tool"><i
-                                                                class="fa fa-times"></i></button>
-                                                    </form>
-                                                  </span>
-                                                        </a>
-                                                        <p class="text-muted">{{ comment[2] }}</p>
-                                                        <br>
-                                                        <span class="product-description">{{ comment[3] }}</span>
-                                                    </div>
-                                                </li>
-                                            {% endfor %}
-                                        </ul>
-                                    </div>
-                                    </form>
-                                    <form method="post" action="/personal">
-                                        <div class="input-group margin" style="width: 50%">
-                                            <div class="dropdown">
-                                                <button class="btn btn-primary dropdown-toggle pull-right" type="button"
-                                                        data-toggle="dropdown">
-                                                    <span><i class="fa fa-plus"></i> </span></button>
-                                                <ul class="dropdown-menu" style="border: 2px #f2f2f2">
-                                                    <li>Comment:</li>
-                                                    <li>
-                                                        <div class="col-xs-ao">
-                                                            <input type="text" name="addComment" class="form-control">
-                                                        </div>
-                                                    </li>
-                                                    <input type="hidden" name="commentId" value="{{ personWhoComment }}"
-                                                           class="form-control">
-                                                    <input type="hidden" name="commentedId"
-                                                           value="{{ personWhoCommented }}" class="form-control">
-                                                    <li>
-                                                        <button type="submit" value="Submit">Add Comment</button>
-                                                    </li>
-                                                </ul>
+                                    <button class="btn btn-primary btn-xs" type="submit" value="Submit">Add Comment
+                                    </button>
+                                </form>
+                                <br>
+                                <br>
+
+                                {% for comment in personComments %}
+                                    <form method="post" action="{{ action }}">
+                                        <div class="post">
+                                            <div class="user-block">
+                                                <img class="img-circle img-bordered-sm"
+                                                     src="../static/user_images/{{ comment[6] }}"
+                                                     alt="user image">
+                                                <span class="username"><a
+                                                        href="{{ url_for('site.people_person_detail_page', key=comment[4]) }}">{{ comment[1] }}</a>
+                                            <button name="deleteComment" style="color: #D73925" value="{{ comment[0] }}"
+                                                    type="submit" class="pull-right btn btn-box-tool"
+                                                    onclick="return confirm('Are you sure to delete?')">
+                                                <i class="fa fa-times-circle fa-2x"></i>
+                                            </button>
+                                            <button name="" style="color: #3C8DBC" data-toggle="modal"
+                                                    data-target="#{{ comment[0] }}"
+                                                    type="button" class="pull-right btn btn-box-tool">
+                                                <i class="fa fa-edit fa-2x"></i>
+                                            </button>
+                                        </span>
+                                                <span class="description">{{ comment[3].strftime('%d.%m.%Y   %H:%M') }}</span>
                                             </div>
+                                            <p style="margin-left: 2%">{{ comment[2] }}</p>
+                                            <div class="modal fade" id="{{ comment[0] }}" tabindex="-1" role="dialog"
+                                                 aria-labelledby="CommentModalLabel">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button"
+                                                                    class="close"
+                                                                    data-dismiss="modal"
+                                                                    aria-label="Close"><span
+                                                                    aria-hidden="true">&times;</span>
+                                                            </button>
+                                                            <h4 class="modal-title"
+                                                                id="CommentModalLabel">
+                                                            </h4>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="user-block">
+                                                                <img class="img-circle img-bordered-sm"
+                                                                     src="../static/user_images/{{ comment[6] }}"
+                                                                     alt="user image">
+                                                                <span class="username"><a href="#">{{ comment[1] }}</a></span>
+                                                                <span class="description">{{ comment[3].strftime('%d.%m.%Y   %H:%M') }}</span>
+                                                            </div>
+                                                            <textarea name="updateComment" class="form-control"
+                                                                      rows="2">{{ comment[2] }}</textarea>
+                                                            <input type="hidden" name="updateId"
+                                                                   value="{{ comment[0] }}"
+                                                                   class="form-control">
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button"
+                                                                    class="btn btn-default"
+                                                                    data-dismiss="modal">
+                                                                Close
+                                                            </button>
+                                                            <button type="submit"
+                                                                    value="Submit"
+                                                                    class="btn btn-primary">
+                                                                Update
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {#                                    <ul class="list-inline">
+                                        <li><a href="#"  class="link-black text-sm"><i
+                                                class="fa fa-share margin-r-5"></i> Write Responses</a></li>
+                                        <li class="pull-right">
+                                            <a href="#" class="link-black text-sm"><i
+                                                    class="fa fa-comments-o margin-r-5"></i> Show Comments(5)</a>
+                                        </li>
+                                    </ul>
+                                    <input class="form-control input-sm" type="text" placeholder="Response">
+                                    <div class="col-md-1">&nbsp;</div>
+                                    <div class="col-md-11">
+                                        <br>
+                                        <div class="post">
+                                            <div class="user-block">
+                                                <img class="img-circle img-bordered-sm"
+                                                     src="http://s3.amazonaws.com/37assets/svn/765-default-avatar.png"
+                                                     alt="user image">
+                                                <span class="username">
+                                                    <a href="#">Jonathan Burke Jr.</a>
+                                                    <button name="deleteCommnet" style="color: #D73925" value=""
+                                                            type="submit" class="pull-right btn btn-box-tool">
+                                                        <i class="fa fa-times-circle fa-2x"></i>
+                                                    </button>
+                                                    <button name="deleteCommnet" style="color: #3C8DBC" value=""
+                                                            type="submit" class="pull-right btn btn-box-tool">
+                                                        <i class="fa fa-edit fa-2x"></i>
+                                                    </button>
+                                                </span>
+                                                <span class="description">Shared publicly - 7:30 PM today</span>
+                                            </div>
+                                            <p>
+                                                Lorem ipsum represents a long-held tradition for designers,
+                                                typographers and the like. Some people hate it and argue for
+                                                its demise, but others ignore the hate as they create awesome
+                                                tools to help create filler text for everyone from bacon lovers
+                                                to Charlie Sheen fans.
+                                            </p>
+                                        </div>
+                                    </div>#}
                                         </div>
                                     </form>
-                                </div>
+                                {% endfor %}
                             </div>
                         </div>
 
@@ -524,7 +560,7 @@
                                                        value="{{ Current_Person[3] }}">
                                             </div>
                                         </div>
-{#                                        <div class="form-group">
+                                        {#                                        <div class="form-group">
                                             <label class="col-sm-2 control-label">Current Password</label>
                                             <div class="col-sm-10">
                                                 <input type="text" class="form-control" name="currentpswd"
@@ -572,7 +608,8 @@
                                                         </label>
                                                     {% else %}
                                                         <label>
-                                                            <input name="r1" checked="checked" value="male" type="radio"> Male
+                                                            <input name="r1" checked="checked" value="male"
+                                                                   type="radio"> Male
                                                         </label>
                                                     {% endif %}
 
@@ -580,7 +617,8 @@
                                                 <div class="iradio_minimal-blue">
                                                     {% if Current_Person[5] %}
                                                         <label>
-                                                            <input name="r1" checked="checked" value="female" type="radio"> Female
+                                                            <input name="r1" checked="checked" value="female"
+                                                                   type="radio"> Female
                                                         </label>
                                                     {% else %}
                                                         <label>

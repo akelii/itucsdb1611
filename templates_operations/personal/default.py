@@ -15,6 +15,7 @@ ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
 def personal_default_page_config(request):
     PersonProvider = person_operations()
+    Current_Person = PersonProvider.GetPersonByObjectId(1)  # LOGIN DUZELT
     comments = personComment_operations()
     if request and 'delete' in request.form and request.method == 'POST':
         p = PersonProvider.GetPersonByObjectId(request.form['delete'])
@@ -26,8 +27,8 @@ def personal_default_page_config(request):
         updatedComment = request.form['updateComment']
         comments.UpdatePersonComment(selectedComment, updatedComment)
     elif request and 'addComment' in request.form and request.method == 'POST':
-        personId = request.form['commentId']
-        commentedPersonId = request.form['commentedId']
+        personId = Current_Person[0]
+        commentedPersonId = Current_Person[0]
         newComment = request.form['addComment']
         comments.AddPersonComment(personId, commentedPersonId, newComment)
     elif request and 'searchPeoplePage' in request.form and request.method == 'POST':
@@ -58,20 +59,19 @@ def personal_default_page_config(request):
         p = Person(1, first_name, last_name, accountType, eMail, pswd, gender, title, filename, False)
         PersonProvider.UpdatePerson(p)
     FollowedPersonProvider = followed_person_operations()
-    Current_Person = PersonProvider.GetPersonByObjectId(1)  # LOGIN DUZELT
     listFollowing = FollowedPersonProvider.GetFollowedPersonListByPersonId(1)
     listFollowers = FollowedPersonProvider.GetFollowedPersonListByFollowedPersonId(1)
     personComments = comments.GetPersonCommentsByCommentedPersonId(Current_Person[0])
-    RelatedPeople = comments.GetRelatedPersonsIdByCommentId(2)
-    idOfPerson = RelatedPeople[0][1]
-    idOfCommentedPerson = RelatedPeople[0][0]
+#    RelatedPeople = comments.GetRelatedPersonsIdByCommentId(2)
+#    idOfPerson = RelatedPeople[0][1]
+#    idOfCommentedPerson = RelatedPeople[0][0]
     listPerson = PersonProvider.GetPersonList()
     now = datetime.datetime.now()
     listTitle = GetTitleList()
     listAccount = GetAccountTypeList()
     return render_template('personal/default.html', current_time=now.ctime(), Current_Person=Current_Person,
                            listFollowing=listFollowing, listFollowers=listFollowers, listPerson=listPerson,
-                           personComments=personComments, personWhoComment=idOfPerson,listAccount=listAccount, listTitle=listTitle,personWhoCommented=idOfCommentedPerson)
+                           personComments=personComments,listAccount=listAccount, listTitle=listTitle)
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
