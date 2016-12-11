@@ -63,6 +63,39 @@ def get_elephantsql_dsn(vcap_services):
              dbname='{}'""".format(user, password, host, port, dbname)
     return dsn
 
+
+
+@app.route('/', methods=["GET", "POST"])
+def first_page():
+    return login_page()
+
+
+@app.route('/login', methods=["GET", "POST"])
+def login_page():
+    if request.method == 'GET':
+        comment = 'Sign in to start your AcademicFreelance life!'
+        return render_template('login.html', comment=comment)
+    else:
+        if 'login' in request.form:
+            email = request.form['email']
+            user = getUser(email)
+            if user is not None:
+                password = request.form['password']
+                if pwd_context.verify(password, user.password):
+                    login_user(user)
+                    next_page = request.args.get('next', url_for('site.home_page'))
+                    return redirect(next_page)
+                else:
+                    comment = 'Incorrect password. Please try again!'
+                    return render_template('login.html', comment=comment)
+            else:
+                comment = 'No email is found. Please try again or register!'
+                return render_template('login.html', comment=comment)
+        comment = 'Sign in to start your AcademicFreelance life!'
+        return render_template('login.html', comment=comment)
+
+
+
 @app.route('/init_db')
 def init_db():
     with dbapi2.connect(app.config['dsn']) as connection:
