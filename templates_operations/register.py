@@ -9,6 +9,7 @@ from classes.look_up_tables import *
 from classes.person import Person
 from werkzeug.utils import secure_filename
 from passlib.apps import custom_app_context as pwd_context
+from templates_operations.user import*
 
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
@@ -23,7 +24,7 @@ def register_page_config(request):
             first_name = request.form['firstName']
             last_name = request.form['lastName']
             eMail = request.form['eMail']
-            pswd = request.form['pswd']
+            pswd = pwd_context.encrypt(request.form['pswd'])
             accountType = request.form['account']
             title = request.form['title']
             file = request.files['file']
@@ -41,8 +42,10 @@ def register_page_config(request):
                 else:
                     filename = 'noimage_female.jpg'
             p = Person(None, first_name, last_name, accountType, eMail, pswd, gender, title, filename, False)
+            u = User(eMail, pswd)
             store.AddPerson(p)
-            return render_template('dashboard.html')
+            AddUser(u)
+            return redirect(url_for('site.home_page'))
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
