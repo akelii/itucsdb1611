@@ -68,7 +68,8 @@
                 </div>#}
             {% endfor %}
         </div>
-        <form role="form" action="" method="POST" name="Add_CV">
+
+
             <div class="modal fade" id="CVModal" tabindex="-1" role="dialog" aria-labelledby="CVModalLabel">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -77,21 +78,26 @@
                                     aria-hidden="true">&times;</span></button>
                             <h4 class="modal-title" id="CVModalLabel">New Cv</h4>
                         </div>
+                        <form action="{{ action }}" method="POST" >
                         <div class="modal-body">
                             <div class="form-group">
                                 <label for="txtCvName">CV Name</label>
-                                <input type="text" class="form-control" id="txtCvName" name="CvName"
+                                <input type="text" class="form-control" id="txtCvName" name="newCvName"
                                        placeholder="Enter CV name" value="">
+                                 <label for="txtCvName">CV Information</label>
+                                <input type="text" class="form-control" id="txtCvName" name="newCvInfo"
+                                       placeholder="Enter CV Information" value="">
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="submit" name="New_CV" class="btn btn-primary">Save</button>
+                            <button type="submit" name="save" class="btn btn-primary">Save</button>
                         </div>
+                     </form>
                     </div>
                 </div>
             </div>
-        </form>
+
 
         {% if CurrentCV != 0 %}
             <div class="row">
@@ -125,12 +131,14 @@
                                 </div>
                                 <div class="col-md-2 col-xs-4">
                                     &nbsp;
-                                </div>
+                                </div>                                    <form method="POST" action="{{ action }}" name="DeleteCv">
+
                                 <div class="col-md-1 col-xs-4">
-                                    <button type="button" class="btn btn-block btn-danger btn-flat"
-                                            onclick="return confirm('Are you sure to delete?')">Delete
+                                    <button type="submit" class="btn btn-block btn-danger btn-flat"
+                                            name="DeleteCv" >Delete
                                     </button>
                                 </div>
+                                        </form>
 
                             </div>
 
@@ -327,57 +335,55 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="panel box box-success">
-                                    <div class="box-header with-border">
-                                        <h4 class="box-title">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree"
-                                               class="collapsed" aria-expanded="false"><i
-                                                    class="fa fa-suitcase"></i>
-                                                Experience
-                                            </a>
-                                        </h4>
-                                    </div>
-                                    <div id="collapseThree" class="panel-collapse collapse " aria-expanded="false"
-                                         style="height: 0px;">
-                                        <div class="box-body">
-                                            <div class="col-md-6">
-                                                <div class="nav-tabs-custom">
-                                                    <ul class="nav nav-tabs pull-right">
 
-                                                        <li class="pull-left header"><a href="#" data-toggle="modal"
-                                                                                        data-target="#ExperienceModal"><i
-                                                                class="fa fa-plus-square-o"></i> Add</a>
-                                                        </li>
-                                                    </ul>
-                                                    <div></div>
-                                                    {% for key, experience in experiences %}
+
+   <div class="panel box box-success">
+                                <div class="box-header with-border">
+                                    <h4 class="box-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree"
+                                           class="collapsed" aria-expanded="false">
+                                            <i class="fa fa-suitcase"></i>
+                                            Experience
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseThree" class="panel-collapse collapse" aria-expanded="false"
+                                     style="height: 0px;">
+                                    <div class="box-body">
+                                        <div class="col-md-6">
+                                            <div class="nav-tabs-custom">
+                                                <ul class="nav nav-tabs pull-right">
+
+                                                    <li class="pull-left header">
+                                                        <a href="#" data-toggle="modal"
+                                                           data-target="#ExperienceModal">
+                                                            <i class="fa fa-plus-square-o"></i> Add
+                                                        </a>
+                                                    </li>
+                                                </ul>
+
+
+                                                           {% for key, experience in experiences %}
                                                         <div class="tab-content">
                                                             <div class="tab-pane active" id="">
                                                                 <div class="">
                                                                     <div class="box-body">
+
+                                                                            <form form action="{{ action }}"
+                                                                                          method="POST">
+                                                                                <input type=hidden
+                                                                                               value="{{ experience.ObjectId }}"
+                                                                                               name="HiddenId"/>
                                                                         <ul class="products-list product-list-in-box">
                                                                             <li class="item">
                                                                                 <div class="product-img">
-
-                                                                                    <form form action="{{ action }}"
-                                                                                          method="POST">
-                                                                                        <input type=hidden
-                                                                                               value="{{ experience.ObjectId }}"
-                                                                                               name="delete_id"/>
                                                                                         <button type="submit"
                                                                                                 class="btn btn-box-tool"
-                                                                                                name="add"
-                                                                                                value="delete_experience">
+                                                                                                name="DeleteExperience"
+                                                                                                value="DeleteExperience">
                                                                                             <i class="fa fa-times-circle fa-2x"></i>
                                                                                         </button>
-                                                                                        &nbsp;
-                                                                                    </form>
-
-                                                                                    <form form action="{{ action }}"
-                                                                                          method="POST">
-                                                                                        <input type=hidden
-                                                                                               value="{{ experience.ObjectId }}"
-                                                                                               name="delete_id"/>
+                                                                                        &nbsp
                                                                                         <a href="#"
                                                                                            data-toggle="modal"
                                                                                            data-target="#ExperienceUpdateModal"><i
@@ -414,7 +420,8 @@
                                                                                                                    class="form-control"
                                                                                                                    id="txtCompanyName"
                                                                                                                    placeholder="Enter company name"
-                                                                                                                   name="companyName">
+                                                                                                                   name="UpdatedCompanyName"
+                                                                                                                    value="{{ experience.CompanyName }}">
                                                                                                         </div>
                                                                                                         <div class="form-group">
                                                                                                             <label for="txtDescriptionCompany">Description</label>
@@ -422,7 +429,8 @@
                                                                                                                    class="form-control"
                                                                                                                    id="txtDescriptionCompany"
                                                                                                                    placeholder="Field of studies etc."
-                                                                                                                   name="description">
+                                                                                                                   name="UpdatedDescription"
+                                                                                                                    value="{{ experience.Description }}">
                                                                                                         </div>
                                                                                                         <div class="form-group">
                                                                                                             <label for="txtPosition">Position</label>
@@ -430,7 +438,8 @@
                                                                                                                    class="form-control"
                                                                                                                    id="txtPosition"
                                                                                                                    placeholder="Enter your position"
-                                                                                                                   name="experience_position">
+                                                                                                                   name="UpdatedPosition"
+                                                                                                                    value="{{ experience.StartDate }}">
                                                                                                         </div>
                                                                                                         <div class="form-group">
                                                                                                             <label>Start
@@ -443,7 +452,9 @@
                                                                                                                 <input type="text"
                                                                                                                        id="dpCompanyStart"
                                                                                                                        class="form-control pull-right"
-                                                                                                                       placeholder="Enter start year">
+                                                                                                                       placeholder="Enter start year"
+                                                                                                                       name="UpdatedStartDate"
+                                                                                                                value="{{ experience.ExperiencePosition }}">
                                                                                                             </div>
                                                                                                         </div>
                                                                                                         <div class="form-group">
@@ -457,15 +468,18 @@
                                                                                                                 <input type="text"
                                                                                                                        id="dpCompanyEnd"
                                                                                                                        class="form-control pull-right"
-                                                                                                                       placeholder="Enter end year, leave blank is going on">
+                                                                                                                       placeholder="Enter the updated end year, leave blank is going on"
+                                                                                                                       name="UpdatedEndDate"
+                                                                                                                       value="{{ experience.EndDate }}">
                                                                                                             </div>
                                                                                                         </div>
                                                                                                     </div>
                                                                                                     <div class="modal-footer">
                                                                                                         <button type="submit"
+
                                                                                                                 class="btn btn-primary"
-                                                                                                                name="update_ex"
-                                                                                                                value="update_experience">
+                                                                                                                name="UpdateExperience"
+                                                                                                                value="UpdateExperience">
                                                                                                             Update
                                                                                                         </button>
                                                                                                     </div>
@@ -478,7 +492,7 @@
                                                                                         </div>
 
 
-                                                                                    </form>
+
 
                                                                                 </div>
                                                                                 <div class="product-info">
@@ -490,111 +504,27 @@
                                                                                     {{ experience.Description }}
                                                                                 </span>
                                                                                 </div>
+
                                                                             </li>
                                                                         </ul>
+                                                                            </form>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="modal fade" id="ExperienceModal" tabindex="-1"
-                                                             role="dialog" aria-labelledby="ExperienceModalLabel">
-                                                            <div class="modal-dialog" role="document">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <button type="button" class="close"
-                                                                                data-dismiss="modal"
-                                                                                aria-label="Close"><span
-                                                                                aria-hidden="true">&times;</span>
-                                                                        </button>
-                                                                        <h4 class="modal-title"
-                                                                            id="ExperienceModalLabel">
-                                                                            Experience</h4>
-                                                                    </div>
-                                                                    <form action="{{ action }}" method="POST">
-                                                                        <div class="modal-body">
-
-                                                                            <div class="form-group">
-
-
-                                                                                <label for="txtCompanyName">Company
-                                                                                    Name</label>
-                                                                                <input type="text"
-                                                                                       class="form-control"
-                                                                                       id="txtCompanyName"
-                                                                                       placeholder="Enter company name"
-                                                                                       name="companyName">
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <label for="txtDescriptionCompany">Description</label>
-                                                                                <input type="text"
-                                                                                       class="form-control"
-                                                                                       id="txtDescriptionCompany"
-                                                                                       placeholder="Field of studies etc."
-                                                                                       name="description">
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <label for="txtPosition">Position</label>
-                                                                                <input type="text"
-                                                                                       class="form-control"
-                                                                                       id="txtPosition"
-                                                                                       placeholder="Enter your position"
-                                                                                       name="experience_position">
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <label>Start Year:</label>
-
-                                                                                <div class="input-group date">
-                                                                                    <div class="input-group-addon">
-                                                                                        <i class="fa fa-calendar"></i>
-                                                                                    </div>
-                                                                                    <input type="text"
-                                                                                           id="dpCompanyStart"
-                                                                                           class="form-control pull-right"
-                                                                                           placeholder="Enter start year">
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <label>End Year</label>
-
-                                                                                <div class="input-group date">
-                                                                                    <div class="input-group-addon">
-                                                                                        <i class="fa fa-calendar"></i>
-                                                                                    </div>
-                                                                                    <input type="text"
-                                                                                           id="dpCompanyEnd"
-                                                                                           class="form-control pull-right"
-                                                                                           placeholder="Enter end year, leave blank is going on">
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="modal-footer">
-                                                                            <button type="button"
-                                                                                    class="btn btn-default"
-                                                                                    data-dismiss="modal">Close
-                                                                            </button>
-                                                                            <button type="submit"
-                                                                                    class="btn btn-primary"
-                                                                                    name="add_ex"
-                                                                                    value="add_experience"> Save
-                                                                            </button>
-                                                                        </div>
-
-                                                                    </form>
-                                                                </div>
-
-
                                                             </div>
                                                         </div>
 
 
                                                     {% endfor %}
-
-
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+
+
+
+
+
                                 <div class="panel box box-warning">
                                     <div class="box-header with-border">
                                         <h4 class="box-title">
@@ -856,6 +786,160 @@
                 </div>
             </div>
         </div>
+
+                <div class="modal fade" id="ExperienceModal" tabindex="-1"
+                                                             role="dialog" aria-labelledby="ExperienceModalLabel">
+                                                            <div class="modal-dialog" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <button type="button" class="close"
+                                                                                data-dismiss="modal"
+                                                                                aria-label="Close"><span
+                                                                                aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                        <h4 class="modal-title"
+                                                                            id="ExperienceModalLabel">
+                                                                            Experience</h4>
+                                                                    </div>
+                                                                    <form action="{{ action }}" method="POST">
+                                                                        <div class="modal-body">
+                                                                            <div class="form-group">
+                                                                                <label for="txtCompanyName">Company
+                                                                                    Name</label>
+                                                                                <input type="text"
+                                                                                       class="form-control"
+                                                                                       id="txtCompanyName"
+                                                                                       placeholder="Enter company name"
+                                                                                       name="NewCompanyName">
+                                                                            </div>
+
+                                                                            <div class="form-group">
+                                                                                <label for="txtDescriptionCompany">Description</label>
+                                                                                <input type="text"
+                                                                                       class="form-control"
+                                                                                       id="txtDescriptionCompany"
+                                                                                       placeholder="Brief explanation on your experience"
+                                                                                       name="NewDescription">
+                                                                            </div>
+
+                                                                            <div class="form-group">
+                                                                                <label for="txtPosition">Position</label>
+                                                                                <input type="text"
+                                                                                       class="form-control"
+                                                                                       id="txtPosition"
+                                                                                       placeholder="Enter your position"
+                                                                                       name="NewPosition">
+                                                                            </div>
+
+                                                                            <div class="form-group">
+                                                                                <label>Start Year</label>
+
+                                                                                <div class="input-group date">
+                                                                                    <div class="input-group-addon">
+                                                                                        <i class="fa fa-calendar"></i>
+                                                                                    </div>
+                                                                                    <input type="text"
+                                                                                           id="dpCompanyStart"
+                                                                                           class="form-control pull-right"
+                                                                                           placeholder="Enter start year"
+                                                                                            name="NewStartDate">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label>End Year</label>
+
+                                                                                <div class="input-group date">
+                                                                                    <div class="input-group-addon">
+                                                                                        <i class="fa fa-calendar"></i>
+                                                                                    </div>
+                                                                                    <input type="text"
+                                                                                           id="dpCompanyEnd"
+                                                                                           class="form-control pull-right"
+                                                                                           placeholder="Enter end year, leave blank if current "
+                                                                                            name="NewEndDate">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button"
+                                                                                    class="btn btn-default"
+                                                                                    data-dismiss="modal">Close
+                                                                            </button>
+                                                                            <button type="submit"
+                                                                                    class="btn btn-primary"
+                                                                                    name="NewExperience"
+                                                                                    value="Submit"
+                                                                                    > Save
+                                                                            </button>
+                                                                        </div>
+
+                                                                    </form>
+                                                                </div>
+
+
+                                                            </div>
+                                                        </div>
+
+
+
+ <!--  <div class="modal fade" id="ExperienceModal" tabindex="-1" role="dialog" aria-labelledby="ExperienceModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="ExperienceModalLabel">Experience</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="txtCompanyName">Company Name</label>
+                        <input type="text" class="form-control" id="txtCompanyName"
+                               placeholder="Enter company name">
+                    </div>
+                    <div class="form-group">
+                        <label for="txtDescriptionCompany">Description</label>
+                        <input type="text" class="form-control" id="txtDescriptionCompany"
+                               placeholder="Field of studies etc.">
+                    </div>
+                    <div class="form-group">
+                        <label for="txtPosition">Position</label>
+                        <input type="text" class="form-control" id="txtPosition"
+                               placeholder="Enter your position">
+                    </div>
+                    <div class="form-group">
+                        <label>Start Year:</label>
+
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input type="text" id="dpCompanyStart" class="form-control pull-right"
+                                   placeholder="Enter start year">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>End Year</label>
+
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input type="text" id="dpCompanyEnd" class="form-control pull-right"
+                                   placeholder="Enter end year, leave blank is going on">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+-->
 
 
         {#        <div class="input-group margin" style="width: 50%">

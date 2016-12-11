@@ -41,7 +41,7 @@ class experience_operations:
        with dbapi2.connect(dsn) as connection:
            cursor = connection.cursor()
            query = "INSERT INTO Experience (CVId, Description, CompanyName, ExperiencePosition, StartDate, EndDate, DELETED) VALUES (%s, %s, %s, %s, %s, %s, FALSE)"
-           cursor.execute(query, ( CVId, Description,CompanyName, ExperiencePosition, StartDate, EndDate ))
+           cursor.execute(query, ( CVId, Description,CompanyName, ExperiencePosition, StartDate, EndDate, ))
            connection.commit()
            self.last_key = cursor.lastrowid
        return cursor.lastrowid
@@ -52,5 +52,13 @@ class experience_operations:
             cursor = connection.cursor()
             query = "SELECT ObjectId,CVId,Description, CompanyName, ExperiencePosition, StartDate, EndDate FROM Experience ORDER BY ObjectID"
             cursor.execute(query)
+            experience_s=[(key, Experience( key, CVId, Description, CompanyName,   StartDate, EndDate,ExperiencePosition ))for key, CVId, Description, CompanyName,  StartDate,EndDate,ExperiencePosition in cursor]
+        return experience_s
+
+    def get_experience_s_with_key(self,key):
+        with dbapi2.connect(dsn) as connection:
+            cursor = connection.cursor()
+            query = "SELECT ObjectId,CVId,Description, CompanyName, ExperiencePosition, StartDate, EndDate FROM Experience where (cvid=%s)ORDER BY ObjectID"
+            cursor.execute(query,(key,))
             experience_s=[(key, Experience( key, CVId, Description, CompanyName,   StartDate, EndDate,ExperiencePosition ))for key, CVId, Description, CompanyName,  StartDate,EndDate,ExperiencePosition in cursor]
         return experience_s
