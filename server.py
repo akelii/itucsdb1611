@@ -1,14 +1,22 @@
 from flask import Flask
 from flask import render_template, Blueprint
-from flask import  request, redirect, url_for
-from handlers import  site
+from flask import request, redirect, url_for
 from datetime import datetime
 import os
 import re
 import json
 import psycopg2 as dbapi2
+from handlers import site
+from flask_login import LoginManager
+from flask_login import login_required, login_user, current_user
+from templates_operations.user import*
+from passlib.apps import custom_app_context as pwd_context
 
-
+from classes.operations.project_operations import project_operations
+from classes.operations.person_operations import person_operations
+from classes.project import Project
+from classes.look_up_tables import *
+from templates_operations.user import*
 
 #def create_app():
 #    app = Flask(__name__)
@@ -21,10 +29,30 @@ import psycopg2 as dbapi2
 #def main():
 #    app = create_app()
 #    app.run()
+lm = LoginManager()
+
+@lm.user_loader
+def loadUser(userEMail):
+    return getUser(userEMail)
+
+def getUser(userEMail):
+    with dbapi2.connect(app.config['dsn']) as connection:
+        cursor = connection.cursor()
+        query = """SELECT Password FROM Users WHERE eMail = %s"""
+        cursor.execute(query, (userEMail,))
+        user_value = cursor.fetchone()
+        if user_value is None:
+            return None
+        password = user_value[0]
+        user = User(userEMail, password)
+    return user
 
 app = Flask(__name__)
 app.register_blueprint(site)
 app.config['UPLOAD_FOLDER'] = 'static/user_images/'
+lm.init_app(app)
+lm.login_view = 'login_page'
+
 def get_elephantsql_dsn(vcap_services):
     """Returns the data source name for ElephantSQL."""
     parsed = json.loads(vcap_services)
@@ -34,6 +62,38 @@ def get_elephantsql_dsn(vcap_services):
     dsn = """user='{}' password='{}' host='{}' port={}
              dbname='{}'""".format(user, password, host, port, dbname)
     return dsn
+
+
+
+@app.route('/', methods=["GET", "POST"])
+def first_page():
+    return login_page()
+
+
+@app.route('/login', methods=["GET", "POST"])
+def login_page():
+    if request.method == 'GET':
+        comment = 'Sign in to start your AcademicFreelance life!'
+        return render_template('login.html', comment=comment)
+    else:
+        if 'login' in request.form:
+            email = request.form['email']
+            user = getUser(email)
+            if user is not None:
+                password = request.form['password']
+                if pwd_context.verify(password, user.password):
+                    login_user(user)
+                    next_page = request.args.get('next', url_for('site.home_page'))
+                    return redirect(next_page)
+                else:
+                    comment = 'Incorrect password. Please try again!'
+                    return render_template('login.html', comment=comment)
+            else:
+                comment = 'No email is found. Please try again or register!'
+                return render_template('login.html', comment=comment)
+        comment = 'Sign in to start your AcademicFreelance life!'
+        return render_template('login.html', comment=comment)
+
 
 
 @app.route('/init_db')
@@ -118,11 +178,19 @@ def init_db():
                 FirstName VARCHAR(50) NOT NULL,
                 LastName VARCHAR(50) NOT NULL,
 			    AccountTypeId INTEGER NOT NULL,
-			    eMail VARCHAR(100) NOT NULL,
+			    eMail VARCHAR(100) UNIQUE NOT NULL,
 			    Password VARCHAR(400) NOT NULL,
 			    Gender BOOLEAN,
 			    TitleId INTEGER NOT NULL,
 			    PhotoPath VARCHAR(250),
+                Deleted BOOLEAN NOT NULL
+        )"""
+        cursor.execute(query)
+
+        query = """CREATE TABLE IF NOT EXISTS Users(
+                ObjectId SERIAL PRIMARY KEY,
+                eMail VARCHAR(100) UNIQUE NOT NULL,
+			    Password VARCHAR(400) NOT NULL,
                 Deleted BOOLEAN NOT NULL
         )"""
         cursor.execute(query)
@@ -303,6 +371,7 @@ def init_db():
         cursor.execute("""ALTER TABLE FollowedProject ADD  FOREIGN KEY(FollowedProjectId) REFERENCES Project(ObjectId) ON DELETE CASCADE """)
         cursor.execute("""ALTER TABLE Education ADD FOREIGN KEY (CVId) REFERENCES CV(ObjectId) ON DELETE CASCADE """)
         cursor.execute("""ALTER TABLE Skill ADD FOREIGN KEY(CVId) REFERENCES CV(ObjectId) ON DELETE CASCADE """)
+        cursor.execute("""ALTER TABLE Users ADD FOREIGN KEY(eMail) REFERENCES Person(eMail) ON DELETE CASCADE""")
 
 
         cursor.execute("""INSERT INTO AccountType (AccountTypeName, Deleted) VALUES ('Student', '0'), ('Academic', '0')""")
@@ -344,6 +413,7 @@ if __name__ == '__main__':
     app.secret_key = os.urandom(32)
 
     app.run(host='0.0.0.0', port=port, debug=debug)
+    #app.run()
 
 
     
