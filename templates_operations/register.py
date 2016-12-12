@@ -45,7 +45,7 @@ def register_page_config(request):
             u = User(eMail, pswd)
             store.AddPerson(p)
             AddUser(u)
-            return redirect(url_for('site.home_page'))
+            return redirect(url_for('site.login_page'))
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
