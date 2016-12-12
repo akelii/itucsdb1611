@@ -28,25 +28,7 @@ def register_page():
 @site.route('/personal', methods=["GET", "POST"])
 def personal_default_page():
     return personal_default_page_config(request)
-from flask import Flask
-from flask import render_template, Blueprint
-from flask import request, redirect, url_for
-from datetime import datetime
-import os
-import re
-import json
-import psycopg2 as dbapi2
-from handlers import site
-from flask_login import LoginManager
-from flask_login import login_required, login_user, current_user
-from templates_operations.user import*
-from passlib.apps import custom_app_context as pwd_context
 
-from classes.operations.project_operations import project_operations
-from classes.operations.person_operations import person_operations
-from classes.project import Project
-from classes.look_up_tables import *
-from templates_operations.user import*
 
 @site.route('/issues')
 def personal_issues_page():

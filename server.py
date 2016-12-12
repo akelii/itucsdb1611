@@ -329,12 +329,12 @@ def init_db():
         cursor.execute(query)
 
         query = """CREATE TABLE IF NOT EXISTS Skill(
-                        ObjectId SERIAL PRIMARY KEY,
-                        CVId INTEGER NOT NULL,
-                        Name VARCHAR(50) NOT NULL,
-                        Level VARCHAR(50) NOT NULL,
-                        Deleted BOOLEAN NOT NULL
-                )"""
+                ObjectId SERIAL PRIMARY KEY,
+                CVId INTEGER NOT NULL,
+                Name VARCHAR(50) NOT NULL,
+                Level VARCHAR(50) NOT NULL,
+                Deleted BOOLEAN NOT NULL
+        )"""
         cursor.execute(query)
 
 
