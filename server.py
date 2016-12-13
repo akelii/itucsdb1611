@@ -64,7 +64,6 @@ def get_elephantsql_dsn(vcap_services):
     return dsn
 
 
-
 @app.route('/', methods=["GET", "POST"])
 def first_page():
     return login_page()
@@ -94,8 +93,6 @@ def login_page():
         comment = 'Sign in to start your AcademicFreelance life!'
         return render_template('login.html', comment=comment)
 
-
-
 @app.route('/init_db')
 def init_db():
     with dbapi2.connect(app.config['dsn']) as connection:
@@ -117,7 +114,7 @@ def init_db():
 
         query = """CREATE TABLE IF NOT EXISTS Information (
                 ObjectId SERIAL PRIMARY KEY,
-                PersonId INTEGER NOT NULL,
+                CVId INTEGER NOT NULL,
                 InformationTypeId INTEGER NOT NULL,
                 Description VARCHAR(500) NOT NULL,
                 Deleted BOOLEAN NOT NULL
@@ -234,6 +231,8 @@ def init_db():
                 PersonId INTEGER NOT NULL,
                 CommentedProjectId INTEGER NOT NULL,
                 Comment VARCHAR(500) NOT NULL,
+                CreateDate TIMESTAMP NOT NULL,
+                UpdateDate TIMESTAMP NOT NULL,
                 Deleted BOOLEAN NOT NULL
         )"""
         cursor.execute(query)
@@ -346,7 +345,6 @@ def init_db():
         cursor.execute( """ALTER TABLE Message ADD  FOREIGN KEY(SenderId) REFERENCES Person(ObjectId) ON DELETE CASCADE """)
         cursor.execute( """ALTER TABLE Message ADD  FOREIGN KEY(RecieverId) REFERENCES Person(ObjectId) ON DELETE CASCADE """)
         cursor.execute( """ALTER TABLE Experience ADD  FOREIGN KEY(CVId) REFERENCES CV(ObjectId) ON DELETE  CASCADE """)
-        cursor.execute("""ALTER TABLE Information ADD  FOREIGN KEY(PersonId) REFERENCES Person(ObjectId) ON DELETE CASCADE""")
         cursor.execute("""ALTER TABLE Information ADD  FOREIGN KEY(InformationTypeId) REFERENCES InformationType(ObjectId) ON DELETE CASCADE """)
         cursor.execute("""ALTER TABLE CV ADD  FOREIGN KEY(PersonId) REFERENCES Person(ObjectId) ON DELETE CASCADE""")
         cursor.execute("""ALTER TABLE CVInformation ADD  FOREIGN KEY(CVInformationTypeId) REFERENCES CVInformationType(ObjectId) ON DELETE CASCADE """)
@@ -371,6 +369,7 @@ def init_db():
         cursor.execute("""ALTER TABLE FollowedProject ADD  FOREIGN KEY(FollowedProjectId) REFERENCES Project(ObjectId) ON DELETE CASCADE """)
         cursor.execute("""ALTER TABLE Education ADD FOREIGN KEY (CVId) REFERENCES CV(ObjectId) ON DELETE CASCADE """)
         cursor.execute("""ALTER TABLE Skill ADD FOREIGN KEY(CVId) REFERENCES CV(ObjectId) ON DELETE CASCADE """)
+        cursor.execute("""ALTER TABLE Information ADD FOREIGN KEY(CVId) REFERENCES CV(ObjectId) ON DELETE CASCADE """)
         cursor.execute("""ALTER TABLE Users ADD FOREIGN KEY(eMail) REFERENCES Person(eMail) ON DELETE CASCADE""")
 
 
@@ -395,7 +394,7 @@ def init_db():
                           ('LinkedIn', '0'), ('Facebook', '0'),('Instagram', '0'),('Blog', '0'),('MySpace', '0'),
                           ('Tumblr', '0'),('Address', '0')""")
 
-        return redirect(url_for('site.home_page'))
+        return redirect(url_for('site.register_page'))
 
 if __name__ == '__main__':
     VCAP_APP_PORT = os.getenv('VCAP_APP_PORT')
