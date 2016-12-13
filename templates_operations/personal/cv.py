@@ -12,18 +12,20 @@ from classes.operations.Experience_operations import experience_operations
 from classes.operations.language_operations import language_operations
 from classes.education import Education
 from classes.operations.education_operations import education_operations
+from classes.look_up_tables import*
+from classes.operations.information_operations import information_operations
 from classes.CV import CV
 
 def personal_cv_page_config(submit_type):
     store = cv_information_operations()
     t = experience_operations()
-    now = datetime.now()
+    now = datetime.datetime.now()
     store_CV = cv_operations()
     cvInformations = store.get_cv_information_s()
     experiences = t.get_experience_s()
     cvs = store_CV.get_cvs()
     if submit_type == 'GET':
-        return render_template('personal/cv.html',experiences=experiences,cvs=cvs,cvInformations=cvInformations, CurrentCV=0, current_time=now.ctime(),)
+        return render_template('personal/cv.html', experiences=experiences, cvs=cvs, cvInformations=cvInformations, CurrentCV=0, current_time=now.ctime())
     else :
 
         if request and 'Add_CV' in request.form:
@@ -46,12 +48,15 @@ def personal_cv_pagewithkey_config(submit_type, key):
     t = experience_operations()
     store_experience=experience_operations()
     store_education = education_operations()
-    now = datetime.now()
+    now = datetime.datetime.now()
     CurrentCV = store_CV.get_cv(int(key))
     listEducation = store_education.GetEducationListByCVId(key)
     experiences = t.get_experience_s_with_key(key)
     allLanguages = languages.GetAllLanguagesByCVId(key)
     cvs = store_CV.get_cvs()
+    listInformation = GetInformationTypeList()
+    information_store = information_operations()
+    allInformation = information_store.get_all_information_by_CVId(key)
     updateCV="False"
     if submit_type == 'POST':
         if request and 'deleteLanguage' in request.form and request.method == 'POST':
@@ -71,6 +76,23 @@ def personal_cv_pagewithkey_config(submit_type, key):
             ID = request.form['updateLanguageId']
             languages.UpdateLanguage(ID, updateName, updateLevel)
             allLanguages = languages.GetAllLanguagesByCVId(key)
+            updateCV = "TRUE"
+        elif request and 'deleteInformation' in request.form and request.method == 'POST':
+            deletionIndex = request.form['deleteInformation']
+            information_store.delete_information(deletionIndex)
+            allInformation = information_store.get_all_information_by_CVId(key)
+            updateCV = "TRUE"
+        elif request and 'updateInformationDesc' in request.form and request.method == 'POST':
+            updatedInformationDescription = request.form['updateInformationDesc']
+            InformationId = request.form['updateInformationId']
+            information_store.update_information(InformationId, updatedInformationDescription)
+            allInformation = information_store.get_all_information_by_CVId(key)
+            updateCV = "TRUE"
+        elif request and 'information_desc' in request.form and request.method == 'POST':
+            information_type_id = request.form['information_type']
+            information_desc = request.form['information_desc']
+            information_store.add_information(key, information_type_id, information_desc)
+            allInformation = information_store.get_all_information_by_CVId(key)
             updateCV = "TRUE"
         elif request and 'txtSchoolName' in request.form and request.method == 'POST':
             txtSchoolName = request.form['txtSchoolName']
@@ -169,4 +191,4 @@ def personal_cv_pagewithkey_config(submit_type, key):
         store_CV.update_cv(key)
 
     return render_template('personal/cv.html', cvs=cvs,CurrentCV=CurrentCV, languages = allLanguages, experiences=experiences, listEducation=listEducation,
-                                   current_time=now.ctime())
+                                   current_time=now.ctime(), informationn=allInformation, listInformation=listInformation)
