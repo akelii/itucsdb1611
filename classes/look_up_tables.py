@@ -82,3 +82,19 @@ def GetTeam():
         cursor.execute(query)
         results = cursor.fetchall()
     return results
+
+def GetManagerList():
+    with dbapi2.connect(dsn) as connection:
+        cursor = connection.cursor()
+        query = """SELECT ObjectId, FirstName || ' ' || LastName as FullName FROM Person WHERE Deleted = FALSE"""
+        cursor.execute(query)
+        results = cursor.fetchall()
+    return results
+
+def GetInformationTypeList():
+    with dbapi2.connect(dsn) as connection:
+        cursor = connection.cursor()
+        query = """SELECT ObjectId, Name, Deleted FROM InformationType WHERE Deleted = FALSE"""
+        cursor.execute(query)
+        results = cursor.fetchall()
+    return results
