@@ -25,13 +25,20 @@
                             <p>Status : {{ project[4] }}</p>
                             <p>Created By : {{ project[5] }}  {{ project[6] }}</p>
                         </form>
+                        {% if current_user_objectid == project_creator  %}
                         <div class="form-group">
                             <label></label>
                                 <div class="pull-left header"><a href="#" data-toggle="modal" data-target="#UpdateModal">
                                     <i class="fa fa-pencil-square-o fa-2x"></i>Update Project</a>
                                 </div>
                         </div>
+                        {% endif %}
                         <form role="form" action="{{ url_for('site.projects_details_page', key=project[7])}}" method="post">
+                            {% if current_user_objectid == project_creator  %}
+                                <button name="delete_project" value="Delete" type="submit" class="btn btn-box-tool">
+                                    <i class="fa fa-times-circle fa-2x"></i>Delete Project</a>
+                                </button>
+                            {% endif %}
                             <div class="modal fade" id="UpdateModal" tabindex="-1" role="dialog" aria-labelledby="UpdateModalLabel">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
@@ -64,8 +71,12 @@
                                                 <input type="number" class="form-control" name="limit" placeholder="Enter">
                                             </div>
                                             <div class="form-group">
-                                                <label>New Project Manager</label>
-                                                <input type="text" class="form-control" name="manager" placeholder="Enter">
+                                                <label>Manager</label>
+                                                <select name='project_manager' id="project_manager" class="form-control">
+                                                    {% for a in listManager %}
+                                                        <option value='{{ a[0] }}'>{{ a[1] }}</option>
+                                                    {% endfor %}
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="modal-footer">
@@ -102,37 +113,36 @@
 
                                   <li class="time-label">
                                         <span class="bg-teal-active">
-                                          Tarih
+                                          {{ project_comment[3] }}
                                         </span>
                                   </li>
                                   <li>
                                     <i class="fa fa-search bg-purple"></i>
 
                                     <div class="timeline-item">
-                                      <span class="time"><i class="fa fa-clock-o"></i> saat</span>
 
-                                      <h3 class="timeline-header"><a href="#">{{ project_comment[0] }} {{ project_comment[1] }}</a> Yorum YapanÄ±n Hesap Tipi</h3>
+                                      <h3 class="timeline-header"><a href="#">{{ project_comment[0] }} {{ project_comment[1] }}</a></h3>
                                       <div class="timeline-body">
                                         {{ project_comment[2] }}
                                       </div>
                                        <form role="form" action="{{ url_for('site.projects_details_page', key=project[7])}}" method="post">
                                           <div class="timeline-footer">
-                                        <button type="submit" name="delete" value="{{ project_comment[3] }}" class="btn btn-primary btn-xs">Delete</button>
+                                              <button type="submit" name="delete" value="{{ project_comment[4] }}" class="btn btn-primary btn-xs">Delete</button>
 
-                                          <button class="btn btn-box-tool" type="button" data-toggle="dropdown">
-                                              <i class="fa fa-pencil-square-o fa-2x"></i>
-                                          </button>
-                                          <ul class="dropdown-menu" style="border: 2px #f2f2f2">
-                                              <li>Editted Comment:</li>
-                                              <li>
-                                                  <div class="col-xs-ao">
-                                                      <input type="text" name="newComment" class="form-control">
-                                                  </div>
-                                              </li>
-                                              <li>
-                                                  <button type="submit" name="edit" value="{{ project_comment[3] }}" class="btn btn-danger btn-xs">Edit</button>
-                                              </li>
-                                          </ul>
+                                              <button class="btn btn-box-tool" type="button" data-toggle="dropdown">
+                                                  <i class="fa fa-pencil-square-o fa-2x"></i>
+                                              </button>
+                                              <ul class="dropdown-menu" style="border: 2px #f2f2f2">
+                                                  <li>Editted Comment:</li>
+                                                  <li>
+                                                      <div class="col-xs-ao">
+                                                          <input type="text" name="newComment" class="form-control">
+                                                      </div>
+                                                  </li>
+                                                  <li>
+                                                      <button type="submit" name="edit" value="{{ project_comment[4] }}" class="btn btn-danger btn-xs">Edit</button>
+                                                  </li>
+                                              </ul>
                                       </div>
                                        </form>
 
