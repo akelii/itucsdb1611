@@ -28,6 +28,14 @@ class person_operations:
             result = cursor.fetchone()
         return result
 
+    def GetPerson(self, userEMail):#current_userın emaili ile person tablosundaki haline ulaşıyoruz
+        with dbapi2.connect(dsn) as connection:
+            cursor = connection.cursor()
+            query = """SELECT ObjectId FROM Person WHERE eMail = %s"""
+            cursor.execute(query, (userEMail,))
+            person_id = cursor.fetchone()
+        return person_id
+
     def GetPersonList(self):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
