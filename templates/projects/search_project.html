@@ -36,7 +36,6 @@
                                 <th>Select</th>
                               <th>Project Title</th>
                               <th>Project Description</th>
-                                <th>Project ID</th>
                                 <th>Department</th>
                             </tr>
                             {% for project in projects %}
@@ -44,13 +43,11 @@
                               <td><div class="checkbox"><label><input type="checkbox" name="check" value="{{project[0]}}"></label></div></td>
                                 <td>{{ project[1] }}</td>
                                 <td>{{ project[2] }}</td>
-                                <td>{{ project[0] }}</td>
                                 <td>{{ project[3] }}</td>
                             </tr>
                             {% endfor %}
                       </tbody></table>
                         <div class="box-footer">
-                            <button type="submit" name="delete" value="Delete" class="btn btn-primary">Delete</button>
                             <button type="submit" name="details" value="Details" class="btn btn-primary">Details</button>
                         </div>
 
