@@ -152,8 +152,79 @@
                                             </a>
                                         </h4>
                                     </div>
-                                    <div id="collapseOne" class="panel-collapse collapse in" aria-expanded="false">
+                                    <div id="collapseOne" class="panel-collapse collapse in" aria-expanded="true" style="...">
                                         <div class="box-body">
+                                            <div class="nav-tabs-custom">
+                                                <ul class="nav nav-tabs pull-right">
+
+                                                    <li class="pull-left header"><a href="#" data-toggle="modal"
+                                                                                    data-target="#InformationModal"><i
+                                                            class="fa fa-plus-square-o"></i> Add</a>
+                                                    </li>
+                                                </ul>
+                                                {% for information in informationn %}
+                                                    <div class="col-md-6">
+                                                        <div class="tab-content">
+                                                            <div class="tab-pane active" id="">
+                                                                <div class="">
+                                                                    <div class="box-body">
+                                                                        <form method="post" action="{{ action }}">
+                                                                            <ul class="products-list product-list-in-box">
+                                                                                <li class="item">
+                                                                                    <div class="product-img">
+                                                                                        <form method="post" action="{{ action }}">
+                                                                                            <button name="deleteInformation"
+                                                                                                    value="{{ information[0] }}"
+                                                                                                    type="submit"
+                                                                                                    class="btn btn-box-tool">
+                                                                                                <i class="fa fa-times-circle fa-2x"></i>
+                                                                                            </button>
+                                                                                            <button class="btn btn-box-tool"
+                                                                                                        type="button"
+                                                                                                        data-toggle="dropdown">
+                                                                                                    <i class="fa fa-pencil-square-o fa-2x"></i>
+                                                                                            </button>
+                                                                                            <ul class="dropdown-menu" style="border: 2px #f2f2f2">
+                                                                                                <li>Information Description:</li>
+                                                                                                    <li>
+                                                                                                        <div class="col-xs-ao">
+                                                                                                            <input type="text"
+                                                                                                                   name="updateInformationDesc"
+                                                                                                                   value="{{ information[3] }}"
+                                                                                                                   class="form-control">
+                                                                                                            <input
+                                                                                                            type="hidden"
+                                                                                                            name="updateInformationId"
+                                                                                                            value="{{ information[0] }}"
+                                                                                                            class="form-control">
+                                                                                                        </div>
+                                                                                                    </li>
+                                                                                                    <li>
+                                                                                                        <button type="submit" value="updateInformation">
+                                                                                                            Update
+                                                                                                        </button>
+                                                                                                    </li>
+                                                                                            </ul>
+                                                                                        </form>
+                                                                                    </div>
+                                                                                    <div class="product-info">
+                                                                                    <a href="javascript:void(0)"
+                                                                                       class="product-title">{{ information[2] }}
+                                                                                    </a>
+                                                                                    <span class="product-description">
+                                                                                    {{ information[3] }}
+                                                                                </span>
+                                                                                </div>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -337,7 +408,7 @@
                                 </div>
 
 
-   <div class="panel box box-success">
+                                <div class="panel box box-success">
                                 <div class="box-header with-border">
                                     <h4 class="box-title">
                                         <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree"
@@ -519,7 +590,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                                </div>
 
 
 
@@ -669,6 +740,38 @@
             </div>
         {% endif %}
 
+        <div class="modal fade" id="InformationModal" tabindex="-1" role="dialog" aria-labelledby="InformationModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="InformationModalLabel">Information</h4>
+                    </div>
+                    <form action="{{ action }}" method="POST">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>Select Information Type</label>
+                                <select name='information_type' id="information_type" class="form-control">
+                                    {% for a in listInformation %}
+                                        <option value='{{ a[0] }}'>{{ a[1] }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Description</label>
+                                <input type="text" class="form-control" id="information_desc" name="information_desc">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" value="InformationSubmit" class="btn btn-primary">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
         <div class="modal fade" id="EducationModal" tabindex="-1" role="dialog" aria-labelledby="EducationModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -737,7 +840,7 @@
                                 aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title" id="LanguageModalLabel">Language</h4>
                     </div>
-                    <form action="{{ action }}" method="post">
+                    <form action="{{ action }}" method="POST">
                         <div class="modal-body">
                             <div class="form-group">
                                 <label for="txtLanguageName">Language Name</label>
