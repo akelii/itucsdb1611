@@ -1,5 +1,3 @@
-
-
 import psycopg2 as dbapi2
 import datetime
 from classes.model_config import dsn
@@ -13,7 +11,7 @@ class project_comment_operations:
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
             cursor.execute(
-                "INSERT INTO ProjectComment(PersonId, CommentedProjectId, Comment, Deleted) VALUES (%s, %s, %s, False )",
+                "INSERT INTO ProjectComment(PersonId, CommentedProjectId, Comment, CreateDate, UpdateDate, Deleted) VALUES (%s, %s, %s, ' "+str(datetime.datetime.now())+"', ' "+str(datetime.datetime.now())+"', False)",
                 (ProjectComment.PersonId, ProjectComment.CommentedProjectId, ProjectComment.Comment))
             connection.commit()
             self.last_key = cursor.lastrowid
@@ -28,14 +26,14 @@ class project_comment_operations:
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
             cursor.execute(
-                """UPDATE ProjectComment SET Comment = %s, Deleted = %s WHERE (ObjectId=%s)""",
+                """UPDATE ProjectComment SET Comment = %s, UpdateDate = NOW(), Deleted = %s WHERE (ObjectId=%s)""",
                 (Comment, Deleted, key))
             connection.commit()
 
     def get_project_comments(self, key):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
-            cursor.execute("""SELECT Person.FirstName,Person.LastName, ProjectComment.Comment, ProjectComment.ObjectId
+            cursor.execute("""SELECT Person.FirstName,Person.LastName, ProjectComment.Comment,ProjectComment.UpdateDate, ProjectComment.ObjectId
                               FROM ProjectComment
                               JOIN Project ON(Project.ObjectId=ProjectComment.CommentedProjectId)
                               JOIN Person ON(Person.ObjectId=ProjectComment.PersonId)
