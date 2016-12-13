@@ -126,6 +126,7 @@
                                         {{ project_comment[2] }}
                                       </div>
                                        <form role="form" action="{{ url_for('site.projects_details_page', key=project[7])}}" method="post">
+                                           {% if current_user_objectid == project_comment[5] %}
                                           <div class="timeline-footer">
                                               <button type="submit" name="delete" value="{{ project_comment[4] }}" class="btn btn-primary btn-xs">Delete</button>
 
@@ -143,7 +144,8 @@
                                                       <button type="submit" name="edit" value="{{ project_comment[4] }}" class="btn btn-danger btn-xs">Edit</button>
                                                   </li>
                                               </ul>
-                                      </div>
+                                          </div>
+                                           {% endif %}
                                        </form>
 
                                     </div>
