@@ -12,6 +12,8 @@ from classes.operations.person_operations import person_operations
 from classes.project import Project
 from classes.operations.work_log_operations import work_log_operations
 from classes.look_up_tables import *
+from classes.operations.team_operations import team_operations
+from classes.team import Team
 from classes.model_config import dsn
 import psycopg2 as dbapi2
 
@@ -19,14 +21,16 @@ def project_details_page_config(submit_type, key):
     store = project_operations()
     store_comments = project_comment_operations()
     store_worklogs = work_log_operations()
+    teamList = team_operations()
     if submit_type == 'GET':
         project = store.get_project(key)
         listManager = GetManagerList()
         project_comments = store_comments.get_project_comments(key)
+        members = teamList.GetAllMembersByProjectId(key)
         worklogs = store_worklogs.GetWorkLogByProjectId(key)
         current_user_objectid = person_operations.GetPerson(current_user, current_user.email)[0]#current_userın person tablosundaki halinin objectidsi
         project_creator = project[8]#projeyi oluşturan kişi
-        return render_template('projects/project_details.html', project=project, project_comments=project_comments, worklogs=worklogs, listManager=listManager, current_user_objectid=current_user_objectid, project_creator=project_creator)
+        return render_template('projects/project_details.html', project=project, project_comments=project_comments, members=members, worklogs=worklogs, listManager=listManager, current_user_objectid=current_user_objectid, project_creator=project_creator)
     else:
         if 'addComment' in request.form:
             person_id = person_operations.GetPerson(current_user, current_user.email)[0]
