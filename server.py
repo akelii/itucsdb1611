@@ -250,8 +250,8 @@ def init_db():
 
         query = """CREATE TABLE IF NOT EXISTS Team(
                 ObjectId SERIAL PRIMARY KEY,
-                ProjectId INTEGER NOT NULL,
                 MemberId INTEGER NOT NULL,
+                ProjectId INTEGER NOT NULL,
                 Duty VARCHAR(500) NOT NULL,
                 Deleted BOOLEAN NOT NULL
         )"""
@@ -336,9 +336,8 @@ def init_db():
         )"""
         cursor.execute(query)
 
-
+        cursor.execute("""ALTER TABLE Team ADD FOREIGN KEY(ProjectId) REFERENCES Project(ObjectId) ON DELETE CASCADE""")
         cursor.execute("""ALTER TABLE Team ADD FOREIGN KEY(MemberId) REFERENCES Person(ObjectId) ON DELETE CASCADE """)
-        cursor.execute("""ALTER TABLE Team ADD FOREIGN KEY(ProjectId) REFERENCES Project(ObjectId) ON DELETE CASCADE """)
         cursor.execute("""ALTER TABLE PersonComment ADD FOREIGN KEY(CommentedPersonId) REFERENCES Person(ObjectId) ON DELETE CASCADE """)
         cursor.execute("""ALTER TABLE PersonComment ADD FOREIGN KEY(PersonId) REFERENCES Person(ObjectId) ON DELETE CASCADE """)
         cursor.execute("""ALTER TABLE Language ADD FOREIGN KEY(CVId) REFERENCES CV(ObjectId) ON DELETE CASCADE """)
@@ -350,19 +349,16 @@ def init_db():
         cursor.execute("""ALTER TABLE CVInformation ADD  FOREIGN KEY(CVInformationTypeId) REFERENCES CVInformationType(ObjectId) ON DELETE CASCADE """)
         cursor.execute("""ALTER TABLE CVInformation ADD  FOREIGN KEY(CVId) REFERENCES CV(ObjectId) ON DELETE CASCADE""")
         cursor.execute("""ALTER TABLE Team ADD  FOREIGN KEY(MemberId) REFERENCES Person(ObjectId) ON DELETE CASCADE""")
-        cursor.execute("""ALTER TABLE Team ADD  FOREIGN KEY(ProjectId) REFERENCES Project(ObjectId) ON DELETE CASCADE""")
         cursor.execute("""ALTER TABLE Person ADD  FOREIGN KEY(AccountTypeId) REFERENCES AccountType(ObjectId) ON DELETE CASCADE""")
         cursor.execute("""ALTER TABLE Person ADD FOREIGN KEY(TitleId) REFERENCES Title(ObjectId) ON DELETE CASCADE""")
         cursor.execute("""ALTER TABLE Project ADD FOREIGN KEY(ProjectTypeId) REFERENCES ProjectType(ObjectId) ON DELETE CASCADE""")
         cursor.execute("""ALTER TABLE Project ADD FOREIGN KEY (ProjectThesisTypeId) REFERENCES ProjectThesisType(ObjectId) ON DELETE CASCADE""")
         cursor.execute("""ALTER TABLE Project ADD FOREIGN KEY (DepartmentId) REFERENCES Department(ObjectId) ON DELETE CASCADE""")
         cursor.execute("""ALTER TABLE Project ADD FOREIGN KEY (ProjectStatusTypeId) REFERENCES ProjectStatusType(ObjectId) ON DELETE CASCADE""")
-        cursor.execute("""ALTER TABLE Project ADD  FOREIGN KEY(TeamId) REFERENCES Team(ObjectId) ON DELETE SET NULL """)
         cursor.execute("""ALTER TABLE Project ADD FOREIGN KEY (CreatedByPersonId) REFERENCES Person(ObjectId) ON DELETE CASCADE""")
         cursor.execute("""ALTER TABLE Project ADD FOREIGN KEY (ProjectManagerId) REFERENCES Person(ObjectId) ON DELETE CASCADE""")
         cursor.execute("""ALTER TABLE Worklog ADD  FOREIGN KEY(CreatorPersonId) REFERENCES Person(ObjectId) ON DELETE CASCADE """)
         cursor.execute("""ALTER TABLE Worklog ADD  FOREIGN KEY(ProjectId) REFERENCES Project(ObjectId) ON DELETE CASCADE """)
-        cursor.execute("""ALTER TABLE Project ADD  FOREIGN KEY(TeamId) REFERENCES Team(ObjectId) ON DELETE SET NULL """)
         cursor.execute("""ALTER TABLE FollowedPerson ADD  FOREIGN KEY(PersonId) REFERENCES Person(ObjectId) ON DELETE CASCADE """)
         cursor.execute("""ALTER TABLE FollowedPerson ADD  FOREIGN KEY(FollowedPersonId) REFERENCES Person(ObjectId) ON DELETE CASCADE """)
         cursor.execute("""ALTER TABLE FollowedProject ADD  FOREIGN KEY(PersonId) REFERENCES Person(ObjectId) ON DELETE CASCADE """)
