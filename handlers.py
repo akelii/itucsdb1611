@@ -10,7 +10,7 @@ from templates_operations.register import*
 from templates_operations.people.search_person import *
 from templates_operations.people.person_detail import *
 from templates_operations.dashboard import *
-
+from templates_operations.personal.mailbox import*
 site = Blueprint('site', __name__)
 
 
@@ -103,3 +103,8 @@ def logout_page():
 @site.route('/login')
 def login_page():
     return render_template('login.html')
+
+
+@site.route('/mailbox', methods=["GET", "POST"])
+def mailbox_page():
+    return mailbox_page_config(request,key)
