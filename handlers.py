@@ -1,6 +1,7 @@
 from flask import Blueprint
 from flask import render_template
 from flask_login.utils import login_required
+import flask_login
 from templates_operations.personal.default import *
 from templates_operations.projects.create_project import *
 from templates_operations.projects.search_project import*
@@ -96,8 +97,10 @@ def people_person_detail_page(key):
 
 
 @site.route('/logout')
+@login_required
 def logout_page():
-    return render_template('logout.html')
+    flask_login.logout_user()
+    return render_template('login.html')
 
 
 @site.route('/login')
