@@ -7,11 +7,11 @@ class team_operations:
     def __init__(self):
         self.last_key=None
 
-    def AddTeam(self, team):
+    def AddTeam(self, projectId, memberId, duty):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
             query = "INSERT INTO Team (MemberId, ProjectId, Duty, Deleted) VALUES (%s, %s, %s, False)"
-            cursor.execute(query, (team.memberId, team.Duty))
+            cursor.execute(query, (memberId, projectId, duty))
             connection.commit()
             self.last_key = cursor.lastrowid
 
@@ -52,12 +52,12 @@ class team_operations:
             result = cursor.fetchall()
         return result
 
-    def UpdateTeam(self, key, memberId, projectId, duty, deleted ):
+    def UpdateTeam(self, key, memberId, projectId, duty ):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
             cursor.execute(
-                """UPDATE Team SET ProjectId=%s, MemberId = %s, Duty = %s, Deleted = %s WHERE (ObjectId=%s)""",
-                (projectId, memberId, duty, deleted, key))
+                """UPDATE Team SET ProjectId=%s, MemberId = %s, Duty = %s WHERE (ObjectId=%s)""",
+                (projectId, memberId, duty, key))
             connection.commit()
 
 
