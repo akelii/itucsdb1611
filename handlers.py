@@ -100,7 +100,7 @@ def people_person_detail_page(key):
 @login_required
 def logout_page():
     flask_login.logout_user()
-    return render_template('login.html')
+    return redirect(url_for('site.login_page'))
 
 
 @site.route('/login')
