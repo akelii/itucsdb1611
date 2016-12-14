@@ -62,6 +62,26 @@ def project_details_page_config(submit_type, key):
             new_comment = request.form['newComment']
             store_comments.update_project_comment(comment_key, new_comment, False)
             return redirect(url_for('site.projects_details_page', key=key))
+        elif 'addMember' in request.form:
+            newMemberPersonId = request.form['newMemberPersonId']
+            newMemberProjectId = request.form['newMemberProjectId']
+            newMemberDuty = request.form['newMemberDuty']
+            teamList.AddTeam(newMemberProjectId, newMemberPersonId, newMemberDuty)
+            return redirect(url_for('site.projects_details_page', key=key))
+        elif 'updateMember' in request.form:
+            updateMemberPersonId = request.form['updateMemberPersonId']
+            updateMemberProjectId = request.form['updateMemberProjectId']
+            updateMemberDuty = request.form['updateMemberDuty']
+            updateMemberId = request.form['updateMemberId']
+            teamList.UpdateTeam(updateMemberId, updateMemberPersonId, updateMemberProjectId, updateMemberDuty)
+            return redirect(url_for('site.projects_details_page', key=key))
+        elif 'deleteMember' in request.form:
+            deleteMemberId = request.form['deleteMemberId']
+            teamList.DeleteTeam(deleteMemberId)
+            return redirect(url_for('site.projects_details_page', key=key))
+
+
+
 
 
 
