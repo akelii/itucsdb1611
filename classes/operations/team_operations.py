@@ -10,31 +10,33 @@ class team_operations:
     def AddTeam(self, team):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
-            query = "INSERT INTO Team (ProjectId, MemberId, Duty, Deleted) VALUES (%s, %s, %s, False)"
-            cursor.execute(query, (team.projectId, team.memberId, team.Duty))
+            query = "INSERT INTO Team (MemberId, ProjectId, Duty, Deleted) VALUES (%s, %s, %s, False)"
+            cursor.execute(query, (team.memberId, team.Duty))
             connection.commit()
             self.last_key = cursor.lastrowid
 
     # Returns project name, person's duty in the project selected by person's name
-    def GetTeamByMemberId(self, personName):
+    def GetAllTeamsByMemberId(self, personName):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
             query = """SELECT Project.Name, Team.Duty, Person.Name FROM Team
                        INNER JOIN Project ON(Team.ProjectId = Project.ObjectId)
                        INNER JOIN Person ON (Team.MemberId = Person.ObjectId)
                        WHERE (Person.Name = %s)"""
-            cursor.execute(query, (personName))
+            cursor.execute(query, (personName,))
             result = cursor.fetchall()
         return result
 
-    # Returns all team members
-    def GetAllTeams(self, key):
+    # Returns all team members in a project
+    def GetAllMembersByProjectId(self, key):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
-            query = """SELECT Project.Name, Team.Duty, Person.Name FROM Team
+            query = """SELECT Person.FirstName ||' '|| Person.LastName as PersonFullName, Person.PhotoPath, Team.Duty, Person.ObjectId
+                       FROM Team
                        INNER JOIN Project ON(Team.ProjectId = Project.ObjectId)
-                       INNER JOIN Person ON (Team.MemberId = Person.ObjectId) """
-            cursor.execute(query, (key))
+                       INNER JOIN Person ON (Team.MemberId = Person.ObjectId)
+                       WHERE (Team.ProjectId = %s) """
+            cursor.execute(query, (key,))
             result = cursor.fetchall()
         return result
 
@@ -46,15 +48,15 @@ class team_operations:
                        INNER JOIN Project ON(Team.ProjectId = Project.ObjectId)
                        INNER JOIN Person ON (Team.MemberId = Person.ObjectId)
                        WHERE (Project.Name = %s)"""
-            cursor.execute(query, (projectName))
+            cursor.execute(query, (projectName,))
             result = cursor.fetchall()
         return result
 
-    def UpdateTeam(self, key, projectId, memberId, duty, deleted ):
+    def UpdateTeam(self, key, memberId, projectId, duty, deleted ):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
             cursor.execute(
-                """UPDATE Team SET ProjectId = %s, MemberId = %s, Duty = %s, Deleted = %s WHERE (ObjectId=%s)""",
+                """UPDATE Team SET ProjectId=%s, MemberId = %s, Duty = %s, Deleted = %s WHERE (ObjectId=%s)""",
                 (projectId, memberId, duty, deleted, key))
             connection.commit()
 
