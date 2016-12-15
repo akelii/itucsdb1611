@@ -4,7 +4,6 @@ from flask import url_for
 from flask import request
 from flask_login import current_user
 from datetime import datetime
-from datetime import datetime
 from classes.project_comment import ProjectComment
 from classes.operations.project_operations import project_operations
 from classes.operations.project_comment_operations import project_comment_operations
@@ -21,16 +20,18 @@ def project_details_page_config(submit_type, key):
     store = project_operations()
     store_comments = project_comment_operations()
     store_worklogs = work_log_operations()
+    PersonProvider = person_operations()
     teamList = team_operations()
     if submit_type == 'GET':
         project = store.get_project(key)
         listManager = GetManagerList()
         project_comments = store_comments.get_project_comments(key)
+        listPerson = PersonProvider.GetPersonList()
         members = teamList.GetAllMembersByProjectId(key)
         worklogs = store_worklogs.GetWorkLogByProjectId(key)
         current_user_objectid = person_operations.GetPerson(current_user, current_user.email)[0]#current_userın person tablosundaki halinin objectidsi
         project_creator = project[8]#projeyi oluşturan kişi
-        return render_template('projects/project_details.html', project=project, project_comments=project_comments, members=members, worklogs=worklogs, listManager=listManager, current_user_objectid=current_user_objectid, project_creator=project_creator)
+        return render_template('projects/project_details.html', project=project, project_comments=project_comments, members=members, worklogs=worklogs, listManager=listManager, current_user_objectid=current_user_objectid, project_creator=project_creator, listPerson=listPerson)
     else:
         if 'addComment' in request.form:
             person_id = person_operations.GetPerson(current_user, current_user.email)[0]
@@ -63,10 +64,11 @@ def project_details_page_config(submit_type, key):
             store_comments.update_project_comment(comment_key, new_comment, False)
             return redirect(url_for('site.projects_details_page', key=key))
         elif 'addMember' in request.form:
-            newMemberPersonId = request.form['newMemberPersonId']
-            newMemberProjectId = request.form['newMemberProjectId']
-            newMemberDuty = request.form['newMemberDuty']
-            teamList.AddTeam(newMemberProjectId, newMemberPersonId, newMemberDuty)
+            teamMember = request.form.getlist('teamMember')
+            # newMemberPersonId = request.form['newMemberPersonId']
+            # newMemberProjectId = request.form['newMemberProjectId']
+            # newMemberDuty = request.form['newMemberDuty']
+            # teamList.AddTeam(newMemberProjectId, newMemberPersonId, newMemberDuty)
             return redirect(url_for('site.projects_details_page', key=key))
         elif 'updateMember' in request.form:
             updateMemberPersonId = request.form['updateMemberPersonId']
@@ -79,6 +81,7 @@ def project_details_page_config(submit_type, key):
             deleteMemberId = request.form['deleteMemberId']
             teamList.DeleteTeam(deleteMemberId)
             return redirect(url_for('site.projects_details_page', key=key))
+
 
 
 
