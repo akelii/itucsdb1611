@@ -103,19 +103,50 @@
                             </div>
                         </div>
                         <div class="tab-pane" id="worklogs">
-                            <div class="box-body">
-                                <!-- <ul class="timeline timeline-inverse"> -->
-                                {% for worklogs in worklogs %}
+                      <div class="box-body">
+                         <!-- <ul class="timeline timeline-inverse"> -->
+                              {% for worklogs in worklogs %}
                                     <div class="box">
-                                        <h3><a href="#">{{ worklogs[4] }}</a></h3>
-                                        <p>
-                                            {{ worklogs[1] }}
-                                        </p>
-                                    </div>
-                                {% endfor %}
-                                <!--  </ul> -->
-                            </div>
-                        </div>
+                                   <h3><a href="#">{{ worklogs[4] }}</a></h3>
+                                        <h5>{{ worklogs[2] }}</h5>
+                                      <p>
+                                        {{ worklogs[1] }}
+                                      </p>
+
+                                  {% if worklogs[3] == current_user_objectid %}
+                                  <form role="form" action="{{ url_for('site.projects_details_page', key=project[7])}}" method="post">
+                                  <button type="submit" name="deleteWorklog" value="{{ worklogs[0] }}" class="btn btn-danger btn-xs">Delete</button>
+                                  <button class="btn btn-box-tool" type="button" data-toggle="dropdown">
+                                              <i class="fa fa-pencil-square-o fa-2x"></i>
+                                          </button>
+
+                                          <ul class="dropdown-menu" style="border: 2px #f2f2f2">
+                                              <li>Editted Worklog:</li>
+                                              <li>
+                                                  <div class="col-xs-ao">
+                                                      <input type="text" name="new_log" value="{{ worklogs[1] }}" class="form-control">
+                                                  </div>
+                                              </li>
+                                              <li>
+                                                  <button type="submit" name="editWorklog" value="{{ worklogs[0] }}" class="btn btn-reddit btn-xs">Edit</button>
+                                              </li>
+                                          </ul>
+                                  </form>
+                                  {% endif %}
+                                  </div>
+                              {% endfor %}
+                      </div>
+                      <form role="form" action="{{ url_for('site.projects_details_page', key=project[7])}}" method="post">
+                      <div class="form-group">
+                                    <label>New Worklog</label>
+                                    <textarea class="form-control" name="commitMessage" rows="4" placeholder="Enter"></textarea>
+                                </div>
+                                <button type="submit" name="addWorklog" value="AddWorkLog" class="btn btn-primary btn-xs">Add</button>
+                          </form>
+                        <!--  </ul> -->
+
+                </div>
+
                         <div class="tab-pane" id="members">
 
 

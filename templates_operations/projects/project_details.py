@@ -9,6 +9,7 @@ from classes.operations.project_operations import project_operations
 from classes.operations.project_comment_operations import project_comment_operations
 from classes.operations.person_operations import person_operations
 from classes.project import Project
+from classes.work_log import WorkLog
 from classes.operations.work_log_operations import work_log_operations
 from classes.look_up_tables import *
 from classes.operations.team_operations import team_operations
@@ -81,12 +82,20 @@ def project_details_page_config(submit_type, key):
             deleteMemberId = request.form['deleteMemberId']
             teamList.DeleteTeam(deleteMemberId)
             return redirect(url_for('site.projects_details_page', key=key))
-
-
-
-
-
-
-
-
+        elif 'addWorklog' in request.form:
+            cretaorPersonId = person_operations.GetPerson(current_user, current_user.email)[0]
+            projectId = key
+            commitMessage = request.form['commitMessage']
+            worklog = WorkLog(None, projectId, commitMessage, ' "+str(datetime.datetime.now())+" ', cretaorPersonId, False)
+            store_worklogs.AddWorkLog(worklog)
+            return redirect(url_for('site.projects_details_page', key=key))
+        elif 'editWorklog' in request.form:
+            worklog_id = request.form['editWorklog']
+            new_log = request.form['new_log']
+            store_worklogs.UpdateWorkLog(worklog_id, new_log)
+            return redirect(url_for('site.projects_details_page', key=key))
+        elif 'deleteWorklog' in request.form:
+            worklog_id = request.form['deleteWorklog']
+            store_worklogs.DeleteWorkLog(worklog_id)
+            return redirect(url_for('site.projects_details_page', key=key))
 
