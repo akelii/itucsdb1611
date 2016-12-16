@@ -56,3 +56,11 @@ class project_operations:
             projects = cursor.fetchall()
             connection.commit()
         return projects
+
+    def get_project_member_limit(self, key):
+        with dbapi2.connect(dsn) as connection:
+            cursor = connection.cursor()
+            cursor.execute("""SELECT MemberLimit FROM Project WHERE (ObjectId=%s)""", (key,))
+            projects = cursor.fetchall()
+            connection.commit()
+        return projects
