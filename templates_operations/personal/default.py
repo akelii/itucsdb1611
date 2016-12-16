@@ -11,6 +11,8 @@ from classes.look_up_tables import *
 from classes.person import Person
 import os
 from werkzeug.utils import secure_filename
+from passlib.apps import custom_app_context as pwd_context
+from templates_operations.user import*
 
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
@@ -56,17 +58,24 @@ def personal_default_page_config(request):
             gender = True
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save(os.path.join('static/user_images', filename))
-        else:
+            if filename != Current_Person[7]:
+                file.save(os.path.join('static/user_images', filename))
+            else:
+                filename = Current_Person[7]
+        elif Current_Person[7] is None:
             if gender:
                 filename = 'noimage_female.jpg'
             else:
-                filename = 'noimage_male.jpg'
-        PersonProvider.UpdatePerson(Current_Person[0], first_name, last_name, accountType, pswd, gender, title, filename, False)
+               filename = 'noimage_male.jpg'
+        else:
+            filename = Current_Person[7]
+        if pswd != "":
+            pswd = pwd_context.encrypt(request.form['pswd'])
+            UpdateUser(pswd, current_user.email)
+        PersonProvider.UpdatePerson(Current_Person[0], first_name, last_name, accountType, ' ', gender, title, filename, False)
         return redirect(url_for('site.personal_default_page', Current_Person=Current_Person,
                             listFollowing=listFollowing, listFollowers=listFollowers,
                             personComments=personComments, listAccount=listAccount, listTitle=listTitle))
-
     FollowedPersonProvider = followed_person_operations()
     listFollowing = FollowedPersonProvider.GetFollowedPersonListByPersonId(Current_Person[0])
     listFollowers = FollowedPersonProvider.GetFollowedPersonListByFollowedPersonId(Current_Person[0])
