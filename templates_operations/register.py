@@ -17,13 +17,19 @@ def register_page_config(request):
     if request.method == 'GET':
         listTitle = GetTitleList()
         listAccount = GetAccountTypeList()
-        return render_template('register.html', listTitle=listTitle, listAccount=listAccount)
+        return render_template('register.html', listTitle=listTitle, listAccount=listAccount, info=' ')
     else:
         if 'register' in request.form:
-            store = person_operations()
+            PersonProvider = person_operations()
             first_name = request.form['firstName']
             last_name = request.form['lastName']
             eMail = request.form['eMail']
+            p = PersonProvider.GetPerson(eMail)
+            error = "'"+eMail+"'" + ' is already in use. Do you forget your password?'
+            if p is not None:
+                listTitle = GetTitleList()
+                listAccount = GetAccountTypeList()
+                return render_template('register.html', listTitle=listTitle, listAccount=listAccount, info=error)
             pswd = pwd_context.encrypt(request.form['pswd'])
             accountType = request.form['account']
             title = request.form['title']
@@ -43,9 +49,9 @@ def register_page_config(request):
                     filename = 'noimage_female.jpg'
             p = Person(None, first_name, last_name, accountType, eMail, pswd, gender, title, filename, False)
             u = User(eMail, pswd)
-            store.AddPerson(p)
+            PersonProvider.AddPerson(p)
             AddUser(u)
-            return redirect(url_for('site.login_page'))
+            return redirect(url_for('site.login_page', info=' '))
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS

@@ -44,9 +44,15 @@
 
     <div class="register-box-body">
         <p class="login-box-msg">Register a new membership</p>
-
-        <form role="form" action="" method="POST" enctype="multipart/form-data">
-            <div class="form-group has-feedback">
+        <div class="form-group has-error">
+            <span class="help-block" id="warning">{{ info }}</span>
+        </div>
+        <form name="registerForm" role="form" action="" method="POST" enctype="multipart/form-data"
+              onsubmit="return checkForm()">
+            <div class="form-group has-error" id="error" style="display: none">
+                <span class="help-block">Please fill the missing information.</span>
+            </div>
+            <div class="form-group">
                 <input type="text" class="form-control" name="firstName" placeholder="First name">
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
             </div>
@@ -108,7 +114,8 @@
                 <div class="col-xs-8">
                     <div class="checkbox icheck">
                         <label>
-                            <input type="checkbox"> I agree to the <a href="#">terms</a>
+                            You can read the <a data-toggle="modal" data-target="#myModal"
+                                                href="#">terms</a> here.
                         </label>
                     </div>
                 </div>
@@ -120,7 +127,24 @@
         <a href="{{ url_for('login_page') }}" class="text-center">I already have a membership</a>
     </div>
 </div>
-
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Information</h4>
+            </div>
+            <div class="modal-body">
+                It will better if you enroll with your corporate e-mail.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- jQuery 2.2.3 -->
 <script src="../static/plugins/jQuery/jquery-2.2.3.min.js"></script>
 <!-- Bootstrap 3.3.6 -->
@@ -135,6 +159,124 @@
             increaseArea: '20%' // optional
         });
     });
+
+
+    {#    document.forms["registerForm"]["firstName"].parent().addClass("has-error");#}
+    function checkPassword(str) {
+        var re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+        return re.test(str);
+    }
+
+    function checkForm() {
+        var registerForm = document.forms["registerForm"];
+        firstName = registerForm["firstName"];
+        lastName = registerForm["lastName"];
+        account = registerForm["account"];
+        eMail = registerForm["eMail"];
+        pswd = registerForm["pswd"];
+        rePaswd = registerForm["rePaswd"];
+        title = registerForm["title"];
+        var count = 0;
+        re = /[a-zA-Z]+/;
+
+        if (firstName.value == "") {
+            $('[name=firstName]').parent().addClass("has-error");
+            ++count;
+        }
+        else {
+            $('[name=firstName]').parent().removeClass("has-error");
+        }
+        if (lastName.value == "") {
+            $('[name=lastName]').parent().addClass("has-error");
+            ++count;
+        }
+        else {
+            $('[name=lastName]').parent().removeClass("has-error");
+        }
+        if (account.value == "-1") {
+            $('[name=account]').parent().addClass("has-error");
+            ++count;
+        }
+        else {
+            $('[name=account]').parent().removeClass("has-error");
+        }
+        if (eMail.value == "") {
+            $('[name=eMail]').parent().addClass("has-error");
+            ++count;
+        }
+        else {
+            $('[name=eMail]').parent().removeClass("has-error");
+        }
+        if (pswd.value == "") {
+            $('[name=pswd]').parent().addClass("has-error");
+            ++count;
+        }
+        else {
+            $('[name=pswd]').parent().removeClass("has-error");
+        }
+        if (rePaswd.value == "") {
+            $('[name=rePaswd]').parent().addClass("has-error");
+            ++count;
+        }
+        else {
+            $('[name=rePaswd]').parent().removeClass("has-error");
+        }
+        if (title.value == "-1") {
+            $('[name=title]').parent().addClass("has-error");
+            ++count;
+        }
+        else {
+            $('[name=title]').parent().removeClass("has-error");
+        }
+        if ($('input[name=r1]:checked').length > 0) {
+            $('[name=r1]').parent().parent().parent().parent().parent().removeClass("has-error");
+        }
+        else {
+            $('[name=r1]').parent().parent().parent().parent().parent().addClass("has-error");
+            ++count
+        }
+
+        if (count > 0) {
+            $("#error").show();
+            return false;
+
+        }
+        else if(count == 0){
+            $("#error").hide();
+        }
+        if (!re.test(firstName.value) || !re.test(lastName.value)) {
+            $("#warning").text("First name and last name must contain only letters");
+            return false;
+        }
+        else{
+            $("#warning").text("");
+        }
+        if(pswd.value != rePaswd.value)
+        {
+            $("#warning").text("Your passwords must match");
+            return false;
+        }
+        if(count == 0)
+        {
+            return true;
+        }
+
+
+        {#        if (form.pwd1.value != "" && form.pwd1.value == form.pwd2.value) {#}
+        {#            if (!checkPassword(form.pwd1.value)) {#}
+        {#                alert("The password you have entered is not valid!");#}
+        {#                form.pwd1.focus();#}
+        {#                return false;#}
+        {#            }#}
+        {#        } else {#}
+        {#            alert("Error: Please check that you've entered and confirmed your password!");#}
+        {#            form.pwd1.focus();#}
+        {#            return false;#}
+        {#        }#}
+        return true;
+    }
+
+
 </script>
 </body>
 </html>
