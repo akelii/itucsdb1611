@@ -701,8 +701,6 @@
                                                     </div>
                                                 {% endfor %}
                                             </div>
-
-
                                         </div>
                                     </div>
                                     <div class="panel box box-default">
@@ -729,6 +727,87 @@
                                                                     class="fa fa-plus-square-o"></i> Add</a>
                                                             </li>
                                                         </ul>
+                                                        {% for skill in skills %}
+                                                    <div class="col-md-4">
+                                                        <div class="tab-content">
+                                                            <div class="tab-pane active" id="">
+                                                                <div class="">
+                                                                    <div class="box-body">
+                                                                        <ul class="products-list product-list-in-box">
+                                                                            <li class="item">
+                                                                                <div class="product-img">
+
+
+                                                                                    <form method="post"
+                                                                                          action="{{ action }}">
+                                                                                        <div class="dropdown">
+                                                                                            <button name="deleteSkill"
+                                                                                                    value="{{ skill[0] }}"
+                                                                                                    type="submit"
+                                                                                                    class="btn btn-box-tool">
+                                                                                                <i class="fa fa-times-circle fa-2x"></i>
+                                                                                            </button>
+
+                                                                                            <button class="btn btn-box-tool"
+                                                                                                    type="button"
+                                                                                                    data-toggle="dropdown">
+                                                                                                <i class="fa fa-pencil-square-o fa-2x"></i>
+                                                                                            </button>
+                                                                                            <ul class="dropdown-menu"
+                                                                                                style="border: 2px #f2f2f2">
+                                                                                                <li>Skill Name:
+                                                                                                </li>
+                                                                                                <li>
+                                                                                                    <div class="col-xs-ao">
+                                                                                                        <input type="text"
+                                                                                                               name="updateSkillName"
+                                                                                                               value="{{ skill[2] }}"
+                                                                                                               class="form-control">
+                                                                                                    </div>
+                                                                                                </li>
+                                                                                                <li>Skill
+                                                                                                    Level:
+                                                                                                </li>
+                                                                                                <li>
+                                                                                                    <div class="col-xs-ao">
+                                                                                                        <input type="text"
+                                                                                                               name="updateSkillLevel"
+                                                                                                               value="{{ skill[3] }}"
+                                                                                                               class="form-control">
+                                                                                                        <input type="hidden"
+                                                                                                                name="updateSkillId"
+                                                                                                                value="{{ skill[0] }}"
+                                                                                                                class="form-control">
+                                                                                                    </div>
+                                                                                                </li>
+                                                                                                <li>
+                                                                                                    <button type="submit"
+                                                                                                            value="updateSkill">
+                                                                                                        Update
+                                                                                                    </button>
+                                                                                                </li>
+                                                                                            </ul>
+                                                                                        </div>
+                                                                                    </form>
+                                                                                    &nbsp;
+
+                                                                                </div>
+                                                                                <div class="product-info">
+                                                                                    <a href="javascript:void(0)"
+                                                                                       class="product-title">{{ skill[2] }}
+                                                                                    </a>
+                                                                                    <span class="product-description">
+                                                                                    {{ skill[3] }}
+                                                                                </span>
+                                                                                </div>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                {% endfor %}
                                                     </div>
                                                 </div>
                                             </div>
@@ -873,22 +952,24 @@
                                 aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title" id="SkillModalLabel">Skills & Endorsements</h4>
                     </div>
+                    <form action="{{ action }}" method="POST">
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="txtSkillName">Name</label>
-                            <input type="text" class="form-control" id="txtSkillName"
+                            <input type="text" class="form-control" name="newSkill"
                                    placeholder="Example C / Javascript / Network etc.">
                         </div>
                         <div class="form-group">
                             <label for="txtLevelSkill">Level</label>
-                            <input type="text" class="form-control" id="txtLevelSkill"
+                            <input type="text" class="form-control" name="skillLevel"
                                    placeholder="Enter level of skill">
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save</button>
+                        <button type="submit" value="Submit" class="btn btn-primary">Save</button>
                     </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -1342,5 +1423,4 @@
         });
     </script>
 {% endblock %}
-
 

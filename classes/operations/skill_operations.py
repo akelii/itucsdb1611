@@ -18,7 +18,7 @@ class skill_operations:
     def GetSkillByCVId(self, key):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
-            query = """SELECT CVId ,Name, Level FROM Skill
+            query = """SELECT ObjectId, CVId, Name, Level FROM Skill
                     WHERE CVId = %s"""
             cursor.execute(query, (key,))
             results = cursor.fetchall()

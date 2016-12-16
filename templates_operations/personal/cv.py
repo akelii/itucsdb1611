@@ -17,6 +17,8 @@ from classes.operations.information_operations import information_operations
 from flask_login import current_user, login_required
 from classes.operations.person_operations import person_operations
 from classes.CV import CV
+from classes.skill import Skill
+from classes.operations.skill_operations import skill_operations
 
 def personal_cv_page_config(submit_type):
     store = cv_information_operations()
@@ -61,6 +63,8 @@ def personal_cv_pagewithkey_config(submit_type, key):
     listInformation = GetInformationTypeList()
     information_store = information_operations()
     allInformation = information_store.get_all_information_by_CVId(key)
+    store_skill = skill_operations()
+    skills = store_skill.GetSkillByCVId(key)
     updateCV="False"
     if submit_type == 'POST':
         if request and 'deleteLanguage' in request.form and request.method == 'POST':
@@ -156,6 +160,24 @@ def personal_cv_pagewithkey_config(submit_type, key):
                                                updatedCompanyName,updatedPosition)
             experiences = store_experience.get_experience_s_with_key(key)
             updateCV = "TRUE"
+        elif request and 'newSkill' in request.form and request.method == 'POST':
+            newSkillName = request.form['newSkill']
+            skillLevel = request.form['skillLevel']
+            store_skill.AddSkill(key, newSkillName, skillLevel)
+            skills = store_skill.GetSkillByCVId(key)
+            updateCV = "TRUE"
+        elif request and 'deleteSkill' in request.form and request.method == 'POST':
+            delete_id = request.form['deleteSkill']
+            store_skill.DeleteSkill(delete_id)
+            skills = store_skill.GetSkillByCVId(key)
+            updateCV = "TRUE"
+        elif request and 'updateSkillName' in request.form and request.method == 'POST':
+            updateSkillName = request.form['updateSkillName']
+            updateSkillLevel = request.form['updateSkillLevel']
+            update_id = request.form['updateSkillId']
+            store_skill.UpdateSkill(update_id, updateSkillName, updateSkillLevel)
+            skills = store_skill.GetSkillByCVId(key)
+            updateCV = "TRUE"
         elif request.form['add'] == "delete":
             key = request.form['delete_id']
             store.delete_cv_information(key)
@@ -195,4 +217,4 @@ def personal_cv_pagewithkey_config(submit_type, key):
         store_CV.update_cv(key)
 
     return render_template('personal/cv.html', cvs=cvs,CurrentCV=CurrentCV, languages = allLanguages, experiences=experiences, listEducation=listEducation,
-                                   current_time=now.ctime(), informationn=allInformation, listInformation=listInformation)
+                                   current_time=now.ctime(), informationn=allInformation, listInformation=listInformation, skills=skills)
