@@ -99,16 +99,16 @@ class person_operations:
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
             cursor.execute(
-                """UPDATE Person SET FirstName = %s, LastName = %s, AccountTypeId = %s, eMail = %s, Password = %s, Gender = %s, TitleId = %s, PhotoPath = %s, Deleted = %s WHERE (ObjectId=%s)""",
-                (firstName, lastName, accountTypeId, eMail, password, gender,titleId, photoPath, deleted, key))
+                """UPDATE Person SET FirstName = %s, LastName = %s, AccountTypeId = %s, Password = %s, Gender = %s, TitleId = %s, PhotoPath = %s, Deleted = %s WHERE (ObjectId=%s)""",
+                (firstName, lastName, accountTypeId, password, gender,titleId, photoPath, deleted, key))
             connection.commit()
 
     def UpdatePerson(self, person):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
             cursor.execute(
-                """UPDATE Person SET FirstName = %s, LastName = %s, AccountTypeId = %s, eMail = %s, Password = %s, Gender = %s, TitleId = %s, PhotoPath = %s, Deleted = %s WHERE (ObjectId=%s)""",
-                (person.FirstName, person.LastName, person.AccountTypeId, person.Email, person.Password, person.Gender,person.TitleId, person.PhotoPath, '0', person.ObjectId))
+                """UPDATE Person SET FirstName = %s, LastName = %s, AccountTypeId = %s, Password = %s, Gender = %s, TitleId = %s, PhotoPath = %s, Deleted = %s WHERE (ObjectId=%s)""",
+                (person.FirstName, person.LastName, person.AccountTypeId, person.Password, person.Gender,person.TitleId, person.PhotoPath, '0', person.ObjectId))
             connection.commit()
 
 
