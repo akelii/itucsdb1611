@@ -37,9 +37,14 @@ def personal_default_page_config(request):
     elif request and 'searchProjectPage' in request.form and request.method == 'POST':
         return redirect(url_for('site.projects_search_page'))
     elif request and 'saveProfileSettings' in request.form and request.method == 'POST':
+        FollowedPersonProvider = followed_person_operations()
+        listFollowing = FollowedPersonProvider.GetFollowedPersonListByPersonId(Current_Person[0])
+        listFollowers = FollowedPersonProvider.GetFollowedPersonListByFollowedPersonId(Current_Person[0])
+        personComments = comments.GetPersonCommentsByCommentedPersonId(Current_Person[0])
+        listTitle = GetTitleList()
+        listAccount = GetAccountTypeList()
         first_name = request.form['firstName']
         last_name = request.form['lastName']
-        eMail = request.form['eMail']
         pswd = request.form['pswd']
         accountType = request.form['account']
         title = request.form['title']
@@ -57,19 +62,20 @@ def personal_default_page_config(request):
                 filename = 'noimage_female.jpg'
             else:
                 filename = 'noimage_male.jpg'
+        PersonProvider.UpdatePerson(Current_Person[0], first_name, last_name, accountType, pswd, gender, title, filename, False)
+        return redirect(url_for('site.personal_default_page', Current_Person=Current_Person,
+                            listFollowing=listFollowing, listFollowers=listFollowers,
+                            personComments=personComments, listAccount=listAccount, listTitle=listTitle))
 
-        p = Person(1, first_name, last_name, accountType, eMail, pswd, gender, title, filename, False)
-        PersonProvider.UpdatePerson(p)
     FollowedPersonProvider = followed_person_operations()
     listFollowing = FollowedPersonProvider.GetFollowedPersonListByPersonId(Current_Person[0])
     listFollowers = FollowedPersonProvider.GetFollowedPersonListByFollowedPersonId(Current_Person[0])
     personComments = comments.GetPersonCommentsByCommentedPersonId(Current_Person[0])
-    listPerson = PersonProvider.GetPersonList()
     now = datetime.datetime.now()
     listTitle = GetTitleList()
     listAccount = GetAccountTypeList()
     return render_template('personal/default.html', current_time=now.ctime(), Current_Person=Current_Person,
-                           listFollowing=listFollowing, listFollowers=listFollowers, listPerson=listPerson,
+                           listFollowing=listFollowing, listFollowers=listFollowers,
                            personComments=personComments,listAccount=listAccount, listTitle=listTitle)
 
 def allowed_file(filename):

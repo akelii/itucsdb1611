@@ -70,7 +70,7 @@
                 </div>
             </div>
             <div class="col-md-9">
-                <div class="nav-tabs-custom">
+                <div id="tabs" class="nav-tabs-custom">
                     <ul class="nav nav-tabs">
                         <li class="active"><a href="#activeProjects" data-toggle="tab">Active Projects</a></li>
                         <li><a href="#followedProjects" data-toggle="tab">Followed Projects</a></li>
@@ -411,7 +411,7 @@
                                                      alt="user image">
                                                 <span class="username">
                                                     {% if Current_Person[0] ==  comment[4] %}
-                                                        <a href="{{ url_for('site.personal_default_page')}}">{{ comment[1] }}</a>
+                                                        <a href="{{ url_for('site.personal_default_page') }}">{{ comment[1] }}</a>
                                                         <button name="deleteComment" style="color: #D73925"
                                                                 value="{{ comment[0] }}"
                                                                 type="submit" class="pull-right btn btn-box-tool"
@@ -422,7 +422,7 @@
                                                                 type="button" class="pull-right btn btn-box-tool"><i
                                                                 class="fa fa-edit fa-2x"></i>
                                                         </button>
-                                                        {% else %}
+                                                    {% else %}
                                                         <a href="{{ url_for('site.people_person_detail_page', key=comment[4]) }}">{{ comment[1] }}</a>
                                                     {% endif %}
 
@@ -672,10 +672,7 @@
             </div>
         </div>
     </section>
-    <!-- jQuery 2.2.3 -->
-    <script src="../../static/plugins/jQuery/jquery-2.2.3.min.js"></script>
-    <!-- Bootstrap 3.3.6 -->
-    <script src="../../static/bootstrap/js/bootstrap.min.js"></script>
+
     <!-- iCheck -->
     <script src="../../static/plugins/iCheck/icheck.min.js"></script>
     <script>

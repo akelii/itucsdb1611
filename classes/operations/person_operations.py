@@ -95,7 +95,7 @@ class person_operations:
                 )
         return results
 
-    def UpdatePerson(self, key, firstName, lastName, accountTypeId, eMail, password, gender, titleId, photoPath, deleted ):
+    def UpdatePerson(self, key, firstName, lastName, accountTypeId, password, gender, titleId, photoPath, deleted ):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
             cursor.execute(
@@ -103,13 +103,13 @@ class person_operations:
                 (firstName, lastName, accountTypeId, password, gender,titleId, photoPath, deleted, key))
             connection.commit()
 
-    def UpdatePerson(self, person):
-        with dbapi2.connect(dsn) as connection:
-            cursor = connection.cursor()
-            cursor.execute(
-                """UPDATE Person SET FirstName = %s, LastName = %s, AccountTypeId = %s, Password = %s, Gender = %s, TitleId = %s, PhotoPath = %s, Deleted = %s WHERE (ObjectId=%s)""",
-                (person.FirstName, person.LastName, person.AccountTypeId, person.Password, person.Gender,person.TitleId, person.PhotoPath, '0', person.ObjectId))
-            connection.commit()
+    # def UpdatePerson(self, person):
+    #     with dbapi2.connect(dsn) as connection:
+    #         cursor = connection.cursor()
+    #         cursor.execute(
+    #             """UPDATE Person SET FirstName = %s, LastName = %s, AccountTypeId = %s, Password = %s, Gender = %s, TitleId = %s, PhotoPath = %s, Deleted = %s WHERE (ObjectId=%s)""",
+    #             (person.FirstName, person.LastName, person.AccountTypeId, person.Password, person.Gender,person.TitleId, person.PhotoPath, '0', person.ObjectId))
+    #         connection.commit()
 
 
     def DeletePerson(self, key):
