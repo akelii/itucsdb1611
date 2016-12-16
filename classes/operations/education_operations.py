@@ -20,7 +20,7 @@ class education_operations:
             query = """SELECT Education.ObjectId, SchoolName, Description, GraduationGrade, StartDate, EndDate
                         FROM Education
                         INNER JOIN CV ON (Education.CVId = CV.ObjectId)
-                        WHERE (Education.CVId=%s) ORDER BY Education.SchoolName DESC """
+                        WHERE (Education.CVId=%s) ORDER BY Education.EndDate DESC """
             cursor.execute(query, (key,))
             connection.commit()
             result = cursor.fetchall()
