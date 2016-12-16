@@ -409,19 +409,24 @@
                                                 <img class="img-circle img-bordered-sm"
                                                      src="../static/user_images/{{ comment[6] }}"
                                                      alt="user image">
-                                                <span class="username"><a
-                                                        href="{{ url_for('site.people_person_detail_page', key=comment[4]) }}">{{ comment[1] }}</a>
-                                            <button name="deleteComment" style="color: #D73925" value="{{ comment[0] }}"
-                                                    type="submit" class="pull-right btn btn-box-tool"
-                                                    onclick="return confirm('Are you sure to delete?')">
-                                                <i class="fa fa-times-circle fa-2x"></i>
-                                            </button>
-                                            <button name="" style="color: #3C8DBC" data-toggle="modal"
-                                                    data-target="#{{ comment[0] }}"
-                                                    type="button" class="pull-right btn btn-box-tool">
-                                                <i class="fa fa-edit fa-2x"></i>
-                                            </button>
-                                        </span>
+                                                <span class="username">
+                                                    {% if Current_Person[0] ==  comment[4] %}
+                                                        <a href="{{ url_for('site.personal_default_page')}}">{{ comment[1] }}</a>
+                                                        <button name="deleteComment" style="color: #D73925"
+                                                                value="{{ comment[0] }}"
+                                                                type="submit" class="pull-right btn btn-box-tool"
+                                                                onclick="return confirm('Are you sure to delete?')"><i
+                                                                class="fa fa-times-circle fa-2x"></i></button>
+                                                        <button name="" style="color: #3C8DBC" data-toggle="modal"
+                                                                data-target="#{{ comment[0] }}"
+                                                                type="button" class="pull-right btn btn-box-tool"><i
+                                                                class="fa fa-edit fa-2x"></i>
+                                                        </button>
+                                                        {% else %}
+                                                        <a href="{{ url_for('site.people_person_detail_page', key=comment[4]) }}">{{ comment[1] }}</a>
+                                                    {% endif %}
+
+                                                </span>
                                                 <span class="description">{{ comment[3].strftime('%d.%m.%Y   %H:%M') }}</span>
                                             </div>
                                             <p style="margin-left: 2%">{{ comment[2] }}</p>

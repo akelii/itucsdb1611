@@ -17,11 +17,11 @@ class cv_operations:
             result = cursor.fetchone()
         return result
 
-    def get_cvs(self):
+    def get_cvs(self, personId):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
-            query = "SELECT ObjectId, PersonId, CreatedDate, UpdatedDate, CvName FROM CV"
-            cursor.execute(query)
+            query = "SELECT ObjectId, PersonId, CreatedDate, UpdatedDate, CvName FROM CV  WHERE (PersonId=%s)"
+            cursor.execute(query, (personId,))
             cvs = [(key, CV(key, PersonId, CreatedDate, UpdatedDate, CvName)) for
                    key, PersonId, CreatedDate, UpdatedDate, CvName in cursor]
         return cvs
@@ -58,15 +58,14 @@ class cv_operations:
             self.last_key = cursor.lastrowid
 
 
-    def add_cv(self, cvName):
+    def add_cv(self, cvName, personId):
         cvStore = cv_operations()
         personStore=person_operations()
         UserList=personStore.GetPersonList()
-        randomUser=UserList[0]
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
             query = "INSERT INTO CV ( PersonId, CreatedDate, UpdatedDate, CvName, Deleted) VALUES (%s, NOW(), NOW(), %s, 'FALSE')"
-            cursor.execute(query, (randomUser[0], cvName))
+            cursor.execute(query, (personId, cvName))
             connection.commit()
             self.last_key = cursor.lastrowid
 

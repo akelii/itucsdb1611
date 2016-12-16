@@ -3,6 +3,7 @@ from flask import url_for
 from flask import redirect
 from flask import request
 from datetime import datetime
+from flask_login import current_user, login_required
 from classes.operations.person_operations import person_operations
 from classes.operations.followed_person_operations import followed_person_operations
 from classes.followed_person import FollowedPerson
@@ -11,7 +12,7 @@ from classes.followed_person import FollowedPerson
 def people_search_person_page_config(request):
     PersonProvider = person_operations()
     FollowedPersonProvider = followed_person_operations()
-    Current_Person = PersonProvider.GetPersonByObjectId(1)  # Login olunca duzelt
+    Current_Person = PersonProvider.GetPerson(current_user.email)
     listPerson = PersonProvider.GetPersonListExcludePersonId(Current_Person[0])
     if request and 'follow' in request.form and request.method == 'POST':
         toAdd = FollowedPerson(None,Current_Person[0], request.form['follow'], None, None)

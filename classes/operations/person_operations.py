@@ -31,7 +31,11 @@ class person_operations:
     def GetPerson(self, userEMail):#current_userın emaili ile person tablosundaki haline ulaşıyoruz
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
-            query = """SELECT ObjectId FROM Person WHERE eMail = %s"""
+            query = """SELECT Person.ObjectId, FirstName || ' ' || LastName as FullName, AccountType.AccountTypeName, Email, Password, Gender, Title.Name, PhotoPath, FirstName, LastName
+                        FROM Person
+                        INNER JOIN AccountType ON (Person.AccountTypeId = AccountType.ObjectId)
+                        INNER JOIN Title ON (Person.TitleId = Title.ObjectId)
+                        WHERE eMail = %s"""
             cursor.execute(query, (userEMail,))
             person_id = cursor.fetchone()
         return person_id

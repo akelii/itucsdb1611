@@ -24,6 +24,7 @@ def register_page():
 
 
 @site.route('/personal', methods=["GET", "POST"])
+@login_required
 def personal_default_page():
     return personal_default_page_config(request)
 
@@ -52,26 +53,31 @@ def projects_details_page(key):
 
 
 @site.route('/home', methods=["GET", "POST"])
+@login_required
 def home_page():
     return home_page_config(request)
 
 
 @site.route('/people_connections')
+@login_required
 def connections_following_people():
     return render_template('connections/following_people.html')
 
 
 @site.route('/project_connections')
+@login_required
 def connections_following_projects():
     return render_template('connections/following_projects.html')
 
 
 @site.route('/cv', methods=["GET", "POST"])
+@login_required
 def personal_cv_page():
     return personal_cv_page_config(request.method)
 
 
 @site.route('/cv/<int:key>',methods=["GET", "POST"])
+@login_required
 def personal_cv_pagewithkey(key):
     return personal_cv_pagewithkey_config(request.method, key)
 
@@ -82,11 +88,13 @@ def personal_settings_page():
 
 
 @site.route('/people_search', methods=["GET", "POST"])
+@login_required
 def people_search_person_page():
     return people_search_person_page_config(request)
 
 
 @site.route('/person_detail/<int:key>', methods=["GET", "POST"])
+@login_required
 def people_person_detail_page(key):
     return people_person_detail_page_config(request, key)
 
@@ -109,5 +117,6 @@ def login_page():
 
 
 @site.route('/mailbox', methods=["GET", "POST"])
+@login_required
 def mailbox_page():
     return mailbox_page_config(request,key)

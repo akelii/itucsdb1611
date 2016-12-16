@@ -14,6 +14,8 @@ from classes.education import Education
 from classes.operations.education_operations import education_operations
 from classes.look_up_tables import*
 from classes.operations.information_operations import information_operations
+from flask_login import current_user, login_required
+from classes.operations.person_operations import person_operations
 from classes.CV import CV
 
 def personal_cv_page_config(submit_type):
@@ -23,25 +25,27 @@ def personal_cv_page_config(submit_type):
     store_CV = cv_operations()
     cvInformations = store.get_cv_information_s()
     experiences = t.get_experience_s()
-    cvs = store_CV.get_cvs()
+    PersonProvider = person_operations()
+    Current_Person = PersonProvider.GetPerson(current_user.email)
+    cvs = store_CV.get_cvs(Current_Person[0])
     if submit_type == 'GET':
         return render_template('personal/cv.html', experiences=experiences, cvs=cvs, cvInformations=cvInformations, CurrentCV=0, current_time=now.ctime())
-    else :
-
+    else:
         if request and 'Add_CV' in request.form:
             cvname=request.form['CvName']
-            store_CV.add_cv(cvname,now,now)
+            store_CV.add_cv(cvname, Current_Person[0])
         elif request and 'newCvName' in request.form and request.method =='POST':
             cvName=request.form['newCvName']
             cvInfo=request.form['newCvInfo']
-            store_CV.add_cv(cvName)
-            cvs=store_CV.get_cvs()
-
+            store_CV.add_cv(cvName, Current_Person[0])
+            cvs=store_CV.get_cvs(Current_Person[0])
         return render_template('personal/cv.html', experiences=experiences, cvs=cvs, cvInformations=cvInformations,
                                CurrentCV=0, current_time=now.ctime(), )
 
 
 def personal_cv_pagewithkey_config(submit_type, key):
+    PersonProvider = person_operations()
+    CurrentPerson = PersonProvider.GetPerson(current_user.email)
     store = cv_information_operations()
     languages = language_operations()
     store_CV = cv_operations()
@@ -53,7 +57,7 @@ def personal_cv_pagewithkey_config(submit_type, key):
     listEducation = store_education.GetEducationListByCVId(key)
     experiences = t.get_experience_s_with_key(key)
     allLanguages = languages.GetAllLanguagesByCVId(key)
-    cvs = store_CV.get_cvs()
+    cvs = store_CV.get_cvs(CurrentPerson[0])
     listInformation = GetInformationTypeList()
     information_store = information_operations()
     allInformation = information_store.get_all_information_by_CVId(key)

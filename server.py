@@ -9,16 +9,16 @@ import psycopg2 as dbapi2
 from handlers import site
 from flask_login import LoginManager
 from flask_login import login_required, login_user, current_user
-from templates_operations.user import*
+from templates_operations.user import *
 from passlib.apps import custom_app_context as pwd_context
 
 from classes.operations.project_operations import project_operations
 from classes.operations.person_operations import person_operations
 from classes.project import Project
 from classes.look_up_tables import *
-from templates_operations.user import*
+from templates_operations.user import *
 
-#def create_app():
+# def create_app():
 #    app = Flask(__name__)
 #    app.config.from_object('settings')
 #    app.register_blueprint(site)
@@ -26,19 +26,21 @@ from templates_operations.user import*
 
 
 
-#def main():
+# def main():
 #    app = create_app()
 #    app.run()
 lm = LoginManager()
+
 
 @lm.user_loader
 def loadUser(userEMail):
     return getUser(userEMail)
 
+
 def getUser(userEMail):
     with dbapi2.connect(app.config['dsn']) as connection:
         cursor = connection.cursor()
-        query = """SELECT Password FROM Users WHERE eMail = %s"""
+        query = """SELECT Password FROM Users WHERE eMail = %s AND deleted='0'"""
         cursor.execute(query, (userEMail,))
         user_value = cursor.fetchone()
         if user_value is None:
@@ -47,11 +49,13 @@ def getUser(userEMail):
         user = User(userEMail, password)
     return user
 
+
 app = Flask(__name__)
 app.register_blueprint(site)
 app.config['UPLOAD_FOLDER'] = 'static/user_images/'
 lm.init_app(app)
 lm.login_view = 'login_page'
+
 
 def get_elephantsql_dsn(vcap_services):
     """Returns the data source name for ElephantSQL."""
@@ -64,6 +68,15 @@ def get_elephantsql_dsn(vcap_services):
     return dsn
 
 
+@app.context_processor
+def CurrentUserInfo():
+    if hasattr(current_user, 'email'):
+        person = person_operations().GetPerson(current_user.email)
+        return dict(full_name=person[1], title=person[6], photopath=person[7])
+    else:
+        return dict(full_name='asd')
+
+
 @app.route('/', methods=["GET", "POST"])
 def first_page():
     return login_page()
@@ -73,7 +86,7 @@ def first_page():
 def login_page():
     if request.method == 'GET':
         comment = 'Sign in to start your AcademicFreelance life!'
-        return render_template('login.html', comment=comment)
+        return render_template('login.html', comment=comment, person='asd')
     else:
         if 'login' in request.form:
             email = request.form['email']
@@ -83,6 +96,7 @@ def login_page():
                 if pwd_context.verify(password, user.password):
                     login_user(user)
                     next_page = request.args.get('next', url_for('site.home_page'))
+
                     return redirect(next_page)
                 else:
                     comment = 'Incorrect password. Please try again!'
@@ -92,6 +106,7 @@ def login_page():
                 return render_template('login.html', comment=comment)
         comment = 'Sign in to start your AcademicFreelance life!'
         return render_template('login.html', comment=comment)
+
 
 @app.route('/init_db')
 def init_db():
@@ -338,43 +353,65 @@ def init_db():
 
         cursor.execute("""ALTER TABLE Team ADD FOREIGN KEY(ProjectId) REFERENCES Project(ObjectId) ON DELETE CASCADE""")
         cursor.execute("""ALTER TABLE Team ADD FOREIGN KEY(MemberId) REFERENCES Person(ObjectId) ON DELETE CASCADE """)
-        cursor.execute("""ALTER TABLE PersonComment ADD FOREIGN KEY(CommentedPersonId) REFERENCES Person(ObjectId) ON DELETE CASCADE """)
-        cursor.execute("""ALTER TABLE PersonComment ADD FOREIGN KEY(PersonId) REFERENCES Person(ObjectId) ON DELETE CASCADE """)
+        cursor.execute(
+            """ALTER TABLE PersonComment ADD FOREIGN KEY(CommentedPersonId) REFERENCES Person(ObjectId) ON DELETE CASCADE """)
+        cursor.execute(
+            """ALTER TABLE PersonComment ADD FOREIGN KEY(PersonId) REFERENCES Person(ObjectId) ON DELETE CASCADE """)
         cursor.execute("""ALTER TABLE Language ADD FOREIGN KEY(CVId) REFERENCES CV(ObjectId) ON DELETE CASCADE """)
-        cursor.execute( """ALTER TABLE Message ADD  FOREIGN KEY(SenderId) REFERENCES Person(ObjectId) ON DELETE CASCADE """)
-        cursor.execute( """ALTER TABLE Message ADD  FOREIGN KEY(RecieverId) REFERENCES Person(ObjectId) ON DELETE CASCADE """)
-        cursor.execute( """ALTER TABLE Experience ADD  FOREIGN KEY(CVId) REFERENCES CV(ObjectId) ON DELETE  CASCADE """)
-        cursor.execute("""ALTER TABLE Information ADD  FOREIGN KEY(InformationTypeId) REFERENCES InformationType(ObjectId) ON DELETE CASCADE """)
+        cursor.execute(
+            """ALTER TABLE Message ADD  FOREIGN KEY(SenderId) REFERENCES Person(ObjectId) ON DELETE CASCADE """)
+        cursor.execute(
+            """ALTER TABLE Message ADD  FOREIGN KEY(RecieverId) REFERENCES Person(ObjectId) ON DELETE CASCADE """)
+        cursor.execute("""ALTER TABLE Experience ADD  FOREIGN KEY(CVId) REFERENCES CV(ObjectId) ON DELETE  CASCADE """)
+        cursor.execute(
+            """ALTER TABLE Information ADD  FOREIGN KEY(InformationTypeId) REFERENCES InformationType(ObjectId) ON DELETE CASCADE """)
         cursor.execute("""ALTER TABLE CV ADD  FOREIGN KEY(PersonId) REFERENCES Person(ObjectId) ON DELETE CASCADE""")
-        cursor.execute("""ALTER TABLE CVInformation ADD  FOREIGN KEY(CVInformationTypeId) REFERENCES CVInformationType(ObjectId) ON DELETE CASCADE """)
+        cursor.execute(
+            """ALTER TABLE CVInformation ADD  FOREIGN KEY(CVInformationTypeId) REFERENCES CVInformationType(ObjectId) ON DELETE CASCADE """)
         cursor.execute("""ALTER TABLE CVInformation ADD  FOREIGN KEY(CVId) REFERENCES CV(ObjectId) ON DELETE CASCADE""")
         cursor.execute("""ALTER TABLE Team ADD  FOREIGN KEY(MemberId) REFERENCES Person(ObjectId) ON DELETE CASCADE""")
-        cursor.execute("""ALTER TABLE Person ADD  FOREIGN KEY(AccountTypeId) REFERENCES AccountType(ObjectId) ON DELETE CASCADE""")
+        cursor.execute(
+            """ALTER TABLE Person ADD  FOREIGN KEY(AccountTypeId) REFERENCES AccountType(ObjectId) ON DELETE CASCADE""")
         cursor.execute("""ALTER TABLE Person ADD FOREIGN KEY(TitleId) REFERENCES Title(ObjectId) ON DELETE CASCADE""")
-        cursor.execute("""ALTER TABLE Project ADD FOREIGN KEY(ProjectTypeId) REFERENCES ProjectType(ObjectId) ON DELETE CASCADE""")
-        cursor.execute("""ALTER TABLE Project ADD FOREIGN KEY (ProjectThesisTypeId) REFERENCES ProjectThesisType(ObjectId) ON DELETE CASCADE""")
-        cursor.execute("""ALTER TABLE Project ADD FOREIGN KEY (DepartmentId) REFERENCES Department(ObjectId) ON DELETE CASCADE""")
-        cursor.execute("""ALTER TABLE Project ADD FOREIGN KEY (ProjectStatusTypeId) REFERENCES ProjectStatusType(ObjectId) ON DELETE CASCADE""")
-        cursor.execute("""ALTER TABLE Project ADD FOREIGN KEY (CreatedByPersonId) REFERENCES Person(ObjectId) ON DELETE CASCADE""")
-        cursor.execute("""ALTER TABLE Project ADD FOREIGN KEY (ProjectManagerId) REFERENCES Person(ObjectId) ON DELETE CASCADE""")
-        cursor.execute("""ALTER TABLE Worklog ADD  FOREIGN KEY(CreatorPersonId) REFERENCES Person(ObjectId) ON DELETE CASCADE """)
-        cursor.execute("""ALTER TABLE Worklog ADD  FOREIGN KEY(ProjectId) REFERENCES Project(ObjectId) ON DELETE CASCADE """)
-        cursor.execute("""ALTER TABLE FollowedPerson ADD  FOREIGN KEY(PersonId) REFERENCES Person(ObjectId) ON DELETE CASCADE """)
-        cursor.execute("""ALTER TABLE FollowedPerson ADD  FOREIGN KEY(FollowedPersonId) REFERENCES Person(ObjectId) ON DELETE CASCADE """)
-        cursor.execute("""ALTER TABLE FollowedProject ADD  FOREIGN KEY(PersonId) REFERENCES Person(ObjectId) ON DELETE CASCADE """)
-        cursor.execute("""ALTER TABLE FollowedProject ADD  FOREIGN KEY(FollowedProjectId) REFERENCES Project(ObjectId) ON DELETE CASCADE """)
+        cursor.execute(
+            """ALTER TABLE Project ADD FOREIGN KEY(ProjectTypeId) REFERENCES ProjectType(ObjectId) ON DELETE CASCADE""")
+        cursor.execute(
+            """ALTER TABLE Project ADD FOREIGN KEY (ProjectThesisTypeId) REFERENCES ProjectThesisType(ObjectId) ON DELETE CASCADE""")
+        cursor.execute(
+            """ALTER TABLE Project ADD FOREIGN KEY (DepartmentId) REFERENCES Department(ObjectId) ON DELETE CASCADE""")
+        cursor.execute(
+            """ALTER TABLE Project ADD FOREIGN KEY (ProjectStatusTypeId) REFERENCES ProjectStatusType(ObjectId) ON DELETE CASCADE""")
+        cursor.execute(
+            """ALTER TABLE Project ADD FOREIGN KEY (CreatedByPersonId) REFERENCES Person(ObjectId) ON DELETE CASCADE""")
+        cursor.execute(
+            """ALTER TABLE Project ADD FOREIGN KEY (ProjectManagerId) REFERENCES Person(ObjectId) ON DELETE CASCADE""")
+        cursor.execute(
+            """ALTER TABLE Worklog ADD  FOREIGN KEY(CreatorPersonId) REFERENCES Person(ObjectId) ON DELETE CASCADE """)
+        cursor.execute(
+            """ALTER TABLE Worklog ADD  FOREIGN KEY(ProjectId) REFERENCES Project(ObjectId) ON DELETE CASCADE """)
+        cursor.execute(
+            """ALTER TABLE FollowedPerson ADD  FOREIGN KEY(PersonId) REFERENCES Person(ObjectId) ON DELETE CASCADE """)
+        cursor.execute(
+            """ALTER TABLE FollowedPerson ADD  FOREIGN KEY(FollowedPersonId) REFERENCES Person(ObjectId) ON DELETE CASCADE """)
+        cursor.execute(
+            """ALTER TABLE FollowedProject ADD  FOREIGN KEY(PersonId) REFERENCES Person(ObjectId) ON DELETE CASCADE """)
+        cursor.execute(
+            """ALTER TABLE FollowedProject ADD  FOREIGN KEY(FollowedProjectId) REFERENCES Project(ObjectId) ON DELETE CASCADE """)
         cursor.execute("""ALTER TABLE Education ADD FOREIGN KEY (CVId) REFERENCES CV(ObjectId) ON DELETE CASCADE """)
         cursor.execute("""ALTER TABLE Skill ADD FOREIGN KEY(CVId) REFERENCES CV(ObjectId) ON DELETE CASCADE """)
         cursor.execute("""ALTER TABLE Information ADD FOREIGN KEY(CVId) REFERENCES CV(ObjectId) ON DELETE CASCADE """)
         cursor.execute("""ALTER TABLE Users ADD FOREIGN KEY(eMail) REFERENCES Person(eMail) ON DELETE CASCADE""")
 
-
-        cursor.execute("""INSERT INTO AccountType (AccountTypeName, Deleted) VALUES ('Student', '0'), ('Academic', '0')""")
-        cursor.execute("""INSERT INTO CVInformationType (Name, Deleted) VALUES ('Education', '0'), ('Ability', '0'), ('Experience', '0'), ('Language', '0')""")
+        cursor.execute(
+            """INSERT INTO AccountType (AccountTypeName, Deleted) VALUES ('Student', '0'), ('Academic', '0')""")
+        cursor.execute(
+            """INSERT INTO CVInformationType (Name, Deleted) VALUES ('Education', '0'), ('Ability', '0'), ('Experience', '0'), ('Language', '0')""")
         cursor.execute("""INSERT INTO ProjectType (Name, Deleted) VALUES ('Tubitak Projects' , '0'), ('Competition Projects' , '0'), ('International Conference Projects' , '0'),
                       ('National Conference Projects' , '0'), ('Commercial Projects' , '0'), ('StartUp Project' , '0')""")
-        cursor.execute("""INSERT INTO ProjectThesisType (Name, Deleted) VALUES ('Bachelor Projects', '0'), ('Master Projects', '0'), ('PhD Projects', '0')""")
-        cursor.execute("""INSERT INTO ProjectStatusType (Name, Deleted) VALUES ('standby', '0'), ('onprogress', '0'), ('done', '0')""")
+        cursor.execute(
+            """INSERT INTO ProjectThesisType (Name, Deleted) VALUES ('Bachelor Projects', '0'), ('Master Projects', '0'), ('PhD Projects', '0')""")
+        cursor.execute(
+            """INSERT INTO ProjectStatusType (Name, Deleted) VALUES ('standby', '0'), ('onprogress', '0'), ('done', '0')""")
         cursor.execute("""INSERT INTO Title (Name, Deleted) VALUES ('Prof.' , '0'), ('Prof. Dr.' , '0'), ('Doç. Dr.' , '0'), ('Yrd. Doç. Dr.' , '0'), ('Öğr. Gör.' , '0'), ('Araş. Gör.' , '0'),
                       ('Uzman' , '0'), ('Okutman' , '0'), ('Yrd. Doç' , '0'), ('Doç.' , '0'), ('Engineer' , '0'), ('Asistant' , '0'), ('Student' , '0')""")
         cursor.execute("""INSERT INTO Department (Name, Deleted) VALUES ('Computer Engineering', '0'), ('Civil Engineering', '0'), ('Astronautical Engineering', '0'),
@@ -392,6 +429,7 @@ def init_db():
 
         return redirect(url_for('site.register_page'))
 
+
 if __name__ == '__main__':
     VCAP_APP_PORT = os.getenv('VCAP_APP_PORT')
     if VCAP_APP_PORT is not None:
@@ -403,13 +441,9 @@ if __name__ == '__main__':
     if VCAP_SERVICES is not None:
         app.config['dsn'] = get_elephantsql_dsn(VCAP_SERVICES)
     else:
-        app.config['dsn'] = """user='postgres' password='b_e_BTFVmUQvEpr-arXGfL25XHdaVrCX' host='localhost' port=5432 dbname='dxxbzlpn'"""
+        app.config[
+            'dsn'] = """user='postgres' password='b_e_BTFVmUQvEpr-arXGfL25XHdaVrCX' host='localhost' port=5432 dbname='dxxbzlpn'"""
     app.secret_key = os.urandom(32)
 
     app.run(host='0.0.0.0', port=port, debug=debug)
-    #app.run()
-
-
-    
-
-
+    # app.run()

@@ -3,6 +3,7 @@ from flask import url_for
 from flask import redirect
 from flask import request
 from datetime import datetime
+from flask_login import current_user, login_required
 from classes.operations.person_operations import person_operations
 from classes.operations.followed_person_operations import followed_person_operations
 from classes.operations.personComment_operations import personComment_operations
@@ -15,7 +16,7 @@ ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
 def personal_default_page_config(request):
     PersonProvider = person_operations()
-    Current_Person = PersonProvider.GetPersonByObjectId(1)  # LOGIN DUZELT
+    Current_Person = PersonProvider.GetPerson(current_user.email)
     comments = personComment_operations()
     if request and 'delete' in request.form and request.method == 'POST':
         p = PersonProvider.GetPersonByObjectId(request.form['delete'])
@@ -59,14 +60,10 @@ def personal_default_page_config(request):
 
         p = Person(1, first_name, last_name, accountType, eMail, pswd, gender, title, filename, False)
         PersonProvider.UpdatePerson(p)
-    Current_Person = PersonProvider.GetPersonByObjectId(1)  # LOGIN DUZELT
     FollowedPersonProvider = followed_person_operations()
-    listFollowing = FollowedPersonProvider.GetFollowedPersonListByPersonId(1)
-    listFollowers = FollowedPersonProvider.GetFollowedPersonListByFollowedPersonId(1)
+    listFollowing = FollowedPersonProvider.GetFollowedPersonListByPersonId(Current_Person[0])
+    listFollowers = FollowedPersonProvider.GetFollowedPersonListByFollowedPersonId(Current_Person[0])
     personComments = comments.GetPersonCommentsByCommentedPersonId(Current_Person[0])
-#    RelatedPeople = comments.GetRelatedPersonsIdByCommentId(2)
-#    idOfPerson = RelatedPeople[0][1]
-#    idOfCommentedPerson = RelatedPeople[0][0]
     listPerson = PersonProvider.GetPersonList()
     now = datetime.datetime.now()
     listTitle = GetTitleList()
