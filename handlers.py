@@ -119,4 +119,10 @@ def login_page():
 @site.route('/mailbox', methods=["GET", "POST"])
 @login_required
 def mailbox_page():
-    return mailbox_page_config(request,key)
+    return mailbox_page_config(request)
+
+
+@site.route('/mailbox/<int:key>', methods=["GET","POST"])
+@login_required
+def messages_page_with_key(key):
+    return messages_page_with_key_config(request, key)

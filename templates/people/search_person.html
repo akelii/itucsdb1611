@@ -76,12 +76,13 @@
                                                            title="Go person details">
                                                             <i class="fa fa-search fa-2x"></i>
                                                         </a>
-                                                        <button name="message" value="{{ person[0] }}" type="submit"
+                                                        <a   href="{{ url_for('site.messages_page_with_key', key=person[0]) }}"
+                                                                name="message" value="{{ person[0] }}" type="submit"
                                                                 class="btn btn-box-tool"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Write a Message!">
                                                             <i class="fa fa-envelope fa-2x"></i>
-                                                        </button>
+                                                        </a>
 
                                                         {% if person[10] %}
                                                             <button name="unfollow" value="{{ person[0] }}"

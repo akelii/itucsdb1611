@@ -38,7 +38,6 @@ def personal_cv_page_config(submit_type):
             store_CV.add_cv(cvname, Current_Person[0])
         elif request and 'newCvName' in request.form and request.method =='POST':
             cvName=request.form['newCvName']
-            cvInfo=request.form['newCvInfo']
             store_CV.add_cv(cvName, Current_Person[0])
             cvs=store_CV.get_cvs(Current_Person[0])
         return render_template('personal/cv.html', experiences=experiences, cvs=cvs, cvInformations=cvInformations,
@@ -129,7 +128,6 @@ def personal_cv_pagewithkey_config(submit_type, key):
             updateCV = "TRUE"
         elif request and 'newCvName' in request.form and request.method =='POST':
             cvName=request.form['newCvName']
-            cvInfo=request.form['newCvInfo']
             store_CV.add_cv_with_key(cvName,key)
             cvs=store_CV.get_cvs()
         elif request and 'DeleteCv' in request.form and request.method =='POST':

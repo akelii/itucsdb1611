@@ -1,0 +1,206 @@
+{% extends "layout.html" %}
+{% block container %}
+    <section class="content-header">
+        <h1>
+            MailBox
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="{{ url_for('site.home_page') }}"><i class="fa fa-dashboard"></i> Homepage</a></li>
+            <li class="active"><a href="#">MailBox</a></li>
+        </ol>
+    </section>
+
+    <section class="content">
+
+
+<div class="row">
+
+
+<div class="col-md-3">
+
+          <div class="box box-solid">
+            <div class="box-header with-border">
+              <h3 class="box-title">Messaging With </h3>
+
+              <div class="box-tools">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                </button>
+              </div>
+            </div>
+            <div class="box-body no-padding">
+              <ul class="nav nav-pills nav-stacked">
+
+                  {% for person in people   %}
+
+                        {% if person[0]!=sender and person[0]!=key %}
+
+                <li> <a href={{ url_for('site.messages_page_with_key', key=person[0]) }} class="small-box-footer"><i class="fa fa-graduation-cap"></i>{{ person[1] }} </a></li>
+
+                      {% elif person[0]==key  and key!=sender and person[0]!=sender%}
+                <li class="active"> <a href={{ url_for('site.messages_page_with_key', key=person[0]) }} class="small-box-footer"><i class="fa fa-graduation-cap"></i>{{ person[1] }} </a></li>
+
+                            {% endif %}
+
+
+
+                  {% endfor %}
+              </ul>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /. box -->
+          <!-- /.box -->
+        </div>
+
+
+
+{% if key !=sender %}
+
+    <div class="col-md-5">
+        <div class="box box-primary direct-chat direct-chat-primary">
+            <div class="box-header with-border">
+                {% for person in people %}
+                    {% if person[0] == key  %}
+              <h3 class="box-title">Messages with {{ person[1] }} </h3>
+                    {% endif %}
+                {% endfor %}
+
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <!-- Conversations are loaded here -->
+              <div class="direct-chat-messages ">
+                <!-- Message. Default to the left -->
+
+                  {% for message in Messages %}
+                  {% if message[2] == sender and message[1]==key %}
+                <div class="direct-chat-msg  ">
+                  <div class="direct-chat-info clearfix">
+                    <span class="direct-chat-name pull-left"> {{ receiverPerson[1]}} </span>
+                    <span class="direct-chat-timestamp pull-right">sent : {{ message[5].strftime('%d.%m.%Y  %H:%M') }}</span>
+                  </div>
+                  <!-- /.direct-chat-info -->
+
+                    <form method="POST" action="{{ action }}" name="deleteMessage">
+                    <div class="direct-chat-text bg-gray">
+                    <button type="submit" class="btn btn-box-tool" name="deleteMessage" value="{{ message[0] }}"><i class="fa fa-times"></i>
+                    </button>
+
+
+                    {{ message[4] }}
+                </div>
+                       </form>
+
+                  <!-- /.direct-chat-text -->
+                    <div class="direct-chat-info clearfix">
+
+                        {% if message[6] != none %}
+                    <span class="direct-chat-timestamp pull-left"> seen : {{ message[6].strftime('%d.%m.%Y  %H:%M') }}</span>
+                            {% else %}
+                            <span class="direct-chat-timestamp pull-left">not seen yet </span>
+
+                            {% endif %}
+                    </div>
+                     </div>
+
+
+{% endif %}
+
+                   {% if message[1] == sender and message[2]==key and message[7]!='false' %}
+
+                <!-- Message to the right -->
+                <div class="direct-chat-msg right ">
+                  <div class="direct-chat-info clearfix">
+                    <span class="direct-chat-name pull-right">{{ senderPerson[1] }}</span>
+                    <span class="direct-chat-timestamp pull-left">sent : {{ message[5].strftime('%d.%m.%Y  %H:%M') }}</span>
+                  </div>
+                  <!-- /.direct-chat-info -->
+
+                   <form method="POST" action="{{ action }}" name="deleteMessage">
+                    <div class="direct-chat-text bg-aqua">
+
+                         <div class="box-tools pull-right">
+                    <span data-toggle="tooltip" title="3 New Messages" class="badge bg-yellow"></span>
+
+                    <button type="submit" class="btn btn-box-tool" name="deleteMessage" value="{{ message[0] }}"><i class="fa fa-times"></i>
+                    </button>
+
+                  </div>
+                    {{ message[4] }}
+                  </div>
+                       </form>
+                  <!-- /.direct-chat-text -->
+                    <div class="direct-chat-info clearfix">
+                        {% if message[6] != none %}
+                    <span class="direct-chat-timestamp pull-right"> seen : {{ message[6].strftime('%d.%m.%Y  %H:%M') }}</span>
+                            {% else %}
+                            <span class="direct-chat-timestamp pull-right">not seen yet </span>
+
+                            {% endif %}
+                    </div>
+                </div>
+              {% endif %}
+
+
+              {% endfor %}
+             </div>
+                <!-- /.direct-chat-msg -->
+
+            </div>
+              <!--/.direct-chat-messages-->
+
+              <!-- Contacts are loaded here -->
+
+              <!-- /.direct-chat-pane -->
+            </div>
+            <!-- /.box-body -->
+
+            <div class="box-footer">
+              <form action="{{ action }}" method="POST" name="sendMessage" >
+                <div class="input-group">
+                  <input type="text"  name="Message" placeholder="Type Message ..." class="form-control">
+
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-primary btn-flat" value="{{ key }}" name="sendMessage">Send</button>
+                      </span>
+                </div>
+              </form>
+            </div>
+            <!-- /.box-footer-->
+          </div>
+{% else %}
+
+    <div class="col-md-5">
+        <div class="box box-primary direct-chat direct-chat-primary">
+            <div class="box-header with-border">
+                {% for person in people %}
+                    {% if person[0] == key  %}
+              <h3 class="box-title"> Choose someone from list to start messaging!  </h3>
+                    {% endif %}
+                {% endfor %}
+              <div class="box-tools pull-right">
+                <span data-toggle="tooltip" title="3 New Messages" class="badge bg-light-blue">3</span>
+
+              </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <!-- Conversations are loaded here -->
+
+            <!-- /.box-footer-->
+          </div>
+
+{% endif %}
+
+
+</div>
+
+
+
+</div>
+
+</div>
+
+        </section>
+
+{% endblock %}

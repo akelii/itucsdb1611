@@ -309,14 +309,14 @@ def init_db():
         query = """CREATE TABLE IF NOT EXISTS Message(
                 ObjectId SERIAL PRIMARY KEY,
                 SenderId INT NOT NULL,
-                RecieverId INT NOT NULL,
+                ReceiverId INT NOT NULL,
                 IsRead BOOLEAN NOT NULL,
                 MessageContent VARCHAR(400),
                 SendDate TIMESTAMP NOT NULL,
-                ReadDate TIMESTAMP NOT NULL,
-                UpdateDate TIMESTAMP NOT NULL,
+                ReadDate TIMESTAMP,
                 Deleted BOOLEAN NOT NULL
-        )"""
+                )"""
+        cursor.execute(query)
         cursor.execute(query)
         query = """CREATE TABLE IF NOT EXISTS Experience(
                 ObjectId SERIAL PRIMARY KEY,
@@ -361,7 +361,7 @@ def init_db():
         cursor.execute(
             """ALTER TABLE Message ADD  FOREIGN KEY(SenderId) REFERENCES Person(ObjectId) ON DELETE CASCADE """)
         cursor.execute(
-            """ALTER TABLE Message ADD  FOREIGN KEY(RecieverId) REFERENCES Person(ObjectId) ON DELETE CASCADE """)
+            """ALTER TABLE Message ADD  FOREIGN KEY(ReceiverId) REFERENCES Person(ObjectId) ON DELETE CASCADE """)
         cursor.execute("""ALTER TABLE Experience ADD  FOREIGN KEY(CVId) REFERENCES CV(ObjectId) ON DELETE  CASCADE """)
         cursor.execute(
             """ALTER TABLE Information ADD  FOREIGN KEY(InformationTypeId) REFERENCES InformationType(ObjectId) ON DELETE CASCADE """)
