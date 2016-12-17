@@ -9,56 +9,84 @@
         </ol>
     </section>
 
-    <section class="content">
+        <section class="content">
         <div class="row">
             <div class="col-md-12">
-              <div class="box">
-              <form role="form" action="" method="post" name="search_project" class="form-horizontal">
-                <div class="box-header">
-                  <h3 class="box-title">Projects</h3>
-
-                  <div class="box-tools">
-                    <div class="input-group input-group-sm" style="width: 150px;">
-                      <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
-
-                      <div class="input-group-btn">
-                        <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                      </div>
+                <div class="box">
+                    <form role="form" action="" method="post" name="search_project" class="form-horizontal">
+                    <div class="box-header">
+                        <h3 class="box-title"></h3>
                     </div>
-                  </div>
-                </div>
-                <!-- /.box-header -->
-                <div class="box-body table-responsive no-padding">
-                    <table class="table table-hover">
-                        <tbody>
+                    <div class="box-body">
+                        <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table id="example1" class="table table-bordered table-striped dataTable"
+                                           role="grid" aria-describedby="example1_info">
+                                        <thead>
+                                        <tr role="row">
+                                            <th style="width: 30px;">
+                                            </th>
+                                            <th class="" tabindex="0" aria-controls="example1" rowspan="1"
+                                                colspan="1" aria-label=""
+                                                aria-sort="descending" style="width: 70px;">
+                                                Project Title
+                                            </th>
+                                            <th class="" tabindex="0" aria-controls="example1" rowspan="1"
+                                                colspan="1" aria-label=""
+                                                style="width: 190px;">Project Description
+                                            </th>
+                                            <th class="" tabindex="0" aria-controls="example1" rowspan="1"
+                                                colspan="1"
+                                                aria-label=""
+                                                style="width: 110px;">Department
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
 
-                            <tr>
-                                <th>Select</th>
-                              <th>Project Title</th>
-                              <th>Project Description</th>
-                                <th>Department</th>
-                            </tr>
-                            {% for project in projects %}
-                            <tr>
-                              <td><div class="checkbox"><label><input type="checkbox" name="check" value="{{project[0]}}"></label></div></td>
-                                <td>{{ project[1] }}</td>
-                                <td>{{ project[2] }}</td>
-                                <td>{{ project[3] }}</td>
-                            </tr>
-                            {% endfor %}
-                      </tbody></table>
-                        <div class="box-footer">
-                            <button type="submit" name="details" value="Details" class="btn btn-primary">Details</button>
+                                        {% for project in projects %}
+                                            <tr role="row">
+                                                <td><button type="submit" name="details" value="{{project[0]}}" class="btn btn-primary btn-xs">Details</button></td>
+                                                <td>{{ project[1] }}</td>
+                                                <td>{{ project[2] }}</td>
+                                                <td>{{ project[3] }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
-
+                    </div>
+                    <!-- /.box-body -->
+                    </form>
                 </div>
-              </form>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
+            </div>
         </div>
-        </div>
-
-
     </section>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(function () {
+                $('#example1').DataTable({
+                    "paging": false,
+                    "lengthChange": false,
+                    "searching": true,
+                    "ordering": false,
+                    "info": false,
+                    "autoWidth": false,
+                    "order": [],
+                    "aoColumns": [
+                        {"bSortable": false},
+                        {"bSortable": false},
+                        {"bSortable": false},
+                        {"bSortable": false},
+                    ]
+                });
+            })
+
+        });
+
+    </script>
+
 {% endblock %}

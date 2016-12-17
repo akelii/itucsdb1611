@@ -15,7 +15,7 @@ def project_search_page_config(submit_type):
         projects = store.get_projects()
         return render_template('projects/search_project.html', projects=projects)
     else:
-        if 'check' and 'details' in request.form:
-            key = request.form['check']
+        if 'details' in request.form:
+            key = request.form['details']
             return redirect(url_for('site.projects_details_page', key=key))
 
