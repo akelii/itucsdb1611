@@ -10,13 +10,30 @@
     </section>
 
     <section class="content">
-        {% if cvs[0]  is  none %}
-            <div class="callout callout-warning">
-                <h4>Attention here!</h4>
-                <p>There aren't any CV record that belongs to you! Quickly add a new one!</p>
-            </div>
-        {% endif %}
 
+        {% if not cvs %}
+
+            <div style="background-color: #d3c941" class="box warning">
+            <div class="box-header with-border">
+                &nbsp;
+                <div class="box-tools pull-right">
+                    <b>
+                        <button data-toggle="modal"
+                                data-target="#CVModal" type="button" class="btn btn-box-tool bg-olive btn-flat"
+                                style="color: white">&nbsp;&nbsp;<i class="fa fa-plus">&nbsp;&nbsp;<b>Add
+                            New One!</b>&nbsp;&nbsp;</i>
+                        </button>
+                    </b>
+                </div>
+            </div>
+            <div class="box-body">
+                 <h4>Attention here!</h4>
+                <p>There aren't any CV records that belongs to you! Quickly add a new one!</p>
+            </div>
+        </div>
+
+
+{% else %}
 
         <div style="background-color: #EEEEEE" class="box">
             <div class="box-header with-border">
@@ -35,6 +52,8 @@
                 <p>&nbsp;&nbsp;You can choose below CV's to edit. Hurry up and choose one of them!</p>
             </div>
         </div>
+
+    {% endif %}
 
         <div class="row">
             {% for key, cv in cvs %}
