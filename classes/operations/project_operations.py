@@ -64,3 +64,15 @@ class project_operations:
             projects = cursor.fetchall()
             connection.commit()
         return projects
+
+    def get_the_projects_of_a_person(self, key):
+        with dbapi2.connect(dsn) as connection:
+            cursor = connection.cursor()
+            query = """SELECT Project.Name, Project.Description FROM Project
+                              JOIN Team ON(Project.ObjectId = Team.ProjectId)
+                              WHERE (Team.MemberId = %s)"""
+            cursor.execute(query, (key,))
+            project_ids = cursor.fetchall()
+            connection.commit()
+        return project_ids
+
