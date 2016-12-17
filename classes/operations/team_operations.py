@@ -40,15 +40,11 @@ class team_operations:
             result = cursor.fetchall()
         return result
 
-    # Returns person name, person's duty in the project selected by projectName
-    def GetTeamByMemberId(self, projectName):
+    def GetDutyByMemberId(self, memberId, projectId):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
-            query = """SELECT Team.Duty, Person.Name FROM Team
-                       INNER JOIN Project ON(Team.ProjectId = Project.ObjectId)
-                       INNER JOIN Person ON (Team.MemberId = Person.ObjectId)
-                       WHERE (Project.Name = %s)"""
-            cursor.execute(query, (projectName,))
+            query = """SELECT Duty FROM TEAM WHERE (MemberId=%s AND ProjectId=%s)"""
+            cursor.execute(query, (memberId, projectId))
             result = cursor.fetchall()
         return result
 
@@ -67,3 +63,12 @@ class team_operations:
             query = """DELETE FROM Team WHERE (ObjectId=%s)"""
             cursor.execute(query, (key,))
             connection.commit()
+
+    def CountOfTeamsInProject(self, projectId):
+        with dbapi2.connect(dsn) as connection:
+            cursor = connection.cursor()
+            cursor.execute("""SELECT COUNT(*) FROM Team WHERE ProjectId=%s""", (projectId,))
+            result = cursor.fetchone()
+        return result
+
+

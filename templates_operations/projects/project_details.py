@@ -23,6 +23,8 @@ def project_details_page_config(submit_type, key):
     store_worklogs = work_log_operations()
     PersonProvider = person_operations()
     teamList = team_operations()
+    necessaryProject = store.get_project_member_limit(key)
+    memberLimit = necessaryProject[0][0]
     if submit_type == 'GET':
         project = store.get_project(key)
         listManager = GetManagerList()
@@ -65,11 +67,21 @@ def project_details_page_config(submit_type, key):
             store_comments.update_project_comment(comment_key, new_comment, False)
             return redirect(url_for('site.projects_details_page', key=key))
         elif 'addMember' in request.form:
-            teamMember = request.form.getlist('teamMember')
-            # newMemberPersonId = request.form['newMemberPersonId']
-            # newMemberProjectId = request.form['newMemberProjectId']
-            # newMemberDuty = request.form['newMemberDuty']
-            # teamList.AddTeam(newMemberProjectId, newMemberPersonId, newMemberDuty)
+            teamMembers = request.form.getlist('teamMember')
+            lengthOfLoop = len(teamMembers)
+            howManyMembers = teamList.CountOfTeamsInProject(key)
+            projectTeamMembers = howManyMembers[0]
+            for x in range(0, lengthOfLoop):
+                if projectTeamMembers >= memberLimit:
+                    break
+                newMemberDuty = request.form['addDuty']
+                newMemberMemberId = teamMembers[x]
+                newMemberProjectId = key
+                triedMember = teamList.GetDutyByMemberId(newMemberMemberId, key)
+                lengthOfTried = len(triedMember)
+                if lengthOfTried == 0:
+                    projectTeamMembers +=1
+                    teamList.AddTeam(newMemberProjectId, newMemberMemberId, newMemberDuty)
             return redirect(url_for('site.projects_details_page', key=key))
         elif 'updateMember' in request.form:
             updateMemberPersonId = request.form['updateMemberPersonId']
