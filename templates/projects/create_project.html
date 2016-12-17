@@ -12,6 +12,7 @@
 
     <section class="content">
         <div class="row">
+        <div class="col-md-3"></div>
             <div class="col-md-6">
                 <div class="box box-warning">
                     <div class="box-body">
@@ -40,15 +41,7 @@
                                 <label>Project Description</label>
                                 <textarea class="form-control" name="project_description" rows="4" placeholder="Enter"></textarea>
                             </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="box box-warning">
-                    <div class="box-body">
-                        <form role="form" action="" method="post" name="create_project" class="form-horizontal">
-                            <div class="form-group">
+                        <div class="form-group">
                                 <label>Department</label>
                                 <select name='department' id="department" class="form-control">
                                     {% for a in listDepartment %}
@@ -63,7 +56,7 @@
                                         <i class="fa fa-calendar">
                                         </i>
                                     </div>
-                                    <input type="text" class="form-control pull-right dpDate" name="start_date" id="datepicker">
+                                    <input type="text" class="form-control pull-right" name="start_date" id="datepicker">
                                 </div>
                                 <label>End Date</label>
                                 <div class="input-group date">
@@ -71,7 +64,7 @@
                                         <i class="fa fa-calendar">
                                         </i>
                                     </div>
-                                    <input type="text" class="form-control pull-right dpDate" name="end_date" id="datepicker">
+                                    <input type="text" class="form-control pull-right" name="end_date" id="datepicker">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -93,16 +86,7 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-3"></div>
         </div>
     </section>
-    <script type="text/javascript">
-        $(document).ready(function () {
-
-        });
-        $(function () {
-            $('.dpDate').datepicker({
-                autoclose: true,
-            });
-        });
-    </script>
 {% endblock %}
