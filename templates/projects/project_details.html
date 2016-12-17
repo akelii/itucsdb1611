@@ -87,6 +87,8 @@
                                     </div>
                                 {% endfor %}
                             </div>
+                            {% for member in members %}
+                                {% if member[3]== current_user_objectid%}
                             <form role="form" action="{{ url_for('site.projects_details_page', key=project[7]) }}"
                                   method="post">
                                 <div class="form-group">
@@ -99,7 +101,8 @@
                                 </button>
                             </form>
                             <!--  </ul> -->
-
+                                {% endif %}
+                            {% endfor %}
                         </div>
 
                         <div class="active tab-pane" id="members">
