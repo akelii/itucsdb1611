@@ -66,7 +66,7 @@ class message_operations:
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
             query = "Select count(objectid) from message  WHERE( ReceiverId=%s and IsRead='FALSE' )"
-            cursor.execute(query, (key))
+            cursor.execute(query, (key,))
             connection.commit()
             unread_messages=cursor.fethone()
             cursor.close()
@@ -81,13 +81,28 @@ class message_operations:
             people=cursor.fetchall()
         return people
 
+    def delete_messages_sent(self,key, activeUser):
+        with dbapi2.connect(dsn) as connection:
+            cursor = connection.cursor()
+            query = "UPDATE Message SET DeletedBySender='TRUE' WHERE (ObjectId=%s and SenderId=%s )"
+            cursor.execute(query, (str(key),str(activeUser),))
+            connection.commit()
+            cursor.close()
+            message_operations.delete_messages(self, key)
 
-
+    def delete_messages_received(self,key, activeUser):
+        with dbapi2.connect(dsn) as connection:
+            cursor = connection.cursor()
+            query = "UPDATE Message SET DeletedByReceiver='TRUE' WHERE(ObjectId=%s and ReceiverId=%s )"
+            cursor.execute(query, (str(key),str(activeUser),))
+            connection.commit()
+            cursor.close()
+            message_operations.delete_messages(self,key)
 
     def delete_messages(self,key):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
-            query = "DELETE FROM Message WHERE (ObjectId=%s)"
+            query = "DELETE FROM Message WHERE (DeletedBySender='TRUE' and DeletedByReceiver='TRUE')"
             cursor.execute(query, (key,))
             connection.commit()
             cursor.close()
@@ -95,7 +110,7 @@ class message_operations:
     def send_message(self,senderId,receiverId,messageContent):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
-            query = "INSERT INTO Message(SenderId,ReceiverId, IsRead, MessageContent, SendDate,ReadDate,Deleted)VALUES(%s,%s,'FALSE',%s,NOW(),NULL ,'FALSE')"
+            query = "INSERT INTO Message(SenderId,ReceiverId, IsRead, MessageContent, SendDate,ReadDate,DeletedBySender,DeletedByReceiver)VALUES(%s,%s,'FALSE',%s,NOW(),NULL,'FALSE' ,'FALSE')"
             cursor.execute(query,(senderId,receiverId,messageContent))
 
 

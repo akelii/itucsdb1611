@@ -315,7 +315,8 @@ def init_db():
                 MessageContent VARCHAR(400),
                 SendDate TIMESTAMP NOT NULL,
                 ReadDate TIMESTAMP,
-                Deleted BOOLEAN NOT NULL
+                DeletedBySender BOOLEAN NOT NULL,
+                DeletedByReceiver BOOLEAN NOT NULL
                 )"""
         cursor.execute(query)
         cursor.execute(query)

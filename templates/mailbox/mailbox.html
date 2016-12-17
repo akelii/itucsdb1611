@@ -73,7 +73,8 @@
                 <!-- Message. Default to the left -->
 
                   {% for message in Messages %}
-                  {% if message[2] == sender and message[1]==key %}
+                  {% if message[2] == sender and message[1]==key and not message[8] %}
+                      <!--Messages received-->
                 <div class="direct-chat-msg  ">
                   <div class="direct-chat-info clearfix">
                     <span class="direct-chat-name pull-left"> {{ receiverPerson[1]}} </span>
@@ -83,6 +84,8 @@
 
                     <form method="POST" action="{{ action }}" name="deleteMessage">
                     <div class="direct-chat-text bg-gray">
+                        <input type="hidden" name="messageType" value="received" class="form-control">
+                       <input type="hidden" name="deleter" value="{{ sender }}" class="form-control">
                     <button type="submit" class="btn btn-box-tool" name="deleteMessage" value="{{ message[0] }}"><i class="fa fa-times"></i>
                     </button>
 
@@ -106,8 +109,8 @@
 
 {% endif %}
 
-                   {% if message[1] == sender and message[2]==key and message[7]!='false' %}
-
+                   {% if message[1] == sender and message[2]==key and not message[7]  %}
+                    <!--Messages sent-->
                 <!-- Message to the right -->
                 <div class="direct-chat-msg right ">
                   <div class="direct-chat-info clearfix">
@@ -117,6 +120,9 @@
                   <!-- /.direct-chat-info -->
 
                    <form method="POST" action="{{ action }}" name="deleteMessage">
+                       <input type="hidden" name="messageType" value="sent" class="form-control">
+                       <input type="hidden" name="deleter" value="{{ sender }}" class="form-control">
+
                     <div class="direct-chat-text bg-aqua">
 
                          <div class="box-tools pull-right">
