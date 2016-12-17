@@ -86,9 +86,10 @@ def personal_default_page_config(request):
     listAccount = GetAccountTypeList()
     store_projects = project_operations()
     active_projects = store_projects.get_the_projects_of_a_person(Current_Person[0])
+    active_project_number = len(active_projects)
     return render_template('personal/default.html', current_time=now.ctime(), Current_Person=Current_Person,
                            listFollowing=listFollowing, listFollowers=listFollowers,
-                           personComments=personComments, listAccount=listAccount, listTitle=listTitle, active_projects=active_projects)
+                           personComments=personComments, listAccount=listAccount, listTitle=listTitle, active_projects=active_projects, active_project_number=active_project_number)
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS

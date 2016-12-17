@@ -44,6 +44,7 @@ def people_person_detail_page_config(request, key):
     activeCv = CvProvider.get_active_cv(key)
     store_projects = project_operations()
     active_projects = store_projects.get_the_projects_of_a_person(key)
+    active_project_number = len(active_projects)
     if activeCv:
         experiences = ExperienceProvider.get_experience_s_with_key(activeCv[0])
     else:
@@ -52,4 +53,4 @@ def people_person_detail_page_config(request, key):
     return render_template('people/person_detail.html', current_time=now.ctime(), Current_Person=Current_Person, Active_Person=Active_Person,
                            listFollowing=listFollowing, listFollowers=listFollowers,
                            personComments=personComments, IsFollow=IsFollow,
-                           experiences=experiences, active_projects=active_projects)
+                           experiences=experiences, active_projects=active_projects, active_project_number=active_project_number)
