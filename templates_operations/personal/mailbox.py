@@ -66,9 +66,16 @@ def messages_page_with_key_config(request, key):
             message=request.form['Message']
             messageStore.send_message(sender,receiver,message)
             Messages=messageStore.get_messages()
-        elif "deleteMessage" in request.form:
+        elif request and "deleteMessage" in request.form:
             deleteId=request.form['deleteMessage']
-            messageStore.delete_messages(deleteId)
+            deleterId=request.form['deleter']
+
+            if request.form['messageType']=="sent":
+                messageStore.delete_messages_sent(deleteId,deleterId)
+
+            elif request.form['messageType']=="received":
+                messageStore.delete_messages_received(deleteId, deleterId)
+
             Messages=messageStore.get_messages()
 
         return render_template('mailbox/mailbox.html', sent_messages=sent_messages, receiver_messages=receiver_messages,person_with_history=person_with_history,
