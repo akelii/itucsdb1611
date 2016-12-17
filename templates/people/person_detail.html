@@ -68,8 +68,17 @@
                             <span class="label label-info">English</span>
                         </p>
                         <hr>
-                        <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+                        <strong><i class="fa fa-file-text-o margin-r-5"></i> Experiences </strong>
+
+                        {% if experiences!='none' %}
+                        {% for experience in experiences %}
+                        <div>
+                        <p>{{ experience.ExperiencePosition }} in {{ experience.CompanyName }}  </p>
+                            <p class="pull-right">from {{ experience.StartDate }} in {{ experience.EndDate }}  </p>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
                     </div>
                 </div>
             </div>

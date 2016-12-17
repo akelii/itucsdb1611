@@ -36,25 +36,25 @@ class cv_operations:
     def get_active_cv(self, key):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
-            query = "SELECT * FROM CV WHERE (PersonId=%s)"
+            query = "SELECT * FROM CV WHERE (IsActive='TRUE' AND PersonId=%s)"
             cursor.execute(query, (key,))
             connection.commit()
             result = cursor.fetchone()
         return result
 
-    def set_cv_active(self,key):
+    def set_cv_active(self,key,personKey):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
             query = "UPDATE CV SET IsActive='TRUE' WHERE( ObjectId=%s)"
             cursor.execute(query, (key,))
             connection.commit()
-            cv_operations.delete_old_active(self,key)
+            cv_operations.delete_old_active(self,key,personKey)
 
-    def delete_old_active(self, key):
+    def delete_old_active(self, key,person):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
-            query = "UPDATE CV SET IsActive='FAlSE' WHERE (IsActive='TRUE' AND ObjectId!=%s)"
-            cursor.execute(query, (str(key),))
+            query = "UPDATE CV SET IsActive='FAlSE' WHERE (IsActive='TRUE' AND ObjectId!=%s AND PersonId=%s)"
+            cursor.execute(query, (str(key),person,))
             connection.commit()
             cursor.close()
 
