@@ -51,8 +51,8 @@ class project_operations:
     def get_projects(self):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
-            cursor.execute("""SELECT Project.ObjectId, Project.Name, Description, Department.Name
-                              FROM Project JOIN Department ON(Project.DepartmentId = Department.ObjectId)""")
+            cursor.execute("""SELECT Project.ObjectId, Project.Name, Description, Department.Name, Person.FirstName, Person.LastName
+                              FROM Project JOIN Department ON(Project.DepartmentId = Department.ObjectId) JOIN Person ON(Person.ObjectId = Project.ProjectManagerId)""")
             projects = cursor.fetchall()
             connection.commit()
         return projects
