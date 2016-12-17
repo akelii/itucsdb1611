@@ -24,3 +24,12 @@ def AddUser(user):
         query = "INSERT INTO Users (Email, Password, Deleted) VALUES (%s, %s, FALSE )"
         cursor.execute(query, (user.email, user.password))
         connection.commit()
+
+
+def UpdateUser(pswd, email):
+    with dbapi2.connect(dsn) as connection:
+        cursor = connection.cursor()
+        cursor.execute(
+            """UPDATE Users SET Password=%s WHERE (Email=%s)""",
+            (pswd, email))
+        connection.commit()

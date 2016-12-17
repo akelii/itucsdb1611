@@ -521,8 +521,19 @@
 
 
                         <div class="tab-pane clearfix" id="settings">
-                            <form method="post" action="{{ action }}" class="form-horizontal"
+                            <form method="post" action="{{ action }}" onsubmit="return checkForm()"
+                                  name="personalSettingForm" class="form-horizontal"
                                   enctype="multipart/form-data">
+                                <div class="row">
+                                    <div class="col-md-1">&nbsp;</div>
+                                    <div class="col-md-9">
+                                        <div class="alert-danger alert-dismissible" id="alertPswd"
+                                             style="display: none; padding: 5px">
+                                            Your passwords must match!
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
                                 <div class="row">
                                     <div class="col-md-10">
                                         <div class="form-group">
@@ -646,7 +657,7 @@
                                     <div class="col-md-2 col-xs-4">
                                         <label for="profileImage">Change Profile Image</label>
                                         <input type="file" class="btn btn-default" id="profileImage" name="file"
-                                               accept="image/*"/>
+                                               accept="image/*" value="{{ Current_Person[7] }}"/>
                                     </div>
                                 </div>
                                 <br>
@@ -683,5 +694,22 @@
                 increaseArea: '20%' // optional
             });
         });
+
+        function checkForm() {
+            var personalSettingForm = document.forms["personalSettingForm"];
+            pswd = personalSettingForm["pswd"];
+            repswd = personalSettingForm["repswd"];
+            if (pswd.value != "" || repswd.value != "") {
+                if (pswd.value != repswd.value) {
+                    $('#alertPswd').show();
+                    pswd.focus();
+                    return false;
+                }
+                else {
+                    $('#alertPswd').hide();
+                    return true;
+                }
+            }
+        }
     </script>
 {% endblock %}
