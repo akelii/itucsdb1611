@@ -73,6 +73,19 @@ class followed_project_operations:
             results = cursor.fetchall()
         return results
 
+    def GetFollowedProjectByPersonIdAndProjectId(self, personId, projectId):
+        with dbapi2.connect(dsn) as connection:
+            cursor = connection.cursor()
+            query = """SELECT FollowedProject.ObjectId, PersonId, ProjectTypeId, p2.Name as ProjectType,
+                        Description, FollowedProjectId, p1.Name as FollowedProjectName, FollowedProject.StartDate
+                        FROM FollowedProject
+                        INNER JOIN Project as p1 ON p1.ObjectId = FollowedProject.FollowedProjectId
+                        INNER JOIN  ProjectType p2 ON p2.ObjectId = p1.ProjectTypeId
+                        WHERE (FollowedProject.FollowedProjectId = %s and FollowedProject.PersonId = %s and FollowedProject.Deleted='0')"""
+            cursor.execute(query, (projectId, personId))
+            result = cursor.fetchone()
+        return result
+
     def DeleteFollowedProject(self, key):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
