@@ -27,11 +27,13 @@ def project_create_page_config(submit_type):
             project_type = request.form['project_type']
             project_thesis_type = request.form['project_thesis_type']
             department = request.form['department']
-            #start_date = request.form['start_date']
-            #end_date = request.form['end_date']
-            start_date = datetime.datetime.now()
-            end_date = datetime.datetime.now()
-            project_status_type = 3
+            start_date = request.form['start']
+            #start_date = None
+            end_date = request.form['end_date']
+            if end_date > "+str(datetime.datetime.now())+":#ileri tarihte bitecekse
+                project_status_type = 2
+            else:#süre bitmişse
+                project_status_type = 3
             member_limit = request.form['limit']
             created_by = person_operations.GetPerson(current_user, current_user.email)[0]#current_user proje oluşturuyor
             manager = request.form['project_manager']

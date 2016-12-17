@@ -13,9 +13,9 @@ class project_operations:
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
             cursor.execute(
-                "INSERT INTO Project(Name, Description, ProjectTypeId, ProjectThesisTypeId, DepartmentId, ProjectStatusTypeId, StartDate, EndDate, MemberLimit, CreatedByPersonId, ProjectManagerId, Deleted) VALUES (%s, %s, %s, %s, %s, %s, ' "+str(datetime.datetime.now())+" ', %s, %s, %s, %s, False )",
+                "INSERT INTO Project(Name, Description, ProjectTypeId, ProjectThesisTypeId, DepartmentId, ProjectStatusTypeId, StartDate, EndDate, MemberLimit, CreatedByPersonId, ProjectManagerId, Deleted) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, False )",
                 (Project.title, Project.project_description, Project.project_type, Project.project_thesis_type,
-                 Project.department, Project.project_status_type, Project.end_date,
+                 Project.department, Project.project_status_type, Project.start_date, Project.end_date,
                  Project.member_limit, Project.created_by, Project.manager))
             connection.commit()
             self.last_key = cursor.lastrowid
