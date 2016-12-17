@@ -33,7 +33,7 @@ class project_comment_operations:
     def get_project_comments(self, key):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
-            cursor.execute("""SELECT Person.FirstName,Person.LastName, ProjectComment.Comment,ProjectComment.UpdateDate, ProjectComment.ObjectId, Person.ObjectId
+            cursor.execute("""SELECT Person.FirstName,Person.LastName, ProjectComment.Comment,ProjectComment.CreateDate, ProjectComment.ObjectId, Person.ObjectId, ProjectComment.UpdateDate
                               FROM ProjectComment
                               JOIN Project ON(Project.ObjectId=ProjectComment.CommentedProjectId)
                               JOIN Person ON(Person.ObjectId=ProjectComment.PersonId)
