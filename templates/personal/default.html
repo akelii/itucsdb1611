@@ -89,91 +89,32 @@
                             {% endfor %}
                         </div>
                         <div class="tab-pane" id="followedProjects">
-                            <ul class="timeline timeline-inverse">
-                                <li class="time-label">
-                        <span class="bg-teal-active">
-                          10 Feb. 2014
-                        </span>
-                                </li>
+                            <ul class="product-list products-list">
+                                {% for followed_project in followed_projects %}
                                 <li>
-                                    <i class="fa fa-search bg-purple"></i>
-
-                                    <div class="timeline-item">
-                                        <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
-
-                                        <h3 class="timeline-header"><a href="#">Project Name</a> Project Type</h3>
+                                    <div class="box box-body">
+                                        <h3 class="timeline-header"><a href="#">{{ followed_project[6] }}</a> {{ followed_project[3] }}</h3>
                                         <div class="timeline-body">
-                                            Project description. Etsy doostang zoodles disqus groupon greplin oooj voxy
-                                            zoodles,
-                                            weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                                            jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                                            quora plaxo ideeli hulu weebly balihoo...
+                                            {{ followed_project[4] }}
                                         </div>
                                         <div class="timeline-footer">
-                                            <a class="btn btn-primary btn-xs">View details</a>
-                                            <a class="btn btn-danger btn-xs">Unfollow</a>
+                                            <form role="form" action="{{ action }}" method="POST">
+                                          <!--  <a class="btn btn-primary btn-xs">View details</a> -->
+                                            <button type="submit"
+                                                    name="unfollowProject"
+                                                    value="{{ followed_project[0] }}"
+                                                    class="btn btn-danger btn-xs">Unfollow</button>
+                                                </form>
                                         </div>
                                     </div>
                                 </li>
-                                <li class="time-label">
-                        <span class="bg-teal-active">
-                          10 Feb. 2014
-                        </span>
-                                </li>
-                                <li>
-                                    <i class="fa fa-search bg-purple"></i>
-
-                                    <div class="timeline-item">
-                                        <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
-
-                                        <h3 class="timeline-header"><a href="#">Project Name</a> Project Type</h3>
-                                        <div class="timeline-body">
-                                            Project description. Etsy doostang zoodles disqus groupon greplin oooj voxy
-                                            zoodles,
-                                            weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                                            jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                                            quora plaxo ideeli hulu weebly balihoo...
-                                        </div>
-                                        <div class="timeline-footer">
-                                            <a class="btn btn-primary btn-xs">View details</a>
-                                            <a class="btn btn-danger btn-xs">Unfollow</a>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="time-label">
-                        <span class="bg-teal-active">
-                          10 Feb. 2014
-                        </span>
-                                </li>
-                                <li>
-                                    <i class="fa fa-search bg-purple"></i>
-
-                                    <div class="timeline-item">
-                                        <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
-
-                                        <h3 class="timeline-header"><a href="#">Project Name</a> Project Type</h3>
-                                        <div class="timeline-body">
-                                            Project description. Etsy doostang zoodles disqus groupon greplin oooj voxy
-                                            zoodles,
-                                            weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                                            jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                                            quora plaxo ideeli hulu weebly balihoo...
-                                        </div>
-                                        <div class="timeline-footer">
-                                            <a class="btn btn-primary btn-xs">View details</a>
-                                            <a class="btn btn-danger btn-xs">Unfollow</a>
-                                        </div>
-                                    </div>
-                                </li>
-
-                                <li>
-                                    <i class="fa fa-clock-o bg-gray"></i>
-                                </li>
+                                {% endfor %}
                             </ul>
                             <div class="box-footer text-center">
                                 <a href="#" class="uppercase">View All Projects!</a>
                             </div>
                         </div>
+
                         <div class="tab-pane clearfix" id="followedPeople">
                             <div class="col-md-6 col-xs-12">
                                 {% if listFollowers %}

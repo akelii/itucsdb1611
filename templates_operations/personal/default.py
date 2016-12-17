@@ -10,6 +10,8 @@ from classes.operations.followed_person_operations import followed_person_operat
 from classes.operations.personComment_operations import personComment_operations
 from classes.look_up_tables import *
 from classes.person import Person
+from classes.operations.followed_project_operations import followed_project_operations
+from classes.followed_project import FollowedProject
 import os
 from werkzeug.utils import secure_filename
 from passlib.apps import custom_app_context as pwd_context
@@ -21,6 +23,7 @@ def personal_default_page_config(request):
     PersonProvider = person_operations()
     Current_Person = PersonProvider.GetPerson(current_user.email)
     comments = personComment_operations()
+    store_followed_projects = followed_project_operations()
     if request and 'delete' in request.form and request.method == 'POST':
         p = PersonProvider.GetPersonByObjectId(request.form['delete'])
         PersonProvider.DeletePerson(request.form['delete'])
@@ -35,6 +38,9 @@ def personal_default_page_config(request):
         commentedPersonId = Current_Person[0]
         newComment = request.form['addComment']
         comments.AddPersonComment(personId, commentedPersonId, newComment)
+    elif 'unfollowProject' in request.form:
+        project_id = request.form['unfollowProject']
+        store_followed_projects.DeleteFollowedProject(project_id)
     elif request and 'searchPeoplePage' in request.form and request.method == 'POST':
         return redirect(url_for('site.people_search_person_page'))
     elif request and 'searchProjectPage' in request.form and request.method == 'POST':
@@ -81,6 +87,7 @@ def personal_default_page_config(request):
     listFollowing = FollowedPersonProvider.GetFollowedPersonListByPersonId(Current_Person[0])
     listFollowers = FollowedPersonProvider.GetFollowedPersonListByFollowedPersonId(Current_Person[0])
     personComments = comments.GetPersonCommentsByCommentedPersonId(Current_Person[0])
+    followed_projects = store_followed_projects.GetFollowedProjectListByPersonId(Current_Person[0])
     now = datetime.datetime.now()
     listTitle = GetTitleList()
     listAccount = GetAccountTypeList()
@@ -88,8 +95,9 @@ def personal_default_page_config(request):
     active_projects = store_projects.get_the_projects_of_a_person(Current_Person[0])
     active_project_number = len(active_projects)
     return render_template('personal/default.html', current_time=now.ctime(), Current_Person=Current_Person,
-                           listFollowing=listFollowing, listFollowers=listFollowers,
-                           personComments=personComments, listAccount=listAccount, listTitle=listTitle, active_projects=active_projects, active_project_number=active_project_number)
+                           listFollowing=listFollowing, listFollowers=listFollowers, followed_projects=followed_projects,
+                           personComments=personComments, listAccount=listAccount, listTitle=listTitle,
+                           active_projects=active_projects, active_project_number=active_project_number)
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
