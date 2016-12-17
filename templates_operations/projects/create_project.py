@@ -27,9 +27,9 @@ def project_create_page_config(submit_type):
             project_type = request.form['project_type']
             project_thesis_type = request.form['project_thesis_type']
             department = request.form['department']
-            start_date = datetime.datetime.now()#datepicker gelince değişecek
-            end_date = datetime.datetime.now()#datepicker gelince değişecek
-            if end_date > datetime.datetime.now():#ileri tarihte bitecekse
+            start_date = request.form['start_date']
+            end_date = request.form['end_date']
+            if end_date > "+str(datetime.datetime.now())+":#ileri tarihte bitecekse
                 project_status_type = 2
             else:#süre bitmişse
                 project_status_type = 3
