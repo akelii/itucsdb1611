@@ -30,7 +30,7 @@ def project_create_page_config(submit_type):
             start_date = request.form['start']
             #start_date = None
             end_date = request.form['end_date']
-            if end_date > "+str(datetime.datetime.now())+":#ileri tarihte bitecekse
+            if end_date > str(datetime.datetime.now()):#ileri tarihte bitecekse
                 project_status_type = 2
             else:#süre bitmişse
                 project_status_type = 3
