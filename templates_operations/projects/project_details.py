@@ -48,7 +48,7 @@ def project_details_page_config(submit_type, key):
         elif 'update' in request.form:
             title = request.form['project_name']
             project_description = request.form['project_description']
-            end_date = datetime.datetime.now() #datepicker eklenince düzeltilecek
+            end_date = request.form['updated_date']
             member_limit = request.form['limit']
             manager = request.form['project_manager']
             deleted = '0'

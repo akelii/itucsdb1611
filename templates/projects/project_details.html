@@ -346,10 +346,10 @@
                                                         <label>New End Date</label>
                                                         <div class="input-group date">
                                                             <div class="input-group-addon">
-                                                                <i class="fa fa-calendar">
+                                                                <i class="fa fa-calendar ">
                                                                 </i>
                                                             </div>
-                                                            <input type="text" class="form-control pull-right"
+                                                            <input type="text" name= "updated_date"class="form-control pull-right dpDate"
                                                                    id="datepicker">
                                                         </div>
                                                     </div>
@@ -390,5 +390,14 @@
                 $(".select2").select2({});
             })
         })
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {});
+        $(function () {
+            $('.dpDate').datepicker({
+                format: "dd-mm-yy",
+                autoclose: true,
+            });
+        });
     </script>
 {% endblock %}
