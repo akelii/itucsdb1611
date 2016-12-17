@@ -20,23 +20,43 @@ class cv_operations:
     def get_cvs(self, personId):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
-            query = "SELECT ObjectId, PersonId, CreatedDate, UpdatedDate, CvName FROM CV  WHERE (PersonId=%s)"
+            query = "SELECT ObjectId, PersonId, CreatedDate, UpdatedDate, CvName,IsActive FROM CV  WHERE (PersonId=%s)"
             cursor.execute(query, (personId,))
-            cvs = [(key, CV(key, PersonId, CreatedDate, UpdatedDate, CvName)) for
-                   key, PersonId, CreatedDate, UpdatedDate, CvName in cursor]
+            cvs = [(key, CV(key, PersonId, CreatedDate, UpdatedDate, CvName,IsActive)) for
+                   key, PersonId, CreatedDate, UpdatedDate, CvName, IsActive in cursor]
         return cvs
 
     def update_cv(self, key):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
-          #  if type == 'e':
             query = "UPDATE CV SET UpdatedDate=NOW() WHERE( ObjectId=%s)"
-           # elif type=='l':
-            #    query = "UPDATE CV SET UpdatedDate=NOW() WHERE ObjectId=(select cvid from language where objectid=%s)"
-            #key=str(key)
             cursor.execute(query, (key,))
             connection.commit()
 
+    def get_active_cv(self, key):
+        with dbapi2.connect(dsn) as connection:
+            cursor = connection.cursor()
+            query = "SELECT * FROM CV WHERE (PersonId=%s)"
+            cursor.execute(query, (key,))
+            connection.commit()
+            result = cursor.fetchone()
+        return result
+
+    def set_cv_active(self,key):
+        with dbapi2.connect(dsn) as connection:
+            cursor = connection.cursor()
+            query = "UPDATE CV SET IsActive='TRUE' WHERE( ObjectId=%s)"
+            cursor.execute(query, (key,))
+            connection.commit()
+            cv_operations.delete_old_active(self,key)
+
+    def delete_old_active(self, key):
+        with dbapi2.connect(dsn) as connection:
+            cursor = connection.cursor()
+            query = "UPDATE CV SET IsActive='FAlSE' WHERE (IsActive='TRUE' AND ObjectId!=%s)"
+            cursor.execute(query, (str(key),))
+            connection.commit()
+            cursor.close()
 
     def delete_cv(self, key):
         with dbapi2.connect(dsn) as connection:

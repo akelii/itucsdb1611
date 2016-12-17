@@ -57,8 +57,24 @@
 
         <div class="row">
             {% for key, cv in cvs %}
+                {% if cv.IsActive %}
                 <div class="col-md-3 col-xs-6">
-                    <div class="small-box bg-teal-active">
+                    <div class="small-box bg-aqua-active">
+                        <div class="inner">
+                            <h3>Active CV</h3>
+                            <p>{{ cv.CVName }}</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-file-text-o"></i>
+                        </div>
+                        <a href={{ url_for('site.personal_cv_pagewithkey', key=cv.ObjectId) }} class="small-box-footer">
+                            Let's look right now! &nbsp;&nbsp;<i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
+                {% else %}
+                      <div class="col-md-3 col-xs-6">
+                    <div class="small-box bg-primary">
                         <div class="inner">
                             <h3>CV</h3>
                             <p>{{ cv.CVName }}</p>
@@ -70,21 +86,7 @@
                             Let's look right now! &nbsp;&nbsp;<i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
-                {#                <div class="col-lg-3 col-xs-5">
-                    <form form action="{{ action }}"
-                          method="POST">
-                        <input type=hidden
-                               value="{{ cv.ObjectId }}"
-                               name="delete_id"/>
-                        <button type="submit"
-                                class="btn btn-box-tool"
-                                name="add"
-                                value="delete_cv">
-                            <i class="fa fa-times-circle fa-2x"></i>
-                        </button>
-                        &nbsp;
-                    </form>
-                </div>#}
+                {% endif %}
             {% endfor %}
         </div>
 
@@ -146,14 +148,22 @@
                                                value="{{ CurrentCV[3].strftime('%d.%m.%Y  %H:%M') }}">
                                     </div>
                                 </div>
-                                <div class="col-md-2 col-xs-4">
-                                    &nbsp;
-                                </div>
-                                <form method="POST" action="{{ action }}" name="DeleteCv">
 
+                                <form method="POST" action="{{ action }}" name="DeleteCv">
                                     <div class="col-md-1 col-xs-4">
                                         <button type="submit" class="btn btn-block btn-danger btn-flat"
                                                 name="DeleteCv">Delete
+                                        </button>
+                                    </div>
+                                </form>
+<div class="col-md-2 col-xs-4">
+                                    &nbsp;
+                                </div>
+                                   <form method="POST" action="{{ action }}" name="setCVActive">
+
+                                    <div class="col-md-1 col-xs-4">
+                                        <button type="submit" class="btn btn-block btn-warning btn-flat"
+                                                name="setCVActive">Set Active
                                         </button>
                                     </div>
                                 </form>

@@ -149,7 +149,8 @@ def init_db():
                 CreatedDate TIMESTAMP NOT NULL,
                 UpdatedDate TIMESTAMP NOT NULL,
                 CvName VARCHAR(50),
-                Deleted BOOLEAN NOT NULL
+                Deleted BOOLEAN NOT NULL,
+                IsActive BOOLEAN
         )"""
         cursor.execute(query)
 

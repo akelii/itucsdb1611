@@ -130,6 +130,9 @@ def personal_cv_pagewithkey_config(submit_type, key):
             cvName=request.form['newCvName']
             store_CV.add_cv_with_key(cvName,key)
             cvs=store_CV.get_cvs()
+        elif request and 'setCVActive' in request.form and request.method=='POST':
+            store_CV.set_cv_active(key)
+            updateCV='TRUE'
         elif request and 'DeleteCv' in request.form and request.method =='POST':
             store_CV.delete_cv(key)
             return redirect(url_for('site.personal_cv_page'))
