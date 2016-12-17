@@ -13,7 +13,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="box">
-                    <form role="form" action="" method="post" name="search_project" class="form-horizontal">
+                    <form role="form" action="{{url_for('site.projects_search_page')}}" method="post" name="search_project" class="form-horizontal">
                     <div class="box-header">
                         <h3 class="box-title"></h3>
                     </div>
@@ -52,7 +52,22 @@
 
                                         {% for project in projects %}
                                             <tr role="row">
-                                                <td><button type="submit" name="details" value="{{project[0]}}" class="btn btn-primary btn-xs">Details</button></td>
+                                                <td><button type="submit" name="details" value="{{project[0]}}" class="btn btn-primary btn-xs">Details</button>
+
+                                                {% if project[6] == True %}
+                                                <button name="unfollow"
+                                                        value="{{ project[0] }}"
+                                                        type="submit"
+                                                        data-toggle="tooltip" data-placement="bottom"
+                                                        class="btn btn-danger btn-xs">Unfollow</button>
+                                                {% endif %}
+                                                {% if project[6] == False %}
+                                                <button name="follow"
+                                                        value="{{ project[0] }}"
+                                                        type="submit"
+                                                        data-toggle="tooltip" data-placement="bottom"
+                                                        class="btn btn-primary btn-xs">Follow</button>
+                                                {% endif %}</td>
                                                 <td>{{ project[1] }}</td>
                                                 <td>{{ project[2] }}</td>
                                                 <td>{{ project[3] }}</td>
