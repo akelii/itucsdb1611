@@ -5,6 +5,7 @@ from flask import request
 from datetime import datetime
 from flask_login import current_user, login_required
 from classes.operations.person_operations import person_operations
+from classes.operations.project_operations import project_operations
 from classes.operations.followed_person_operations import followed_person_operations
 from classes.operations.personComment_operations import personComment_operations
 from classes.look_up_tables import *
@@ -83,9 +84,11 @@ def personal_default_page_config(request):
     now = datetime.datetime.now()
     listTitle = GetTitleList()
     listAccount = GetAccountTypeList()
+    store_projects = project_operations()
+    active_projects = store_projects.get_the_projects_of_a_person(Current_Person[0])
     return render_template('personal/default.html', current_time=now.ctime(), Current_Person=Current_Person,
                            listFollowing=listFollowing, listFollowers=listFollowers,
-                           personComments=personComments,listAccount=listAccount, listTitle=listTitle)
+                           personComments=personComments, listAccount=listAccount, listTitle=listTitle, active_projects=active_projects)
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
