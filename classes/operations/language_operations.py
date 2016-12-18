@@ -33,6 +33,21 @@ class language_operations:
             result = cursor.fetchall()
         return result
 
+    def GetAllLanguagesByActiveCVAndByPersonId(self, key):
+        with dbapi2.connect(dsn) as connection:
+            cursor = connection.cursor()
+            query = """SELECT Language.ObjectId, Language.CVId, Language.Name, Language.Level
+                        FROM Language
+                        INNER JOIN CV ON (Language.CVId = CV.ObjectId)
+                        INNER JOIN Person ON (CV.PersonId = Person.ObjectId)
+                        WHERE (Language.CVId=(Select CV.ObjectId FROM CV
+                                              INNER JOIN Person ON (CV.PersonId = Person.ObjectId)
+                                              WHERE (Person.ObjectId = %s AND CV.IsActive=TRUE)))"""
+            cursor.execute(query, (key,))
+            result = cursor.fetchall()
+        return result
+
+
     def UpdateLanguage(self, key, name, level ):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()

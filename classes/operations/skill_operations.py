@@ -3,6 +3,7 @@ from classes.skill import Skill
 import datetime
 from classes.model_config import dsn
 
+
 class skill_operations:
     def __init__(self):
         self.last_key = None
@@ -23,6 +24,20 @@ class skill_operations:
             cursor.execute(query, (key,))
             results = cursor.fetchall()
             return results
+
+    def GetSkillByActiveCVAndByPersonId(self, key):
+        with dbapi2.connect(dsn) as connection:
+            cursor = connection.cursor()
+            query = """SELECT Skill.ObjectId, CVId, Name, Level FROM Skill
+                        INNER JOIN CV ON (Skill.CVId = CV.ObjectId)
+                        INNER JOIN Person ON (CV.PersonId = Person.ObjectId)
+                        WHERE (Skill.CVId=(Select CV.ObjectId FROM CV
+                                              INNER JOIN Person ON (CV.PersonId = Person.ObjectId)
+                                              WHERE (Person.ObjectId = %s AND CV.IsActive=TRUE)))"""
+            cursor.execute(query, (key,))
+            results = cursor.fetchall()
+            return results
+
 
     def DeleteSkill(self, key):
         with dbapi2.connect(dsn) as connection:

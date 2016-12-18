@@ -35,3 +35,19 @@ class information_operations:
             cursor.execute(query, (key,))
             results = cursor.fetchall()
         return results
+
+
+    def get_all_information_by_ActiveCV_And_PersonId(self, key):
+        with dbapi2.connect(dsn) as connection:
+            cursor = connection.cursor()
+            query = """SELECT Information.ObjectId, Information.CVId, InformationType.Name, Information.Description
+                      FROM Information
+                      JOIN CV ON(Information.CVId = CV.ObjectId)
+                      JOIN InformationType ON(Information.InformationTypeId = InformationType.ObjectId)
+                      INNER JOIN Person ON (CV.PersonId = Person.ObjectId)
+                        WHERE (Information.CVId=(Select CV.ObjectId FROM CV
+                                              INNER JOIN Person ON (CV.PersonId = Person.ObjectId)
+                                              WHERE (Person.ObjectId = %s AND CV.IsActive=TRUE)))"""
+            cursor.execute(query, (key,))
+            results = cursor.fetchall()
+        return results

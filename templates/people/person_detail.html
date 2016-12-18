@@ -47,38 +47,106 @@
                     </div>
                     <div class="box-body">
                         <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
-                        <p class="text-muted">
-                            B.S. in Computer Science from the Istanbul Technical University
-                        </p>
+                        {% for education in listEducation %}
+                            {% if loop.index == 1 %}
+                                <p class="text-muted">
+                                    {{ education[2] }} from the <b>{{ education[1] }}</b> <br> {{ education[4] }}
+                                    - {{ education[5] }}
+                                </p>
+                            {% else %}
+                                <div id="educationOther" style="display: none">
+                                    <p class="text-muted">
+                                        {{ education[2] }} from the <b>{{ education[1] }}</b> <br> {{ education[4] }}
+                                        - {{ education[5] }}
+                                    </p>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                        {% if listEducation|length > 1 %}
+                            <a href="#" class="show-more-education" id="educationShow" aria-expanded="true">Show
+                                more</a>
+                        {% endif %}
+                        {% if listEducation|length == 0 %}
+                            <p></p>There is no any education record.
+                        {% endif %}
                         <hr>
-                        <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
-                        <p class="text-muted">Istanbul, Turkey</p>
+                        <strong><i class="fa fa-briefcase margin-r-5"></i> Experience</strong>
+                        {# {% for education in listEducation %}
+                            {% if loop.index == 1 %}
+                                <p class="text-muted">
+                                    {{ education[2] }} from the <b>{{ education[1] }}</b> <br> {{ education[4] }}
+                                    - {{ education[5] }}
+                                </p>
+                            {% else %}
+                                <div id="experienceOther" style="display: none">
+                                    <p class="text-muted">
+                                        {{ education[2] }} from the <b>{{ education[1] }}</b> <br> {{ education[4] }}
+                                        - {{ education[5] }}
+                                    </p>
+                                </div>
+                            {% endif %}
+                        {% endfor %}#}
+                        {% if listEducation|length > 1 %}
+                            <a href="#" class="show-more-experience" id="experienceShow" aria-expanded="true">Show
+                                more</a>
+                        {% endif %}
+                        {% if listEducation|length == 0 %}
+                            <p></p>There is no any experience record.
+                        {% endif %}
                         <hr>
                         <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
                         <p>
-                            <span class="label label-danger">UI Design</span>
-                            <span class="label label-success">Coding</span>
-                            <span class="label label-info">Javascript</span>
-                            <span class="label label-warning">PHP</span>
-                            <span class="label label-primary">Node.js</span>
+                            {% for skill in listSkill %}
+                                <a href="#" data-toggle="tooltip" data-placement="bottom"
+                                   title="{{ skill[3] }}"><span class="label {% if skill[3] ==  'Beginner' %}label-danger
+                                                    {% elif skill[3] == 'Intermediate' %} label-warning
+                                                    {% elif skill[3] == 'Advance' %} label-info
+                                                    {% elif skill[3] == 'Expert' %} label-primary
+                                                    {% elif skill[3] == 'Master' %} label-success
+                                                    {% endif %} }">{{ skill[2] }}</span></a>
+                            {% endfor %}
                         </p>
+                        {% if listSkill|length == 0 %}
+                            There is no any skill information.
+                        {% endif %}
                         <hr>
                         <strong><i class="fa fa-book margin-r-5"></i> Languages</strong>
                         <p>
-                            <span class="label label-info">English</span>
+                            {% for language in listLanguage %}
+                                <a href="#" data-toggle="tooltip" data-placement="bottom"
+                                   title="{{ language[3] }}"><span class="label {% if language[3] ==  'Beginner' %}label-danger
+                                                    {% elif language[3] == 'Intermediate' %} label-warning
+                                                    {% elif language[3] == 'Advance' %} label-info
+                                                    {% elif language[3] == 'Expert' %} label-primary
+                                                    {% elif language[3] == 'Master' %} label-success
+                                                    {% endif %} }">{{ language[2] }}</span></a>
+                            {% endfor %}
                         </p>
+                        {% if listLanguage|length == 0 %}
+                            There is no any language record.
+                        {% endif %}
                         <hr>
-                        <strong><i class="fa fa-file-text-o margin-r-5"></i> Experiences </strong>
-
-                        {% if experiences!='none' %}
-                        {% for experience in experiences %}
-                        <div>
-                        <p>{{ experience.ExperiencePosition }} in {{ experience.CompanyName }}  </p>
-                            <p class="pull-right">from {{ experience.StartDate }} in {{ experience.EndDate }}  </p>
-                            </div>
+                        <strong><i class="fa fa-file-text-o margin-r-5"></i> Information</strong>
+                        {% for info in listInformation %}
+                            {% if loop.index == 1 %}
+                                <p class="text-muted">
+                                    <b>{{ info[2] }}</b> <br> {{ info[3] }}<br>
+                                </p>
+                            {% else %}
+                                <div id="informationOther" style="display: none">
+                                    <p class="text-muted">
+                                        <b>{{ info[2] }}</b> <br> {{ info[3] }}<br>
+                                    </p>
+                                </div>
+                            {% endif %}
                         {% endfor %}
-                    {% endif %}
-
+                        {% if listInformation|length > 1 %}
+                            <a href="#" class="show-more-information" id="informationShow" aria-expanded="true">Show
+                                more</a>
+                        {% endif %}
+                        {% if listInformation|length == 0 %}
+                            <p></p>There is no any contact details.
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -93,25 +161,27 @@
                     <div class="tab-content">
                         <div class="active tab-pane" id="activeProjects">
                             {% for active_project in active_projects %}
-                            <div class="post">
-                                <a href="#">{{ active_project[0] }}</a>
-                                <p>{{ active_project[1] }}</p>
-                            </div>
+                                <div class="post">
+                                    <a href="#">{{ active_project[0] }}</a>
+                                    <p>{{ active_project[1] }}</p>
+                                </div>
                             {% endfor %}
                         </div>
                         <div class="tab-pane" id="followedProjects">
-                             <ul class="product-list products-list">
+                            <ul class="product-list products-list">
                                 {% for followed_project in followed_projects %}
-                                <li>
-                                    <div class="box box-body">
-                                        <h4 class="timeline-header"><a href="{{ url_for('site.projects_details_page', key=followed_project[5]) }}">{{ followed_project[6] }}</a> {{ followed_project[3] }}</h4>
-                                        <div class="timeline-body">
-                                            {{ followed_project[4] }}
+                                    <li>
+                                        <div class="box box-body">
+                                            <h4 class="timeline-header"><a
+                                                    href="{{ url_for('site.projects_details_page', key=followed_project[5]) }}">{{ followed_project[6] }}</a> {{ followed_project[3] }}
+                                            </h4>
+                                            <div class="timeline-body">
+                                                {{ followed_project[4] }}
+                                            </div>
+                                            <div class="timeline-footer">
+                                            </div>
                                         </div>
-                                        <div class="timeline-footer">
-                                        </div>
-                                    </div>
-                                </li>
+                                    </li>
                                 {% endfor %}
                             </ul>
                         </div>
@@ -134,7 +204,7 @@
                                                                 <a data-toggle="tooltip" data-placement="bottom"
                                                                    title="Go to your own page!"
                                                                    class="users-list-name"
-                                                                   href="{{ url_for('site.personal_default_page')}}">You!</a>
+                                                                   href="{{ url_for('site.personal_default_page') }}">You!</a>
                                                                 <span class="users-list-date">{{ follower[6].strftime('%d.%m.%Y') }}</span>
                                                             {% else %}
                                                                 <a data-toggle="tooltip" data-placement="bottom"
@@ -248,11 +318,13 @@
                                                         <button name="deleteComment" style="color: #D73925"
                                                                 value="{{ comment[0] }}"
                                                                 type="submit" class="pull-right btn btn-box-tool"
-                                                                onclick="return confirm('Are you sure to delete?')"><i class="fa fa-times-circle fa-2x"></i>
+                                                                onclick="return confirm('Are you sure to delete?')"><i
+                                                                class="fa fa-times-circle fa-2x"></i>
                                                         </button>
                                                         <button name="" style="color: #3C8DBC" data-toggle="modal"
                                                                 data-target="#{{ comment[0] }}"
-                                                                type="button" class="pull-right btn btn-box-tool"><i class="fa fa-edit fa-2x"></i>
+                                                                type="button" class="pull-right btn btn-box-tool"><i
+                                                                class="fa fa-edit fa-2x"></i>
                                                         </button>
                                                     {% endif %}
 
@@ -353,4 +425,37 @@
             </div>
         </div>
     </section>
+    <script type="text/javascript">
+        $('.show-more-education').click(function (e) {
+            $('#educationOther').toggle();
+            if ($('#educationShow').text() == 'Show more') {
+                $('#educationShow').text('Show less');
+            }
+            else if ($('#educationShow').text() == 'Show less') {
+                $('#educationShow').text('Show more');
+            }
+            e.preventDefault();
+        });
+        $('.show-more-experience').click(function (e) {
+            $('#experienceOther').toggle();
+            if ($('#experienceShow').text() == 'Show more') {
+                $('#experienceShow').text('Show less');
+            }
+            else if ($('#experienceShow').text() == 'Show less') {
+                $('#experienceShow').text('Show more');
+            }
+            e.preventDefault();
+        });
+        $('.show-more-information').click(function (e) {
+            debugger;
+            $('#informationOther').toggle();
+            if ($('#informationShow').text() == 'Show more') {
+                $('#informationShow').text('Show less');
+            }
+            else if ($('#informationShow').text() == 'Show less') {
+                $('#informationShow').text('Show more');
+            }
+            e.preventDefault();
+        });
+    </script>
 {% endblock %}
