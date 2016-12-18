@@ -24,7 +24,7 @@
                         <p class="text-muted text-center">{{ Current_Person[6] }}</p>
                         <ul class="list-group list-group-unbordered">
                             <li class="list-group-item">
-                                <b>Your Responsibilities</b> <a class="pull-right">4</a>
+                                <b>Your Responsibilities</b> <a class="pull-right">{{ active_project_number }}</a>
                             </li>
                             <li class="list-group-item">
                                 <b>Following</b> <a class="pull-right">{{ listFollowing|length }}</a>
@@ -80,233 +80,41 @@
                     </ul>
                     <div class="tab-content">
                         <div class="active tab-pane" id="activeProjects">
+                            {% for active_project in active_projects %}
                             <div class="post">
-                                <div class="user-block">
-                        <span class="username">
-                          <a href="#">Project Name</a>
-                          <a href="#" class="pull-right btn-box-tool"><i class="fa fa-edit fa-lg"></i></a>
-                        </span>
-                                    <span class="description">ProjectType</span>
-                                </div>
-                                <p>
-                                    Project Description. Lorem ipsum represents a long-held tradition for designers,
-                                    typographers and the like. Some people hate it and argue for
-                                    its demise, but others ignore the hate as they create awesome
-                                    tools to help create filler text for everyone from bacon lovers
-                                </p>
-                                <div class="col-md-1">&nbsp;</div>
-                                <div class="col-md-11">
-                                    <div class="box box-default">
-                                        <div class="box-header with-border">
-                                            <h5 class="username"><a>Project Members</a></h5>
-                                        </div>
-                                        <div class="box-body">
-                                            <img src="http://placehold.it/150x100" alt="..." class="margin">
-                                            <img src="http://placehold.it/150x100" alt="..." class="margin">
-                                            <img src="http://placehold.it/150x100" alt="..." class="margin">
-                                            <img src="http://placehold.it/150x100" alt="..." class="margin">
-                                        </div>
-                                    </div>
-                                </div>
-                                <ul class="list-inline">
-                                    <li><a href="#" class="link-black text-sm"><i
-                                            class="fa fa-thumbs-o-up margin-r-5"></i> Like</a>
-                                    </li>
-                                    <li class="link-black"><span class="label label-warning">5</span></li>
-                                </ul>
+                                <a href="#">{{ active_project[0] }}</a>
+
+                                <p>{{ active_project[1] }}</p>
                             </div>
-                            <div class="post">
-                                <div class="user-block">
-                        <span class="username">
-                          <a href="#">Project Name</a>
-                          <a href="#" class="pull-right btn-box-tool"><i class="fa fa-edit fa-lg"></i></a>
-                        </span>
-                                    <span class="description">ProjectType</span>
-                                </div>
-                                <p>
-                                    Project Description. Lorem ipsum represents a long-held tradition for designers,
-                                    typographers and the like. Some people hate it and argue for
-                                    its demise, but others ignore the hate as they create awesome
-                                    tools to help create filler text for everyone from bacon lovers
-                                </p>
-                                <div class="col-md-1">&nbsp;</div>
-                                <div class="col-md-11">
-                                    <div class="box box-default">
-                                        <div class="box-header with-border">
-                                            <h5 class="username"><a>Project Members</a></h5>
-                                        </div>
-                                        <div class="box-body">
-                                            <img src="http://placehold.it/150x100" alt="..." class="margin">
-                                            <img src="http://placehold.it/150x100" alt="..." class="margin">
-                                            <img src="http://placehold.it/150x100" alt="..." class="margin">
-                                            <img src="http://placehold.it/150x100" alt="..." class="margin">
-                                        </div>
-                                    </div>
-                                </div>
-                                <ul class="list-inline">
-                                    <li><a href="#" class="link-black text-sm"><i
-                                            class="fa fa-thumbs-o-up margin-r-5"></i> Like</a>
-                                    </li>
-                                    <li class="link-black"><span class="label label-warning">5</span></li>
-                                </ul>
-                            </div>
-                            <div class="post">
-                                <div class="user-block">
-                        <span class="username">
-                          <a href="#">Project Name</a>
-                          <a href="#" class="pull-right btn-box-tool"><i class="fa fa-edit fa-lg"></i></a>
-                        </span>
-                                    <span class="description">ProjectType</span>
-                                </div>
-                                <p>
-                                    Project Description. Lorem ipsum represents a long-held tradition for designers,
-                                    typographers and the like. Some people hate it and argue for
-                                    its demise, but others ignore the hate as they create awesome
-                                    tools to help create filler text for everyone from bacon lovers
-                                </p>
-                                <div class="col-md-1">&nbsp;</div>
-                                <div class="col-md-11">
-                                    <div class="box box-default">
-                                        <div class="box-header with-border">
-                                            <h5 class="username"><a>Project Members</a></h5>
-                                        </div>
-                                        <div class="box-body">
-                                            <img src="http://placehold.it/150x100" alt="..." class="margin">
-                                            <img src="http://placehold.it/150x100" alt="..." class="margin">
-                                            <img src="http://placehold.it/150x100" alt="..." class="margin">
-                                            <img src="http://placehold.it/150x100" alt="..." class="margin">
-                                        </div>
-                                    </div>
-                                </div>
-                                <ul class="list-inline">
-                                    <li><a href="#" class="link-black text-sm"><i
-                                            class="fa fa-thumbs-o-up margin-r-5"></i> Like</a>
-                                    </li>
-                                    <li class="link-black"><span class="label label-warning">5</span></li>
-                                </ul>
-                            </div>
-                            <div class="post">
-                                <div class="user-block">
-                        <span class="username">
-                          <a href="#">Project Name</a>
-                          <a href="#" class="pull-right btn-box-tool"><i class="fa fa-edit fa-lg"></i></a>
-                        </span>
-                                    <span class="description">ProjectType</span>
-                                </div>
-                                <p>
-                                    Project Description. Lorem ipsum represents a long-held tradition for designers,
-                                    typographers and the like. Some people hate it and argue for
-                                    its demise, but others ignore the hate as they create awesome
-                                    tools to help create filler text for everyone from bacon lovers
-                                </p>
-                                <div class="col-md-1">&nbsp;</div>
-                                <div class="col-md-11">
-                                    <div class="box box-default">
-                                        <div class="box-header with-border">
-                                            <h5 class="username"><a>Project Members</a></h5>
-                                        </div>
-                                        <div class="box-body">
-                                            <img src="http://placehold.it/150x100" alt="..." class="margin">
-                                            <img src="http://placehold.it/150x100" alt="..." class="margin">
-                                            <img src="http://placehold.it/150x100" alt="..." class="margin">
-                                            <img src="http://placehold.it/150x100" alt="..." class="margin">
-                                        </div>
-                                    </div>
-                                </div>
-                                <ul class="list-inline">
-                                    <li><a href="#" class="link-black text-sm"><i
-                                            class="fa fa-thumbs-o-up margin-r-5"></i> Like</a>
-                                    </li>
-                                    <li class="link-black"><span class="label label-warning">5</span></li>
-                                </ul>
-                            </div>
+                            {% endfor %}
                         </div>
                         <div class="tab-pane" id="followedProjects">
-                            <ul class="timeline timeline-inverse">
-                                <li class="time-label">
-                        <span class="bg-teal-active">
-                          10 Feb. 2014
-                        </span>
-                                </li>
+                            <ul class="product-list products-list">
+                                {% for followed_project in followed_projects %}
                                 <li>
-                                    <i class="fa fa-search bg-purple"></i>
-
-                                    <div class="timeline-item">
-                                        <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
-
-                                        <h3 class="timeline-header"><a href="#">Project Name</a> Project Type</h3>
+                                    <div class="box box-body">
+                                        <h3 class="timeline-header"><a href="#">{{ followed_project[6] }}</a> {{ followed_project[3] }}</h3>
                                         <div class="timeline-body">
-                                            Project description. Etsy doostang zoodles disqus groupon greplin oooj voxy
-                                            zoodles,
-                                            weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                                            jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                                            quora plaxo ideeli hulu weebly balihoo...
+                                            {{ followed_project[4] }}
                                         </div>
                                         <div class="timeline-footer">
-                                            <a class="btn btn-primary btn-xs">View details</a>
-                                            <a class="btn btn-danger btn-xs">Unfollow</a>
+                                            <form role="form" action="{{ action }}" method="POST">
+                                          <!--  <a class="btn btn-primary btn-xs">View details</a> -->
+                                            <button type="submit"
+                                                    name="unfollowProject"
+                                                    value="{{ followed_project[0] }}"
+                                                    class="btn btn-danger btn-xs">Unfollow</button>
+                                                </form>
                                         </div>
                                     </div>
                                 </li>
-                                <li class="time-label">
-                        <span class="bg-teal-active">
-                          10 Feb. 2014
-                        </span>
-                                </li>
-                                <li>
-                                    <i class="fa fa-search bg-purple"></i>
-
-                                    <div class="timeline-item">
-                                        <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
-
-                                        <h3 class="timeline-header"><a href="#">Project Name</a> Project Type</h3>
-                                        <div class="timeline-body">
-                                            Project description. Etsy doostang zoodles disqus groupon greplin oooj voxy
-                                            zoodles,
-                                            weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                                            jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                                            quora plaxo ideeli hulu weebly balihoo...
-                                        </div>
-                                        <div class="timeline-footer">
-                                            <a class="btn btn-primary btn-xs">View details</a>
-                                            <a class="btn btn-danger btn-xs">Unfollow</a>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="time-label">
-                        <span class="bg-teal-active">
-                          10 Feb. 2014
-                        </span>
-                                </li>
-                                <li>
-                                    <i class="fa fa-search bg-purple"></i>
-
-                                    <div class="timeline-item">
-                                        <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
-
-                                        <h3 class="timeline-header"><a href="#">Project Name</a> Project Type</h3>
-                                        <div class="timeline-body">
-                                            Project description. Etsy doostang zoodles disqus groupon greplin oooj voxy
-                                            zoodles,
-                                            weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                                            jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                                            quora plaxo ideeli hulu weebly balihoo...
-                                        </div>
-                                        <div class="timeline-footer">
-                                            <a class="btn btn-primary btn-xs">View details</a>
-                                            <a class="btn btn-danger btn-xs">Unfollow</a>
-                                        </div>
-                                    </div>
-                                </li>
-
-                                <li>
-                                    <i class="fa fa-clock-o bg-gray"></i>
-                                </li>
+                                {% endfor %}
                             </ul>
                             <div class="box-footer text-center">
                                 <a href="#" class="uppercase">View All Projects!</a>
                             </div>
                         </div>
+
                         <div class="tab-pane clearfix" id="followedPeople">
                             <div class="col-md-6 col-xs-12">
                                 {% if listFollowers %}

@@ -48,7 +48,7 @@ def project_details_page_config(submit_type, key):
         elif 'update' in request.form:
             title = request.form['project_name']
             project_description = request.form['project_description']
-            end_date = datetime.datetime.now() #datepicker eklenince düzeltilecek
+            end_date = request.form['updated_date']
             member_limit = request.form['limit']
             manager = request.form['project_manager']
             deleted = '0'
@@ -83,15 +83,13 @@ def project_details_page_config(submit_type, key):
                     projectTeamMembers +=1
                     teamList.AddTeam(newMemberProjectId, newMemberMemberId, newMemberDuty)
             return redirect(url_for('site.projects_details_page', key=key))
-        elif 'updateMember' in request.form:
-            updateMemberPersonId = request.form['updateMemberPersonId']
-            updateMemberProjectId = request.form['updateMemberProjectId']
-            updateMemberDuty = request.form['updateMemberDuty']
-            updateMemberId = request.form['updateMemberId']
-            teamList.UpdateTeam(updateMemberId, updateMemberPersonId, updateMemberProjectId, updateMemberDuty)
+        elif 'updatedMemberDuty' in request.form:
+            newDuty = request.form['updatedMemberDuty']
+            objectId = request.form['updatedMemberId']
+            teamList.UpdateMemberDuty(objectId, newDuty)
             return redirect(url_for('site.projects_details_page', key=key))
         elif 'deleteMember' in request.form:
-            deleteMemberId = request.form['deleteMemberId']
+            deleteMemberId = request.form['deleteMember']
             teamList.DeleteTeam(deleteMemberId)
             return redirect(url_for('site.projects_details_page', key=key))
         elif 'addWorklog' in request.form:

@@ -51,19 +51,12 @@
 
                     <!-- /.box-header -->
                       <div class="box-body">
-
-                          <div class="callout callout-danger">
-                              <h4>Sample Project 1</h4>
-
-                              <p>  Here is the description of the project. </p>
-                          </div>
-
-                          <div class="callout callout-danger">
-                              <h4>Sample Project 2</h4>
-
-                              <p>  Here is the description of the project. </p>
-                          </div>
-
+                            {% for active_project in active_projects %}
+                              <div class="callout callout-danger">
+                                  <h4>{{ active_project[0] }}</h4>
+                                    <h4>{{ active_project[1] }}</h4>
+                              </div>
+                            {% endfor %}
                       </div>
                     <!-- /.box-body -->
                   </div>

@@ -11,6 +11,7 @@ from classes.operations.personComment_operations import personComment_operations
 from classes.followed_person import FollowedPerson
 from classes.operations.CV_operations import cv_operations
 from classes.operations.Experience_operations import experience_operations
+from classes.operations.project_operations import project_operations
 def people_person_detail_page_config(request, key):
     PersonProvider = person_operations()
     CommentProvider = personComment_operations()
@@ -41,6 +42,9 @@ def people_person_detail_page_config(request, key):
     personComments = CommentProvider.GetPersonCommentsByCommentedPersonId(key)
     IsFollow = FollowedPersonProvider.GetFollowedPersonByPersonIdAndFollowedPersonId(Current_Person[0], Active_Person[0])
     activeCv = CvProvider.get_active_cv(key)
+    store_projects = project_operations()
+    active_projects = store_projects.get_the_projects_of_a_person(key)
+    active_project_number = len(active_projects)
     if activeCv:
         experiences = ExperienceProvider.get_experience_s_with_key(activeCv[0])
     else:
@@ -49,4 +53,4 @@ def people_person_detail_page_config(request, key):
     return render_template('people/person_detail.html', current_time=now.ctime(), Current_Person=Current_Person, Active_Person=Active_Person,
                            listFollowing=listFollowing, listFollowers=listFollowers,
                            personComments=personComments, IsFollow=IsFollow,
-                           experiences=experiences)
+                           experiences=experiences, active_projects=active_projects, active_project_number=active_project_number)

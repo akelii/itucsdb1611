@@ -31,7 +31,7 @@ class team_operations:
     def GetAllMembersByProjectId(self, key):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
-            query = """SELECT Person.FirstName ||' '|| Person.LastName as PersonFullName, Person.PhotoPath, Team.Duty, Person.ObjectId
+            query = """SELECT Person.FirstName ||' '|| Person.LastName as PersonFullName, Person.PhotoPath, Team.Duty, Person.ObjectId, Team.ObjectId
                        FROM Team
                        INNER JOIN Project ON(Team.ProjectId = Project.ObjectId)
                        INNER JOIN Person ON (Team.MemberId = Person.ObjectId)
@@ -48,12 +48,12 @@ class team_operations:
             result = cursor.fetchall()
         return result
 
-    def UpdateTeam(self, key, memberId, projectId, duty ):
+    def UpdateMemberDuty(self, key, duty ):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
             cursor.execute(
-                """UPDATE Team SET ProjectId=%s, MemberId = %s, Duty = %s WHERE (ObjectId=%s)""",
-                (projectId, memberId, duty, key))
+                """UPDATE Team SET Duty = %s WHERE (ObjectId=%s)""",
+                (duty, key))
             connection.commit()
 
 

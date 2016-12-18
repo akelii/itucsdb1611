@@ -87,6 +87,8 @@
                                     </div>
                                 {% endfor %}
                             </div>
+                            {% for member in members %}
+                                {% if member[3]== current_user_objectid%}
                             <form role="form" action="{{ url_for('site.projects_details_page', key=project[7]) }}"
                                   method="post">
                                 <div class="form-group">
@@ -99,7 +101,8 @@
                                 </button>
                             </form>
                             <!--  </ul> -->
-
+                                {% endif %}
+                            {% endfor %}
                         </div>
 
                         <div class="active tab-pane" id="members">
@@ -117,7 +120,7 @@
                                                     <div class="col-md-4 col-xs-3">
                                                         <li>
                                                             <img width="75px" height="75px"
-                                                                 src="static/user_images/{{ member[1] }}"
+                                                                 src="../static/user_images/{{ member[1] }}"
                                                                  alt="User Image">
                                                             <a data-toggle="tooltip" data-placement="bottom"
                                                                title="View {{ member[0] }} more!"
@@ -138,10 +141,14 @@
                                             <p><strong>More team members can make the project development be
                                                 faster.</strong>
                                             </p>
-                                            <button class="btn bg-orange-active btn-xs" name="searchProjectPage"
-                                                    type="submit">
-                                                <i class="fa fa-search"></i>&nbsp;&nbsp; Add a team member!
-                                            </button>
+
+                                                <button class="btn bg-orange-active btn-xs" name="searchProjectPage"
+                                                        type="button">
+                                                    <a href="#settings" data-toggle="tab" >&nbsp;&nbsp; Add a team member!</a>
+                                                </button>
+
+
+
                                         </form>
                                     </div>
                                 {% endif %}
@@ -163,7 +170,8 @@
                                                 <i class="fa fa-search bg-purple"></i>
 
                                                 <div class="timeline-item">
-                                                    <span class="time"><i class="fa fa-clock-o"></i> {{ project_comment[3].strftime('%H:%M') }}</span>
+                                                    <span class="time"><i class="fa fa-clock-o"></i> Update Date:{{ project_comment[6].strftime('%H:%M') }}</span>
+                                                    <span class="time"><i class="fa fa-clock-o"></i> Create Date:{{ project_comment[3].strftime('%H:%M') }}</span>
                                                     <h3 class="timeline-header"><a
                                                             href="#">{{ project_comment[0] }} {{ project_comment[1] }}</a>
                                                     </h3>
@@ -228,65 +236,88 @@
                         </div>
 
                         <div class="tab-pane clearfix" id="settings">
-                            <form role="form" action="{{ url_for('site.projects_details_page', key=project[7]) }}"
-                                  method="POST">
-                                <div class="col-md-12">
+                            <div class="col-md-12">
                                     <div class="box box-default">
                                         <div class="box-header with-border">
                                             <h3 class="box-title">Organize Your Team</h3>
                                         </div>
+
                                         <div class="box-body">
+
                                             <ul class="products-list product-list-in-box">
 
-{#                                                for baslangic#}
-                                                <li class="item">
-                                                    <div class="product-img">
-                                                        <img src="dist/img/default-50x50.gif" alt="Member Image">
-                                                    </div>
-                                                    <div class="product-info">
-                                                        <div class="col-md-9">
-                                                            <a href="javascript:void(0)" class="product-title">Elif Ak
-                                                                <button name="deleteMember"
-                                                                                                    value=""
+
+
+                                                    {% for member in members %}
+                                                    <li class="item">
+                                                        <div class="product-img">
+                                                            <img src="../static/user_images/{{ member[1] }}" alt="Member Image">
+                                                        </div>
+                                                        <div class="product-info">
+                                                            <div class="col-md-9">
+                                                                <form name="deleteMember" role="form" action="{{ url_for('site.projects_details_page', key=project[7]) }}"
+                                                                        method="POST">
+                                                                    <a href="javascript:void(0)" class="product-title">{{ member[0] }}
+                                                                        <button name="deleteMember"
+                                                                                                    value="{{ member[4] }}"
                                                                                                     type="submit"
-                                                                                                    class="btn btn-box-tool pull-right">
-                                                                <span class="label label-danger pull-right">Delete</span></button>
-                                                            </a></div>
+                                                                                                    class="btn btn-box-tool">
+                                                                            <span class="label label-danger">Delete</span>
+                                                                        </button>
+                                                                    </a>
+                                                                </form>
+                                                            </div>
 
-                                                        <div class="col-md-4"><span class="product-description"><input
-                                                                type="text" value="Yardımcı"
-                                                                class="form-control input-sm"></span></div>
+                                                            <form name="updateMember" role="form" action="{{ url_for('site.projects_details_page', key=project[7]) }}"
+                                                                        method="POST">
+                                                                <div class="col-md-4">
+                                                                    <span class="product-description">
+                                                                        <input type="hidden"  name="updatedMemberId" value="{{ member[4] }}" class="form-control input-sm">
+                                                                        <input name="updatedMemberDuty" type="text" value="{{ member[2] }}" class="form-control input-sm">
+                                                                    </span>
+                                                                </div>
+                                                                <button name="updateMember" type="submit" class="btn btn-primary" >Update Duty</button>
+                                                            </form>
+                                                            <br>
+                                                            <br>
+                                                            <br>
+                                                        </div>
+                                                    </li>
+                                                    {% endfor %}
 
-                                                    </div>
-                                                </li>
-{#                                                for bitis#}
 
                                             </ul>
                                         </div>
-                                        <div class="box-footer">
-                                            <input type="submit" class="btn btn-primary" value="Save Changes">
+
+
+                                    </div>
+                                </div>
+                                <form role="form" action="{{ url_for('site.projects_details_page', key=project[7]) }}"
+                                                                            method="POST">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <br>
+                                            <br>
+                                            <label>Add New Team Members</label>
+                                            <select name="teamMember" class="form-control select2 select2-hidden-accessible"
+                                                    multiple=""
+                                                    data-placeholder="Select" style="width: 100%;" tabindex="-1"
+                                                    aria-hidden="true">
+                                                {% for person in listPerson %}
+                                                    <option value="{{ person[0] }}">{{ person[1] }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <br>
+                                            <br>
+                                            <label>Duty of the Members</label>
+                                            <textarea rows="4" cols="130"  name="addDuty"></textarea>
                                         </div>
+                                        <button name="addMember" type="submit" class="btn btn-primary">Add Member</button>
                                     </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>Add New Team Member</label>
-                                        <select name="teamMember" class="form-control select2 select2-hidden-accessible"
-                                                multiple=""
-                                                data-placeholder="Select" style="width: 100%;" tabindex="-1"
-                                                aria-hidden="true">
-                                            {% for person in listPerson %}
-                                                <option value="{{ person[0] }}">{{ person[1] }}</option>
-                                            {% endfor %}
-                                        </select>
-                                        <br>
-                                        <br>
-                                        <label>Duty of the Members</label>
-                                        <textarea rows="4" cols="130"  name="addDuty"></textarea>
-                                    </div>
-                                    <button name="addMember" type="submit" class="btn btn-primary">Add Member</button>
-                                </div>
-                            </form>
+                                </form>
+                                <br>
+                                <br>
+                                <br>
 
                             <div class="form-group">
                                 <label></label>
@@ -323,10 +354,10 @@
                                                         <label>New End Date</label>
                                                         <div class="input-group date">
                                                             <div class="input-group-addon">
-                                                                <i class="fa fa-calendar">
+                                                                <i class="fa fa-calendar ">
                                                                 </i>
                                                             </div>
-                                                            <input type="text" class="form-control pull-right"
+                                                            <input type="text" name= "updated_date"class="form-control pull-right dpDate"
                                                                    id="datepicker">
                                                         </div>
                                                     </div>
@@ -367,5 +398,14 @@
                 $(".select2").select2({});
             })
         })
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {});
+        $(function () {
+            $('.dpDate').datepicker({
+                format: "yyyy-mm-dd",
+                autoclose: true,
+            });
+        });
     </script>
 {% endblock %}
