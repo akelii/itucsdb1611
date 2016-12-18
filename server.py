@@ -326,8 +326,8 @@ def init_db():
                 CompanyName VARCHAR(100),
                 Description VARCHAR(100),
                 ExperiencePosition VARCHAR(100),
-                StartDate TIMESTAMP NOT NULL,
-                EndDate TIMESTAMP NOT NULL,
+                StartDate VARCHAR(7) NOT NULL,
+                EndDate VARCHAR(7) NOT NULL,
                 Deleted BOOLEAN NOT NULL
         )"""
         cursor.execute(query)
