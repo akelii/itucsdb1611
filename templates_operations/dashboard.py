@@ -9,10 +9,13 @@ from classes.operations.work_log_operations import work_log_operations
 from classes.operations.project_operations import project_operations
 from classes.operations.project_operations import project_operations
 from classes.operations.person_operations import person_operations
+from flask_login import current_user, login_required
 
 def home_page_config(request):
+    PersonProvider = person_operations()
+    Current_Person = PersonProvider.GetPerson(current_user.email)
     store_worklogs = work_log_operations()
     store_projects = project_operations()
     active_projects = store_projects.get_the_projects_of_a_person(person_operations.GetPerson(current_user, current_user.email)[0])
-    worklogs = store_worklogs.GetFollowedProjectsWorkLogs(2)
+    worklogs = store_worklogs.GetFollowedProjectsWorkLogs(Current_Person[0])
     return render_template('dashboard.html', worklogs=worklogs, active_projects=active_projects)
