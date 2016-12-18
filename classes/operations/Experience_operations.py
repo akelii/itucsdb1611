@@ -62,3 +62,11 @@ class experience_operations:
             cursor.execute(query,(key,))
             experience_s=[(key, Experience( key, CVId, Description, CompanyName,   StartDate, EndDate,ExperiencePosition ))for key, CVId, Description, CompanyName,  StartDate,EndDate,ExperiencePosition in cursor]
         return experience_s
+
+    def get_experiences_with_key(self,key):
+        with dbapi2.connect(dsn) as connection:
+            cursor = connection.cursor()
+            query = "SELECT * FROM Experience where (cvid=%s)ORDER BY ObjectID"
+            cursor.execute(query,(key,))
+            experience_s=cursor.fetchall()
+        return experience_s

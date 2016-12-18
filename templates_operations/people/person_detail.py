@@ -62,12 +62,12 @@ def people_person_detail_page_config(request, key):
     listLanguage = LanguageProvider.GetAllLanguagesByActiveCVAndByPersonId(Active_Person[0])
     listInformation = InformationProvider.get_all_information_by_ActiveCV_And_PersonId(Active_Person[0])
     if activeCv:
-        experiences = ExperienceProvider.get_experience_s_with_key(activeCv[0])
+        listExperience = ExperienceProvider.get_experiences_with_key(activeCv[0])
     else:
-        experiences = 'none'
+        listExperience = 'none'
     now = datetime.now()
     return render_template('people/person_detail.html', current_time=now.ctime(), Current_Person=Current_Person, Active_Person=Active_Person,
                            listFollowing=listFollowing, listFollowers=listFollowers,
                            personComments=personComments, IsFollow=IsFollow, followed_projects=followed_projects,
-                           experiences=experiences, active_projects=active_projects, active_project_number=active_project_number, listEducation=listEducation,
+                           listExperience=listExperience, active_projects=active_projects, active_project_number=active_project_number, listEducation=listEducation,
                            listSkill=listSkill, listLanguage=listLanguage, listInformation=listInformation)
