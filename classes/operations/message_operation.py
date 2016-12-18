@@ -68,15 +68,15 @@ class message_operations:
             query = "Select count(objectid) from message  WHERE( ReceiverId=%s and IsRead='FALSE' )"
             cursor.execute(query, (key,))
             connection.commit()
-            unread_messages=cursor.fethone()
+            unread_messages=str(cursor.fetchone())
             cursor.close()
         return unread_messages
 
-    def get_person_with_messaging_background(self,sender,receiver):
+    def get_person_with_messaging_background(self,sender):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
-            query = "SELECT * FROM person WHERE (ObjectId=%s OR ObjectId=%s)"
-            cursor.execute(query,(sender,sender,))
+            query = "select * from person inner join message on person.objectid=message.receiverid where message.senderid=%s"
+            cursor.execute(query,(sender,))
             connection.commit()
             people=cursor.fetchall()
         return people
@@ -113,7 +113,15 @@ class message_operations:
             query = "INSERT INTO Message(SenderId,ReceiverId, IsRead, MessageContent, SendDate,ReadDate,DeletedBySender,DeletedByReceiver)VALUES(%s,%s,'FALSE',%s,NOW(),NULL,'FALSE' ,'FALSE')"
             cursor.execute(query,(senderId,receiverId,messageContent))
 
-
+    def get_unread_messages_between(self,active,sender):
+        with dbapi2.connect(dsn) as connection:
+            cursor = connection.cursor()
+            query = "Select count(objectid) from message  WHERE( ReceiverId=%s and IsRead='FALSE' )"
+            cursor.execute(query, (key,))
+            connection.commit()
+            unread_messages=cursor.fethone()
+            cursor.close()
+        return unread_messages
 
 
 

@@ -32,18 +32,18 @@
 
                   {% for person in people   %}
 
-                        {% if person[0]!=sender and person[0]!=key %}
 
-                <li> <a href={{ url_for('site.messages_page_with_key', key=person[0]) }} class="small-box-footer"><i class="fa fa-graduation-cap"></i>{{ person[1] }} </a></li>
-
-                      {% elif person[0]==key  and key!=sender and person[0]!=sender%}
-                <li class="active"> <a href={{ url_for('site.messages_page_with_key', key=person[0]) }} class="small-box-footer"><i class="fa fa-graduation-cap"></i>{{ person[1] }} </a></li>
-
-                            {% endif %}
+                        {% if  person[0]!=sender and person[0]!=key  %}
+                            <li > <a href={{ url_for('site.messages_page_with_key', key=person[0]) }} class="small-box-footer"><i class="fa fa-graduation-cap"></i>{{ person[1] }} </a></li>
 
 
+                      {% elif person[0]==key  and key!=sender and person[0]!=sender %}
+                        <li class="active"> <a href={{ url_for('site.messages_page_with_key', key=person[0]) }} class="small-box-footer"><i class="fa fa-graduation-cap"></i>{{ person[1] }} </a></li>
+
+                        {% endif %}
 
                   {% endfor %}
+
               </ul>
             </div>
             <!-- /.box-body -->
@@ -185,7 +185,7 @@
                     {% endif %}
                 {% endfor %}
               <div class="box-tools pull-right">
-                <span data-toggle="tooltip" title="3 New Messages" class="badge bg-light-blue">3</span>
+                <span data-toggle="tooltip" title="{{ unread[1] }} New Messages" class="badge bg-light-blue">{{ unread[1] }}</span>
 
               </div>
             </div>

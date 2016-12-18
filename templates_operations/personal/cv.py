@@ -142,7 +142,7 @@ def personal_cv_pagewithkey_config(submit_type, key):
             newPosition=request.form['NewPosition']
             startDate=request.form['NewStartDate']
             endDate=request.form['NewEndDate']
-            store_experience.add_experience(key,newDescription,newCompanyName,newPosition,now,now)
+            store_experience.add_experience(key,newDescription,newCompanyName,newPosition,startDate,endDate)
             experiences=store_experience.get_experience_s_with_key(key)
             updateCV = "TRUE"
         elif request and 'DeleteExperience' in request.form and request.method=='POST':
@@ -157,7 +157,7 @@ def personal_cv_pagewithkey_config(submit_type, key):
             updatedPosition = request.form['UpdatedPosition']
             updatedStartDate = request.form['UpdatedStartDate']
             updatedEndDate = request.form['UpdatedEndDate']
-            store_experience.update_experience(updateId,updatedDescription,now,now,
+            store_experience.update_experience(updateId,updatedDescription,updatedStartDate,updatedEndDate,
                                                updatedCompanyName,updatedPosition)
             experiences = store_experience.get_experience_s_with_key(key)
             updateCV = "TRUE"
