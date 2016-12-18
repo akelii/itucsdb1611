@@ -34,10 +34,10 @@
                                                 <i class="fa fa-search bg-purple"></i>
 
                                                 <div class="timeline-item">
-                                                    <span class="time"><i class="fa fa-clock-o"></i> Create Date:{{ worklog[2].strftime('%H:%M') }}</span>
-                                                    <h3 class="timeline-header"><a
-                                                            href="{{ url_for('site.people_person_detail_page', key=worklog[3]) }}"> {{ worklog[4] }}</a>
-                                                    </h3>
+                                                    <span class="time"><i class="fa fa-clock-o"></i> Created:{{ worklog[2].strftime('%H:%M') }}</span>
+                                                    <h3 class="timeline-header">
+                                                        <a href="{{ url_for('site.projects_details_page', key=worklog[5]) }}">{{ worklog[6] }}</a>
+                                                        <a href="{{ url_for('site.people_person_detail_page', key=worklog[3]) }}"><font color="#000000"> {{ worklog[4] }}</font> </a>                                                    </h3>
                                                     <div class="timeline-body">
                                                         {{ worklog[1] }}
                                                     </div>
