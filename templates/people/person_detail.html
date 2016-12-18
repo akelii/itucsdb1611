@@ -75,7 +75,7 @@
                         {% endif %}
                         <hr>
                         <strong><i class="fa fa-briefcase margin-r-5"></i> Experience</strong>
-
+{% if listExperience!='none' %}
                     {% for experience in listExperience %}
                             {% if loop.index == 1 %}
                                 <p class="text-muted">
@@ -106,6 +106,11 @@
                         {% if listExperience|length == 0 %}
                             <p></p>There is no experience record.
                         {% endif %}
+
+                      {% else %}
+                    <p></p>There is no experience record.
+                    {% endif %}
+
                         <hr>
                         <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
                         <p>
