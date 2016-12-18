@@ -28,7 +28,21 @@
                             <strong>Created By</strong>
                             <p class="text-muted">{{ project[5] }} {{ project[6] }}</p>
                             <hr>
-
+                        </form>
+                        <form action="{{ url_for('site.projects_details_page', key=project[7]) }}" method="post">
+                        {% if isFollow %}
+                            <button name="unfollow"
+                                value="{{ project[0] }}"
+                                type="submit"
+                                data-toggle="tooltip" data-placement="bottom"
+                                class="btn btn-danger btn-xs">Unfollow</button>
+                        {% else %}
+                            <button name="follow"
+                                value="{{ project[0] }}"
+                                type="submit"
+                                data-toggle="tooltip" data-placement="bottom"
+                                class="btn btn-primary btn-xs">Follow</button>
+                        {% endif %}
                         </form>
                     </div>
                 </div>
