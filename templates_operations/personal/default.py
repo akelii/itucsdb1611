@@ -12,6 +12,12 @@ from classes.look_up_tables import *
 from classes.person import Person
 from classes.operations.followed_project_operations import followed_project_operations
 from classes.followed_project import FollowedProject
+from classes.operations.education_operations import education_operations
+from classes.operations.skill_operations import skill_operations
+from classes.operations.Experience_operations import experience_operations
+from classes.operations.information_operations import information_operations
+from classes.operations.language_operations import language_operations
+
 import os
 from werkzeug.utils import secure_filename
 from passlib.apps import custom_app_context as pwd_context
@@ -24,6 +30,10 @@ def personal_default_page_config(request):
     Current_Person = PersonProvider.GetPerson(current_user.email)
     comments = personComment_operations()
     store_followed_projects = followed_project_operations()
+    EducationProvider = education_operations()
+    SkillProvider = skill_operations()
+    InformationProvider = information_operations()
+    LanguageProvider = language_operations()
     if request and 'delete' in request.form and request.method == 'POST':
         p = PersonProvider.GetPersonByObjectId(request.form['delete'])
         PersonProvider.DeletePerson(request.form['delete'])
@@ -94,10 +104,15 @@ def personal_default_page_config(request):
     store_projects = project_operations()
     active_projects = store_projects.get_the_projects_of_a_person(Current_Person[0])
     active_project_number = len(active_projects)
+    listEducation = EducationProvider.GetEducationListByActiveCVAndByPersonId(Current_Person[0])
+    listSkill = SkillProvider.GetSkillByActiveCVAndByPersonId(Current_Person[0])
+    listLanguage = LanguageProvider.GetAllLanguagesByActiveCVAndByPersonId(Current_Person[0])
+    listInformation = InformationProvider.get_all_information_by_ActiveCV_And_PersonId(Current_Person[0])
     return render_template('personal/default.html', current_time=now.ctime(), Current_Person=Current_Person,
                            listFollowing=listFollowing, listFollowers=listFollowers, followed_projects=followed_projects,
                            personComments=personComments, listAccount=listAccount, listTitle=listTitle,
-                           active_projects=active_projects, active_project_number=active_project_number)
+                           active_projects=active_projects, active_project_number=active_project_number,listEducation=listEducation, listSkill=listSkill,
+                           listLanguage=listLanguage, listInformation=listInformation)
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS

@@ -26,6 +26,23 @@ class education_operations:
             result = cursor.fetchall()
         return result
 
+
+    def GetEducationListByActiveCVAndByPersonId(self, personId):
+        with dbapi2.connect(dsn) as connection:
+            cursor = connection.cursor()
+            query = """SELECT Education.ObjectId, SchoolName, Description, GraduationGrade, StartDate, EndDate
+                        FROM Education
+                        INNER JOIN CV ON (Education.CVId = CV.ObjectId)
+                        INNER JOIN Person ON (CV.PersonId = Person.ObjectId)
+                        WHERE (Education.CVId=(Select CV.ObjectId FROM CV
+                                              INNER JOIN Person ON (CV.PersonId = Person.ObjectId)
+                                              WHERE (Person.ObjectId = %s AND CV.IsActive=TRUE))) ORDER BY Education.EndDate DESC"""
+            cursor.execute(query, (personId,))
+            connection.commit()
+            result = cursor.fetchall()
+        return result
+
+
     def UpdateEducation(self, key, schoolname, description, grade, startdate, enddate):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
