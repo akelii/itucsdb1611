@@ -18,7 +18,7 @@ from classes.operations.skill_operations import skill_operations
 from classes.operations.Experience_operations import experience_operations
 from classes.operations.information_operations import information_operations
 from classes.operations.language_operations import language_operations
-
+from classes.operations.team_operations import team_operations
 def people_person_detail_page_config(request, key):
     PersonProvider = person_operations()
     CommentProvider = personComment_operations()
@@ -31,6 +31,7 @@ def people_person_detail_page_config(request, key):
     SkillProvider = skill_operations()
     InformationProvider = information_operations()
     LanguageProvider = language_operations()
+    TeamProvider = team_operations()
     if request and 'deleteComment' in request.form and request.method == 'POST':
         CommentProvider.DeleteTeam(request.form['deleteComment'])
     elif request and 'updateComment' in request.form and request.method == 'POST':
@@ -54,8 +55,22 @@ def people_person_detail_page_config(request, key):
     IsFollow = FollowedPersonProvider.GetFollowedPersonByPersonIdAndFollowedPersonId(Current_Person[0], Active_Person[0])
     activeCv = CvProvider.get_active_cv(key)
     followed_projects = FollowedProjectProvider.GetFollowedProjectListByPersonId(key)
+    count = 0
+    while (count < len(followed_projects)):
+        temp = list(followed_projects[count])
+        temp.append(list(TeamProvider.GetAllMembersByProjectId(followed_projects[count][8])))
+        temp.append(len(FollowedProjectProvider.GetFollowerPersonListByFollowedProjectId(followed_projects[count][8])))
+        followed_projects[count] = tuple(temp)
+        count = count + 1
     store_projects = project_operations()
     active_projects = store_projects.get_the_projects_of_a_person(key)
+    count = 0
+    while (count < len(active_projects)):
+        temp = list(active_projects[count])
+        temp.append(list(TeamProvider.GetAllMembersByProjectId(active_projects[count][3])))
+        temp.append(len(FollowedProjectProvider.GetFollowerPersonListByFollowedProjectId(active_projects[count][3])))
+        active_projects[count] = tuple(temp)
+        count = count + 1
     active_project_number = len(active_projects)
     listEducation = EducationProvider.GetEducationListByActiveCVAndByPersonId(Active_Person[0])
     listSkill = SkillProvider.GetSkillByActiveCVAndByPersonId(Active_Person[0])

@@ -177,26 +177,16 @@
                     <ul class="treeview-menu">
                         <li><a href="{{ url_for('site.personal_default_page') }}"><i class="fa fa-child"></i>
                             Profile</a></li>
-                        <li><a href="{{ url_for('site.personal_issues_page') }}"><i class="fa fa-tasks"></i> My
-                            Issues</a></li>
                         <li><a href="{{ url_for('site.personal_cv_page') }}"><i class="fa fa-file-text-o"></i> CV</a>
                         </li>
-                        <li><a href="{{ url_for('site.personal_settings_page') }}"><i class="fa fa-gear"></i>
-                            Settings</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
-                    <a href="#"><i class="fa fa-share-alt"></i>
-                        <span>Connections</span>
+                    <a href="{{ url_for('site.mailbox_page')}}"><i class="fa fa-envelope"></i>
+                        <span>Message Box</span>
                         <span class="pull-right-container">
                     <i class="fa fa-angle-left pull-right"></i>
                 </span></a>
-                    <ul class="treeview-menu">
-                        <li><a href="{{ url_for('site.connections_following_people') }}"><i class="fa fa-users"></i>
-                            Following People</a></li>
-                        <li><a href="{{ url_for('site.connections_following_projects') }}"><i class="fa fa-files-o"></i>
-                            Following Projects</a></li>
-                    </ul>
                 </li>
                 <li class="treeview">
                     <a href="#">

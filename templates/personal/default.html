@@ -41,32 +41,33 @@
                     <div class="box-header with-border">
                         <h3 class="box-title">About Me</h3>
                         <div class="pull-right box-tools">
-                            <a href="{{ url_for('site.personal_cv_page') }}" class="btn btn-default btn-sm" data-toggle="tooltip"
-                                    title="Edit" data-original-title="Remove">
+                            <a href="{{ url_for('site.personal_cv_page') }}" class="btn btn-default btn-sm"
+                               data-toggle="tooltip"
+                               title="Edit" data-original-title="Remove">
                                 <i class="fa fa-edit"></i></a>
                         </div>
                     </div>
                     <div class="box-body">
                         <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
-                         {% for education in listEducation %}
+                        {% for education in listEducation %}
                             {% if loop.index == 1 %}
                                 <p class="text-muted">
                                     {{ education[2] }} from the <b>{{ education[1] }}</b> <br> {{ education[4] }}
                                     - {{ education[5] }}
                                 </p>
                             {% endif %}
-                                {% endfor %}
-                                <div id="educationOther" style="display: none">
-                    {% for education in listEducation %}
-                    {% if loop.index != 1 %}
-                        <p class="text-muted">
+                        {% endfor %}
+                        <div id="educationOther" style="display: none">
+                            {% for education in listEducation %}
+                                {% if loop.index != 1 %}
+                                    <p class="text-muted">
                                         {{ education[2] }} from the <b>{{ education[1] }}</b> <br> {{ education[4] }}
                                         - {{ education[5] }}
                                     </p>
 
-                            {% endif %}
-                        {% endfor %}
-                     </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
                         {% if listEducation|length > 1 %}
                             <a href="#" class="show-more-education" id="educationShow" aria-expanded="true">Show
                                 more</a>
@@ -80,26 +81,28 @@
                         {% for experience in listExperience %}
                             {% if loop.index == 1 %}
                                 <p class="text-muted">
-                                    {{ experience[4] }} in  <b>{{ experience[2] }}</b> | {{ experience[3] }} <br> {{ experience[5] }}
+                                    {{ experience[4] }} in <b>{{ experience[2] }}</b> | {{ experience[3] }}
+                                    <br> {{ experience[5] }}
                                     - {{ experience[6] }}
                                 </p>
 
-                                {% endif %}
-                    {% endfor %}
-
-                                <div id="experienceOther" style="display: none">
-
-                    {% for experience in listExperience %}
-                            {% if loop.index != 1 %}
-
-                                    <p class="text-muted">
-                                        {{ experience[4] }} in  <b>{{ experience[2] }}</b> | {{ experience[3] }} <br> {{ experience[5] }}
-                                    - {{ experience[6] }}
-                                    </p>
-
                             {% endif %}
                         {% endfor %}
-                    </div>
+
+                        <div id="experienceOther" style="display: none">
+
+                            {% for experience in listExperience %}
+                                {% if loop.index != 1 %}
+
+                                    <p class="text-muted">
+                                        {{ experience[4] }} in <b>{{ experience[2] }}</b> | {{ experience[3] }}
+                                        <br> {{ experience[5] }}
+                                        - {{ experience[6] }}
+                                    </p>
+
+                                {% endif %}
+                            {% endfor %}
+                        </div>
                         {% if listExperience|length > 1 %}
                             <a href="#" class="show-more-experience" id="experienceShow" aria-expanded="true">Show
                                 more</a>
@@ -150,20 +153,20 @@
                                 <p class="text-muted">
                                     <b>{{ info[2] }}</b> <br> {{ info[3] }}<br>
                                 </p>
-                                {% endif %}
-                    {% endfor %}
-<div id="informationOther" style="display: none">
-                    {% for info in listInformation %}
-                            {% if loop.index != 1 %}
+                            {% endif %}
+                        {% endfor %}
+                        <div id="informationOther" style="display: none">
+                            {% for info in listInformation %}
+                                {% if loop.index != 1 %}
 
 
                                     <p class="text-muted">
                                         <b>{{ info[2] }}</b> <br> {{ info[3] }}<br>
                                     </p>
 
-                            {% endif %}
-                        {% endfor %}
-</div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
                         {% if listInformation|length > 1 %}
                             <a href="#" class="show-more-information" id="informationShow" aria-expanded="true">Show
                                 more</a>
@@ -185,41 +188,133 @@
                     </ul>
                     <div class="tab-content">
                         <div class="active tab-pane" id="activeProjects">
-                            {% for active_project in active_projects %}
-                                <div class="post">
-                                    <a href="#">{{ active_project[0] }}</a>
-
-                                    <p>{{ active_project[1] }}</p>
+                            {% if active_projects %}
+                                {% for active_project in active_projects %}
+                                    <div class="post">
+                                        <div class="user-block">
+                        <span class="username">
+                          <a href="{{ url_for('site.projects_details_page', key=active_project[3]) }}">{{ active_project[0] }}</a>
+                        </span>
+                                            <span class="description">{{ active_project[2] }}</span>
+                                        </div>
+                                        <p>{{ active_project[1] }}</p>
+                                        <div class="col-md-1">&nbsp;</div>
+                                        <div class="col-md-11">
+                                            <div class="box box-default">
+                                                <div class="box-header with-border">
+                                                    <h5 class="username"><a>Project Members</a></h5>
+                                                </div>
+                                                <div class="box-body">
+                                                    <div class="col-md-12">
+                                                        {% for member in active_project[4] %}
+                                                            <div class="col-md-2">
+                                                                <a data-toggle="tooltip" data-placement="bottom"
+                                                                   title="View {{ member[0] }} more!"
+                                                                   href="{{ url_for('site.people_person_detail_page', key=member[3]) }}">
+                                                                    <img class="img-responsive img-bordered"
+                                                                         height="100px"
+                                                                         width="100px"
+                                                                         src="../static/user_images/{{ member[1] }}"
+                                                                         alt="{{ member[0] }}"></a>
+                                                            </div>
+                                                        {% endfor %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <ul class="list-inline">
+                                            <li>Project Followers:</li>
+                                            <li class="link-black"><span
+                                                    class="label label-warning">{{ active_project[5] }}</span></li>
+                                        </ul>
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                <div class="callout callout-default">
+                                    <form role="form" action="" method="post">
+                                        <p>You aren't follow ant project. &nbsp; <img width="20px" height="20px"
+                                                                                      src="http://image.flaticon.com/icons/png/512/42/42901.png">
+                                        </p>
+                                        <p><strong>Join a project group and keep in contact with colleague.</strong>
+                                        </p>
+                                        <button class="btn bg-orange-active btn-xs" name="searchProjectPage"
+                                                type="submit">
+                                            <i class="fa fa-search"></i>&nbsp;&nbsp; Discover the projects right
+                                            now!
+                                        </button>
+                                    </form>
                                 </div>
-                            {% endfor %}
+                            {% endif %}
+                            <div class="box-footer text-center">
+                                <a href="{{ url_for('site.projects_search_page') }}" class="uppercase">View All
+                                    Projects!</a>
+                            </div>
                         </div>
                         <div class="tab-pane" id="followedProjects">
                             <ul class="product-list products-list">
-                                {% for followed_project in followed_projects %}
-                                    <li>
-                                        <div class="box">
-                                            <h4 class="box-header"><a
-                                                    href="#">{{ followed_project[6] }}</a>
-                                            </h4>
-                                            <div class="box-body">
-                                                {{ followed_project[4] }}
+                                {% if followed_projects %}
+                                    {% for followed_project in followed_projects %}
+                                        <div class="post">
+                                            <div class="user-block">
+                        <span class="username">
+                          <a href="{{ url_for('site.projects_details_page', key=followed_project[8]) }}">{{ followed_project[6] }}</a>
+                        </span>
+                                                <span class="description">{{ followed_project[3] }}</span>
                                             </div>
-                                            <div class="box-footer">
-                                                <form role="form" action="{{ action }}" method="POST">
-                                                    <!--  <a class="btn btn-primary btn-xs">View details</a> -->
-                                                    <button type="submit"
-                                                            name="unfollowProject"
-                                                            value="{{ followed_project[0] }}"
-                                                            class="btn btn-danger btn-xs">Unfollow
-                                                    </button>
-                                                </form>
+                                            <p>{{ followed_project[4] }}</p>
+                                            <div class="col-md-1">&nbsp;</div>
+                                            <div class="col-md-11">
+                                                <div class="box box-default">
+                                                    <div class="box-header with-border">
+                                                        <h5 class="username"><a>Project Members</a></h5>
+                                                    </div>
+                                                    <div class="box-body">
+                                                        <div class="col-md-12">
+                                                            {% for member in followed_project[9] %}
+                                                                <div class="col-md-2">
+                                                                    <a data-toggle="tooltip" data-placement="bottom"
+                                                                       title="View {{ member[0] }} more!"
+                                                                       href="{{ url_for('site.people_person_detail_page', key=member[3]) }}">
+                                                                        <img class="img-responsive img-bordered"
+                                                                             height="100px"
+                                                                             width="100px"
+                                                                             src="../static/user_images/{{ member[1] }}"
+                                                                             alt="{{ member[0] }}"></a>
+                                                                </div>
+                                                            {% endfor %}
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
+                                            <ul class="list-inline">
+                                                <li>Project Followers:</li>
+                                                <li class="link-black"><span
+                                                        class="label label-warning">{{ followed_project[10] }}</span>
+                                                </li>
+                                            </ul>
                                         </div>
-                                    </li>
-                                {% endfor %}
+                                    {% endfor %}
+                                {% else %}
+                                    <div class="callout callout-default">
+                                        <form role="form" action="" method="post">
+                                            <p>You aren't follow ant project. &nbsp; <img width="20px" height="20px"
+                                                                                          src="http://image.flaticon.com/icons/png/512/42/42901.png">
+                                            </p>
+                                            <p><strong>Follow a project group and keep in contact with their
+                                                members.</strong>
+                                            </p>
+                                            <button class="btn bg-orange-active btn-xs" name="searchProjectPage"
+                                                    type="submit">
+                                                <i class="fa fa-search"></i>&nbsp;&nbsp; Discover the projects right
+                                                now!
+                                            </button>
+                                        </form>
+                                    </div>
+                                {% endif %}
                             </ul>
                             <div class="box-footer text-center">
-                                <a href="#" class="uppercase">View All Projects!</a>
+                                <a href="{{ url_for('site.projects_search_page') }}" class="uppercase">View All
+                                    Projects!</a>
                             </div>
                         </div>
 

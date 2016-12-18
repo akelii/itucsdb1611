@@ -54,18 +54,18 @@
                                     - {{ education[5] }}
                                 </p>
                             {% endif %}
-                                {% endfor %}
-                                <div id="educationOther" style="display: none">
-                    {% for education in listEducation %}
-                    {% if loop.index != 1 %}
-                        <p class="text-muted">
+                        {% endfor %}
+                        <div id="educationOther" style="display: none">
+                            {% for education in listEducation %}
+                                {% if loop.index != 1 %}
+                                    <p class="text-muted">
                                         {{ education[2] }} from the <b>{{ education[1] }}</b> <br> {{ education[4] }}
                                         - {{ education[5] }}
                                     </p>
 
-                            {% endif %}
-                        {% endfor %}
-                     </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
                         {% if listEducation|length > 1 %}
                             <a href="#" class="show-more-education" id="educationShow" aria-expanded="true">Show
                                 more</a>
@@ -75,41 +75,43 @@
                         {% endif %}
                         <hr>
                         <strong><i class="fa fa-briefcase margin-r-5"></i> Experience</strong>
-{% if listExperience!='none' %}
-                    {% for experience in listExperience %}
-                            {% if loop.index == 1 %}
-                                <p class="text-muted">
-                                    {{ experience[4] }} in  <b>{{ experience[2] }}</b> | {{ experience[3] }} <br> {{ experience[5] }}
-                                    - {{ experience[6] }}
-                                </p>
-
-                                {% endif %}
-                    {% endfor %}
-
-                                <div id="experienceOther" style="display: none">
-
-                    {% for experience in listExperience %}
-                            {% if loop.index != 1 %}
-
+                        {% if listExperience!='none' %}
+                            {% for experience in listExperience %}
+                                {% if loop.index == 1 %}
                                     <p class="text-muted">
-                                        {{ experience[4] }} in  <b>{{ experience[2] }}</b> | {{ experience[3] }} <br> {{ experience[5] }}
-                                    - {{ experience[6] }}
+                                        {{ experience[4] }} in <b>{{ experience[2] }}</b> | {{ experience[3] }}
+                                        <br> {{ experience[5] }}
+                                        - {{ experience[6] }}
                                     </p>
 
+                                {% endif %}
+                            {% endfor %}
+
+                            <div id="experienceOther" style="display: none">
+
+                                {% for experience in listExperience %}
+                                    {% if loop.index != 1 %}
+
+                                        <p class="text-muted">
+                                            {{ experience[4] }} in <b>{{ experience[2] }}</b> | {{ experience[3] }}
+                                            <br> {{ experience[5] }}
+                                            - {{ experience[6] }}
+                                        </p>
+
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            {% if listExperience|length > 1 %}
+                                <a href="#" class="show-more-experience" id="experienceShow" aria-expanded="true">Show
+                                    more</a>
                             {% endif %}
-                        {% endfor %}
-                    </div>
-                        {% if listExperience|length > 1 %}
-                            <a href="#" class="show-more-experience" id="experienceShow" aria-expanded="true">Show
-                                more</a>
-                        {% endif %}
-                        {% if listExperience|length == 0 %}
+                            {% if listExperience|length == 0 %}
+                                <p></p>There is no experience record.
+                            {% endif %}
+
+                        {% else %}
                             <p></p>There is no experience record.
                         {% endif %}
-
-                      {% else %}
-                    <p></p>There is no experience record.
-                    {% endif %}
 
                         <hr>
                         <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
@@ -150,20 +152,20 @@
                                 <p class="text-muted">
                                     <b>{{ info[2] }}</b> <br> {{ info[3] }}<br>
                                 </p>
-                                {% endif %}
-                    {% endfor %}
-   <div id="informationOther" style="display: none">
-                    {% for info in listInformation %}
-                            {% if loop.index != 1 %}
+                            {% endif %}
+                        {% endfor %}
+                        <div id="informationOther" style="display: none">
+                            {% for info in listInformation %}
+                                {% if loop.index != 1 %}
 
 
                                     <p class="text-muted">
                                         <b>{{ info[2] }}</b> <br> {{ info[3] }}<br>
                                     </p>
 
-                            {% endif %}
-                        {% endfor %}
-                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
                         {% if listInformation|length > 1 %}
                             <a href="#" class="show-more-information" id="informationShow" aria-expanded="true">Show
                                 more</a>
@@ -184,28 +186,119 @@
                     </ul>
                     <div class="tab-content">
                         <div class="active tab-pane" id="activeProjects">
-                            {% for active_project in active_projects %}
-                                <div class="post">
-                                    <a href="#">{{ active_project[0] }}</a>
-                                    <p>{{ active_project[1] }}</p>
+                            {% if active_projects %}
+                                {% for active_project in active_projects %}
+                                    <div class="post">
+                                        <div class="user-block">
+                        <span class="username">
+                          <a href="{{ url_for('site.projects_details_page', key=active_project[3]) }}">{{ active_project[0] }}</a>
+                        </span>
+                                            <span class="description">{{ active_project[2] }}</span>
+                                        </div>
+                                        <p>{{ active_project[1] }}</p>
+                                        <div class="col-md-1">&nbsp;</div>
+                                        <div class="col-md-11">
+                                            <div class="box box-default">
+                                                <div class="box-header with-border">
+                                                    <h5 class="username"><a>Project Members</a></h5>
+                                                </div>
+                                                <div class="box-body">
+                                                    <div class="col-md-12">
+                                                        {% for member in active_project[4] %}
+                                                            <div class="col-md-2">
+                                                                <a data-toggle="tooltip" data-placement="bottom"
+                                                                   title="View {{ member[0] }} more!"
+                                                                   href="{{ url_for('site.people_person_detail_page', key=member[3]) }}">
+                                                                    <img class="img-responsive img-bordered"
+                                                                         height="100px"
+                                                                         width="100px"
+                                                                         src="../static/user_images/{{ member[1] }}"
+                                                                         alt="{{ member[0] }}"></a>
+                                                            </div>
+                                                        {% endfor %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <ul class="list-inline">
+                                            <li>Project Followers:</li>
+                                            <li class="link-black"><span
+                                                    class="label label-warning">{{ active_project[5] }}</span></li>
+                                        </ul>
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                <div class="callout callout-default">
+                                    <form role="form" action="" method="post">
+                                        <p>{{ Active_Person[1] }} doesn't follow ant project. &nbsp; <img width="20px" height="20px"
+                                                                                      src="http://image.flaticon.com/icons/png/512/42/42901.png">
+                                        </p>
+                                    </form>
                                 </div>
-                            {% endfor %}
+                            {% endif %}
+                            <div class="box-footer text-center">
+                                <a href="{{ url_for('site.projects_search_page') }}" class="uppercase">View All
+                                    Projects!</a>
+                            </div>
                         </div>
                         <div class="tab-pane" id="followedProjects">
                             <ul class="product-list products-list">
-                                {% for followed_project in followed_projects %}
-                                    <li>
-                                        <div class="box">
-                                            <h4 class="box-header"><a
-                                                    href="{{ url_for('site.projects_details_page', key=followed_project[5]) }}">{{ followed_project[6] }}</a>
-                                            </h4>
-                                            <div class="box-body">
-                                                {{ followed_project[4] }}
+                                {% if followed_projects %}
+                                    {% for followed_project in followed_projects %}
+                                        <div class="post">
+                                            <div class="user-block">
+                        <span class="username">
+                          <a href="{{ url_for('site.projects_details_page', key=followed_project[8]) }}">{{ followed_project[6] }}</a>
+                        </span>
+                                                <span class="description">{{ followed_project[3] }}</span>
                                             </div>
+                                            <p>{{ followed_project[4] }}</p>
+                                            <div class="col-md-1">&nbsp;</div>
+                                            <div class="col-md-11">
+                                                <div class="box box-default">
+                                                    <div class="box-header with-border">
+                                                        <h5 class="username"><a>Project Members</a></h5>
+                                                    </div>
+                                                    <div class="box-body">
+                                                        <div class="col-md-12">
+                                                            {% for member in followed_project[9] %}
+                                                                <div class="col-md-2">
+                                                                    <a data-toggle="tooltip" data-placement="bottom"
+                                                                       title="View {{ member[0] }} more!"
+                                                                       href="{{ url_for('site.people_person_detail_page', key=member[3]) }}">
+                                                                        <img class="img-responsive img-bordered"
+                                                                             height="100px"
+                                                                             width="100px"
+                                                                             src="../static/user_images/{{ member[1] }}"
+                                                                             alt="{{ member[0] }}"></a>
+                                                                </div>
+                                                            {% endfor %}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <ul class="list-inline">
+                                                <li>Project Followers:</li>
+                                                <li class="link-black"><span
+                                                        class="label label-warning">{{ followed_project[10] }}</span>
+                                                </li>
+                                            </ul>
                                         </div>
-                                    </li>
-                                {% endfor %}
+                                    {% endfor %}
+                                {% else %}
+                                    <div class="callout callout-default">
+                                        <form role="form" action="" method="post">
+                                            <p>{{ Active_Person[1] }} doesn't follow any project. &nbsp; <img width="20px" height="20px"
+                                                                                          src="http://image.flaticon.com/icons/png/512/42/42901.png">
+                                            </p>
+                                        </form>
+                                    </div>
+                                {% endif %}
                             </ul>
+                            <div class="box-footer text-center">
+                                <a href="{{ url_for('site.projects_search_page') }}" class="uppercase">View All
+                                    Projects!</a>
+                            </div>
                         </div>
                         <div class="tab-pane clearfix" id="followedPeople">
                             <div class="col-md-6 col-xs-12">
@@ -301,7 +394,7 @@
                                         <div class="box-body">
 
                                             <div class="callout callout-default">
-                                                {{ Active_Person[1] }} is not follow anybody &nbsp;&nbsp; <img
+                                                {{ Active_Person[1] }} does not follow anybody &nbsp;&nbsp; <img
                                                     width="20px"
                                                     height="20px"
                                                     src="http://image.flaticon.com/icons/png/512/42/42901.png">

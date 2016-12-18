@@ -68,7 +68,8 @@ class project_operations:
     def get_the_projects_of_a_person(self, key):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
-            query = """SELECT Project.Name, Project.Description FROM Project
+            query = """SELECT Project.Name, Project.Description, ProjectType.Name, Project.ObjectId FROM Project
+                              JOIN ProjectType ON(Project.ProjectTypeId=ProjectType.ObjectId)
                               JOIN Team ON(Project.ObjectId = Team.ProjectId)
                               WHERE (Team.MemberId = %s)"""
             cursor.execute(query, (key,))

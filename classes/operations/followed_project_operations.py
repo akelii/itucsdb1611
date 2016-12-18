@@ -48,7 +48,7 @@ class followed_project_operations:
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
             query = """SELECT FollowedProject.ObjectId, PersonId, ProjectTypeId, p2.Name as ProjectType,
-                        Description, FollowedProjectId, p1.Name as FollowedProjectName, FollowedProject.StartDate
+                        Description, FollowedProjectId, p1.Name as FollowedProjectName, FollowedProject.StartDate, p1.ObjectId
                         FROM FollowedProject
                         INNER JOIN Project as p1 ON p1.ObjectId = FollowedProject.FollowedProjectId
                         INNER JOIN  ProjectType p2 ON p2.ObjectId = p1.ProjectTypeId
