@@ -66,7 +66,8 @@ class work_log_operations:
                                           FROM WorkLog
                                           INNER JOIN Person as p1 ON (WorkLog.CreatorPersonId = p1.ObjectId)
                                           INNER JOIN Project as p2 ON (WorkLog.ProjectId = p2.ObjectId)
-                                          WHERE (WorkLog.ProjectId = (SELECT FollowedProjectId FROM FollowedProject WHERE FollowedProject.PersonId = %s)
+                                          JOIN FollowedProject as p3 ON (WorkLog.ProjectId = p3.FollowedProjectId)
+                                          WHERE (p3.PersonId = %s
                                           AND Worklog.Deleted='0') ORDER BY WorkLog.CreatedDate DESC """
             cursor.execute(query, (key,))
             connection.commit()
