@@ -37,7 +37,7 @@ class project_comment_operations:
                               FROM ProjectComment
                               JOIN Project ON(Project.ObjectId=ProjectComment.CommentedProjectId)
                               JOIN Person ON(Person.ObjectId=ProjectComment.PersonId)
-                              WHERE (ProjectComment.CommentedProjectId=%s)""", (key,))
+                              WHERE (ProjectComment.CommentedProjectId=%s) ORDER BY ProjectComment.CreateDate DESC""", (key,))
             project_comments = cursor.fetchall()
             connection.commit()
         return project_comments
