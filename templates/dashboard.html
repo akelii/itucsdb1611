@@ -96,12 +96,63 @@
 
                     <!-- /.box-header -->
                       <div class="box-body">
-                            {% for active_project in active_projects %}
-                              <div class="callout callout-danger">
-                                  <h4>{{ active_project[0] }}</h4>
-                                    <h4>{{ active_project[1] }}</h4>
-                              </div>
-                            {% endfor %}
+                            {% if active_projects %}
+                                {% for active_project in active_projects %}
+                                    <div class="post">
+                                        <div class="user-block">
+                        <span class="username">
+                          <a href="{{ url_for('site.projects_details_page', key=active_project[3]) }}">{{ active_project[0] }}</a>
+                        </span>
+                                            <span class="description">{{ active_project[2] }}</span>
+                                        </div>
+                                        <p>{{ active_project[1] }}</p>
+                                        <div class="col-md-1">&nbsp;</div>
+                                        <div class="col-md-11">
+                                            <div class="box box-default">
+                                                <div class="box-header with-border">
+                                                    <h5 class="username"><a href="#" onclick="toogle()">Project Members</a></h5>
+                                                </div>
+                                                <div class="box-body members" style="display: none">
+                                                    <div class="col-md-12">
+                                                        {% for member in active_project[4] %}
+                                                            <div class="col-md-2">
+                                                                <a data-toggle="tooltip" data-placement="bottom"
+                                                                   title="View {{ member[0] }} more!"
+                                                                   href="{{ url_for('site.people_person_detail_page', key=member[3]) }}">
+                                                                    <img class="img-responsive img-bordered"
+                                                                         height="100px"
+                                                                         width="100px"
+                                                                         src="../static/user_images/{{ member[1] }}"
+                                                                         alt="{{ member[0] }}"></a>
+                                                            </div>
+                                                        {% endfor %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                {% endfor %}
+                            {% else %}
+                                <div class="callout callout-default">
+                                    <form role="form" action="" method="post">
+                                        <p>You don't follow ant project. &nbsp; <img width="20px" height="20px"
+                                                                                      src="http://image.flaticon.com/icons/png/512/42/42901.png">
+                                        </p>
+                                        <p><strong>Join a project group and keep in contact with colleague.</strong>
+                                        </p>
+                                        <button class="btn bg-orange-active btn-xs" name="searchProjectPage"
+                                                type="submit">
+                                            <i class="fa fa-search"></i>&nbsp;&nbsp; Discover the projects right
+                                            now!
+                                        </button>
+                                    </form>
+                                </div>
+                            {% endif %}
+                            <div class="box-footer text-center">
+                                <a href="{{ url_for('site.projects_search_page') }}" class="uppercase">View All
+                                    Projects!</a>
+                            </div>
                       </div>
                     <!-- /.box-body -->
                   </div>
@@ -117,4 +168,9 @@
 
 
     </section>
+    <script type="text/javascript">
+    function toogle() {
+        $('.members').toggle();
+    }
+    </script>
 {% endblock %}
