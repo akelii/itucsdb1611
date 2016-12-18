@@ -61,20 +61,29 @@
                     <div class="tab-content">
                         <div class="tab-pane" id="worklogs">
                             <div class="box-body">
-                                <!-- <ul class="timeline timeline-inverse"> -->
-                                {% for worklogs in worklogs %}
-                                    <div class="box">
-                                        <h3><a href="#">{{ worklogs[4] }}</a></h3>
-                                        <h5>{{ worklogs[2] }}</h5>
-                                        <p>
-                                            {{ worklogs[1] }}
-                                        </p>
+                                <ul class="timeline timeline-inverse">
+                                {% for worklog in worklogs %}
+                                    <li class="time-label">
+                                        <span class="bg-teal-active">
+                                            {{ worklog[2].strftime('%d.%m.%Y') }}
+                                        </span>
+                                            </li>
+                                   <li>
+                                                <i class="fa fa-search bg-purple"></i>
 
-                                        {% if worklogs[3] == current_user_objectid %}
+                                                <div class="timeline-item">
+                                                    <span class="time"><i class="fa fa-clock-o"></i> Create Date:{{ worklog[2].strftime('%H:%M') }}</span>
+                                                    <h3 class="timeline-header"><a
+                                                            href="{{ url_for('site.people_person_detail_page', key=worklog[3]) }}"> {{ worklog[4] }}</a>
+                                                    </h3>
+                                                    <div class="timeline-body">
+                                                        {{ worklog[1] }}
+                                                    </div>
+                                                   {% if worklog[3] == current_user_objectid %}
                                             <form role="form"
                                                   action="{{ url_for('site.projects_details_page', key=project[7]) }}"
                                                   method="post">
-                                                <button type="submit" name="deleteWorklog" value="{{ worklogs[0] }}"
+                                                <button type="submit" name="deleteWorklog" value="{{ worklog[0] }}"
                                                         class="btn btn-danger btn-xs">Delete
                                                 </button>
                                                 <button class="btn btn-box-tool" type="button" data-toggle="dropdown">
@@ -85,21 +94,29 @@
                                                     <li>Editted Worklog:</li>
                                                     <li>
                                                         <div class="col-xs-ao">
-                                                            <input type="text" name="new_log" value="{{ worklogs[1] }}"
+                                                            <input type="text" name="new_log" value="{{ worklog[1] }}"
                                                                    class="form-control">
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <button type="submit" name="editWorklog"
-                                                                value="{{ worklogs[0] }}" class="btn btn-reddit btn-xs">
+                                                                value="{{ worklog[0] }}" class="btn btn-reddit btn-xs">
                                                             Edit
                                                         </button>
                                                     </li>
                                                 </ul>
                                             </form>
                                         {% endif %}
-                                    </div>
+
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <i class="fa fa-clock-o bg-gray"></i>
+                                            </li>
+                                            <li></li>
+
                                 {% endfor %}
+                                </ul>
                             </div>
                             {% for member in members %}
                                 {% if member[3]== current_user_objectid%}
@@ -177,7 +194,7 @@
                                                     <span class="time"><i class="fa fa-clock-o"></i> Update Date:{{ project_comment[6].strftime('%H:%M') }}</span>
                                                     <span class="time"><i class="fa fa-clock-o"></i> Create Date:{{ project_comment[3].strftime('%H:%M') }}</span>
                                                     <h3 class="timeline-header"><a
-                                                            href="#">{{ project_comment[0] }} {{ project_comment[1] }}</a>
+                                                            href="{{ url_for('site.people_person_detail_page', key=project_comment[5]) }}">{{ project_comment[0] }} {{ project_comment[1] }}</a>
                                                     </h3>
                                                     <div class="timeline-body">
                                                         {{ project_comment[2] }}

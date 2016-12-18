@@ -193,14 +193,14 @@
                             <ul class="product-list products-list">
                                 {% for followed_project in followed_projects %}
                                     <li>
-                                        <div class="box box-body">
-                                            <h3 class="timeline-header"><a
-                                                    href="#">{{ followed_project[6] }}</a> {{ followed_project[3] }}
-                                            </h3>
-                                            <div class="timeline-body">
+                                        <div class="box">
+                                            <h4 class="box-header"><a
+                                                    href="#">{{ followed_project[6] }}</a>
+                                            </h4>
+                                            <div class="box-body">
                                                 {{ followed_project[4] }}
                                             </div>
-                                            <div class="timeline-footer">
+                                            <div class="box-footer">
                                                 <form role="form" action="{{ action }}" method="POST">
                                                     <!--  <a class="btn btn-primary btn-xs">View details</a> -->
                                                     <button type="submit"
