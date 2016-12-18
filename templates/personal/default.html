@@ -93,7 +93,7 @@
                                 {% for followed_project in followed_projects %}
                                 <li>
                                     <div class="box box-body">
-                                        <h3 class="timeline-header"><a href="#">{{ followed_project[6] }}</a> {{ followed_project[3] }}</h3>
+                                        <h3 class="timeline-header"><a href="{{ url_for('site.projects_details_page', key=followed_project[5]) }}">{{ followed_project[6] }}</a> {{ followed_project[3] }}</h3>
                                         <div class="timeline-body">
                                             {{ followed_project[4] }}
                                         </div>
