@@ -13,79 +13,79 @@
 
         {% if not cvs %}
 
-            <div style="background-color: #d3c941" class="box warning">
-            <div class="box-header with-border">
-                &nbsp;
-                <div class="box-tools pull-right">
-                    <b>
-                        <button data-toggle="modal"
-                                data-target="#CVModal" type="button" class="btn btn-box-tool bg-olive btn-flat"
-                                style="color: white">&nbsp;&nbsp;<i class="fa fa-plus">&nbsp;&nbsp;<b>Add
-                            New One!</b>&nbsp;&nbsp;</i>
-                        </button>
-                    </b>
+            <div style="background-color: #F9EFB1" class="box warning">
+                <div class="box-header with-border">
+                    &nbsp;
+                    <div class="box-tools pull-right">
+                        <b>
+                            <button data-toggle="modal"
+                                    data-target="#CVModal" type="button" class="btn btn-box-tool bg-olive btn-flat"
+                                    style="color: white">&nbsp;&nbsp;<i class="fa fa-plus">&nbsp;&nbsp;<b>Add
+                                New One!</b>&nbsp;&nbsp;</i>
+                            </button>
+                        </b>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <h4><i style="color: #E7B623" class="fa fa-warning fa-2x"></i> &nbsp;Attention here!</h4>
+                    <p>There aren't any CV records that belongs to you! Quickly add a new one!</p>
                 </div>
             </div>
-            <div class="box-body">
-                 <h4>Attention here!</h4>
-                <p>There aren't any CV records that belongs to you! Quickly add a new one!</p>
-            </div>
-        </div>
 
 
-{% else %}
+        {% else %}
 
-        <div style="background-color: #EEEEEE" class="box">
-            <div class="box-header with-border">
-                &nbsp;
-                <div class="box-tools pull-right">
-                    <b>
-                        <button data-toggle="modal"
-                                data-target="#CVModal" type="button" class="btn btn-box-tool bg-olive btn-flat"
-                                style="color: white">&nbsp;&nbsp;<i class="fa fa-plus">&nbsp;&nbsp;<b>Add
-                            New One!</b>&nbsp;&nbsp;</i>
-                        </button>
-                    </b>
+            <div style="background-color: #EEEEEE" class="box">
+                <div class="box-header with-border">
+                    &nbsp;
+                    <div class="box-tools pull-right">
+                        <b>
+                            <button data-toggle="modal"
+                                    data-target="#CVModal" type="button" class="btn btn-box-tool bg-olive btn-flat"
+                                    style="color: white">&nbsp;&nbsp;<i class="fa fa-plus">&nbsp;&nbsp;<b>Add
+                                New One!</b>&nbsp;&nbsp;</i>
+                            </button>
+                        </b>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <p>&nbsp;&nbsp;You can choose below CV's to edit. Hurry up and choose one of them!</p>
                 </div>
             </div>
-            <div class="box-body">
-                <p>&nbsp;&nbsp;You can choose below CV's to edit. Hurry up and choose one of them!</p>
-            </div>
-        </div>
 
-    {% endif %}
+        {% endif %}
 
         <div class="row">
             {% for key, cv in cvs %}
                 {% if cv.IsActive %}
-                <div class="col-md-3 col-xs-6">
-                    <div class="small-box bg-aqua-active">
-                        <div class="inner">
-                            <h3>Active CV</h3>
-                            <p>{{ cv.CVName }}</p>
+                    <div class="col-md-3 col-xs-6">
+                        <div class="small-box bg-aqua-active">
+                            <div class="inner">
+                                <h3>Active CV</h3>
+                                <p>{{ cv.CVName }}</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fa fa-file-text-o"></i>
+                            </div>
+                            <a href={{ url_for('site.personal_cv_pagewithkey', key=cv.ObjectId) }} class="small-box-footer">
+                                Let's look right now! &nbsp;&nbsp;<i class="fa fa-arrow-circle-right"></i></a>
                         </div>
-                        <div class="icon">
-                            <i class="fa fa-file-text-o"></i>
-                        </div>
-                        <a href={{ url_for('site.personal_cv_pagewithkey', key=cv.ObjectId) }} class="small-box-footer">
-                            Let's look right now! &nbsp;&nbsp;<i class="fa fa-arrow-circle-right"></i></a>
                     </div>
-                </div>
 
                 {% else %}
-                      <div class="col-md-3 col-xs-6">
-                    <div class="small-box bg-primary">
-                        <div class="inner">
-                            <h3>CV</h3>
-                            <p>{{ cv.CVName }}</p>
+                    <div class="col-md-3 col-xs-6">
+                        <div class="small-box bg-primary">
+                            <div class="inner">
+                                <h3>CV</h3>
+                                <p>{{ cv.CVName }}</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fa fa-file-text-o"></i>
+                            </div>
+                            <a href={{ url_for('site.personal_cv_pagewithkey', key=cv.ObjectId) }} class="small-box-footer">
+                                Let's look right now! &nbsp;&nbsp;<i class="fa fa-arrow-circle-right"></i></a>
                         </div>
-                        <div class="icon">
-                            <i class="fa fa-file-text-o"></i>
-                        </div>
-                        <a href={{ url_for('site.personal_cv_pagewithkey', key=cv.ObjectId) }} class="small-box-footer">
-                            Let's look right now! &nbsp;&nbsp;<i class="fa fa-arrow-circle-right"></i></a>
                     </div>
-                </div>
                 {% endif %}
             {% endfor %}
         </div>
@@ -127,7 +127,7 @@
                         </div>
                         <div class="box-body">
                             <div class="row">
-                                <div class="col-md-3 col-xs-4">
+                                <div class="col-md-4 col-xs-4">
                                     <div class="form-group">
                                         <label for="cvName">CV Name</label>
                                         <input size="6" type="text" class="form-control" id="cvName"
@@ -148,131 +148,40 @@
                                                value="{{ CurrentCV[3].strftime('%d.%m.%Y  %H:%M') }}">
                                     </div>
                                 </div>
-
+                            </div>
+                            <div class="row">
                                 <form method="POST" action="{{ action }}" name="DeleteCv">
                                     <div class="col-md-1 col-xs-4">
                                         <button type="submit" class="btn btn-block btn-danger btn-flat"
+                                                onclick="return confirm('Are you sure to delete {{ CurrentCV[4] }}')"
                                                 name="DeleteCv">Delete
                                         </button>
                                     </div>
                                 </form>
-<div class="col-md-2 col-xs-4">
-                                    &nbsp;
-                                </div>
-                                   <form method="POST" action="{{ action }}" name="setCVActive">
-
+                                <form method="POST" action="{{ action }}" name="setCVActive">
                                     <div class="col-md-1 col-xs-4">
                                         <button type="submit" class="btn btn-block btn-warning btn-flat"
                                                 name="setCVActive">Set Active
                                         </button>
                                     </div>
                                 </form>
-
-                            </div>
-
-                            <div class="box-group" id="accordion">
-                                <div class="panel box box-primary">
-                                    <div class="box-header with-border">
-                                        <h4 class="box-title">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
-                                               aria-expanded="false" class=""><i class="fa fa-user"></i>
-                                                Information
-                                            </a>
-                                        </h4>
-                                    </div>
-                                    <div id="collapseOne" class="panel-collapse collapse in" aria-expanded="true"
-                                         style="...">
-                                        <div class="box-body">
-                                            <div class="nav-tabs-custom">
-                                                <ul class="nav nav-tabs pull-right">
-
-                                                    <li class="pull-left header"><a href="#" data-toggle="modal"
-                                                                                    data-target="#InformationModal"><i
-                                                            class="fa fa-plus-square-o"></i> Add</a>
-                                                    </li>
-                                                </ul>
-                                                {% for information in informationn %}
-                                                    <div class="col-md-6">
-                                                        <div class="tab-content">
-                                                            <div class="tab-pane active" id="">
-                                                                <div class="">
-                                                                    <div class="box-body">
-                                                                        <form method="post" action="{{ action }}">
-                                                                            <ul class="products-list product-list-in-box">
-                                                                                <li class="item">
-                                                                                    <div class="product-img">
-                                                                                        <form method="post"
-                                                                                              action="{{ action }}">
-                                                                                            <button name="deleteInformation"
-                                                                                                    value="{{ information[0] }}"
-                                                                                                    type="submit"
-                                                                                                    class="btn btn-box-tool">
-                                                                                                <i class="fa fa-times-circle fa-2x"></i>
-                                                                                            </button>
-                                                                                            <button class="btn btn-box-tool"
-                                                                                                    type="button"
-                                                                                                    data-toggle="dropdown">
-                                                                                                <i class="fa fa-pencil-square-o fa-2x"></i>
-                                                                                            </button>
-                                                                                            <ul class="dropdown-menu"
-                                                                                                style="border: 2px #f2f2f2">
-                                                                                                <li>Information
-                                                                                                    Description:
-                                                                                                </li>
-                                                                                                <li>
-                                                                                                    <div class="col-xs-ao">
-                                                                                                        <input type="text"
-                                                                                                               name="updateInformationDesc"
-                                                                                                               value="{{ information[3] }}"
-                                                                                                               class="form-control">
-                                                                                                        <input
-                                                                                                                type="hidden"
-                                                                                                                name="updateInformationId"
-                                                                                                                value="{{ information[0] }}"
-                                                                                                                class="form-control">
-                                                                                                    </div>
-                                                                                                </li>
-                                                                                                <li>
-                                                                                                    <button type="submit"
-                                                                                                            value="updateInformation">
-                                                                                                        Update
-                                                                                                    </button>
-                                                                                                </li>
-                                                                                            </ul>
-                                                                                        </form>
-                                                                                    </div>
-                                                                                    <div class="product-info">
-                                                                                        <a href="javascript:void(0)"
-                                                                                           class="product-title">{{ information[2] }}
-                                                                                        </a>
-                                                                                        <span class="product-description">
-                                                                                    {{ information[3] }}
-                                                                                </span>
-                                                                                    </div>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </form>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                {% endfor %}
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="col-md-10 col-xs-4">
+                                    &nbsp;
                                 </div>
+                            </div>
+                            <br>
+                            <div class="box-group" id="accordion">
                                 <div class="panel box box-info">
                                     <div class="box-header with-border">
                                         <h4 class="box-title">
                                             <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"
-                                               class="collapsed" aria-expanded="true"><i
-                                                    class="fa fa-graduation-cap "></i>
+                                               class="" aria-expanded="false"><i
+                                                    class="fa fa-graduation-cap"></i>
                                                 Education
                                             </a>
                                         </h4>
                                     </div>
-                                    <div id="collapseTwo" class="panel-collapse collapse" aria-expanded="true"
+                                    <div id="collapseTwo" class="panel-collapse collapse" aria-expanded="false"
                                          style="height: 0px;">
                                         <div class="box-body">
                                             <div class="nav-tabs-custom">
@@ -296,7 +205,7 @@
                                                                                         <button name="deleteEducation"
                                                                                                 value="{{ education[0] }}"
                                                                                                 type="submit"
-                                                                                                class="btn btn-box-tool">
+                                                                                                class="btn btn-box-tool" onclick="return confirm('Are you sure to delete {{ education[1] }} drom your CV?')">
                                                                                             <i class="fa fa-times-circle fa-2x"></i>
                                                                                         </button>
                                                                                         &nbsp;
@@ -305,7 +214,7 @@
                                                                                                 type="button"
                                                                                                 class="btn btn-box-tool"
                                                                                                 data-toggle="modal"
-                                                                                                data-target="#{{ education[0] }}">
+                                                                                                data-target="#EducationModal{{ education[0] }}">
                                                                                             <i class="fa fa-pencil-square-o fa-2x"></i>
                                                                                         </button>
                                                                                         &nbsp;
@@ -323,7 +232,7 @@
                                                                                         <span class="product-description">{{ education[2] }}</span>
                                                                                     </div>
                                                                                     <div class="modal fade"
-                                                                                         id="{{ education[0] }}"
+                                                                                         id="EducationModal{{ education[0] }}"
                                                                                          tabindex="-1"
                                                                                          role="dialog"
                                                                                          aria-labelledby="EducationModalLabel">
@@ -440,8 +349,118 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="panel box box-primary">
+                                    <div class="box-header with-border">
+                                        <h4 class="box-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+                                               aria-expanded="false" class=""><i class="fa fa-user"></i>
+                                                Information
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseOne" class="panel-collapse collapse in" aria-expanded="false"
+                                         style="...">
+                                        <div class="box-body">
+                                            <div class="nav-tabs-custom">
+                                                <ul class="nav nav-tabs pull-right">
 
-
+                                                    <li class="pull-left header"><a href="#" data-toggle="modal"
+                                                                                    data-target="#InformationModal"><i
+                                                            class="fa fa-plus-square-o"></i> Add</a>
+                                                    </li>
+                                                </ul>
+                                                {% for information in informationn %}
+                                                    <div class="col-md-6">
+                                                        <div class="tab-content">
+                                                            <div class="tab-pane active" id="">
+                                                                <div class="">
+                                                                    <div class="box-body">
+                                                                        <form method="post" action="{{ action }}">
+                                                                            <ul class="products-list product-list-in-box">
+                                                                                <li class="item">
+                                                                                    <div class="product-img">
+                                                                                        <form method="post"
+                                                                                              action="{{ action }}">
+                                                                                            <button name="deleteInformation"
+                                                                                                    value="{{ information[0] }}"
+                                                                                                    type="submit"
+                                                                                                    class="btn btn-box-tool" onclick="return confirm('Are you sure to delete {{ information[2] }} information?')">
+                                                                                                <i class="fa fa-times-circle fa-2x"></i>
+                                                                                            </button>
+                                                                                            <button class="btn btn-box-tool"
+                                                                                                    type="button"
+                                                                                                    data-toggle="modal" data-target="#InformationModal{{ information[0] }}">
+                                                                                                <i class="fa fa-pencil-square-o fa-2x"></i>
+                                                                                            </button>
+                                                                                            <div class="modal fade"
+                                                                                             id="InformationModal{{ information[0] }}"
+                                                                                             tabindex="-1"
+                                                                                             role="dialog"
+                                                                                             aria-labelledby="InformationModalLabel">
+                                                                                            <div class="modal-dialog"
+                                                                                                 role="document">
+                                                                                                <div class="modal-content">
+                                                                                                    <div class="modal-header">
+                                                                                                        <button type="button"
+                                                                                                                class="close"
+                                                                                                                data-dismiss="modal"
+                                                                                                                aria-label="Close"><span
+                                                                                                                aria-hidden="true">&times;</span>
+                                                                                                        </button>
+                                                                                                        <h4 class="modal-title"
+                                                                                                            id="InformationModalLabel">
+                                                                                                            Information</h4>
+                                                                                                    </div>
+                                                                                                    <div class="modal-body">
+                                                                                                        <div class="form-group">
+                                                                                                            <label for="txtCompanyName">{{ information[2] }}</label>
+                                                                                                            <input type="text"
+                                                                                                               name="updateInformationDesc"
+                                                                                                               value="{{ information[3] }}"
+                                                                                                               class="form-control">
+                                                                                                        </div>
+                                                                                                        <div class="form-group">
+                                                                                                        <input
+                                                                                                                type="hidden"
+                                                                                                                name="updateInformationId"
+                                                                                                                value="{{ information[0] }}"
+                                                                                                                class="form-control">
+                                                                                                    </div>
+                                                                                                    </div>
+                                                                                                    <div class="modal-footer">
+                                                                                                        <button type="submit"
+                                                                                                                class="btn btn-primary"
+                                                                                                                name=""
+                                                                                                                value="updateInformation">
+                                                                                                            Update
+                                                                                                        </button>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        </form>
+                                                                                    </div>
+                                                                                    <div class="product-info">
+                                                                                        <a href="javascript:void(0)"
+                                                                                           class="product-title">{{ information[2] }}
+                                                                                        </a>
+                                                                                        <span class="product-description">
+                                                                                    {{ information[3] }}
+                                                                                </span>
+                                                                                    </div>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="panel box box-success">
                                     <div class="box-header with-border">
                                         <h4 class="box-title">
@@ -458,7 +477,6 @@
                                             <div class="col-md-6">
                                                 <div class="nav-tabs-custom">
                                                     <ul class="nav nav-tabs pull-right">
-
                                                         <li class="pull-left header">
                                                             <a href="#" data-toggle="modal"
                                                                data-target="#ExperienceModal">
@@ -466,14 +484,11 @@
                                                             </a>
                                                         </li>
                                                     </ul>
-
-
                                                     {% for key, experience in experiences %}
                                                         <div class="tab-content">
                                                             <div class="tab-pane active" id="">
                                                                 <div class="">
                                                                     <div class="box-body">
-
                                                                         <form form action="{{ action }}"
                                                                               method="POST">
                                                                             <input type=hidden
@@ -485,16 +500,21 @@
                                                                                         <button type="submit"
                                                                                                 class="btn btn-box-tool"
                                                                                                 name="DeleteExperience"
-                                                                                                value="DeleteExperience">
+                                                                                                value="DeleteExperience" onclick="return confirm('Are you sure to delete {{ experience.CompanyName }} experience from CV?')">
                                                                                             <i class="fa fa-times-circle fa-2x"></i>
                                                                                         </button>
                                                                                         &nbsp
-                                                                                        <a href="#"
-                                                                                           data-toggle="modal"
-                                                                                           data-target="#ExperienceUpdateModal"><i
-                                                                                                class="fa fa-pencil-square-o fa-2x"></i></a>&nbsp;
+
+                                                                                        <button name="updateExperience"
+                                                                                                value="{{ experience.ObjectId }}"
+                                                                                                type="button"
+                                                                                                class="btn btn-box-tool"
+                                                                                                data-toggle="modal"
+                                                                                                data-target="#ExperienceUpdateModal{{ experience.ObjectId }}">
+                                                                                            <i class="fa fa-pencil-square-o fa-2x"></i>
+                                                                                        </button>
                                                                                         <div class="modal fade"
-                                                                                             id="ExperienceUpdateModal"
+                                                                                             id="ExperienceUpdateModal{{ experience.ObjectId }}"
                                                                                              tabindex="-1"
                                                                                              role="dialog"
                                                                                              aria-labelledby="ExperienceUpdateModalLabel">
@@ -515,10 +535,7 @@
                                                                                                     </div>
 
                                                                                                     <div class="modal-body">
-
                                                                                                         <div class="form-group">
-
-
                                                                                                             <label for="txtCompanyName">Company
                                                                                                                 Name</label>
                                                                                                             <input type="text"
@@ -556,7 +573,7 @@
                                                                                                                 </div>
                                                                                                                 <input type="text"
                                                                                                                        id="dpCompanyStart"
-                                                                                                                       class="form-control pull-right"
+                                                                                                                       class="form-control pull-right dpSchool"
                                                                                                                        placeholder="Enter start year"
                                                                                                                        name="UpdatedStartDate"
                                                                                                                        value="{{ experience.ExperiencePosition }}">
@@ -572,7 +589,7 @@
                                                                                                                 </div>
                                                                                                                 <input type="text"
                                                                                                                        id="dpCompanyEnd"
-                                                                                                                       class="form-control pull-right"
+                                                                                                                       class="form-control pull-right dpSchool"
                                                                                                                        placeholder="Enter the updated end year, leave blank is going on"
                                                                                                                        name="UpdatedEndDate"
                                                                                                                        value="{{ experience.EndDate }}">
@@ -595,8 +612,6 @@
 
                                                                                             </div>
                                                                                         </div>
-
-
                                                                                     </div>
                                                                                     <div class="product-info">
                                                                                         <a href="javascript:void(0)"
@@ -604,10 +619,8 @@
                                                                                             | {{ experience.StartDate }}
                                                                                             <span class="label label-default pull-right">  {{ experience.EndDate }} - {{ experience.ExperiencePosition }}</span></a>
                                                                                         <span class="product-description">
-                                                                                    {{ experience.Description }}
-                                                                                </span>
+                                                                                    {{ experience.Description }}</span>
                                                                                     </div>
-
                                                                                 </li>
                                                                             </ul>
                                                                         </form>
@@ -615,16 +628,12 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-
-
                                                     {% endfor %}
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
-
                                 <div class="panel box box-warning">
                                     <div class="box-header with-border">
                                         <h4 class="box-title">
@@ -655,61 +664,120 @@
                                                                         <ul class="products-list product-list-in-box">
                                                                             <li class="item">
                                                                                 <div class="product-img">
-
-
                                                                                     <form method="post"
                                                                                           action="{{ action }}">
                                                                                         <div class="dropdown">
                                                                                             <button name="deleteLanguage"
                                                                                                     value="{{ language[0] }}"
                                                                                                     type="submit"
-                                                                                                    class="btn btn-box-tool">
+                                                                                                    class="btn btn-box-tool"
+                                                                                                    onclick="return confirm('Are you sure to delete {{ language[2] }}?')">
                                                                                                 <i class="fa fa-times-circle fa-2x"></i>
                                                                                             </button>
 
                                                                                             <button class="btn btn-box-tool"
                                                                                                     type="button"
-                                                                                                    data-toggle="dropdown">
+                                                                                                    data-toggle="modal"
+                                                                                                    data-target="#LanguageModal{{ language[0] }}">
                                                                                                 <i class="fa fa-pencil-square-o fa-2x"></i>
                                                                                             </button>
-                                                                                            <ul class="dropdown-menu"
-                                                                                                style="border: 2px #f2f2f2">
-                                                                                                <li>Language Name:
-                                                                                                </li>
-                                                                                                <li>
-                                                                                                    <div class="col-xs-ao">
-                                                                                                        <input type="text"
-                                                                                                               name="updateLanguageName"
-                                                                                                               value="{{ language[2] }}"
-                                                                                                               class="form-control">
+                                                                                            <div class="modal fade"
+                                                                                                 id="LanguageModal{{ language[0] }}"
+                                                                                                 tabindex="-1"
+                                                                                                 role="dialog"
+                                                                                                 aria-labelledby="LanguageModalLabel">
+                                                                                                <div class="modal-dialog"
+                                                                                                     role="document">
+                                                                                                    <div class="modal-content">
+                                                                                                        <div class="modal-header">
+                                                                                                            <button type="button"
+                                                                                                                    class="close"
+                                                                                                                    data-dismiss="modal"
+                                                                                                                    aria-label="Close"><span
+                                                                                                                    aria-hidden="true">&times;</span>
+                                                                                                            </button>
+                                                                                                            <h4 class="modal-title"
+                                                                                                                id="LanguageModalLabel">
+                                                                                                                Language</h4>
+                                                                                                        </div>
+                                                                                                        <div class="modal-body">
+                                                                                                            <div class="form-group">
+                                                                                                                <label for="txtCompanyName">Language
+                                                                                                                    Name</label>
+                                                                                                                <input type="text"
+                                                                                                                       class="form-control"
+                                                                                                                       name="updateLanguageName"
+                                                                                                                       value="{{ language[2] }}">
+                                                                                                            </div>
+                                                                                                            <div class="form-group">
+                                                                                                                <label>Language
+                                                                                                                    Level</label>
+                                                                                                                <select class="form-control select2 select2-hidden-accessible"
+                                                                                                                        style="width: 100%;"
+                                                                                                                        tabindex="-1"
+                                                                                                                        aria-hidden="true"
+                                                                                                                        name="updateLanguageLevel">
+                                                                                                                    <option
+                                                                                                                            {% if language[3] == "Beginner" %}
+                                                                                                                                selected="selected" {% endif %}
+                                                                                                                                value="Beginner">
+                                                                                                                        Beginner
+                                                                                                                        (6
+                                                                                                                        mths)
+                                                                                                                    </option>
+                                                                                                                    <option
+                                                                                                                            {% if language[3] == "Intermediate" %}
+                                                                                                                                selected="selected" {% endif %}
+                                                                                                                                value="Intermediate">
+                                                                                                                        Intermediate
+                                                                                                                        (2
+                                                                                                                        years)
+                                                                                                                    </option>
+                                                                                                                    <option
+                                                                                                                            {% if language[3] == "Advance" %}
+                                                                                                                                selected="selected" {% endif %}
+                                                                                                                                value="Advance">
+                                                                                                                        Advance
+                                                                                                                        (3
+                                                                                                                        years)
+                                                                                                                    </option>
+                                                                                                                    <option
+                                                                                                                            {% if language[3] == "Expert" %}
+                                                                                                                                selected="selected" {% endif %}
+                                                                                                                                value="Expert">
+                                                                                                                        Expert
+                                                                                                                        (5
+                                                                                                                        years)
+                                                                                                                    </option>
+                                                                                                                    <option
+                                                                                                                            {% if language[3] == "Master" %}
+                                                                                                                                selected="selected" {% endif %}
+                                                                                                                                value="Master">
+                                                                                                                        Master
+                                                                                                                        (5
+                                                                                                                        years+)
+                                                                                                                    </option>
+                                                                                                                </select>
+                                                                                                                <input type="hidden"
+                                                                                                                       name="updateLanguageId"
+                                                                                                                       value="{{ language[0] }}"
+                                                                                                                       class="form-control">
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="modal-footer">
+                                                                                                            <button type="submit"
+                                                                                                                    class="btn btn-primary"
+                                                                                                                    name=""
+                                                                                                                    value="Submit">
+                                                                                                                Update
+                                                                                                            </button>
+                                                                                                        </div>
                                                                                                     </div>
-                                                                                                </li>
-                                                                                                <li>Language
-                                                                                                    Level:
-                                                                                                </li>
-                                                                                                <li>
-                                                                                                    <div class="col-xs-ao">
-                                                                                                        <input type="text"
-                                                                                                               name="updateLanguageLevel"
-                                                                                                               value="{{ language[3] }}"
-                                                                                                               class="form-control"><input
-                                                                                                            type="hidden"
-                                                                                                            name="updateLanguageId"
-                                                                                                            value="{{ language[0] }}"
-                                                                                                            class="form-control">
-                                                                                                    </div>
-                                                                                                </li>
-                                                                                                <li>
-                                                                                                    <button type="submit"
-                                                                                                            value="Submit">
-                                                                                                        Update
-                                                                                                    </button>
-                                                                                                </li>
-                                                                                            </ul>
+                                                                                                </div>
+                                                                                            </div>
                                                                                         </div>
                                                                                     </form>
                                                                                     &nbsp;
-
                                                                                 </div>
                                                                                 <div class="product-info">
                                                                                     <a href="javascript:void(0)"
@@ -730,112 +798,173 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="panel box box-default">
-                                        <div class="box-header with-border">
-                                            <h4 class="box-title">
-                                                <a data-toggle="collapse" data-parent="#accordion"
-                                                   href="#collapseFive"
-                                                   class="collapsed" aria-expanded="false"><i
-                                                        class="fa fa-star"></i>
-                                                    Skill
-                                                </a>
-                                            </h4>
-                                        </div>
-                                        <div id="collapseFive" class="panel-collapse collapse" aria-expanded="false"
-                                             style="height: 0px;">
-                                            <div class="box-body">
-                                                <div class="col-md-6">
-                                                    <div class="nav-tabs-custom">
-                                                        <ul class="nav nav-tabs pull-right">
+                                </div>
+                                <div class="panel box box-default">
+                                    <div class="box-header with-border">
+                                        <h4 class="box-title">
+                                            <a data-toggle="collapse" data-parent="#accordion"
+                                               href="#collapseFive"
+                                               class="collapsed" aria-expanded="false"><i
+                                                    class="fa fa-star"></i>
+                                                Skills & Endorsements
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseFive" class="panel-collapse collapse" aria-expanded="false"
+                                         style="height: 0px;">
+                                        <div class="box-body">
+                                            <div class="col-md-6">
+                                                <div class="nav-tabs-custom">
+                                                    <ul class="nav nav-tabs pull-right">
 
-                                                            <li class="pull-left header"><a href="#"
-                                                                                            data-toggle="modal"
-                                                                                            data-target="#SkillModal"><i
-                                                                    class="fa fa-plus-square-o"></i> Add</a>
-                                                            </li>
-                                                        </ul>
-                                                        {% for skill in skills %}
-                                                    <div class="col-md-4">
-                                                        <div class="tab-content">
-                                                            <div class="tab-pane active" id="">
-                                                                <div class="">
-                                                                    <div class="box-body">
-                                                                        <ul class="products-list product-list-in-box">
-                                                                            <li class="item">
-                                                                                <div class="product-img">
+                                                        <li class="pull-left header"><a href="#"
+                                                                                        data-toggle="modal"
+                                                                                        data-target="#SkillModal"><i
+                                                                class="fa fa-plus-square-o"></i> Add</a>
+                                                        </li>
+                                                    </ul>
+                                                    {% for skill in skills %}
+                                                        <div class="col-md-4">
+                                                            <div class="tab-content">
+                                                                <div class="tab-pane active" id="">
+                                                                    <div class="">
+                                                                        <div class="box-body">
+                                                                            <ul class="products-list product-list-in-box">
+                                                                                <li class="item">
+                                                                                    <div class="product-img">
 
 
-                                                                                    <form method="post"
-                                                                                          action="{{ action }}">
-                                                                                        <div class="dropdown">
+                                                                                        <form method="post"
+                                                                                              action="{{ action }}">
                                                                                             <button name="deleteSkill"
                                                                                                     value="{{ skill[0] }}"
                                                                                                     type="submit"
-                                                                                                    class="btn btn-box-tool">
+                                                                                                    class="btn btn-box-tool" onclick="return confirm('Are you sure to delete {{ skill[2] }} from your CV?')">
                                                                                                 <i class="fa fa-times-circle fa-2x"></i>
                                                                                             </button>
 
                                                                                             <button class="btn btn-box-tool"
                                                                                                     type="button"
-                                                                                                    data-toggle="dropdown">
+                                                                                                    data-toggle="modal"
+                                                                                                    data-target="#SkillModal{{ skill[0] }}">
                                                                                                 <i class="fa fa-pencil-square-o fa-2x"></i>
                                                                                             </button>
-                                                                                            <ul class="dropdown-menu"
-                                                                                                style="border: 2px #f2f2f2">
-                                                                                                <li>Skill Name:
-                                                                                                </li>
-                                                                                                <li>
-                                                                                                    <div class="col-xs-ao">
-                                                                                                        <input type="text"
-                                                                                                               name="updateSkillName"
-                                                                                                               value="{{ skill[2] }}"
-                                                                                                               class="form-control">
-                                                                                                    </div>
-                                                                                                </li>
-                                                                                                <li>Skill
-                                                                                                    Level:
-                                                                                                </li>
-                                                                                                <li>
-                                                                                                    <div class="col-xs-ao">
-                                                                                                        <input type="text"
-                                                                                                               name="updateSkillLevel"
-                                                                                                               value="{{ skill[3] }}"
-                                                                                                               class="form-control">
-                                                                                                        <input type="hidden"
-                                                                                                                name="updateSkillId"
-                                                                                                                value="{{ skill[0] }}"
-                                                                                                                class="form-control">
-                                                                                                    </div>
-                                                                                                </li>
-                                                                                                <li>
-                                                                                                    <button type="submit"
-                                                                                                            value="updateSkill">
-                                                                                                        Update
-                                                                                                    </button>
-                                                                                                </li>
-                                                                                            </ul>
-                                                                                        </div>
-                                                                                    </form>
-                                                                                    &nbsp;
+                                                                                            <div class="modal fade"
+                                                                                                 id="SkillModal{{ skill[0] }}"
+                                                                                                 tabindex="-1"
+                                                                                                 role="dialog"
+                                                                                                 aria-labelledby="SkillModalLabel">
+                                                                                                <div class="modal-dialog"
+                                                                                                     role="document">
+                                                                                                    <div class="modal-content">
+                                                                                                        <div class="modal-header">
+                                                                                                            <button type="button"
+                                                                                                                    class="close"
+                                                                                                                    data-dismiss="modal"
+                                                                                                                    aria-label="Close"><span
+                                                                                                                    aria-hidden="true">&times;</span>
+                                                                                                            </button>
+                                                                                                            <h4 class="modal-title"
+                                                                                                                id="SkillModalLabel">
+                                                                                                                Skills & Endorsements</h4>
+                                                                                                        </div>
+                                                                                                        <div class="modal-body">
+                                                                                                            <div class="form-group">
+                                                                                                                <label for="txtCompanyName">Skill
+                                                                                                                    Name</label>
 
-                                                                                </div>
-                                                                                <div class="product-info">
-                                                                                    <a href="javascript:void(0)"
-                                                                                       class="product-title">{{ skill[2] }}
-                                                                                    </a>
-                                                                                    <span class="product-description">
+                                                                                                                <input type="text"
+                                                                                                                       name="updateSkillName"
+                                                                                                                       value="{{ skill[2] }}"
+                                                                                                                       class="form-control">
+
+                                                                                                            </div>
+                                                                                                            <div class="form-group">
+                                                                                                                <label>Skill
+                                                                                                                    Level</label>
+                                                                                                                <select class="form-control select2 select2-hidden-accessible"
+                                                                                                                        style="width: 100%;"
+                                                                                                                        tabindex="-1"
+                                                                                                                        aria-hidden="true"
+                                                                                                                        name="updateSkillLevel">
+                                                                                                                    <option
+                                                                                                                            {% if skill[3] == "Beginner" %}
+                                                                                                                                selected="selected" {% endif %}
+                                                                                                                                value="Beginner">
+                                                                                                                        Beginner
+                                                                                                                        (6
+                                                                                                                        mths)
+                                                                                                                    </option>
+                                                                                                                    <option
+                                                                                                                            {% if skill[3] == "Intermediate" %}
+                                                                                                                                selected="selected" {% endif %}
+                                                                                                                                value="Intermediate">
+                                                                                                                        Intermediate
+                                                                                                                        (2
+                                                                                                                        years)
+                                                                                                                    </option>
+                                                                                                                    <option
+                                                                                                                            {% if skill[3] == "Advance" %}
+                                                                                                                                selected="selected" {% endif %}
+                                                                                                                                value="Advance">
+                                                                                                                        Advance
+                                                                                                                        (3
+                                                                                                                        years)
+                                                                                                                    </option>
+                                                                                                                    <option
+                                                                                                                            {% if skill[3] == "Expert" %}
+                                                                                                                                selected="selected" {% endif %}
+                                                                                                                                value="Expert">
+                                                                                                                        Expert
+                                                                                                                        (5
+                                                                                                                        years)
+                                                                                                                    </option>
+                                                                                                                    <option
+                                                                                                                            {% if skill[3] == "Master" %}
+                                                                                                                                selected="selected" {% endif %}
+                                                                                                                                value="Master">
+                                                                                                                        Master
+                                                                                                                        (5
+                                                                                                                        years+)
+                                                                                                                    </option>
+                                                                                                                </select>
+                                                                                                                <input type="hidden"
+                                                                                                                       name="updateSkillId"
+                                                                                                                       value="{{ skill[0] }}"
+                                                                                                                       class="form-control">
+                                                                                                            </div>
+                                                                                                            <div class="modal-footer">
+                                                                                                                <button type="submit"
+                                                                                                                        class="btn btn-primary"
+                                                                                                                        name=""
+                                                                                                                        value="updateSkill">
+                                                                                                                    Update
+                                                                                                                </button>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </form>
+                                                                                        &nbsp;
+
+                                                                                    </div>
+                                                                                    <div class="product-info">
+                                                                                        <a href="javascript:void(0)"
+                                                                                           class="product-title">{{ skill[2] }}
+                                                                                        </a>
+                                                                                        <span class="product-description">
                                                                                     {{ skill[3] }}
                                                                                 </span>
-                                                                                </div>
-                                                                            </li>
-                                                                        </ul>
+                                                                                    </div>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                {% endfor %}
-                                                    </div>
+                                                    {% endfor %}
                                                 </div>
                                             </div>
                                         </div>
@@ -861,15 +990,18 @@
                         <div class="modal-body">
                             <div class="form-group">
                                 <label>Select Information Type</label>
-                                <select name='information_type' id="information_type" class="form-control">
+                                <select class="form-control select2 select2-hidden-accessible" style="width: 100%;"
+                                        tabindex="-1" aria-hidden="true" name="information_type">
+                                    <option value='-1'>Select Information Type</option>
                                     {% for a in listInformation %}
                                         <option value='{{ a[0] }}'>{{ a[1] }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label>Description</label>
-                                <input type="text" class="form-control" id="information_desc" name="information_desc">
+                                <label>Information Value</label>
+                                <input type="text" class="form-control" id="information_desc" name="information_desc"
+                                       placeholder="Enter information value related to chosen type">
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -940,7 +1072,6 @@
             </div>
         </div>
 
-
         <div class="modal fade" id="LanguageModal" tabindex="-1" role="dialog" aria-labelledby="LanguageModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -957,9 +1088,16 @@
                                        placeholder="Enter language you know">
                             </div>
                             <div class="form-group">
-                                <label for="txtLanguageLevel">Level</label>
-                                <input type="text" class="form-control" id="txtLanguageLevel" name="newLanguageLevel"
-                                       placeholder="Enter language level">
+                                <label>Level</label>
+                                <select class="form-control select2 select2-hidden-accessible" style="width: 100%;"
+                                        tabindex="-1" aria-hidden="true" name="newLanguageLevel">
+                                    <option selected="selected" value="-1">Enter level of language</option>
+                                    <option value="Beginner">Beginner (6 mths)</option>
+                                    <option value="Intermediate">Intermediate (2 years)</option>
+                                    <option value="Advance">Advance (3 years)</option>
+                                    <option value="Expert">Expert (5 years)</option>
+                                    <option value="Master">Master (5 years+)</option>
+                                </select>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -980,22 +1118,29 @@
                         <h4 class="modal-title" id="SkillModalLabel">Skills & Endorsements</h4>
                     </div>
                     <form action="{{ action }}" method="POST">
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="txtSkillName">Name</label>
-                            <input type="text" class="form-control" name="newSkill"
-                                   placeholder="Example C / Javascript / Network etc.">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="txtSkillName">Name</label>
+                                <input type="text" class="form-control" name="newSkill"
+                                       placeholder="Example C / Javascript / Network etc.">
+                            </div>
+                            <div class="form-group">
+                                <label>Level</label>
+                                <select class="form-control select2 select2-hidden-accessible" style="width: 100%;"
+                                        tabindex="-1" aria-hidden="true" name="skillLevel">
+                                    <option selected="selected" value="-1">Enter level of skill</option>
+                                    <option value="Beginner">Beginner (6 mths)</option>
+                                    <option value="Intermediate">Intermediate (2 years)</option>
+                                    <option value="Advance">Advance (3 years)</option>
+                                    <option value="Expert">Expert (5 years)</option>
+                                    <option value="Master">Master (5 years+)</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="txtLevelSkill">Level</label>
-                            <input type="text" class="form-control" name="skillLevel"
-                                   placeholder="Enter level of skill">
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" value="Submit" class="btn btn-primary">Save</button>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" value="Submit" class="btn btn-primary">Save</button>
-                    </div>
                     </form>
                 </div>
             </div>
@@ -1047,17 +1192,15 @@
 
                             <div class="form-group">
                                 <label>Start Year</label>
-
                                 <div class="input-group date">
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text"
-                                           id="dpCompanyStart"
-                                           class="form-control pull-right"
-                                           placeholder="Enter start year"
-                                           name="NewStartDate">
+                                    <input type="text" id="dpCompanyStart" class="form-control pull-right dpSchool"
+                                           name="NewStartDate"
+                                           placeholder="Enter start year">
                                 </div>
+
                             </div>
                             <div class="form-group">
                                 <label>End Year</label>
@@ -1068,8 +1211,8 @@
                                     </div>
                                     <input type="text"
                                            id="dpCompanyEnd"
-                                           class="form-control pull-right"
-                                           placeholder="Enter end year, leave blank if current "
+                                           class="form-control pull-right dpSchool"
+                                           placeholder="Enter end year, leave blank if current"
                                            name="NewEndDate">
                                 </div>
                             </div>
@@ -1094,351 +1237,17 @@
             </div>
         </div>
 
-
-        <!--  <div class="modal fade" id="ExperienceModal" tabindex="-1" role="dialog" aria-labelledby="ExperienceModalLabel">
-               <div class="modal-dialog" role="document">
-                   <div class="modal-content">
-                       <div class="modal-header">
-                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                               <span aria-hidden="true">&times;</span>
-                           </button>
-                           <h4 class="modal-title" id="ExperienceModalLabel">Experience</h4>
-                       </div>
-                       <div class="modal-body">
-                           <div class="form-group">
-                               <label for="txtCompanyName">Company Name</label>
-                               <input type="text" class="form-control" id="txtCompanyName"
-                                      placeholder="Enter company name">
-                           </div>
-                           <div class="form-group">
-                               <label for="txtDescriptionCompany">Description</label>
-                               <input type="text" class="form-control" id="txtDescriptionCompany"
-                                      placeholder="Field of studies etc.">
-                           </div>
-                           <div class="form-group">
-                               <label for="txtPosition">Position</label>
-                               <input type="text" class="form-control" id="txtPosition"
-                                      placeholder="Enter your position">
-                           </div>
-                           <div class="form-group">
-                               <label>Start Year:</label>
-
-                               <div class="input-group date">
-                                   <div class="input-group-addon">
-                                       <i class="fa fa-calendar"></i>
-                                   </div>
-                                   <input type="text" id="dpCompanyStart" class="form-control pull-right"
-                                          placeholder="Enter start year">
-                               </div>
-                           </div>
-                           <div class="form-group">
-                               <label>End Year</label>
-
-                               <div class="input-group date">
-                                   <div class="input-group-addon">
-                                       <i class="fa fa-calendar"></i>
-                                   </div>
-                                   <input type="text" id="dpCompanyEnd" class="form-control pull-right"
-                                          placeholder="Enter end year, leave blank is going on">
-                               </div>
-                           </div>
-                       </div>
-                       <div class="modal-footer">
-                           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                           <button type="button" class="btn btn-primary">Save</button>
-                       </div>
-                   </div>
-               </div>
-           </div>
-
-
-       -->
-
-
-        {#        <div class="input-group margin" style="width: 50%">
-            <h3>Education</h3>
-            <form action="{{ action }}" method="POST">
-                <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle pull-right" type="button" data-toggle="dropdown">
-                        <span><i class="fa fa-plus"></i> </span></button>
-                    <ul class="dropdown-menu" style="border: 2px #f2f2f2">
-                        <li>Description: &emsp;&emsp;&emsp;&emsp;&emsp; Startdate: &emsp;&emsp; Enddate:</li>
-                        <li>
-                            <div class="row">
-                                <div class="col-xs-5">
-                                    <textarea class="form-control" name="description" value="{{ Description }}"
-                                              rows="1"></textarea>
-                                </div>
-                                <div class="col-xs-3">
-                                    <input type="text" class="form-control" name='startdate'>
-                                </div>
-                                <div class="col-xs-3">
-                                    <input type="text" class="form-control" name='enddate'>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <button type="submit" name="add" value="1">Add</button>
-                        </li>
-                    </ul>
-                </div>
-            </form>
-        </div>
-        <div class="progress progress-xxs" style="width: 50%">
-            <div class="progress-bar progress-bar-blue " role="progressbar" aria-valuenow="100" aria-valuemin="0"
-                 aria-valuemax="100" style="width: 100%">
-            </div>
-        </div>
-        <ul>
-            {% for key, cvInformation in cvInformations %}
-                {% if cvInformation.CVInformationTypeId==1 %}
-                    <li style="width: 50%">{{ cvInformation.Description }} {{ cvInformation.StartDate }} {{ cvInformation.EndDate }}
-                        <form form action="{{ action }}" method="POST">
-                            <input type=hidden value="{{ cvInformation.ObjectId }}" name="delete_id"/>
-                            <div class="box-tools pull-right">
-                                <button type="submit" class="btn btn-box-tool" name="add" value="delete"><i
-                                        class="fa fa-times"></i>
-                                </button>
-                            </div>
-                            <div class="dropdown">
-                                <button class="btn btn-box-tool dropdown-toggle pull-right" type="button"
-                                        data-toggle="dropdown">
-                                    <span><i class="fa fa-edit"></i> </span></button>
-                                <ul class="dropdown-menu pull-right" style="border: 2px #f2f2f2">
-                                    <li>Updated Education:</li>
-                                    <li>Description: &emsp;&emsp;&emsp;&emsp;&emsp; Startdate: &emsp;&emsp; Enddate:
-                                    </li>
-                                    <li>
-                                        <div class="row">
-                                            <div class="col-xs-5">
-                                                <textarea class="form-control" name="description"
-                                                          value="{{ Description }}" rows="1"></textarea>
-                                            </div>
-                                            <div class="col-xs-3">
-                                                <input type="text" class="form-control" name='startdate'>
-                                            </div>
-                                            <div class="col-xs-3">
-                                                <input type="text" class="form-control" name='enddate'>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <button type="submit" name="add" method="post" value="update">Update</button>
-                                    </li>
-                                </ul>
-                            </div>
-                        </form>
-                    </li>
-                {% endif %}
-            {% endfor %}
-        </ul>
-
-
-        <div class="input-group margin" style="width: 50%">
-            <h3>Experiences</h3>
-            <form action="{{ action }}" method="POST">
-                <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle pull-right" type="button" data-toggle="dropdown">
-                        <span><i class="fa fa-plus"></i> </span></button>
-                    <ul class="dropdown-menu" style="border: 2px #f2f2f2">
-                        <li>Description: &emsp;&emsp;&emsp;&emsp;&emsp; Startdate: &emsp;&emsp; Enddate:</li>
-                        <li>
-                            <div class="row">
-                                <div class="col-xs-5">
-                                    <textarea class="form-control" name="description" value="{{ Description }}"
-                                              rows="1"></textarea>
-                                </div>
-                                <div class="col-xs-3">
-                                    <input type="text" class="form-control" name="startdate" placeholder="mm/yyyy">
-                                </div>
-                                <div class="col-xs-3">
-                                    <input type="text" class="form-control" name="enddate" placeholder="mm/yyyy">
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <button type="submit" name="add" value="3">Add</button>
-                        </li>
-                    </ul>
-                </div>
-            </form>
-        </div>
-        <div class="progress progress-xxs" style="width: 50%">
-            <div class="progress-bar progress-bar-blue " role="progressbar" aria-valuenow="100" aria-valuemin="0"
-                 aria-valuemax="100" style="width: 100%">
-            </div>
-        </div>
-        <ul>
-            {% for key, cvInformation in cvInformations %}
-                {% if cvInformation.CVInformationTypeId == 3 %}
-                    <li style="width: 50%">{{ cvInformation.Description }} {{ cvInformation.StartDate }} {{ cvInformation.EndDate }}
-                        <form form action="{{ action }}" method="POST">
-                            <input type=hidden value="{{ cvInformation.ObjectId }}" name="delete_id"/>
-                            <div class="box-tools pull-right">
-                                <button type="submit" class="btn btn-box-tool" name="add" value="delete"><i
-                                        class="fa fa-times"></i>
-                                </button>
-                            </div>
-                            <div class="dropdown">
-                                <button class="btn btn-box-tool dropdown-toggle pull-right" type="button"
-                                        data-toggle="dropdown">
-                                    <span><i class="fa fa-edit"></i> </span></button>
-                                <ul class="dropdown-menu pull-right" style="border: 2px #f2f2f2">
-                                    <li>Updated Experince:</li>
-                                    <li>Description: &emsp;&emsp;&emsp;&emsp;&emsp; Startdate: &emsp;&emsp; Enddate:
-                                    </li>
-                                    <li>
-                                        <div class="row">
-                                            <div class="col-xs-5">
-                                                <textarea class="form-control" name="description"
-                                                          value="{{ Description }}" rows="1"></textarea>
-                                            </div>
-                                            <div class="col-xs-3">
-                                                <input type="text" class="form-control" name='startdate'>
-                                            </div>
-                                            <div class="col-xs-3">
-                                                <input type="text" class="form-control" name='enddate'>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <button type="submit" name="add" method="post" value="update">Update</button>
-                                    </li>
-                                </ul>
-                            </div>
-                        </form>
-                    </li>
-                {% endif %}
-            {% endfor %}
-        </ul>
-
-
-        <div class="input-group margin" style="width: 50%">
-            <h3>Abilities</h3>
-            <form action="{{ action }}" method="POST">
-                <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle pull-right" type="button" data-toggle="dropdown">
-                        <span><i class="fa fa-plus"></i> </span></button>
-                    <ul class="dropdown-menu" style="border: 2px #f2f2f2">
-                        <li>Description:</li>
-                        <li>
-                            <div class="col-xs-ao">
-                                <input type="text" name="description" value="{{ Description }}" class="form-control">
-                            </div>
-                        </li>
-                        <li>
-                            <button type="submit" name="add" value="2">Add</button>
-                        </li>
-                    </ul>
-                </div>
-            </form>
-        </div>
-        <div class="progress progress-xxs" style="width: 50%">
-            <div class="progress-bar progress-bar-blue " role="progressbar" aria-valuenow="100" aria-valuemin="0"
-                 aria-valuemax="100" style="width: 100%">
-            </div>
-        </div>
-        <ul>
-            {% for key, cvInformation in cvInformations %}
-                {% if cvInformation.CVInformationTypeId == 2 %}
-                    <li style="width: 50%">{{ cvInformation.Description }}
-                        <form form action="{{ action }}" method="POST">
-                            <input type=hidden value="{{ cvInformation.ObjectId }}" name="delete_id"/>
-                            <div class="box-tools pull-right">
-                                <button type="submit" class="btn btn-box-tool" name="add" value="delete"><i
-                                        class="fa fa-times"></i>
-                                </button>
-                            </div>
-                            <div class="dropdown">
-                                <button class="btn btn-box-tool dropdown-toggle pull-right" type="button"
-                                        data-toggle="dropdown">
-                                    <span><i class="fa fa-edit"></i> </span></button>
-                                <ul class="dropdown-menu pull-right" style="border: 2px #f2f2f2">
-                                    <li>Updated Ability:</li>
-                                    <li>
-                                        <div class="col-xs-10">
-                                            <input type="text" name="description" value="{{ Description }}"
-                                                   class="form-control">
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <button type="submit" name="add" method="post" value="update">Update</button>
-                                    </li>
-                                </ul>
-                            </div>
-                        </form>
-                    </li>
-                {% endif %}
-            {% endfor %}
-        </ul>
-
-
-        <div class="input-group margin" style="width: 50%">
-            <h3>Languages</h3>
-            <form action="{{ action }}" method="POST">
-                <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle pull-right" type="button" data-toggle="dropdown">
-                        <span><i class="fa fa-plus"></i> </span></button>
-                    <ul class="dropdown-menu" style="border: 2px #f2f2f2">
-                        <li>Language:</li>
-                        <li>
-                            <div class="col-xs-10">
-                                <input type="text" name="description" value="{{ Description }}" class="form-control">
-                            </div>
-                        </li>
-                        <li>
-                            <button type="submit" name="add" method="post" value="4">Add</button>
-                        </li>
-                    </ul>
-                </div>
-            </form>
-        </div>
-        <div class="progress progress-xxs" style="width: 50%">
-            <div class="progress-bar progress-bar-blue " role="progressbar" aria-valuenow="100" aria-valuemin="0"
-                 aria-valuemax="100" style="width: 100%">
-            </div>
-        </div>
-        <ul>
-            {% for key, cvInformation in cvInformations %}
-                {% if cvInformation.CVInformationTypeId==4 %}
-                    <li style="width: 50%">{{ cvInformation.Description }}
-                        <form form action="{{ action }}" method="POST">
-                            <input type=hidden value="{{ cvInformation.ObjectId }}" name="delete_id"/>
-
-                            <div class="box-tools pull-right">
-                                <button type="submit" class="btn btn-box-tool" name="add" value="delete"><i
-                                        class="fa fa-times"></i>
-                                </button>
-                            </div>
-                            <div class="dropdown">
-                                <button class="btn btn-box-tool dropdown-toggle pull-right" type="button"
-                                        data-toggle="dropdown">
-                                    <span><i class="fa fa-edit"></i> </span></button>
-                                <ul class="dropdown-menu pull-right" style="border: 2px #f2f2f2">
-                                    <li>Updated Language:</li>
-                                    <li>
-                                        <div class="col-xs-10">
-                                            <input type="text" name="description" value="{{ Description }}"
-                                                   class="form-control">
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <button type="submit" name="add" method="post" value="update">Update</button>
-                                    </li>
-                                </ul>
-                            </div>
-                        </form>
-                    </li>
-                {% endif %}
-            {% endfor %}
-        </ul>#}
-
     </section>
 
     <script type="text/javascript">
         $(document).ready(function () {
 
+        });
+        $(function () {
+            //Initialize Select2 Elements
+            $(".select2").select2({
+                minimumResultsForSearch: -1
+            });
         });
         $(function () {
             $('.dpSchool').datepicker({
