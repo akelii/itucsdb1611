@@ -9,6 +9,7 @@ from classes.operations.person_operations import person_operations
 from classes.project import Project
 from classes.look_up_tables import *
 from templates_operations.user import*
+from classes.operations.team_operations import team_operations
 
 
 def project_create_page_config(submit_type):
@@ -40,4 +41,7 @@ def project_create_page_config(submit_type):
             project = Project(None, title, project_description, project_type, project_thesis_type, department,
                               project_status_type, start_date, end_date, member_limit, None, created_by, manager)
             store.add_project(project)
+            id = store.get_last()
+            TeamProvider = team_operations()
+            TeamProvider.AddTeam(id, manager, 'Manager')
             return redirect(url_for('site.home_page'))

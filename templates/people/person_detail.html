@@ -53,46 +53,64 @@
                                     {{ education[2] }} from the <b>{{ education[1] }}</b> <br> {{ education[4] }}
                                     - {{ education[5] }}
                                 </p>
-                            {% else %}
+                            {% endif %}
+                                {% endfor %}
                                 <div id="educationOther" style="display: none">
-                                    <p class="text-muted">
+                    {% for education in listEducation %}
+                    {% if loop.index != 1 %}
+                        <p class="text-muted">
                                         {{ education[2] }} from the <b>{{ education[1] }}</b> <br> {{ education[4] }}
                                         - {{ education[5] }}
                                     </p>
-                                </div>
+
                             {% endif %}
                         {% endfor %}
+                     </div>
                         {% if listEducation|length > 1 %}
                             <a href="#" class="show-more-education" id="educationShow" aria-expanded="true">Show
                                 more</a>
                         {% endif %}
                         {% if listEducation|length == 0 %}
-                            <p></p>There is no any education record.
+                            <p></p>There is no education record.
                         {% endif %}
                         <hr>
                         <strong><i class="fa fa-briefcase margin-r-5"></i> Experience</strong>
-                        {# {% for education in listEducation %}
+{% if listExperience!='none' %}
+                    {% for experience in listExperience %}
                             {% if loop.index == 1 %}
                                 <p class="text-muted">
-                                    {{ education[2] }} from the <b>{{ education[1] }}</b> <br> {{ education[4] }}
-                                    - {{ education[5] }}
+                                    {{ experience[4] }} in  <b>{{ experience[2] }}</b> | {{ experience[3] }} <br> {{ experience[5] }}
+                                    - {{ experience[6] }}
                                 </p>
-                            {% else %}
+
+                                {% endif %}
+                    {% endfor %}
+
                                 <div id="experienceOther" style="display: none">
+
+                    {% for experience in listExperience %}
+                            {% if loop.index != 1 %}
+
                                     <p class="text-muted">
-                                        {{ education[2] }} from the <b>{{ education[1] }}</b> <br> {{ education[4] }}
-                                        - {{ education[5] }}
+                                        {{ experience[4] }} in  <b>{{ experience[2] }}</b> | {{ experience[3] }} <br> {{ experience[5] }}
+                                    - {{ experience[6] }}
                                     </p>
-                                </div>
+
                             {% endif %}
-                        {% endfor %}#}
-                        {% if listEducation|length > 1 %}
+                        {% endfor %}
+                    </div>
+                        {% if listExperience|length > 1 %}
                             <a href="#" class="show-more-experience" id="experienceShow" aria-expanded="true">Show
                                 more</a>
                         {% endif %}
-                        {% if listEducation|length == 0 %}
-                            <p></p>There is no any experience record.
+                        {% if listExperience|length == 0 %}
+                            <p></p>There is no experience record.
                         {% endif %}
+
+                      {% else %}
+                    <p></p>There is no experience record.
+                    {% endif %}
+
                         <hr>
                         <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
                         <p>
@@ -107,7 +125,7 @@
                             {% endfor %}
                         </p>
                         {% if listSkill|length == 0 %}
-                            There is no any skill information.
+                            There is no skill information.
                         {% endif %}
                         <hr>
                         <strong><i class="fa fa-book margin-r-5"></i> Languages</strong>
@@ -123,7 +141,7 @@
                             {% endfor %}
                         </p>
                         {% if listLanguage|length == 0 %}
-                            There is no any language record.
+                            There is no language record.
                         {% endif %}
                         <hr>
                         <strong><i class="fa fa-file-text-o margin-r-5"></i> Information</strong>
@@ -132,20 +150,26 @@
                                 <p class="text-muted">
                                     <b>{{ info[2] }}</b> <br> {{ info[3] }}<br>
                                 </p>
-                            {% else %}
-                                <div id="informationOther" style="display: none">
+                                {% endif %}
+                    {% endfor %}
+   <div id="informationOther" style="display: none">
+                    {% for info in listInformation %}
+                            {% if loop.index != 1 %}
+
+
                                     <p class="text-muted">
                                         <b>{{ info[2] }}</b> <br> {{ info[3] }}<br>
                                     </p>
-                                </div>
+
                             {% endif %}
                         {% endfor %}
+                    </div>
                         {% if listInformation|length > 1 %}
                             <a href="#" class="show-more-information" id="informationShow" aria-expanded="true">Show
                                 more</a>
                         {% endif %}
                         {% if listInformation|length == 0 %}
-                            <p></p>There is no any contact details.
+                            <p></p>There is no contact detail.
                         {% endif %}
                     </div>
                 </div>
@@ -424,6 +448,7 @@
         </div>
     </section>
     <script type="text/javascript">
+
         $('.show-more-education').click(function (e) {
             $('#educationOther').toggle();
             if ($('#educationShow').text() == 'Show more') {
@@ -434,6 +459,7 @@
             }
             e.preventDefault();
         });
+
         $('.show-more-experience').click(function (e) {
             $('#experienceOther').toggle();
             if ($('#experienceShow').text() == 'Show more') {

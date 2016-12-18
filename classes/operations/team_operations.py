@@ -35,7 +35,7 @@ class team_operations:
                        FROM Team
                        INNER JOIN Project ON(Team.ProjectId = Project.ObjectId)
                        INNER JOIN Person ON (Team.MemberId = Person.ObjectId)
-                       WHERE (Team.ProjectId = %s) """
+                       WHERE (Team.ProjectId = %s) ORDER BY PersonFullName"""
             cursor.execute(query, (key,))
             result = cursor.fetchall()
         return result

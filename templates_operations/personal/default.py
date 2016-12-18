@@ -17,6 +17,7 @@ from classes.operations.skill_operations import skill_operations
 from classes.operations.Experience_operations import experience_operations
 from classes.operations.information_operations import information_operations
 from classes.operations.language_operations import language_operations
+from classes.operations.CV_operations import cv_operations
 
 import os
 from werkzeug.utils import secure_filename
@@ -108,11 +109,18 @@ def personal_default_page_config(request):
     listSkill = SkillProvider.GetSkillByActiveCVAndByPersonId(Current_Person[0])
     listLanguage = LanguageProvider.GetAllLanguagesByActiveCVAndByPersonId(Current_Person[0])
     listInformation = InformationProvider.get_all_information_by_ActiveCV_And_PersonId(Current_Person[0])
+    CvProvider = cv_operations()
+    activeCv = CvProvider.get_active_cv(Current_Person[0])
+    ExperienceProvider=experience_operations()
+    if activeCv:
+        listExperience = ExperienceProvider.get_experiences_with_key(activeCv[0])
+    else:
+        listExperience = 'none'
     return render_template('personal/default.html', current_time=now.ctime(), Current_Person=Current_Person,
                            listFollowing=listFollowing, listFollowers=listFollowers, followed_projects=followed_projects,
                            personComments=personComments, listAccount=listAccount, listTitle=listTitle,
                            active_projects=active_projects, active_project_number=active_project_number,listEducation=listEducation, listSkill=listSkill,
-                           listLanguage=listLanguage, listInformation=listInformation)
+                           listExperience=listExperience, listLanguage=listLanguage, listInformation=listInformation)
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS

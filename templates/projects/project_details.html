@@ -9,7 +9,8 @@
                         <h3 class="box-title">Project Details</h3>
                     </div>
                     <div class="box-body">
-                        <form role="form" action="{{ url_for('site.projects_search_page') }}" method="get" name="search_project" class="form-horizontal">
+                        <form role="form" action="{{ url_for('site.projects_search_page') }}" method="get"
+                              name="search_project" class="form-horizontal">
                             <strong>Project Name</strong>
                             <p class="text-muted">{{ project[0] }}</p>
                             <hr>
@@ -30,19 +31,21 @@
                             <hr>
                         </form>
                         <form action="{{ url_for('site.projects_details_page', key=project[7]) }}" method="post">
-                        {% if isFollow %}
-                            <button name="unfollow"
-                                value="{{ project[0] }}"
-                                type="submit"
-                                data-toggle="tooltip" data-placement="bottom"
-                                class="btn btn-danger btn-xs">Unfollow</button>
-                        {% else %}
-                            <button name="follow"
-                                value="{{ project[0] }}"
-                                type="submit"
-                                data-toggle="tooltip" data-placement="bottom"
-                                class="btn btn-primary btn-xs">Follow</button>
-                        {% endif %}
+                            {% if isFollow %}
+                                <button name="unfollow"
+                                        value="{{ project[0] }}"
+                                        type="submit"
+                                        data-toggle="tooltip" data-placement="bottom"
+                                        class="btn btn-danger btn-xs">Unfollow
+                                </button>
+                            {% else %}
+                                <button name="follow"
+                                        value="{{ project[0] }}"
+                                        type="submit"
+                                        data-toggle="tooltip" data-placement="bottom"
+                                        class="btn btn-primary btn-xs">Follow
+                                </button>
+                            {% endif %}
                         </form>
                     </div>
                 </div>
@@ -55,91 +58,97 @@
                         <li class="active"><a href="#members" data-toggle="tab">Members</a></li>
                         <li><a href="#projectComments" data-toggle="tab">Project's Comments</a></li>
                         {% if current_user_objectid == project_creator %}
-                        <li><a href="#settings" data-toggle="tab">Settings</a></li>
+                            <li><a href="#settings" data-toggle="tab">Settings</a></li>
                         {% endif %}
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane" id="worklogs">
                             <div class="box-body">
                                 <ul class="timeline timeline-inverse">
-                                {% for worklog in worklogs %}
-                                    <li class="time-label">
+                                    {% for worklog in worklogs %}
+                                        <li class="time-label">
                                         <span class="bg-teal-active">
                                             {{ worklog[2].strftime('%d.%m.%Y') }}
                                         </span>
-                                            </li>
-                                   <li>
-                                                <i class="fa fa-search bg-purple"></i>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-search bg-purple"></i>
 
-                                                <div class="timeline-item">
-                                                    <span class="time"><i class="fa fa-clock-o"></i> Create Date:{{ worklog[2].strftime('%H:%M') }}</span>
-                                                    <h3 class="timeline-header"><a
-                                                            href="{{ url_for('site.people_person_detail_page', key=worklog[3]) }}"> {{ worklog[4] }}</a>
-                                                    </h3>
-                                                    <div class="timeline-body">
-                                                        {{ worklog[1] }}
-                                                    </div>
-                                                   {% if worklog[3] == current_user_objectid %}
-                                            <form role="form"
-                                                  action="{{ url_for('site.projects_details_page', key=project[7]) }}"
-                                                  method="post">
-                                                <button type="submit" name="deleteWorklog" value="{{ worklog[0] }}"
-                                                        class="btn btn-danger btn-xs">Delete
-                                                </button>
-                                                <button class="btn btn-box-tool" type="button" data-toggle="dropdown">
-                                                    <i class="fa fa-pencil-square-o fa-2x"></i>
-                                                </button>
-
-                                                <ul class="dropdown-menu" style="border: 2px #f2f2f2">
-                                                    <li>Editted Worklog:</li>
-                                                    <li>
-                                                        <div class="col-xs-ao">
-                                                            <input type="text" name="new_log" value="{{ worklog[1] }}"
-                                                                   class="form-control">
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <button type="submit" name="editWorklog"
-                                                                value="{{ worklog[0] }}" class="btn btn-reddit btn-xs">
-                                                            Edit
-                                                        </button>
-                                                    </li>
-                                                </ul>
-                                            </form>
-                                        {% endif %}
-
+                                            <div class="timeline-item">
+                                                <span class="time"><i
+                                                        class="fa fa-clock-o"></i> Create Date:{{ worklog[2].strftime('%H:%M') }}</span>
+                                                <h3 class="timeline-header"><a
+                                                        href="{{ url_for('site.people_person_detail_page', key=worklog[3]) }}"> {{ worklog[4] }}</a>
+                                                </h3>
+                                                <div class="timeline-body">
+                                                    {{ worklog[1] }}
                                                 </div>
-                                            </li>
-                                            <li>
-                                                <i class="fa fa-clock-o bg-gray"></i>
-                                            </li>
-                                            <li></li>
+                                                {% if worklog[3] == current_user_objectid %}
+                                                    <form role="form"
+                                                          action="{{ url_for('site.projects_details_page', key=project[7]) }}"
+                                                          method="post">
+                                                        <button type="submit" name="deleteWorklog"
+                                                                value="{{ worklog[0] }}"
+                                                                class="btn btn-danger btn-xs">Delete
+                                                        </button>
+                                                        <button class="btn btn-box-tool" type="button"
+                                                                data-toggle="dropdown">
+                                                            <i class="fa fa-pencil-square-o fa-2x"></i>
+                                                        </button>
 
-                                {% endfor %}
+                                                        <ul class="dropdown-menu" style="border: 2px #f2f2f2">
+                                                            <li>Editted Worklog:</li>
+                                                            <li>
+                                                                <div class="col-xs-ao">
+                                                                    <input type="text" name="new_log"
+                                                                           value="{{ worklog[1] }}"
+                                                                           class="form-control">
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <button type="submit" name="editWorklog"
+                                                                        value="{{ worklog[0] }}"
+                                                                        class="btn btn-reddit btn-xs">
+                                                                    Edit
+                                                                </button>
+                                                            </li>
+                                                        </ul>
+                                                    </form>
+                                                {% endif %}
+
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-clock-o bg-gray"></i>
+                                        </li>
+                                        <li></li>
+
+                                    {% endfor %}
                                 </ul>
                             </div>
                             {% for member in members %}
-                                {% if member[3]== current_user_objectid%}
-                            <form role="form" action="{{ url_for('site.projects_details_page', key=project[7]) }}"
-                                  method="post">
-                                <div class="form-group">
-                                    <label>New Worklog</label>
-                                    <textarea class="form-control" name="commitMessage" rows="4"
-                                              placeholder="Enter"></textarea>
-                                </div>
-                                <button type="submit" name="addWorklog" value="AddWorkLog"
-                                        class="btn btn-primary btn-xs">Add
-                                </button>
-                            </form>
-                            <!--  </ul> -->
+                                {% if member[3]== current_user_objectid %}
+                                    <form role="form"
+                                          action="{{ url_for('site.projects_details_page', key=project[7]) }}"
+                                          method="post">
+                                        <div class="form-group">
+                                            <label>New Worklog</label>
+                                            <textarea class="form-control" name="commitMessage" rows="4"
+                                                      placeholder="Enter"></textarea>
+                                        </div>
+                                        <button type="submit" name="addWorklog" value="AddWorkLog"
+                                                class="btn btn-primary btn-xs">Add
+                                        </button>
+                                    </form>
+                                    <!--  </ul> -->
                                 {% endif %}
                             {% endfor %}
                         </div>
 
-                        <div class="active tab-pane" id="members">
+                        <div class="active tab-pane clearfix" id="members">
 
 
-                            <div class="box-body">
+                            <div class="col-md-12 col-xs-12">
                                 {% if members %}
                                     <div class="box box-default">
                                         <div class="box-header with-border">
@@ -148,12 +157,12 @@
                                         <div class="box-body">
                                             <ul class="users-list clearfix">
                                                 {% for member in members %}
-                                                    <div class="col-md-4 col-xs-3">
+                                                    <div class="col-md-4 col-xs-4">
                                                         <li>
                                                             <img width="75px" height="75px"
                                                                  src="../static/user_images/{{ member[1] }}"
                                                                  alt="User Image">
-                                                            <a data-toggle="tooltip" data-placement="bottom"
+                                                            <a data-toggle="tooltip" data-placement="left"
                                                                title="View {{ member[0] }} more!"
                                                                class="users-list-name"
                                                                href="{{ url_for('site.people_person_detail_page', key=member[3]) }}">{{ member[0] }}</a>
@@ -165,12 +174,12 @@
                                     </div>
                                 {% else %}
                                     <div class="callout callout-default">
-                                            <p> No team members in the project. &nbsp; <img width="20px" height="20px"
-                                                                                            src="http://image.flaticon.com/icons/png/512/42/42901.png">
-                                            </p>
-                                            <p><strong>More team members can make the project development be
-                                                faster.</strong>
-                                            </p>
+                                        <p> No team members in the project. &nbsp; <img width="20px" height="20px"
+                                                                                        src="http://image.flaticon.com/icons/png/512/42/42901.png">
+                                        </p>
+                                        <p><strong>More team members can make the project development be
+                                            faster.</strong>
+                                        </p>
                                     </div>
                                 {% endif %}
                             </div>
@@ -179,67 +188,69 @@
                         </div>
                         <div class="tab-pane" id="projectComments">
                             <div class="box-body">
-                                    <ul class="timeline timeline-inverse">
-                                        {% for project_comment in project_comments %}
+                                <ul class="timeline timeline-inverse">
+                                    {% for project_comment in project_comments %}
 
-                                            <li class="time-label">
+                                        <li class="time-label">
                                         <span class="bg-teal-active">
                                             {{ project_comment[3].strftime('%d.%m.%Y') }}
                                         </span>
-                                            </li>
-                                            <li>
-                                                <i class="fa fa-search bg-purple"></i>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-search bg-purple"></i>
 
-                                                <div class="timeline-item">
-                                                    <span class="time"><i class="fa fa-clock-o"></i> Update Date:{{ project_comment[6].strftime('%H:%M') }}</span>
-                                                    <span class="time"><i class="fa fa-clock-o"></i> Create Date:{{ project_comment[3].strftime('%H:%M') }}</span>
-                                                    <h3 class="timeline-header"><a
-                                                            href="{{ url_for('site.people_person_detail_page', key=project_comment[5]) }}">{{ project_comment[0] }} {{ project_comment[1] }}</a>
-                                                    </h3>
-                                                    <div class="timeline-body">
-                                                        {{ project_comment[2] }}
-                                                    </div>
-                                                    <form role="form"
-                                                          action="{{ url_for('site.projects_details_page', key=project[7]) }}"
-                                                          method="post">
-                                                        {% if current_user_objectid == project_comment[5] %}
-                                                            <div class="timeline-footer">
-                                                                <button type="submit" name="delete"
-                                                                        value="{{ project_comment[4] }}"
-                                                                        class="btn btn-primary btn-xs">Delete
-                                                                </button>
-
-                                                                <button class="btn btn-box-tool" type="button"
-                                                                        data-toggle="dropdown">
-                                                                    <i class="fa fa-pencil-square-o fa-2x"></i>
-                                                                </button>
-                                                                <ul class="dropdown-menu" style="border: 2px #f2f2f2">
-                                                                    <li>Editted Comment:</li>
-                                                                    <li>
-                                                                        <div class="col-xs-ao">
-                                                                            <input type="text" name="newComment"
-                                                                                   class="form-control">
-                                                                        </div>
-                                                                    </li>
-                                                                    <li>
-                                                                        <button type="submit" name="edit"
-                                                                                value="{{ project_comment[4] }}"
-                                                                                class="btn btn-danger btn-xs">Edit
-                                                                        </button>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        {% endif %}
-                                                    </form>
-
+                                            <div class="timeline-item">
+                                                <span class="time"><i
+                                                        class="fa fa-clock-o"></i> Update Date:{{ project_comment[6].strftime('%H:%M') }}</span>
+                                                <span class="time"><i
+                                                        class="fa fa-clock-o"></i> Create Date:{{ project_comment[3].strftime('%H:%M') }}</span>
+                                                <h3 class="timeline-header"><a
+                                                        href="{{ url_for('site.people_person_detail_page', key=project_comment[5]) }}">{{ project_comment[0] }} {{ project_comment[1] }}</a>
+                                                </h3>
+                                                <div class="timeline-body">
+                                                    {{ project_comment[2] }}
                                                 </div>
-                                            </li>
-                                            <li>
-                                                <i class="fa fa-clock-o bg-gray"></i>
-                                            </li>
-                                            <li></li>
-                                        {% endfor %}
-                                    </ul>
+                                                <form role="form"
+                                                      action="{{ url_for('site.projects_details_page', key=project[7]) }}"
+                                                      method="post">
+                                                    {% if current_user_objectid == project_comment[5] %}
+                                                        <div class="timeline-footer">
+                                                            <button type="submit" name="delete"
+                                                                    value="{{ project_comment[4] }}"
+                                                                    class="btn btn-primary btn-xs">Delete
+                                                            </button>
+
+                                                            <button class="btn btn-box-tool" type="button"
+                                                                    data-toggle="dropdown">
+                                                                <i class="fa fa-pencil-square-o fa-2x"></i>
+                                                            </button>
+                                                            <ul class="dropdown-menu" style="border: 2px #f2f2f2">
+                                                                <li>Editted Comment:</li>
+                                                                <li>
+                                                                    <div class="col-xs-ao">
+                                                                        <input type="text" name="newComment"
+                                                                               class="form-control">
+                                                                    </div>
+                                                                </li>
+                                                                <li>
+                                                                    <button type="submit" name="edit"
+                                                                            value="{{ project_comment[4] }}"
+                                                                            class="btn btn-danger btn-xs">Edit
+                                                                    </button>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    {% endif %}
+                                                </form>
+
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-clock-o bg-gray"></i>
+                                        </li>
+                                        <li></li>
+                                    {% endfor %}
+                                </ul>
 
                                 <form role="form" action="{{ url_for('site.projects_details_page', key=project[7]) }}"
                                       method="post">
@@ -257,157 +268,204 @@
                         </div>
 
                         <div class="tab-pane clearfix" id="settings">
-                            <div class="col-md-12">
-                                    <div class="box box-default">
-                                        <div class="box-header with-border">
-                                            <h3 class="box-title">Organize Your Team</h3>
-                                        </div>
+                            <div class="col-md-8">
+                                <div class="box box-default">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Organize Your Team</h3>
+                                    </div>
 
-                                        <div class="box-body">
+                                    <div class="box-body">
 
-                                            <ul class="products-list product-list-in-box">
-
-
-
-                                                    {% for member in members %}
-                                                    <li class="item">
-                                                        <div class="product-img">
-                                                            <img src="../static/user_images/{{ member[1] }}" alt="Member Image">
-                                                        </div>
-                                                        <div class="product-info">
-                                                            <div class="col-md-9">
-                                                                <form name="deleteMember" role="form" action="{{ url_for('site.projects_details_page', key=project[7]) }}"
-                                                                        method="POST">
-                                                                    <a href="javascript:void(0)" class="product-title">{{ member[0] }}
-                                                                        <button name="deleteMember"
-                                                                                                    value="{{ member[4] }}"
-                                                                                                    type="submit"
-                                                                                                    class="btn btn-box-tool">
-                                                                            <span class="label label-danger">Delete</span>
-                                                                        </button>
+                                        <ul class="products-list product-list-in-box">
+                                            {% for member in members %}
+                                                <li class="item">
+                                                    <div class="product-img">
+                                                        <img src="../static/user_images/{{ member[1] }}"
+                                                             alt="Member Image">
+                                                    </div>
+                                                    <div class="product-info">
+                                                        <div class="col-md-9">
+                                                            <form name="" role="form"
+                                                                  action="{{ url_for('site.projects_details_page', key=project[7]) }}"
+                                                                  method="POST">
+                                                                <div class="col-md-8">
+                                                                    <a href="javascript:void(0)"
+                                                                       class="product-title">{{ member[0] }}
                                                                     </a>
-                                                                </form>
-                                                            </div>
-
-                                                            <form name="updateMember" role="form" action="{{ url_for('site.projects_details_page', key=project[7]) }}"
-                                                                        method="POST">
-                                                                <div class="col-md-4">
                                                                     <span class="product-description">
-                                                                        <input type="hidden"  name="updatedMemberId" value="{{ member[4] }}" class="form-control input-sm">
-                                                                        <input name="updatedMemberDuty" type="text" value="{{ member[2] }}" class="form-control input-sm">
-                                                                    </span>
+                                                                        <input type="hidden" name="updatedMemberId"
+                                                                               value="{{ member[4] }}"
+                                                                               class="form-control input-sm">
+                                                                        <input name="updatedMemberDuty" type="text"
+                                                                               value="{{ member[2] }}"
+                                                                               class="form-control input-sm">
+                                                                </span>
                                                                 </div>
-                                                                <button name="updateMember" type="submit" class="btn btn-primary" >Update Duty</button>
+                                                                <div class="col-md-4">
+
+                                                                    <button name="deleteMember"
+                                                                            value="{{ member[4] }}"
+                                                                            type="submit"
+                                                                            class="btn btn-box-tool"
+                                                                            onclick="return confirm('Are you sure to delete {{ member[0] }}')">
+                                                                        <span class="label label-danger">Delete</span>
+                                                                    </button>
+                                                                    <button name="updateMember"
+                                                                            value="{{ member[4] }}"
+                                                                            type="submit"
+                                                                            class="btn btn-box-tool">
+                                                                        <span class="label label-primary">Update</span>
+                                                                    </button>
+
+                                                                </div>
                                                             </form>
-                                                            <br>
-                                                            <br>
-                                                            <br>
                                                         </div>
-                                                    </li>
-                                                    {% endfor %}
 
 
-                                            </ul>
-                                        </div>
+                                                        <br>
+                                                        <br>
+                                                        <br>
+                                                    </div>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                        <form role="form"
+                                              action="{{ url_for('site.projects_details_page', key=project[7]) }}"
+                                              method="POST">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <br>
+                                                    <br>
+                                                    <label>Add New Team Members</label>
+                                                    <select name="teamMember"
+                                                            class="form-control select2 select2-hidden-accessible"
+                                                            multiple=""
+                                                            data-placeholder="Select" style="width: 100%;" tabindex="-1"
+                                                            aria-hidden="true">
+                                                        {% for person in listPerson %}
+                                                            <option value="{{ person[0] }}">{{ person[1] }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                    <br>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Duty of the Members</label>
+                                                    <input type="text"
+                                                           placeholder="Enter duty of member/members you select"
+                                                           class="form-control" name="addDuty">
+                                                </div>
 
+
+                                                <button name="addMember" type="submit" class="btn btn-primary">Add
+                                                    Member
+                                                </button>
+                                            </div>
+                                        </form>
 
                                     </div>
-                                </div>
-                                <form role="form" action="{{ url_for('site.projects_details_page', key=project[7]) }}"
-                                                                            method="POST">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <br>
-                                            <br>
-                                            <label>Add New Team Members</label>
-                                            <select name="teamMember" class="form-control select2 select2-hidden-accessible"
-                                                    multiple=""
-                                                    data-placeholder="Select" style="width: 100%;" tabindex="-1"
-                                                    aria-hidden="true">
-                                                {% for person in listPerson %}
-                                                    <option value="{{ person[0] }}">{{ person[1] }}</option>
-                                                {% endfor %}
-                                            </select>
-                                            <br>
-                                            <br>
-                                            <label>Duty of the Members</label>
-                                            <textarea rows="4" cols="130"  name="addDuty"></textarea>
-                                        </div>
-                                        <button name="addMember" type="submit" class="btn btn-primary">Add Member</button>
-                                    </div>
-                                </form>
-
-                            <div class="form-group">
-                                <label></label>
-                                <div class="pull-left header"><a href="#" data-toggle="modal" data-target="#UpdateModal">
-                                    <i class="fa fa-pencil-square-o fa-2x"></i>Update Project</a>
                                 </div>
                             </div>
+                            <div class="col-md-4">
+                                <div class="box box-default">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Change Project Details</h3>
+                                    </div>
 
-                            <form role="form" action="{{ url_for('site.projects_details_page', key=project[7]) }}" method="post">
-                                <button type="submit" name="delete_project" value="Delete" class="btn btn-primary">Delete Project</button>
+                                    <div class="box-body">
+                                        <div class="col-md-6">
+                                            <form role="form"
+                                                  action="{{ url_for('site.projects_details_page', key=project[7]) }}"
+                                                  method="post">
+                                                <button type="submit" name="delete_project" value="Delete"
+                                                        class="btn btn-danger"
+                                                        onclick="return confirm('Are you sure to delete Project?')">
+                                                    Delete Project
+                                                </button>
 
-                                <div class="modal fade" id="UpdateModal" tabindex="-1" role="dialog" aria-labelledby="UpdateModalLabel">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span></button>
-                                                    <h4 class="modal-title" id="UpdateModalLabel">New Project
-                                                        Details</h4>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="form-group">
-                                                        <label>New Project Name</label>
-                                                        <input type="text" class="form-control" name="project_name"
-                                                               placeholder={{ project[0] }}>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>New Project Description</label>
-                                                        <textarea class="form-control" name="project_description"
-                                                                  rows="4" placeholder={{ project[1] }}></textarea>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>New End Date</label>
-                                                        <div class="input-group date">
-                                                            <div class="input-group-addon">
-                                                                <i class="fa fa-calendar ">
-                                                                </i>
+                                                <div class="modal fade" id="UpdateModal" tabindex="-1" role="dialog"
+                                                     aria-labelledby="UpdateModalLabel">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                        aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span></button>
+                                                                <h4 class="modal-title" id="UpdateModalLabel">Update your
+                                                                    Project</h4>
                                                             </div>
-                                                            <input type="text" name= "updated_date"class="form-control pull-right dpDate"
-                                                                   id="datepicker">
+                                                            <div class="modal-body">
+                                                                <div class="form-group">
+                                                                    <label>Project Name</label>
+                                                                    <input type="text" class="form-control"
+                                                                           name="project_name"
+                                                                           value="{{ project[0] }}">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label>Project Description</label>
+                                                                    <textarea class="form-control"
+                                                                              name="project_description"
+                                                                              rows="4">{{ project[1] }}</textarea>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label>Change End Date</label>
+                                                                    <div class="input-group date">
+                                                                        <div class="input-group-addon">
+                                                                            <i class="fa fa-calendar ">
+                                                                            </i>
+                                                                        </div>
+                                                                        <input type="text" name="updated_date" value="{{ project[9].strftime('%d.%m.%Y') }}"
+                                                                               class="form-control pull-right dpDate"
+                                                                               id="datepicker">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label>New Member Limit</label>
+                                                                    <input min="1" max="20" type="number" class="form-control"
+                                                                           name="limit" value="{{ project[10] }}"
+                                                                           placeholder="Enter member limit">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label>Manager</label>
+                                                                    <select name='project_manager' id="project_manager"
+                                                                            class="form-control">
+                                                                        {% for a in listManager %}
+                                                                            <option value='{{ a[0] }}'>{{ a[1] }}</option>
+                                                                        {% endfor %}
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="submit" name="update"
+                                                                        value="{{ project[7] }}"
+                                                                        class="btn btn-primary">Update
+                                                                </button>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label>New Member Limit</label>
-                                                        <input type="number" class="form-control" name="limit"
-                                                               placeholder="Enter">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Manager</label>
-                                                        <select name='project_manager' id="project_manager"
-                                                                class="form-control">
-                                                            {% for a in listManager %}
-                                                                <option value='{{ a[0] }}'>{{ a[1] }}</option>
-                                                            {% endfor %}
-                                                        </select>
-                                                    </div>
                                                 </div>
-                                                <div class="modal-footer">
-                                                    <button type="submit" name="update" value="{{ project[7] }}"
-                                                            class="btn btn-primary">Update
-                                                    </button>
+                                            </form>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label></label>
+                                                <div class="pull-left header"><button type="button" data-toggle="modal"
+                                                                                 data-target="#UpdateModal" class="btn btn-primary">Update Project</button>
                                                 </div>
                                             </div>
                                         </div>
+
+
+                                    </div>
+
                                 </div>
-                            </form>
+
+
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
     </section>
 
     <script type="text/javascript">
@@ -418,7 +476,8 @@
         })
     </script>
     <script type="text/javascript">
-        $(document).ready(function () {});
+        $(document).ready(function () {
+        });
         $(function () {
             $('.dpDate').datepicker({
                 format: "yyyy-mm-dd",

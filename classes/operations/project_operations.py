@@ -37,7 +37,7 @@ class project_operations:
     def get_project(self, key):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()
-            query = """SELECT Project.Name, Project.Description, ProjectType.Name, Department.Name, ProjectStatusType.Name, Person.FirstName, Person.LastName, Project.ObjectId, Project.CreatedByPersonId FROM Project
+            query = """SELECT Project.Name, Project.Description, ProjectType.Name, Department.Name, ProjectStatusType.Name, Person.FirstName, Person.LastName, Project.ObjectId, Project.CreatedByPersonId, Project.EndDate, Project.MemberLimit FROM Project
                               JOIN ProjectType ON(Project.ProjectTypeId=ProjectType.ObjectId)
                               JOIN Department ON(Project.DepartmentId = Department.ObjectId)
                               JOIN ProjectStatusType ON(Project.ProjectStatusTypeId=ProjectStatusType.ObjectId)
@@ -75,4 +75,13 @@ class project_operations:
             project_ids = cursor.fetchall()
             connection.commit()
         return project_ids
+
+
+    def get_last(self):
+        with dbapi2.connect(dsn) as connection:
+            cursor = connection.cursor()
+            cursor.execute("""SELECT ObjectId FROM Project Order By ObjectId Desc LIMIT 1""")
+            projectId = cursor.fetchone()
+            connection.commit()
+        return projectId
 
