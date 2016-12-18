@@ -12,6 +12,9 @@ from classes.followed_person import FollowedPerson
 from classes.operations.CV_operations import cv_operations
 from classes.operations.Experience_operations import experience_operations
 from classes.operations.project_operations import project_operations
+from classes.operations.followed_project_operations import followed_project_operations
+
+
 def people_person_detail_page_config(request, key):
     PersonProvider = person_operations()
     CommentProvider = personComment_operations()
@@ -19,6 +22,7 @@ def people_person_detail_page_config(request, key):
     FollowedPersonProvider = followed_person_operations()
     CvProvider=cv_operations()
     ExperienceProvider=experience_operations()
+    FollowedProjectProvider = followed_project_operations()
 
     if request and 'deleteComment' in request.form and request.method == 'POST':
         CommentProvider.DeleteTeam(request.form['deleteComment'])
@@ -42,6 +46,7 @@ def people_person_detail_page_config(request, key):
     personComments = CommentProvider.GetPersonCommentsByCommentedPersonId(key)
     IsFollow = FollowedPersonProvider.GetFollowedPersonByPersonIdAndFollowedPersonId(Current_Person[0], Active_Person[0])
     activeCv = CvProvider.get_active_cv(key)
+    followed_projects = FollowedProjectProvider.GetFollowedProjectListByPersonId(key)
     store_projects = project_operations()
     active_projects = store_projects.get_the_projects_of_a_person(key)
     active_project_number = len(active_projects)
@@ -52,5 +57,5 @@ def people_person_detail_page_config(request, key):
     now = datetime.now()
     return render_template('people/person_detail.html', current_time=now.ctime(), Current_Person=Current_Person, Active_Person=Active_Person,
                            listFollowing=listFollowing, listFollowers=listFollowers,
-                           personComments=personComments, IsFollow=IsFollow,
+                           personComments=personComments, IsFollow=IsFollow, followed_projects=followed_projects,
                            experiences=experiences, active_projects=active_projects, active_project_number=active_project_number)
