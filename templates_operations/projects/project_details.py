@@ -90,7 +90,7 @@ def project_details_page_config(submit_type, key):
                     projectTeamMembers +=1
                     teamList.AddTeam(newMemberProjectId, newMemberMemberId, newMemberDuty)
             return redirect(url_for('site.projects_details_page', key=key))
-        elif 'updatedMemberDuty' in request.form:
+        elif 'updateMember' in request.form:
             newDuty = request.form['updatedMemberDuty']
             objectId = request.form['updatedMemberId']
             teamList.UpdateMemberDuty(objectId, newDuty)
