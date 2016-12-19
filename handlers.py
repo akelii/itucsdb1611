@@ -29,11 +29,6 @@ def personal_default_page():
     return personal_default_page_config(request)
 
 
-@site.route('/issues')
-def personal_issues_page():
-    return render_template('personal/current_projects.html')
-
-
 @site.route('/project_create', methods=["GET", "POST"])
 @login_required
 def projects_create_page():
@@ -58,18 +53,6 @@ def home_page():
     return home_page_config(request)
 
 
-@site.route('/people_connections')
-@login_required
-def connections_following_people():
-    return render_template('connections/following_people.html')
-
-
-@site.route('/project_connections')
-@login_required
-def connections_following_projects():
-    return render_template('connections/following_projects.html')
-
-
 @site.route('/cv', methods=["GET", "POST"])
 @login_required
 def personal_cv_page():
@@ -80,11 +63,6 @@ def personal_cv_page():
 @login_required
 def personal_cv_pagewithkey(key):
     return personal_cv_pagewithkey_config(request.method, key)
-
-
-@site.route('/settings')
-def personal_settings_page():
-    return render_template('personal/settings.html')
 
 
 @site.route('/people_search', methods=["GET", "POST"])
