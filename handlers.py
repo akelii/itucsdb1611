@@ -77,11 +77,6 @@ def people_person_detail_page(key):
     return people_person_detail_page_config(request, key)
 
 
-#@site.route('/login')
-#def login_page():
-#    return render_template('login.html')
-
-
 @site.route('/logout')
 @login_required
 def logout_page():

@@ -120,12 +120,6 @@ def init_db():
     with dbapi2.connect(app.config['dsn']) as connection:
         cursor = connection.cursor()
 
-        query = """CREATE TABLE IF NOT EXISTS CVInformationType (
-                ObjectId SERIAL PRIMARY KEY,
-                Name VARCHAR(50) NOT NULL,
-                Deleted BOOLEAN NOT NULL
-        )"""
-        cursor.execute(query)
 
         query = """CREATE TABLE IF NOT EXISTS Department (
                 ObjectId SERIAL PRIMARY KEY,
@@ -158,17 +152,6 @@ def init_db():
                 CvName VARCHAR(50),
                 Deleted BOOLEAN NOT NULL,
                 IsActive BOOLEAN
-        )"""
-        cursor.execute(query)
-
-        query = """CREATE TABLE IF NOT EXISTS CVInformation(
-                ObjectId SERIAL PRIMARY KEY,
-                CVId INTEGER NOT NULL,
-                Description VARCHAR(500) NOT NULL,
-                CVInformationTypeId INTEGER NOT NULL,
-                StartDate TIMESTAMP ,
-                EndDate TIMESTAMP ,
-                DELETED BOOLEAN NOT NULL
         )"""
         cursor.execute(query)
 
@@ -375,9 +358,7 @@ def init_db():
         cursor.execute(
             """ALTER TABLE Information ADD  FOREIGN KEY(InformationTypeId) REFERENCES InformationType(ObjectId) ON DELETE CASCADE """)
         cursor.execute("""ALTER TABLE CV ADD  FOREIGN KEY(PersonId) REFERENCES Person(ObjectId) ON DELETE CASCADE""")
-        cursor.execute(
-            """ALTER TABLE CVInformation ADD  FOREIGN KEY(CVInformationTypeId) REFERENCES CVInformationType(ObjectId) ON DELETE CASCADE """)
-        cursor.execute("""ALTER TABLE CVInformation ADD  FOREIGN KEY(CVId) REFERENCES CV(ObjectId) ON DELETE CASCADE""")
+
         cursor.execute("""ALTER TABLE Team ADD  FOREIGN KEY(MemberId) REFERENCES Person(ObjectId) ON DELETE CASCADE""")
         cursor.execute(
             """ALTER TABLE Person ADD  FOREIGN KEY(AccountTypeId) REFERENCES AccountType(ObjectId) ON DELETE CASCADE""")
@@ -413,8 +394,7 @@ def init_db():
 
         cursor.execute(
             """INSERT INTO AccountType (AccountTypeName, Deleted) VALUES ('Student', '0'), ('Academic', '0')""")
-        cursor.execute(
-            """INSERT INTO CVInformationType (Name, Deleted) VALUES ('Education', '0'), ('Ability', '0'), ('Experience', '0'), ('Language', '0')""")
+
         cursor.execute("""INSERT INTO ProjectType (Name, Deleted) VALUES ('Tubitak Projects' , '0'), ('Competition Projects' , '0'), ('International Conference Projects' , '0'),
                       ('National Conference Projects' , '0'), ('Commercial Projects' , '0'), ('StartUp Project' , '0')""")
         cursor.execute(

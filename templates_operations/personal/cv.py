@@ -5,8 +5,6 @@ from flask import request
 from datetime import datetime
 import time
 from classes.operations.CV_operations import cv_operations
-from classes.operations.CVInformation_operations import cv_information_operations
-from classes.CVInformation import CVInformation
 from classes.Experience import Experience
 from classes.operations.Experience_operations import experience_operations
 from classes.operations.language_operations import language_operations
@@ -21,17 +19,15 @@ from classes.skill import Skill
 from classes.operations.skill_operations import skill_operations
 
 def personal_cv_page_config(submit_type):
-    store = cv_information_operations()
     t = experience_operations()
     now = datetime.datetime.now()
     store_CV = cv_operations()
-    cvInformations = store.get_cv_information_s()
     experiences = t.get_experience_s()
     PersonProvider = person_operations()
     Current_Person = PersonProvider.GetPerson(current_user.email)
     cvs = store_CV.get_cvs(Current_Person[0])
     if submit_type == 'GET':
-        return render_template('personal/cv.html', experiences=experiences, cvs=cvs, cvInformations=cvInformations, CurrentCV=0, current_time=now.ctime())
+        return render_template('personal/cv.html', experiences=experiences, cvs=cvs, CurrentCV=0, current_time=now.ctime())
     else:
         if request and 'Add_CV' in request.form:
             cvname=request.form['CvName']
@@ -40,14 +36,13 @@ def personal_cv_page_config(submit_type):
             cvName=request.form['newCvName']
             store_CV.add_cv(cvName, Current_Person[0])
             cvs=store_CV.get_cvs(Current_Person[0])
-        return render_template('personal/cv.html', experiences=experiences, cvs=cvs, cvInformations=cvInformations,
+        return render_template('personal/cv.html', experiences=experiences, cvs=cvs,
                                CurrentCV=0, current_time=now.ctime(), )
 
 
 def personal_cv_pagewithkey_config(submit_type, key):
     PersonProvider = person_operations()
     CurrentPerson = PersonProvider.GetPerson(current_user.email)
-    store = cv_information_operations()
     languages = language_operations()
     store_CV = cv_operations()
     t = experience_operations()
@@ -179,41 +174,6 @@ def personal_cv_pagewithkey_config(submit_type, key):
             store_skill.UpdateSkill(update_id, updateSkillName, updateSkillLevel)
             skills = store_skill.GetSkillByCVId(key)
             updateCV = "TRUE"
-        elif request.form['add'] == "delete":
-            key = request.form['delete_id']
-            store.delete_cv_information(key)
-        elif request.form['add'] == "update":
-            key = request.form['delete_id']
-            description = request.form['description']
-            store.update_cv_information(key, description, None, None)
-        elif request.form['add'] == "delete_experience":
-            key = request.form['delete_id']
-            t.delete_experience(key)
-        elif request.form['add']=="delete_cv":
-            key = request.form['delete_id']
-            store_CV.delete_cv(key)
-        elif request.form['update_ex'] == "update_experience":
-            key = request.form['delete_id']
-            description = request.form['description']
-            experiencepos = request.form['experience_position']
-            companyName = request.form['companyName']
-            key = request.form['delete_id']
-            description = request.form['description']
-            t.update_experience(key, description, now, now, companyName, experiencepos)
-        elif request and 'Add_CV' in request.form and request.method == 'POST':
-            cvname=request.form['CvName']
-            store_CV.add_cv(cvname,now,now)
-            cvs=store_CV.get_cvs()
-        elif request.form['add_ex'] == "add_experience":
-            description = request.form['description']
-            experience_position = request.form['experience_position']
-            companyName = request.form['companyName']
-            t.add_experience(CurrentCV[1], description, companyName, experience_position, now, now )
-        else:
-            description = request.form['description']
-            idtype = request.form['add']
-            cvinfo = CVInformation(None, '2', description, idtype, None, None)
-            store.add_cv_information(cvinfo)
     if updateCV=="TRUE":
         store_CV.update_cv(key)
 
