@@ -67,6 +67,34 @@ class person_operations:
                 )
         return results
 
+
+    def GetLastThreePeople(self):
+        with dbapi2.connect(dsn) as connection:
+            cursor = connection.cursor()
+            query = """SELECT Person.ObjectId, FirstName || ' ' || LastName as FullName, AccountType.AccountTypeName, Email, Password, Gender, Title.Name, PhotoPath
+                        FROM Person
+                        INNER JOIN AccountType ON (Person.AccountTypeId = AccountType.ObjectId)
+                        INNER JOIN Title ON (Person.TitleId = Title.ObjectId)
+                        ORDER BY Person.ObjectId DESC LIMIT 3"""
+            cursor.execute(query)
+            connection.commit()
+            data_array = []
+            results = cursor.fetchall()
+            for person in results:
+                data_array.append(
+                    {
+                        'ObjectId': person[0],
+                        'PersonFullName': person[1],
+                        'AccountTypeName': person[2],
+                        'eMail': person[3],
+                        'Password': person[4],
+                        'Gender': person[5],
+                        'TitleName': person[6],
+                        'PhotoPath': person[7]
+                    }
+                )
+        return results
+
     def GetPersonListExcludePersonId(self,key):
         with dbapi2.connect(dsn) as connection:
             cursor = connection.cursor()

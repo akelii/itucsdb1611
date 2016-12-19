@@ -19,10 +19,11 @@
                     <div class="box-header with-danger">
                       <i class="fa fa-tag"></i>
 
-                      <h3 class="box-title">Worklogs</h3>
-                    </div>
-                    <!-- /.box-header -->
-                       <div class="box-body">
+                            <h3 class="box-title">Worklogs</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            {% if worklogs %}
                                 <ul class="timeline timeline-inverse">
                                 {% for worklog in worklogs %}
                                     <li class="time-label">
@@ -79,10 +80,15 @@
 
                                 {% endfor %}
                                 </ul>
-                            </div>
-                    <!-- /.box-body -->
-                  </div>
-                  <!-- /.box -->
+                            {% else %}
+                                <div class="callout callout-default">
+                                    <p>There is no any worklog. It isn't too late to work today!</p>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
                 </div>
                 <!-- ./col -->
                 <div class="col-md-6">
@@ -141,8 +147,9 @@
                                         </p>
                                         <p><strong>Join a project group and keep in contact with colleague.</strong>
                                         </p>
-                                        <button class="btn bg-orange-active btn-xs" name="searchProjectPage"
-                                                type="submit">
+                                        <a class="btn bg-orange-active btn-xs"
+                                           href="{{ url_for('site.projects_search_page') }}"
+                                           type="button">
                                             <i class="fa fa-search"></i>&nbsp;&nbsp; Discover the projects right
                                             now!
                                         </button>

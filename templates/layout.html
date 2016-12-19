@@ -47,7 +47,6 @@
     <script src="../static/admin_lte/js/demo.js"></script>
 
 
-
 </head>
 <!-- ADD THE CLASS sidedar-collapse TO HIDE THE SIDEBAR PRIOR TO LOADING THE SITE -->
 <body class="hold-transition skin-blue sidebar-collapse sidebar-mini">
@@ -71,50 +70,51 @@
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
                     <li class="dropdown messages-menu">
-                        <a href="{{ url_for('site.mailbox_page')}}" >
+                        <a href="{{ url_for('site.mailbox_page') }}">
                             <i class="fa fa-envelope-o"></i>
                         </a>
 
                     </li>
-                    <li class="dropdown notifications-menu">
+                    <li class="dropdown messages-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-bell-o"></i>
-                            <span class="label label-warning">10</span>
+                            <span class="label label-warning">3</span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li class="header">You have 10 notifications</li>
+                            <li class="header">3 new members join to AcFe!</li>
                             <li>
-                                <ul class="menu">
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-exclamation-triangle text-aqua"></i> You have 1 project
-                                            assigned to you.
-                                        </a>
-                                    </li>
-                                </ul>
+                                <!-- inner menu: contains the actual data -->
+                                <div class="slimScrollDiv"
+                                     style="position: relative; overflow: hidden; width: auto; height: 200px;">
+                                    <ul id="idAjaxResult" class="menu ajaxResultList"
+                                        style="overflow: hidden; width: 100%; height: 200px;">
+                                        {% for member in listLastMember %}
+                                            <li>
+                                                <a href="{{ url_for('site.people_person_detail_page', key=member[0]) }}">
+                                                    <div class="pull-left">
+                                                        <img src="../static/user_images/{{ member[7] }}"
+                                                             class="img-circle"
+                                                             alt="User Image">
+                                                    </div>
+                                                    <h4>
+                                                        {{ member[1] }}
+                                                    </h4>
+                                                    <p>{{ member[6] }}</p>
+                                                </a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                    <div class="slimScrollBar"
+                                         style="background: rgb(0, 0, 0); width: 3px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 131.579px;"></div>
+                                    <div class="slimScrollRail"
+                                         style="width: 3px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px;"></div>
+                                </div>
                             </li>
-                            <li class="footer"><a href="#">View all</a></li>
+                            <li class="footer"><a href="{{ url_for('site.people_search_person_page') }}">See All
+                                Members</a></li>
                         </ul>
                     </li>
-                    <li class="dropdown notifications-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-user-plus"></i>
-                            <span class="label label-info">3</span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li class="header">You have 3 invitations</li>
-                            <li>
-                                <ul class="menu">
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="footer"><a href="#">View all</a></li>
-                        </ul>
-                    </li>
+
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img src="../static/user_images/{{ photopath }}" class="user-image" alt="User Image">
@@ -182,7 +182,7 @@
                     </ul>
                 </li>
                 <li class="treeview">
-                    <a href="{{ url_for('site.mailbox_page')}}"><i class="fa fa-envelope"></i>
+                    <a href="{{ url_for('site.mailbox_page') }}"><i class="fa fa-envelope"></i>
                         <span>Message Box</span>
                         <span class="pull-right-container">
                     <i class="fa fa-angle-left pull-right"></i>
@@ -236,4 +236,39 @@
 </div>
 
 </body>
+<script type="text/javascript">
+    function updateData() {
+        getinfo();
+        setTimeout(updateData, 10000);
+    };
+    setTimeout(updateData, 1000);
+    function getinfo() {
+        var myNode = document.getElementById("idAjaxResult");
+        myNode.innerHTML = '';
+        $.ajax({
+            url: '/getMembers',
+            data: $('form').serialize(),
+            type: 'POST',
+            success: function (response) {
+                var ul = $('ul.ajaxResultList');
+                for (var i = 0; i < response.length; i++) {
+                    var a = '<a href="' + '/person_detail/' + response[i][0] + '">';
+                    var div = '<div class="pull-left">';
+                    var img = '<img src="../static/user_images/' + response[i][7] + '" class="img-circle" alt="User Image">';
+                    var div1 = '</div>';
+                    var h41 = '<h4>';
+                    var member = response[i][1];
+                    var h42 = '</h4>';
+                    var p = '<p>' + response[i][6] + '</p>';
+
+                    ul.append("<li>" + a + div + img + div1 + h41 + member + h42 + p + "</a>" + "</li")
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+</script>
 </html>

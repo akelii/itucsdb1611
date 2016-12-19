@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 from flask import render_template, Blueprint
 from flask import request, redirect, url_for
 from datetime import datetime
@@ -72,9 +72,16 @@ def get_elephantsql_dsn(vcap_services):
 def CurrentUserInfo():
     if hasattr(current_user, 'email'):
         person = person_operations().GetPerson(current_user.email)
+
         return dict(full_name=person[1], title=person[6], photopath=person[7])
     else:
-        return dict(full_name='asd')
+        return dict(full_name='')
+
+
+@app.route('/getMembers', methods=["GET", "POST"])
+def getMembers():
+    listLastMember = person_operations().GetLastThreePeople()
+    return jsonify(listLastMember)
 
 
 @app.route('/', methods=["GET", "POST"])
