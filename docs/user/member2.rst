@@ -166,6 +166,7 @@ To follow somebody, you can use following steps.
       Now you follow Gülçin. You will see *Unfollow* button.
 
 
+
 .. figure:: member2/15-after_following_numbers.png
       :scale: 50 %
       :align: center
