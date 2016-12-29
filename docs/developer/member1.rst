@@ -490,7 +490,7 @@ Templates
 ---------
 mailbox.py
 
-    .. code-block::python
+    .. code-block:: python
 
         def mailbox_page_config(request):
             sender = person_operations.GetPerson(current_user, current_user.email)[0]
@@ -513,9 +513,6 @@ mailbox.py
                     messageStore.send_message(sender,5,message)
                 return render_template('mailbox/mailbox.html',key=key, person_with_history=person_with_history,
                                        unread=unread,sender=sender,current_user=current_user,Messages=Messages,people=people )
-
-
-
 
         def messages_page_with_key_config(request, key):
             messageStore = message_operations()
@@ -559,12 +556,6 @@ mailbox.py
 
                 return render_template('mailbox/mailbox.html', sent_messages=sent_messages, receiver_messages=receiver_messages,person_with_history=person_with_history,
                                       senderPerson=senderPerson,receiverPerson=receiverPerson,sender=sender, key=key, Messages=Messages, people=people)
-
-
-
-
-
-
 
 GET/POST Operations
 -------------------
