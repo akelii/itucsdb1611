@@ -7,11 +7,16 @@ Project
 
 Table
 -------
-    Project table exists in server.py file.
-    ObjectId attribute holds the primary key of the Project table.
-    TeamId attribute references Team table's ProjectId attribute.
-    ObjectId attribute references Worklog table's ProjectId attribute.
-    ObjectId attribute references FollowedProject table's FollowedProjectId attribute.
+
+Project table exists in server.py file.
+
+ObjectId attribute holds the primary key of the Project table.
+
+TeamId attribute references Team table's ProjectId attribute.
+
+ObjectId attribute references Worklog table's ProjectId attribute.
+
+ObjectId attribute references FollowedProject table's FollowedProjectId attribute.
 
     CREATE TABLE IF NOT EXISTS Project(
         | ObjectId SERIAL PRIMARY KEY,
@@ -31,7 +36,10 @@ Table
 
 Class
 -----
-    Project class exists in project.py file which is in **classes** folder.::
+
+Project class exists in project.py file which is in **classes** folder.
+
+.. code-block:: python
 
     class Project:
     def __init__(self, objectid, title, project_description, project_type, project_thesis_type, department, project_status_type, start_date, end_date, member_limit, team, created_by, manager):
@@ -52,9 +60,12 @@ Class
 
 Class Operations
 ----------------
-    Project's class operations exists in project_operations.py which is in **classes/operations** folder.
-   - The following database operations are implemented for Project:
-        -Add Operation::
+Project's class operations exists in project_operations.py which is in **classes/operations** folder.
+
+- The following database operations are implemented for Project:
+    -Add Operation
+
+    .. code-block:: python
 
         def add_project(self, Project):
             with dbapi2.connect(dsn) as connection:
@@ -67,9 +78,11 @@ Class Operations
                 connection.commit()
                 self.last_key = cursor.lastrowid
 
-       add_project takes a project as a parameter and inserts parameter project's attributes to the project which will be added to Project Table.
+    add_project takes a project as a parameter and inserts parameter project's attributes to the project which will be added to Project Table.
 
-        -Delete Operation::
+    -Delete Operation
+
+    .. code-block:: python
 
         def delete_project(self, key):
             with dbapi2.connect(dsn) as connection:
@@ -77,9 +90,11 @@ Class Operations
                 cursor.execute("""DELETE FROM Project WHERE (ObjectId=%s)""", (key,))
                 connection.commit()
 
-       delete_project takes a key value which is the ObjectId of the project to be deleted and removes that project from Project table.
+    delete_project takes a key value which is the ObjectId of the project to be deleted and removes that project from Project table.
 
-        -Update Operation::
+    -Update Operation
+
+    .. code-block:: python
 
         def update_project(self, key, title, project_description, end_date, member_limit, manager, deleted):
             with dbapi2.connect(dsn) as connection:
@@ -89,9 +104,11 @@ Class Operations
                     (title, project_description, end_date, member_limit, manager, deleted, key))
                 connection.commit()
 
-       update_project takes title, description, end date, member limit, manager, deleted and key values as parameters and updates the project whose ObjectId is the key, with the given attributes.
+    update_project takes title, description, end date, member limit, manager, deleted and key values as parameters and updates the project whose ObjectId is the key, with the given attributes.
 
-        -Get Operations::
+    -Get Operations
+
+    .. code-block:: python
 
         def get_project(self, key):
             with dbapi2.connect(dsn) as connection:
@@ -107,7 +124,9 @@ Class Operations
                 connection.commit()
             return project
 
-       get_project takes a key value as parameter and returns the project's name, description, type, department, status, creator's name, end date and member limit which has the same ObjectId with the key. ::
+    get_project takes a key value as parameter and returns the project's name, description, type, department, status, creator's name, end date and member limit which has the same ObjectId with the key. ::
+
+    .. code-block:: python
 
         def get_projects(self):
             with dbapi2.connect(dsn) as connection:
@@ -118,7 +137,10 @@ Class Operations
                 connection.commit()
             return projects
 
-       get_projects returns all projects' names, descriptions, departments and managers' names in the Project table.::
+
+    get_projects returns all projects' names, descriptions, departments and managers' names in the Project table.
+
+    .. code-block:: python
 
         def get_the_projects_of_a_person(self, key):
             with dbapi2.connect(dsn) as connection:
@@ -131,16 +153,19 @@ Class Operations
                 project_ids = cursor.fetchall()
                 connection.commit()
             return project_ids
-
-       get_the_projects_of_a_person takes a key as a parameter and returns the projects' names, descriptions and types of a person which has the ObjectId same with the key.
+   get_the_projects_of_a_person takes a key as a parameter and returns the projects' names, descriptions and types of a person which has the ObjectId same with the key.
 
 Templates
 ---------
-    create_project.html, project_details.html and search_project.html are related templates to the Project and they exist in **templates/project** folder.
+
+create_project.html, project_details.html and search_project.html are related templates to the Project and they exist in **templates/project** folder.
 
 GET/POST Operations
 -------------------
-    -Adding a Project::
+
+-Adding a Project
+
+    .. code-block:: python
 
         def project_create_page_config(submit_type):
             if submit_type == 'GET':
@@ -175,6 +200,8 @@ GET/POST Operations
 
     create_project.py file which exist in **template_operations/projects** folder enables an interface to create a project.
     When the page is opened by @site.route('/project_create', methods=["GET", "POST"]), text areas to fill and dropdown lists for static tables are shown if login requirements are satisfied. To obtain that lists, below functions are written.::
+
+    .. code-block:: python
 
         def GetProjectType():
             with dbapi2.connect(dsn) as connection:
@@ -219,7 +246,9 @@ GET/POST Operations
     If a project is wanted to be created, necessary attributes are obtained by the fields in create_project.html. After obtaining the attributes, a new project is created and added to the Project table.
     After addition, the user is directed to the home page.
 
-    -Deleting a Project::
+    -Deleting a Project
+
+    .. code-block:: python
 
         elif 'delete_project' in request.form:
             store.delete_project(int(key))
@@ -229,7 +258,9 @@ GET/POST Operations
     That button's value is set by the ObjectId of the project in project_details.html.
     After deletion, the user is directed to the home page.
 
-    -Updating a Project::
+    -Updating a Project
+
+    .. code-block:: python
 
         elif 'update' in request.form:
             title = request.form['project_name']
@@ -245,7 +276,9 @@ GET/POST Operations
     That button's value is set by the ObjectId of the project in project_details.html.
     After updating, the user is directed to the details page again.
 
-    -Getting the Projects::
+    -Getting the Projects
+
+    .. code-block:: python
 
         def project_search_page_config(submit_type):
             projects = store.get_projects()
