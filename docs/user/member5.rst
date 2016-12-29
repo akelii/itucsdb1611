@@ -279,3 +279,14 @@ You can write new duty of any member in the project and click "Update" button if
 Click delete if you want to delete the member.
 
 Now you can adjust anything related on your projects. Have a good work!
+
+Logout Operation
+----------------
+After your work is finished you can logout using the up right corner of the page as below.
+
+.. figure:: member5/29.png
+      :scale: 50 %
+      :align: center
+      :alt: map to buried treasure
+
+      Search For Projects Button In Left Panel
