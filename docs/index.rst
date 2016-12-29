@@ -1,15 +1,15 @@
 Welcome to itucsdb's documentation!
 ===================================
 
-:Team: Team Name
+:Team: itucsdb1611
 
 :Members:
 
-   * Member 1
-   * Member 2
-   * Member 3
-   * Member 4
-   * Member 5
+   * Ece Sefercioglu
+   * Elif Ak
+   * Gülçin Baykal
+   * Güllü Katık
+   * Mehmet Barış Yaman
 
 **project description goes here (a few paragraphs)**
 
