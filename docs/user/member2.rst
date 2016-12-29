@@ -9,7 +9,7 @@ If you have no account, you can register like using following steps.
 
 .. figure:: member2/1-register_general.png
       :scale: 50 %
-      :align: left
+      :align: center
       :alt: Register page view
 
       Register page view
@@ -21,7 +21,7 @@ There are some validation controls while register. You should be careful.
 
 .. figure:: member2/2-validation.png
       :scale: 50 %
-      :align: left
+      :align: center
       :alt: Required informations
 
       Required informations
@@ -32,7 +32,7 @@ There are some validation controls while register. You should be careful.
 
 .. figure:: member2/3-unique_email.png
       :scale: 50 %
-      :align: left
+      :align: center
       :alt: Unique email
 
       Unique email
@@ -43,7 +43,7 @@ There are some validation controls while register. You should be careful.
 
 .. figure:: member2/4-match-password.png
       :scale: 50 %
-      :align: left
+      :align: center
       :alt: Passwords must match
 
       Passwords must match
@@ -54,7 +54,7 @@ There are some validation controls while register. You should be careful.
 
 .. figure:: member2/5-proper-values.png
       :scale: 50 %
-      :align: left
+      :align: center
       :alt: Proper values
 
       Proper values
@@ -65,7 +65,7 @@ There are some validation controls while register. You should be careful.
 
 .. figure:: member2/6-login.png
       :scale: 50 %
-      :align: left
+      :align: center
       :alt: Login
 
       Login
