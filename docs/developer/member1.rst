@@ -75,6 +75,7 @@ CV's class operations exists in CV_operations.py which is in **classes/operation
                 connection.commit()
                 self.last_key = cursor.lastrowid
 
+
  Adds CV to the current person whose id is taken as an input.
 
      -Delete Operation
@@ -89,6 +90,7 @@ CV's class operations exists in CV_operations.py which is in **classes/operation
                 connection.commit()
                 cursor.close()
 
+
 Deletes the CV that has the id equal to key.
 
     -Update Operations
@@ -102,6 +104,8 @@ Deletes the CV that has the id equal to key.
                 cursor.execute(query, (str(key),person,))
                 connection.commit()
                 cursor.close()
+
+
 Sets the old active CV nonactive.
 
     .. code-block:: python
@@ -113,6 +117,8 @@ Sets the old active CV nonactive.
                 cursor.execute(query, (key,))
                 connection.commit()
                 cv_operations.delete_old_active(self,key,personKey)
+
+
 Sets the given CV active.
 
     .. code-block:: python
@@ -123,6 +129,7 @@ Sets the given CV active.
                 query = "UPDATE CV SET UpdatedDate=NOW() WHERE( ObjectId=%s)"
                 cursor.execute(query, (key,))
                 connection.commit()
+
 
 Updates the UpdatedDate of the CV.
 
@@ -140,6 +147,7 @@ Updates the UpdatedDate of the CV.
                 result = cursor.fetchone()
             return result
 
+
 Selects CV by id.
 
     .. code-block:: python
@@ -152,6 +160,8 @@ Selects CV by id.
                 cvs = [(key, CV(key, PersonId, CreatedDate, UpdatedDate, CvName,IsActive)) for
                        key, PersonId, CreatedDate, UpdatedDate, CvName, IsActive in cursor]
             return cvs
+
+
 Selects all the CVs.
 
     .. code-block:: python
@@ -164,6 +174,8 @@ Selects all the CVs.
                     connection.commit()
                     result = cursor.fetchone()
                 return result
+
+
 Selects the active CV of a person.
 
 
@@ -189,6 +201,7 @@ cv.py
             return redirect(url_for('site.personal_cv_page'))
         if updateCV=="TRUE":
             store_CV.update_cv(key)
+
 
 **********
 Experience
@@ -265,6 +278,7 @@ Experience's class operations exists in Experience_operations.py which is in **c
                self.last_key = cursor.lastrowid
            return cursor.lastrowid
 
+
 Adds experience to CV.
 
     -Delete Operation
@@ -279,6 +293,7 @@ Adds experience to CV.
                 connection.commit()
                 cursor.close()
 
+
 Deletes experience from CV.
 
     -Update Operation
@@ -291,6 +306,7 @@ Deletes experience from CV.
                 query = "UPDATE Experience SET Description=%s, StartDate=%s, EndDate=%s, CompanyName=%s, ExperiencePosition=%s WHERE (ObjectId=%s)"
                 cursor.execute(query, (description, startDate, endDate, companyName, experiencePosition,key))
                 connection.commit()
+
 
 Updates the experience of the cv.
 
@@ -305,6 +321,7 @@ Updates the experience of the cv.
                 cursor.execute(query, (key))
                 connection.commit()
 
+
 Selects a specific experience.
 
     .. code-block:: python
@@ -316,6 +333,8 @@ Selects a specific experience.
                 cursor.execute(query,(key,))
                 experience_s=[(key, Experience( key, CVId, Description, CompanyName,   StartDate, EndDate,ExperiencePosition ))for key, CVId, Description, CompanyName,  StartDate,EndDate,ExperiencePosition in cursor]
             return experience_s
+
+
 Returns the experiences of a specific CV.
 
     .. code-block:: python
@@ -327,6 +346,8 @@ Returns the experiences of a specific CV.
                 cursor.execute(query,(key,))
                 experience_s=cursor.fetchall()
             return experience_s
+
+
 Returns the experiences of a specific CV.
 
 Templates
@@ -427,6 +448,7 @@ Message class exists in project.py file which is in classes folder.
                 self.ReadDate=ReadDate
                 self.Deleted=0
 
+
 Class Operations
 ----------------
 Messages's class operations exists in message_operations.py which is in **classes/operations** folder.
@@ -445,6 +467,7 @@ Messages's class operations exists in message_operations.py which is in **classe
                 query = "INSERT INTO Message(SenderId,ReceiverId, IsRead, MessageContent, SendDate,ReadDate,DeletedBySender,DeletedByReceiver)VALUES(%s,%s,'FALSE',%s,NOW(),NULL,'FALSE' ,'FALSE')"
                 cursor.execute(query,(senderId,receiverId,messageContent))
 
+
 Adds message to database.
 
     -Delete Operation
@@ -458,6 +481,7 @@ Adds message to database.
                 cursor.execute(query, (key,))
                 connection.commit()
                 cursor.close()
+
 
 If the message is both deleted from the sender and the receiver, deletes the message from database.
 
@@ -473,6 +497,7 @@ If the message is both deleted from the sender and the receiver, deletes the mes
                 connection.commit()
                 cursor.close()
 
+
  Sets message read.
 
     .. code-block:: python
@@ -486,6 +511,7 @@ If the message is both deleted from the sender and the receiver, deletes the mes
                 cursor.close()
                 message_operations.delete_messages(self, key)
 
+
 Sets message deleted by the sender.
 
     .. code-block:: python
@@ -498,6 +524,7 @@ Sets message deleted by the sender.
                 connection.commit()
                 cursor.close()
                 message_operations.delete_messages(self,key)
+
 
 Sets message deleted by the receiver.
 
@@ -515,6 +542,7 @@ Sets message deleted by the receiver.
                 messages=cursor.fetchall()
             return messages
 
+
 Gets the message by its id.
 
     .. code-block:: python
@@ -528,6 +556,7 @@ Gets the message by its id.
                 messages=cursor.fetchall()
             return messages
 
+
 Gets the message by its sender's id.
 
     .. code-block:: python
@@ -540,6 +569,7 @@ Gets the message by its sender's id.
                 connection.commit()
                 messages=cursor.fetchall()
             return messages
+
 
 Gets the message by its receiver's id.
 
@@ -632,4 +662,6 @@ mailbox.py
 
                 return render_template('mailbox/mailbox.html', sent_messages=sent_messages, receiver_messages=receiver_messages,person_with_history=person_with_history,
                                       senderPerson=senderPerson,receiverPerson=receiverPerson,sender=sender, key=key, Messages=Messages, people=people)
+
+
 
