@@ -75,7 +75,7 @@ CV's class operations exists in CV_operations.py which is in **classes/operation
                 connection.commit()
                 self.last_key = cursor.lastrowid
 
-     Adds CV to the current person whose id is taken as an input.
+ Adds CV to the current person whose id is taken as an input.
 
      -Delete Operation
 
@@ -89,7 +89,7 @@ CV's class operations exists in CV_operations.py which is in **classes/operation
                 connection.commit()
                 cursor.close()
 
-     Deletes the CV that has the id equal to key.
+Deletes the CV that has the id equal to key.
 
     -Update Operations
 
@@ -102,7 +102,7 @@ CV's class operations exists in CV_operations.py which is in **classes/operation
                 cursor.execute(query, (str(key),person,))
                 connection.commit()
                 cursor.close()
-    Sets the old active CV nonactive.
+Sets the old active CV nonactive.
 
     .. code-block:: python
 
@@ -113,7 +113,7 @@ CV's class operations exists in CV_operations.py which is in **classes/operation
                 cursor.execute(query, (key,))
                 connection.commit()
                 cv_operations.delete_old_active(self,key,personKey)
-     Sets the given CV active.
+Sets the given CV active.
 
     .. code-block:: python
 
@@ -124,7 +124,7 @@ CV's class operations exists in CV_operations.py which is in **classes/operation
                 cursor.execute(query, (key,))
                 connection.commit()
 
-     Updates the UpdatedDate of the CV.
+Updates the UpdatedDate of the CV.
 
 
     -Select Operations
@@ -140,7 +140,7 @@ CV's class operations exists in CV_operations.py which is in **classes/operation
                 result = cursor.fetchone()
             return result
 
-     Selects CV by id.
+Selects CV by id.
 
     .. code-block:: python
 
@@ -152,7 +152,7 @@ CV's class operations exists in CV_operations.py which is in **classes/operation
                 cvs = [(key, CV(key, PersonId, CreatedDate, UpdatedDate, CvName,IsActive)) for
                        key, PersonId, CreatedDate, UpdatedDate, CvName, IsActive in cursor]
             return cvs
-     Selects all the CVs.
+Selects all the CVs.
 
     .. code-block:: python
 
@@ -164,7 +164,7 @@ CV's class operations exists in CV_operations.py which is in **classes/operation
                     connection.commit()
                     result = cursor.fetchone()
                 return result
-     Selects the active CV of a person.
+Selects the active CV of a person.
 
 
 Templates
@@ -265,7 +265,7 @@ Experience's class operations exists in Experience_operations.py which is in **c
                self.last_key = cursor.lastrowid
            return cursor.lastrowid
 
-     Adds experience to CV.
+Adds experience to CV.
 
     -Delete Operation
 
@@ -279,7 +279,7 @@ Experience's class operations exists in Experience_operations.py which is in **c
                 connection.commit()
                 cursor.close()
 
-     Deletes experience from CV.
+Deletes experience from CV.
 
     -Update Operation
 
@@ -292,7 +292,7 @@ Experience's class operations exists in Experience_operations.py which is in **c
                 cursor.execute(query, (description, startDate, endDate, companyName, experiencePosition,key))
                 connection.commit()
 
-     Updates the experience of the cv.
+Updates the experience of the cv.
 
     -Select Operation
 
@@ -305,7 +305,7 @@ Experience's class operations exists in Experience_operations.py which is in **c
                 cursor.execute(query, (key))
                 connection.commit()
 
-     Selects a specific experience.
+Selects a specific experience.
 
     .. code-block:: python
 
@@ -316,7 +316,7 @@ Experience's class operations exists in Experience_operations.py which is in **c
                 cursor.execute(query,(key,))
                 experience_s=[(key, Experience( key, CVId, Description, CompanyName,   StartDate, EndDate,ExperiencePosition ))for key, CVId, Description, CompanyName,  StartDate,EndDate,ExperiencePosition in cursor]
             return experience_s
-     Returns the experiences of a specific CV.
+Returns the experiences of a specific CV.
 
     .. code-block:: python
 
@@ -327,7 +327,7 @@ Experience's class operations exists in Experience_operations.py which is in **c
                 cursor.execute(query,(key,))
                 experience_s=cursor.fetchall()
             return experience_s
-     Returns the experiences of a specific CV.
+Returns the experiences of a specific CV.
 
 Templates
 ---------
@@ -445,7 +445,7 @@ Messages's class operations exists in message_operations.py which is in **classe
                 query = "INSERT INTO Message(SenderId,ReceiverId, IsRead, MessageContent, SendDate,ReadDate,DeletedBySender,DeletedByReceiver)VALUES(%s,%s,'FALSE',%s,NOW(),NULL,'FALSE' ,'FALSE')"
                 cursor.execute(query,(senderId,receiverId,messageContent))
 
-    Adds message to database.
+Adds message to database.
 
     -Delete Operation
 
@@ -459,7 +459,7 @@ Messages's class operations exists in message_operations.py which is in **classe
                 connection.commit()
                 cursor.close()
 
-    If the message is both deleted from the sender and the receiver, deletes the message from database.
+If the message is both deleted from the sender and the receiver, deletes the message from database.
 
     -Update Operations
 
@@ -473,7 +473,7 @@ Messages's class operations exists in message_operations.py which is in **classe
                 connection.commit()
                 cursor.close()
 
-     Sets message read.
+ Sets message read.
 
     .. code-block:: python
 
@@ -486,7 +486,7 @@ Messages's class operations exists in message_operations.py which is in **classe
                 cursor.close()
                 message_operations.delete_messages(self, key)
 
-     Sets message deleted by the sender.
+Sets message deleted by the sender.
 
     .. code-block:: python
 
@@ -499,7 +499,7 @@ Messages's class operations exists in message_operations.py which is in **classe
                 cursor.close()
                 message_operations.delete_messages(self,key)
 
-     Sets message deleted by the receiver.
+Sets message deleted by the receiver.
 
 
     -Select Operation
@@ -515,7 +515,7 @@ Messages's class operations exists in message_operations.py which is in **classe
                 messages=cursor.fetchall()
             return messages
 
-     Gets the message by its id.
+Gets the message by its id.
 
     .. code-block:: python
 
@@ -528,7 +528,7 @@ Messages's class operations exists in message_operations.py which is in **classe
                 messages=cursor.fetchall()
             return messages
 
-     Gets the message by its sender's id.
+Gets the message by its sender's id.
 
     .. code-block:: python
 
@@ -541,7 +541,7 @@ Messages's class operations exists in message_operations.py which is in **classe
                 messages=cursor.fetchall()
             return messages
 
-    Gets the message by its receiver's id.
+Gets the message by its receiver's id.
 
     .. code-block:: python
 
@@ -554,7 +554,8 @@ Messages's class operations exists in message_operations.py which is in **classe
                 messages=cursor.fetchall()
             return messages
 
-     Gets the message received from the given person's id.
+
+Gets the message received from the given person's id.
 
 Templates
 ---------
