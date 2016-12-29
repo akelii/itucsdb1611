@@ -60,6 +60,7 @@ CV's class operations exists in CV_operations.py which is in **classes/operation
 
 
 - The following database operations are implemented for CV:
+
     -Add Operation
 
     .. code-block:: python
@@ -74,8 +75,9 @@ CV's class operations exists in CV_operations.py which is in **classes/operation
                 connection.commit()
                 self.last_key = cursor.lastrowid
 
+     Adds CV to the current person whose id is taken as an input.
 
-    -Delete Operation
+     -Delete Operation
 
     .. code-block:: python
 
@@ -87,8 +89,9 @@ CV's class operations exists in CV_operations.py which is in **classes/operation
                 connection.commit()
                 cursor.close()
 
-    -Update Operations
+     Deletes the CV that has the id equal to key.
 
+    -Update Operations
 
     .. code-block:: python
 
@@ -99,8 +102,9 @@ CV's class operations exists in CV_operations.py which is in **classes/operation
                 cursor.execute(query, (str(key),person,))
                 connection.commit()
                 cursor.close()
-    .. code-block:: python
+    Sets the old active CV nonactive.
 
+    .. code-block:: python
 
         def set_cv_active(self,key,personKey):
             with dbapi2.connect(dsn) as connection:
@@ -109,6 +113,7 @@ CV's class operations exists in CV_operations.py which is in **classes/operation
                 cursor.execute(query, (key,))
                 connection.commit()
                 cv_operations.delete_old_active(self,key,personKey)
+     Sets the given CV active.
 
     .. code-block:: python
 
@@ -118,6 +123,8 @@ CV's class operations exists in CV_operations.py which is in **classes/operation
                 query = "UPDATE CV SET UpdatedDate=NOW() WHERE( ObjectId=%s)"
                 cursor.execute(query, (key,))
                 connection.commit()
+
+     Updates the UpdatedDate of the CV.
 
 
     -Select Operations
@@ -133,7 +140,7 @@ CV's class operations exists in CV_operations.py which is in **classes/operation
                 result = cursor.fetchone()
             return result
 
-
+     Selects CV by id.
 
     .. code-block:: python
 
@@ -145,7 +152,7 @@ CV's class operations exists in CV_operations.py which is in **classes/operation
                 cvs = [(key, CV(key, PersonId, CreatedDate, UpdatedDate, CvName,IsActive)) for
                        key, PersonId, CreatedDate, UpdatedDate, CvName, IsActive in cursor]
             return cvs
-
+     Selects all the CVs.
 
     .. code-block:: python
 
@@ -157,6 +164,8 @@ CV's class operations exists in CV_operations.py which is in **classes/operation
                     connection.commit()
                     result = cursor.fetchone()
                 return result
+     Selects the active CV of a person.
+
 
 Templates
 ---------
@@ -165,6 +174,7 @@ Templates
 GET/POST Operations
 -------------------
 cv.py
+
     .. code-block:: python
 
         elif request and 'newCvName' in request.form and request.method =='POST':
@@ -179,7 +189,6 @@ cv.py
             return redirect(url_for('site.personal_cv_page'))
         if updateCV=="TRUE":
             store_CV.update_cv(key)
-
 
 **********
 Experience
@@ -256,7 +265,7 @@ Experience's class operations exists in Experience_operations.py which is in **c
                self.last_key = cursor.lastrowid
            return cursor.lastrowid
 
-
+     Adds experience to CV.
 
     -Delete Operation
 
@@ -270,6 +279,8 @@ Experience's class operations exists in Experience_operations.py which is in **c
                 connection.commit()
                 cursor.close()
 
+     Deletes experience from CV.
+
     -Update Operation
 
     .. code-block:: python
@@ -281,6 +292,7 @@ Experience's class operations exists in Experience_operations.py which is in **c
                 cursor.execute(query, (description, startDate, endDate, companyName, experiencePosition,key))
                 connection.commit()
 
+     Updates the experience of the cv.
 
     -Select Operation
 
@@ -293,6 +305,7 @@ Experience's class operations exists in Experience_operations.py which is in **c
                 cursor.execute(query, (key))
                 connection.commit()
 
+     Selects a specific experience.
 
     .. code-block:: python
 
@@ -303,6 +316,8 @@ Experience's class operations exists in Experience_operations.py which is in **c
                 cursor.execute(query,(key,))
                 experience_s=[(key, Experience( key, CVId, Description, CompanyName,   StartDate, EndDate,ExperiencePosition ))for key, CVId, Description, CompanyName,  StartDate,EndDate,ExperiencePosition in cursor]
             return experience_s
+     Returns the experiences of a specific CV.
+
     .. code-block:: python
 
         def get_experiences_with_key(self,key):
@@ -312,6 +327,7 @@ Experience's class operations exists in Experience_operations.py which is in **c
                 cursor.execute(query,(key,))
                 experience_s=cursor.fetchall()
             return experience_s
+     Returns the experiences of a specific CV.
 
 Templates
 ---------
@@ -429,6 +445,8 @@ Messages's class operations exists in message_operations.py which is in **classe
                 query = "INSERT INTO Message(SenderId,ReceiverId, IsRead, MessageContent, SendDate,ReadDate,DeletedBySender,DeletedByReceiver)VALUES(%s,%s,'FALSE',%s,NOW(),NULL,'FALSE' ,'FALSE')"
                 cursor.execute(query,(senderId,receiverId,messageContent))
 
+    Adds message to database.
+
     -Delete Operation
 
     .. code-block:: python
@@ -441,6 +459,7 @@ Messages's class operations exists in message_operations.py which is in **classe
                 connection.commit()
                 cursor.close()
 
+    If the message is both deleted from the sender and the receiver, deletes the message from database.
 
     -Update Operations
 
@@ -454,6 +473,8 @@ Messages's class operations exists in message_operations.py which is in **classe
                 connection.commit()
                 cursor.close()
 
+     Sets message read.
+
     .. code-block:: python
 
         def delete_messages_sent(self,key, activeUser):
@@ -464,6 +485,9 @@ Messages's class operations exists in message_operations.py which is in **classe
                 connection.commit()
                 cursor.close()
                 message_operations.delete_messages(self, key)
+
+     Sets message deleted by the sender.
+
     .. code-block:: python
 
         def delete_messages_received(self,key, activeUser):
@@ -475,6 +499,7 @@ Messages's class operations exists in message_operations.py which is in **classe
                 cursor.close()
                 message_operations.delete_messages(self,key)
 
+     Sets message deleted by the receiver.
 
 
     -Select Operation
@@ -490,6 +515,8 @@ Messages's class operations exists in message_operations.py which is in **classe
                 messages=cursor.fetchall()
             return messages
 
+     Gets the message by its id.
+
     .. code-block:: python
 
         def get_messages_by_sender_id(self,key):
@@ -500,6 +527,9 @@ Messages's class operations exists in message_operations.py which is in **classe
                 connection.commit()
                 messages=cursor.fetchall()
             return messages
+
+     Gets the message by its sender's id.
+
     .. code-block:: python
 
         def get_messages_by_receiver_id(self,key):
@@ -510,6 +540,9 @@ Messages's class operations exists in message_operations.py which is in **classe
                 connection.commit()
                 messages=cursor.fetchall()
             return messages
+
+    Gets the message by its receiver's id.
+
     .. code-block:: python
 
         def get_received_messages(self,sender,receiver):
@@ -521,11 +554,14 @@ Messages's class operations exists in message_operations.py which is in **classe
                 messages=cursor.fetchall()
             return messages
 
+     Gets the message received from the given person's id.
 
 Templates
 ---------
 **mailbox.html** is the related template to Message.
 
+GET/POST Operations
+-------------------
 
 mailbox.py
 
@@ -595,7 +631,4 @@ mailbox.py
 
                 return render_template('mailbox/mailbox.html', sent_messages=sent_messages, receiver_messages=receiver_messages,person_with_history=person_with_history,
                                       senderPerson=senderPerson,receiverPerson=receiverPerson,sender=sender, key=key, Messages=Messages, people=people)
-
-GET/POST Operations
--------------------
 
