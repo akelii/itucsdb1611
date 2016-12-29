@@ -9,6 +9,10 @@ CV
 Table
 -----
 
+CV table exists in server.py file.
+
+ObjectId attribute holds the primary key of the CV table.
+
     .. code-block::sql
 
         CREATE TABLE IF NOT EXISTS CV(
@@ -27,10 +31,14 @@ Table
         REFERENCES Person(ObjectId) ON DELETE CASCADE
 
 
+PersonId attribute references Person table’s ObjectId attribute.
+
 
 
 Class
 -----
+
+CV class exists in CV.py file which is in classes folder.
 
     .. code-block:: python
 
@@ -45,13 +53,13 @@ Class
                 self.Deleted = 0
 
 
-CV.py
-
 
 Class Operations
 ----------------
-CV_operations.py
+CV's class operations exists in CV_operations.py which is in **classes/operations** folder.
 
+
+- The following database operations are implemented for CV:
     -Add Operation
 
     .. code-block:: python
@@ -152,7 +160,10 @@ CV_operations.py
 
 Templates
 ---------
+**cv.html**, **person_detail.html** and **default.html** are the related templates to Cv.
 
+GET/POST Operations
+-------------------
 cv.py
     .. code-block:: python
 
@@ -169,9 +180,6 @@ cv.py
         if updateCV=="TRUE":
             store_CV.update_cv(key)
 
-GET/POST Operations
--------------------
-
 
 **********
 Experience
@@ -180,6 +188,10 @@ Experience
 
 Table
 -----
+
+Experience table exists in server.py file.
+
+ObjectId attribute holds the primary key of the Experience table.
 
 
     .. code-block::sql
@@ -200,9 +212,14 @@ Table
         ALTER TABLE Experience ADD  FOREIGN KEY(CVId)
         REFERENCES CV(ObjectId) ON DELETE  CASCADE
 
+CVId attribute references CV table’s ObjectId attribute.
+
+
 
 Class
 -----
+
+Experience class exists in Experience.py file which is in classes folder.
 
     .. code-block:: python
 
@@ -217,11 +234,14 @@ Class
                 self.EndDate = endDate
                 self.Deleted = '0'
 
-Experience.py
+
 
 Class Operations
 ----------------
-Experience_operations.py
+Experience's class operations exists in Experience_operations.py which is in **classes/operations** folder.
+
+
+- The following database operations are implemented for Experience:
 
     -Add Operation
 
@@ -295,6 +315,12 @@ Experience_operations.py
 
 Templates
 ---------
+**cv.html**, **person_detail.html** and **default.html** are the related templates to Experience.
+
+GET/POST Operations
+-------------------
+
+
 cv.py
 
     .. code-block::python
@@ -325,10 +351,6 @@ cv.py
             experiences = store_experience.get_experience_s_with_key(key)
             updateCV = "TRUE"
 
-GET/POST Operations
--------------------
-
-
 
 *******
 Message
@@ -337,6 +359,10 @@ Message
 
 Table
 -----
+
+Message table exists in server.py file.
+
+ObjectId attribute holds the primary key of the Message table.
 
 
     .. code-block::sql
@@ -362,8 +388,15 @@ Table
 
         ALTER TABLE Message ADD  FOREIGN KEY(ReceiverId)
         REFERENCES Person(ObjectId) ON DELETE CASCADE
+
+SenderId attribute references Person table’s ObjectId attribute.
+
+ReceiverId attribute references Person table’s ObjectId attribute.
+
 Class
 -----
+
+Message class exists in project.py file which is in classes folder.
 
     .. code-block:: python
 
@@ -380,8 +413,11 @@ Class
 
 Class Operations
 ----------------
+Messages's class operations exists in message_operations.py which is in **classes/operations** folder.
 
-message_operations.py
+
+
+- The following database operations are implemented for Message:
 
     -Add Operation
 
@@ -488,6 +524,9 @@ message_operations.py
 
 Templates
 ---------
+**mailbox.html** is the related template to Message.
+
+
 mailbox.py
 
     .. code-block:: python
