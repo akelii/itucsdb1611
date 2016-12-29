@@ -69,3 +69,64 @@ There are some validation controls while register. You should be careful.
       :alt: Login
 
       Login
+
+
+After login to **AcFe** you can search other members by clicking to *Search for Person* link in the Navigation.
+
+1. You can also use the link to access `Search People Page <http://itucsdb1611.mybluemix.net/people_search>`_ or like following way.
+
+
+.. figure:: member2/7-searchpeople.png
+      :scale: 50 %
+      :align: center
+      :alt: Person search way
+
+      Person search way
+
+2. Here the list of all people.
+
+
+.. figure:: member2/8-list_people.png
+      :scale: 50 %
+      :align: center
+      :alt: Person search page view
+
+      Person search page view
+
+3. You can search for a person by typing any information belongs to his/her.
+
+	For example you can search for all asistant members in the **AcFe**
+
+
+.. figure:: member2/9-filtering.png
+      :scale: 50 %
+      :align: center
+      :alt: Person search by filtering
+
+      Write any information (for example Asistant key word).
+
+.. figure:: member2/10-filtering_result.png
+      :scale: 50 %
+      :align: center
+      :alt: Person search by filtering result
+
+      And you can access which you want easily.
+
+
+4. You can sort the member informations according to Title, Full Name, E-Mail and Followers|Following number.
+
+
+.. figure:: member2/11-sorting_result.png
+      :scale: 50 %
+      :align: center
+      :alt: Person sorting
+
+      For example you can sort members by Title.
+
+
+Followed Person
+---------------
+
+
+Education
+---------
