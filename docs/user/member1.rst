@@ -215,7 +215,7 @@ Messages can be deleted by clicking the cross buttons on message boxes.
 
       'seen ya!' message was deleted by the sender.
 
-.. figure:: member1/nondeletedmessages.png
+.. figure:: member1/nondeletedMessages.png
       :scale: 50 %
       :align: right
       :alt: Academic Freelance is the best
