@@ -141,7 +141,7 @@ To follow somebody, you can use following steps.
 
 .. figure:: member2/12-before_following.png
       :scale: 50 %
-      :align: left
+      :align: center
       :alt: Person follow
 
       Suppose that you want to follow Gülçin. You will see *Follow* button.
@@ -149,7 +149,7 @@ To follow somebody, you can use following steps.
 
 .. figure:: member2/13-before_following_numbers.png
       :scale: 50 %
-      :align: right
+      :align: center
       :alt: Person follow number before
 
       (Before) Gülçin has 3 followers.
@@ -160,7 +160,7 @@ To follow somebody, you can use following steps.
 
 .. figure:: member2/14-after_following.png
       :scale: 50 %
-      :align: left
+      :align: center
       :alt: Person follow before
 
       Now you follow Gülçin. You will see *Unfollow* button.
@@ -168,7 +168,7 @@ To follow somebody, you can use following steps.
 
 .. figure:: member2/15-after_following_numbers.png
       :scale: 50 %
-      :align: right
+      :align: center
       :alt: Person follow number before
 
       (After) Gülçin has 4 followers.
