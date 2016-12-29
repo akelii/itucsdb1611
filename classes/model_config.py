@@ -17,5 +17,4 @@ VCAP_SERVICES = os.getenv('VCAP_SERVICES')
 if VCAP_SERVICES is not None:
     dsn=get_elephantsql_dsn(VCAP_SERVICES)
 else:
-    dsn = """user='postgres' password='19948301369' host='localhost' port=5432 dbname='dxxbzlpn'"""
-    #dsn = """user='postgres' password='b_e_BTFVmUQvEpr-arXGfL25XHdaVrCX' host='jumbo.db.elephantsql.com' port=5432 dbname='dxxbzlpn'"""
+    dsn = """user='postgres' password='b_e_BTFVmUQvEpr-arXGfL25XHdaVrCX' host='jumbo.db.elephantsql.com' port=5432 dbname='dxxbzlpn'"""
