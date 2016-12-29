@@ -115,7 +115,7 @@ You can make changes only on your own comments.
 
       Update Comment 1
 
-.. figure:: member3/Resim9.png
+.. figure:: member3/3.PNG
       :scale: 50 %
       :align: center
       :alt: map to buried treasure
