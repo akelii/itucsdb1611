@@ -127,6 +127,54 @@ After login to **AcFe** you can search other members by clicking to *Search for 
 Followed Person
 ---------------
 
+The button for following/unfollowing depends on whether you follow a person.
+You can go to a person’s profile detail or send a message to a person via Search Person page.
+
+
+You can see that Followers and Following numbers of members.
+
+To follow somebody, you can use following steps.
+
+1. Click the *Follow* button in the *Search for People* page.
+(If you have already follow this man, you will see the *Unfollow* button instead of *Follow* button).
+
+
+.. figure:: member2/12-before_following.png
+      :scale: 50 %
+      :align: left
+      :alt: Person follow
+
+      Suppose that you want to follow Gülçin. You will see *Follow* button.
+
+.. figure:: member2/13-before_following_numbers.png
+      :scale: 50 %
+      :align: right
+      :alt: Person follow number before
+
+      (Before) Gülçin has 3 followers.
+
+
+2. Thats all! Gülçin have a new Follower! Congratulations! When you want you can break the connection in this way.
+
+
+.. figure:: member2/14-follow.png
+      :scale: 50 %
+      :align: left
+      :alt: Person follow before
+
+      Now you follow Gülçin. You will see *Unfollow* button.
+
+.. figure:: member2/12-follow.png
+      :scale: 50 %
+      :align: right
+      :alt: Person follow number before
+
+      (After) Gülçin has 4 followers.
+
+
+
+
+
 
 Education
 ---------
