@@ -430,8 +430,8 @@ if __name__ == '__main__':
     if VCAP_SERVICES is not None:
         app.config['dsn'] = get_elephantsql_dsn(VCAP_SERVICES)
     else:
-        app.config[
-            'dsn'] = """user='postgres' password='b_e_BTFVmUQvEpr-arXGfL25XHdaVrCX' host='localhost' port=5432 dbname='dxxbzlpn'"""
+        app.config['dsn'] = """user='postgres' password='19948301369' host='localhost' port=5432 dbname='dxxbzlpn'"""
+        #app.config['dsn'] = """user='postgres' password='b_e_BTFVmUQvEpr-arXGfL25XHdaVrCX' host='localhost' port=5432 dbname='dxxbzlpn'"""
     app.secret_key = os.urandom(32)
 
     app.run(host='0.0.0.0', port=port, debug=debug)
