@@ -6,7 +6,7 @@ Parts Implemented by Gülçin Baykal
 Related Parts to Project
 ------------------------
 .. figure:: member3/Resim1.png
-      :scale: 20 %
+      :scale: 50 %
       :align: center
       :alt: map to buried treasure
 
@@ -21,11 +21,11 @@ Related Parts to Project
 
 There are many choices for you to select!
 
-*Tubitak Projects, Competition Projects, International Conference Projects, National Conference Projects, Commercial Projects and StartUp Projects are available. Besides from that, if you are a student and searching for a Thesis Project, we also have Bachelor Projects, Master Projects and PhD Projects for you.
+Tubitak Projects, Competition Projects, International Conference Projects, National Conference Projects, Commercial Projects and StartUp Projects are available. Besides from that, if you are a student and searching for a Thesis Project, we also have Bachelor Projects, Master Projects and PhD Projects for you.
 
-*All the departments of ITU are available in our website and any department can create a project for a co-worker.
+All the departments of ITU are available in our website and any department can create a project for a co-worker.
 
-*You can set a member limit for your project and assign a person as the manager of the project. Start date and end date are selectable by datetime picker.  “Save Changes” and create your own Project!
+You can set a member limit for your project and assign a person as the manager of the project. Start date and end date are selectable by datetime picker.  “Save Changes” and create your own Project!
 
 .. figure:: member3/Resim3.png
       :scale: 50 %
@@ -34,7 +34,7 @@ There are many choices for you to select!
 
       When you click Search Project on the main navigation, you can search for  projects!
 
-*If you click Details to see more information about a Project, you will be directed to that project’s details page.
+If you click Details to see more information about a Project, you will be directed to that project’s details page.
 
 .. figure:: member3/Resim4.png
       :scale: 50 %
@@ -43,50 +43,50 @@ There are many choices for you to select!
 
       Project Details Page
 
-*On the left part of the page, you can see specific information about the Project. Since the logged in user is viewing the Project, Settings tab is shown. When you want to see a project’s detail which you are not the creator of, you cannot see Settings tab.
+On the left part of the page, you can see specific information about the Project. Since the logged in user is viewing the Project, Settings tab is shown. When you want to see a project’s detail which you are not the creator of, you cannot see Settings tab.
 
-.. figure:: member3/1.png
-      :scale: 20 %
+.. figure:: member3/1.PNG
+      :scale: 50 %
       :align: center
       :alt: map to buried treasure
 
       Settings Tab
 
-*If you are the creator of the project, in the Settings tab, you will see Delete and Update buttons. You can delete your own project and update it!
+If you are the creator of the project, in the Settings tab, you will see Delete and Update buttons. You can delete your own project and update it!
 
-.. figure:: member3/2.png
+.. figure:: member3/2.PNG
       :scale: 50 %
       :align: center
       :alt: map to buried treasure
 
       Project Update
 
-*You can update specific information about your project.
+You can update specific information about your project.
 
-.. figure:: member3/11.png
+.. figure:: member3/Resim11.png
       :scale: 50 %
       :align: center
       :alt: map to buried treasure
 
       Project Details Page
 
-.. figure:: member3/12.png
+.. figure:: member3/Resim12.png
       :scale: 50 %
       :align: center
       :alt: map to buried treasure
 
       Personal Detail Page
 
-*Since the user is the member of “Nuclei Counting in Histopathology Images” Project, when she/he goes to her/his Profile, she/he can see active projects of herself/hisself. Her/his responsibility number is also shown. You can see everybody’s active projects in her/his profile.
+Since the user is the member of “Nuclei Counting in Histopathology Images” Project, when she/he goes to her/his Profile, she/he can see active projects of herself/hisself. Her/his responsibility number is also shown. You can see everybody’s active projects in her/his profile.
 
-.. figure:: member3/13.png
+.. figure:: member3/Resim13.png
       :scale: 50 %
       :align: center
       :alt: map to buried treasure
 
       Dashboard
 
-*When you come to your dashboard, you can see your current projects and it is a reminder for you to work!
+When you come to your dashboard, you can see your current projects and it is a reminder for you to work!
 
 
 Related Parts to Project Comment
@@ -99,14 +99,14 @@ Related Parts to Project Comment
 
       Add Comment
 
-*You can leave a comment to the Project in Project's Comments tab.
+You can leave a comment to the Project in Project's Comments tab.
 
 .. figure:: member3/Resim7.png
       :scale: 50 %
       :align: center
       :alt: map to buried treasure
 
-*You can make changes only on your own comments.
+You can make changes only on your own comments.
 
 .. figure:: member3/Resim8.png
       :scale: 50 %
@@ -122,7 +122,7 @@ Related Parts to Project Comment
 
       Update Comment 2
 
-*You can update your comment.
+You can update your comment.
 
 .. figure:: member3/Resim10.png
       :scale: 50 %
@@ -141,7 +141,7 @@ Related Parts to Information
 
       CV Page
 
-*When you view your own CV, you can add E-Mail, Telephone, Twitter, LinkedIn, Facebook, Instagram, Blog, MySpace, Tumblr, Address information  to your CV!
+When you view your own CV, you can add E-Mail, Telephone, Twitter, LinkedIn, Facebook, Instagram, Blog, MySpace, Tumblr, Address information  to your CV!
 
 .. figure:: member3/Resim15.png
       :scale: 50 %
@@ -150,7 +150,7 @@ Related Parts to Information
 
       Add information 1
 
-*Add information by clicking ‘Add’ icon.
+Add information by clicking ‘Add’ icon.
 
 .. figure:: member3/Resim16.png
       :scale: 50 %
@@ -159,7 +159,7 @@ Related Parts to Information
 
       Add information 2
 
-*E-Mail information is added by the user.
+E-Mail information is added by the user.
 
 .. figure:: member3/Resim17.png
       :scale: 50 %
@@ -168,7 +168,7 @@ Related Parts to Information
 
       Update information 1
 
-*Added information can be updated.
+Added information can be updated.
 
 .. figure:: member3/Resim18.png
       :scale: 50 %
@@ -177,7 +177,7 @@ Related Parts to Information
 
       Update information 2
 
-*Here is the result.
+Here is the result.
 
 .. figure:: member3/Resim19.png
       :scale: 50 %
@@ -186,7 +186,7 @@ Related Parts to Information
 
       Delete information 1
 
-*When you click cross symbol, you can delete an information and before deletion, a warning is shown.
+When you click cross symbol, you can delete an information and before deletion, a warning is shown.
 
 .. figure:: member3/Resim20.png
       :scale: 50 %
@@ -195,4 +195,4 @@ Related Parts to Information
 
       Delete information 2
 
-*Now, your information is deleted!
+Now, your information is deleted!
