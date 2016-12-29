@@ -184,14 +184,14 @@ Moreover the user can go through all of his messaging history by simply clicking
 When the user directed to the messaging page, user can see how many unread messages he has on the upper left of the messagebox inside the blue circle.
 
 .. figure:: member1/notseenmessage.png
-      :scale: 75 %
+      :scale: 60 %
       :align: left
       :alt: Academic Freelance is the best
 
       The messages have not seen by the receiver
 
 .. figure:: member1/seenmessage.png
-      :scale: 75 %
+      :scale: 60 %
       :align: right
       :alt: Academic Freelance is the best
 
@@ -209,14 +209,14 @@ Through messaging, a user can see when his message is read or is it seen at all.
 Messages can be deleted by clicking the cross buttons on message boxes.
 
 .. figure:: member1/deletedMessages.png
-      :scale: 75 %
+      :scale: 65 %
       :align: left
       :alt: Academic Freelance is the best
 
       'seen ya!' message was deleted by the sender.
 
 .. figure:: member1/nondeletedMessages.png
-      :scale: 75 %
+      :scale: 65 %
       :align: right
       :alt: Academic Freelance is the best
 
