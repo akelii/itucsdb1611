@@ -7,7 +7,7 @@ Related Parts to CV
 -------------------
 
 .. figure:: member1/noCv.png
-      :scale: 50 %
+      :scale: 75 %
       :align: center
       :alt: Academic Freelance is the best
 
@@ -16,7 +16,7 @@ Related Parts to CV
 There is a warning in the main CV that encourages CV adding, if the user does not have any CVs.
 
 .. figure:: member1/cvAddModal.png
-      :scale: 50 %
+      :scale: 75 %
       :align: center
       :alt: Academic Freelance is the best
 
@@ -27,7 +27,7 @@ A new CV can be added by clicking the ‘Add New One’ Button on the right top 
 A modal will pop-up asking for a name the new CV and by clicking 'Add' button it is added to user's  account.
 
 .. figure:: member1/unActive2Cvs.png
-      :scale: 50 %
+      :scale: 65 %
       :align: center
       :alt: Academic Freelance is the best
 
@@ -38,7 +38,7 @@ More than one CV can be added to a profile. And they can be edited by clicking t
 And CV details will be loaded to the page down below.
 
 .. figure:: member1/cvsettingsclose.png
-      :scale: 50 %
+      :scale: 60 %
       :align: center
       :alt: Academic Freelance is the best
 
@@ -49,7 +49,7 @@ A CV can be set active or deleted from the CV setting.
 Moreover, updates can be kept track on the Last Update Section.
 
 .. figure:: member1/ActiveUnactiveCv.png
-      :scale: 50 %
+      :scale: 60 %
       :align: center
       :alt: Academic Freelance is the best
 
@@ -64,7 +64,7 @@ Related Parts to Experience
 
 
 .. figure:: member1/experienceAccordionEmpty.png
-      :scale: 50 %
+      :scale: 100 %
       :align: center
       :alt: Academic Freelance is the best
 
@@ -73,7 +73,7 @@ Related Parts to Experience
 Experiences can be add to CVs through CV information accordion under 'Experience part'.
 
 .. figure:: member1/AddExperience.png
-      :scale: 50 %
+      :scale: 100 %
       :align: center
       :alt: Academic Freelance is the best
 
@@ -86,17 +86,17 @@ Company Name is for the company experience carried on. Description is for a brie
 Position is the position user worked under and lastly, Start Year and End Year are for showing the duration of the experience.
 
 .. figure:: member1/experienceshowed.png
-      :scale: 50 %
+      :scale: 70 %
       :align: center
       :alt: Academic Freelance is the best
 
-       Example experience
+      Example experiences
 
 The way experience information shown on CV page is shown on above screenshot.
 
 
 .. figure:: member1/simpleexperience.png
-      :scale: 50 %
+      :scale: 100 %
       :align: center
       :alt: Academic Freelance is the best
 
@@ -105,7 +105,7 @@ The way experience information shown on CV page is shown on above screenshot.
 Users can update their CV information by clicking the edit icon on that experience's section.
 
 .. figure:: member1/updateExperienceModal.png
-      :scale: 50 %
+      :scale: 100 %
       :align: center
       :alt: Academic Freelance is the best
 
@@ -114,7 +114,7 @@ Users can update their CV information by clicking the edit icon on that experien
 A filled modal would pup-up and the user can make the changes on parts which he wants to update.
 
 .. figure:: member1/UpdatedExperience.png
-      :scale: 50 %
+      :scale: 100 %
       :align: center
       :alt: Academic Freelance is the best
 
@@ -130,7 +130,7 @@ Related Parts to Message
 There are three ways for a user to reach messaging page.
 
 .. figure:: member1/messageboxleftbar.png
-      :scale: 50 %
+      :scale: 70 %
       :align: center
       :alt: Academic Freelance is the best
 
@@ -139,7 +139,7 @@ There are three ways for a user to reach messaging page.
 First, by clicking the message sub-menu on the left main navigation menu.
 
 .. figure:: member1/upbartomessage.png
-      :scale: 50 %
+      :scale: 80 %
       :align: center
       :alt: Academic Freelance is the best
 
@@ -148,7 +148,7 @@ First, by clicking the message sub-menu on the left main navigation menu.
 Secondly, by clicking the message icon on the upper user bar.
 
 .. figure:: member1/Messagepagewithnobox.png
-      :scale: 50 %
+      :scale: 100 %
       :align: center
       :alt: Academic Freelance is the best
 
@@ -157,7 +157,7 @@ Secondly, by clicking the message icon on the upper user bar.
 This way of reaching the messaging main page is implementing the first and second ways.
 
 .. figure:: member1/searchPersontoMessage.png
-      :scale: 50 %
+      :scale: 80 %
       :align: center
       :alt: Academic Freelance is the best
 
@@ -165,8 +165,8 @@ This way of reaching the messaging main page is implementing the first and secon
 
 Lastly, a user can direct to a messaging history page with a person by clicking the message icon beside the user name on search person page.
 
-.. figure:: member1/messageboxleftbar.png
-      :scale: 50 %
+.. figure:: member1/personlist.png
+      :scale: 65 %
       :align: center
       :alt: Academic Freelance is the best
 
@@ -175,7 +175,7 @@ Lastly, a user can direct to a messaging history page with a person by clicking 
 Moreover the user can go through all of his messaging history by simply clicking on the user name beside the messagebox.
 
 .. figure:: member1/newmessage.png
-      :scale: 50 %
+      :scale: 80 %
       :align: center
       :alt: Academic Freelance is the best
 
@@ -184,14 +184,14 @@ Moreover the user can go through all of his messaging history by simply clicking
 When the user directed to the messaging page, user can see how many unread messages he has on the upper left of the messagebox inside the blue circle.
 
 .. figure:: member1/notseenmessage.png
-      :scale: 50 %
+      :scale: 75 %
       :align: left
       :alt: Academic Freelance is the best
 
       The messages have not seen by the receiver
 
 .. figure:: member1/seenmessage.png
-      :scale: 50 %
+      :scale: 75 %
       :align: right
       :alt: Academic Freelance is the best
 
@@ -200,7 +200,7 @@ When the user directed to the messaging page, user can see how many unread messa
 Through messaging, a user can see when his message is read or is it seen at all.
 
 .. figure:: member1/deletemessagex.png
-      :scale: 50 %
+      :scale: 100 %
       :align: center
       :alt: Academic Freelance is the best
 
@@ -209,14 +209,14 @@ Through messaging, a user can see when his message is read or is it seen at all.
 Messages can be deleted by clicking the cross buttons on message boxes.
 
 .. figure:: member1/deletedMessages.png
-      :scale: 50 %
+      :scale: 75 %
       :align: left
       :alt: Academic Freelance is the best
 
       'seen ya!' message was deleted by the sender.
 
 .. figure:: member1/nondeletedMessages.png
-      :scale: 50 %
+      :scale: 75 %
       :align: right
       :alt: Academic Freelance is the best
 

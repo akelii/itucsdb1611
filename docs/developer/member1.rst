@@ -203,6 +203,10 @@ cv.py
             store_CV.update_cv(key)
 
 
+By implementing this conditions, a new CV can be added to current users CVs.
+
+The current CV can be set active or deleted.
+
 **********
 Experience
 **********
@@ -388,6 +392,10 @@ cv.py
             experiences = store_experience.get_experience_s_with_key(key)
             updateCV = "TRUE"
 
+
+By implementing this conditions a new experience can be added.
+
+An existing experience can be deleted or updated.
 
 *******
 Message
@@ -665,3 +673,7 @@ mailbox.py
 
 
 
+
+By implementing the above python operations all the operations done on mailbox page.
+New messages can be sent, existing messaged can be deleted,
+users can go to any messaging histories they want.
