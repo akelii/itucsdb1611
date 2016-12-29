@@ -124,7 +124,7 @@ Project's class operations exists in project_operations.py which is in **classes
                 connection.commit()
             return project
 
-    get_project takes a key value as parameter and returns the project's name, description, type, department, status, creator's name, end date and member limit which has the same ObjectId with the key. ::
+    get_project takes a key value as parameter and returns the project's name, description, type, department, status, creator's name, end date and member limit which has the same ObjectId with the key.
 
     .. code-block:: python
 
@@ -199,7 +199,7 @@ GET/POST Operations
                     return redirect(url_for('site.home_page'))
 
     create_project.py file which exist in **template_operations/projects** folder enables an interface to create a project.
-    When the page is opened by @site.route('/project_create', methods=["GET", "POST"]), text areas to fill and dropdown lists for static tables are shown if login requirements are satisfied. To obtain that lists, below functions are written.::
+    When the page is opened by @site.route('/project_create', methods=["GET", "POST"]), text areas to fill and dropdown lists for static tables are shown if login requirements are satisfied. To obtain that lists, below functions are written.
 
     .. code-block:: python
 
