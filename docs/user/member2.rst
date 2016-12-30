@@ -17,14 +17,14 @@ If you have no account, you can register like using following steps.
 
 There are some validation controls while register. You should be careful.
 
-2. While creating new account, you should fill the required informations.
+2. While creating new account, you should fill the required information.
 
 .. figure:: member2/2-validation.png
       :scale: 50 %
       :align: center
-      :alt: Required informations
+      :alt: Required information
 
-      Required informations
+      Required information
 
 
 
@@ -61,7 +61,7 @@ There are some validation controls while register. You should be careful.
 
 
 
-6. After a succesful register, you direct to login page. Enjoy with Academic Freelance!
+6. After a successful register, you direct to login page. Enjoy with Academic Freelance!
 
 .. figure:: member2/6-login.png
       :scale: 50 %
@@ -95,7 +95,7 @@ After login to **AcFe** you can search other members by clicking to *Search for 
 
 3. You can search for a person by typing any information belongs to his/her.
 
-	For example you can search for all asistant members in the **AcFe**
+	For example you can search for all assistant members in the **AcFe**
 
 
 .. figure:: member2/9-filtering.png
@@ -113,7 +113,7 @@ After login to **AcFe** you can search other members by clicking to *Search for 
       And you can access which you want easily.
 
 
-4. You can sort the member informations according to Title, Full Name, E-Mail and Followers|Following number.
+4. You can sort the member information according to Title, Full Name, E-Mail and Followers|Following number.
 
 
 .. figure:: member2/11-sorting_result.png
@@ -130,8 +130,6 @@ Followed Person
 The button for following/unfollowing depends on whether you follow a person.
 You can go to a person’s profile detail or send a message to a person via Search Person page.
 
-
-You can see that Followers and Following numbers of members.
 
 To follow somebody, you can use following steps.
 
@@ -155,7 +153,7 @@ To follow somebody, you can use following steps.
       (Before) Gülçin has 3 followers.
 
 
-2. Thats all! Gülçin have a new Follower! Congratulations! When you want you can break the connection in this way.
+2. That's all! Gülçin have a new Follower! Congratulations! When you want you can break the connection in this way.
 
 
 .. figure:: member2/14-after_following.png
@@ -176,8 +174,247 @@ To follow somebody, you can use following steps.
 
 
 
-
-
-
 Education
 ---------
+
+When you view your own CV, you can add an Education information about you.
+
+
+
+.. figure:: member2/16-add-education.png
+      :scale: 50 %
+      :align: center
+      :alt: Education add
+
+      You can add new Education using Education Modal by clicking the ‘Add’ icon.
+
+
+Here is the Education partition. You can list your education information which you have saved before.
+
+
+
+.. figure:: member2/17-list-education.png
+      :scale: 50 %
+      :align: center
+      :alt: Education add
+
+      The view of education partition.
+
+
+After clicking *Add* button, you will see *Education Modal* on the screen.
+
+
+
+.. figure:: member2/18-education_modal.png
+      :scale: 50 %
+      :align: center
+      :alt: Education add
+
+      You can add new Education information by filling the value places.
+
+
+
+Here is a example of adding new University information.
+
+
+
+.. figure:: member2/19-adding_education.png
+      :scale: 50 %
+      :align: center
+      :alt: Education add
+
+      In this example, Istanbul Technical University information is added as education.
+	  You can select start and end year using *year datepicker* easily. And by clicking the **Save** button you can store informations.
+
+
+
+.. figure:: member2/20-after_adding_education.png
+      :scale: 50 %
+      :align: center
+      :alt: Education add
+
+      Now, there are two information about Istanbul Technical University. Below one is added newly.
+	  You can edit and delete using right hand side icons.
+
+
+
+After cilicking to *Edit* icon, again it is opened modal page to edit information. Now, value field is fill with updated information.
+
+
+
+.. figure:: member2/21-update_education.png
+      :scale: 50 %
+      :align: center
+      :alt: Education update modal
+
+      For example, you aware of that start-end years is incorrect. And suppose your graduation grade is change. Above there are **editted informations**
+
+
+
+.. figure:: member2/22-deletion_example.png
+      :scale: 50 %
+      :align: center
+      :alt: Education delete
+
+      And againg you aware of that there were already a entity about your Istanbul Technical University education information.
+	  You can delete by clicking cross icon.
+
+
+
+.. figure:: member2/23-education_deleteion_warning.png
+      :scale: 50 %
+      :align: center
+      :alt: Education delete warning
+
+      Before the deletion of information, there was a confirmation about deletion. Click the **Tamam** to delete.
+
+
+
+
+.. figure:: member2/24-education_list_after.png
+      :scale: 50 %
+      :align: center
+      :alt: Education delete warning
+
+      Again, there are two entity. Repeated ones is deleted.
+
+
+
+After all of thinngs, here your **Personal Page**. There are a lot of thing to do. Here we go!
+
+
+
+.. figure:: member2/25-personal_page.png
+      :scale: 50 %
+      :align: center
+      :alt: Personal Page
+
+
+1. On the left bottom side, there is *About Panel* which you and other members can view your CV in profile page.
+
+
+.. figure:: member2/26-personal_page_education.png
+      :scale: 50 %
+      :align: center
+      :alt: Personal page general view
+
+      If you want changing, you can click the edit button. Don't worry, you can only see your own CV edit button.
+
+
+.. figure:: member2/27-personal_page_education.png
+      :scale: 50 %
+      :align: center
+      :alt: Personal site education
+
+      Your education information in your *Profile page*. And there are also other CV information.
+
+And also you can see *Skills* and *Langauge* Information by coloring. Yes, of course there are meaning of color. Here is the explanations:
+
+- Red		: Beginner
+- Yellow	: Intermediate
+- Light Blue	: Advance
+- Dark Blue	: Expert
+- Green	: Master
+
+Here is a example.
+
+
+.. figure:: member2/28-personal_page_level.png
+      :scale: 50 %
+      :align: center
+      :alt: Personal site level
+
+      You can see the levels by hovering the information.
+
+
+There are a lot of tabs in the right hand side. You can see the explanations about **Followers|Following** tab and **Settings** tab.
+
+
+	You can see your followers and members which you follow in **Followers|Following** tab.
+
+
+.. figure:: member2/37-no_followers.png
+      :scale: 50 %
+      :align: center
+      :alt: Personal site Followers|Following tab
+
+      If there is no record related to followers and following, you will see the warning which you promote to find new person!
+
+
+
+	In this case, current user has a lot of connection!
+
+
+.. figure:: member2/30-follower_following_tabs.png
+      :scale: 50 %
+      :align: center
+      :alt: Personal site Followers|Following tab
+
+      By clicking the person, you can go to profile detail.
+
+
+
+	Here is the **Settings** tab. You can change every profile information in this tab.
+
+
+.. figure:: member2/31-setting_tab.png
+      :scale: 50 %
+      :align: center
+      :alt: Settings tab
+
+      If you leave blank your password and profile image partitions, these value is not change.
+
+
+
+	Settings tab is not shown while showing other’s profile pages.
+
+
+.. figure:: member2/32-setting_tab_others.png
+      :scale: 50 %
+      :align: center
+      :alt: Settings tab others
+
+      Here there is a other member profile page and you cannot see **Settings** tab.
+
+
+
+In the top right hand side, you can also see your following and followers numbers.
+
+
+.. figure:: member2/33-follow_numbers.png
+      :scale: 50 %
+      :align: center
+      :alt: Followers|Following numbers
+
+      For example, Elif Ak have 6 follower and she follow 9 members.
+
+
+Ont he other hand top of the navigation bar there are three icon. Most right hand site can be used like following.
+
+
+
+.. figure:: member2/34-top_icons.png
+      :scale: 50 %
+      :align: center
+      :alt: Top icons
+
+
+
+
+
+.. figure:: member2/35-last_members.png
+      :scale: 50 %
+      :align: center
+      :alt: Last members
+
+	  You can see last members in real time. It is refresh automatically for you!
+
+
+
+
+.. figure:: member2/36-current_user.png
+      :scale: 50 %
+      :align: center
+      :alt: Current user
+
+	  You can see loggin information on the right hand side icon.
