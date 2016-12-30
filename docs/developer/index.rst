@@ -15,7 +15,6 @@ Code
 
 
 .. toctree::
-   diagram
    member1
    member2
    member3
