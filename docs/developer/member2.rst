@@ -43,6 +43,22 @@ Here, there are reference sql queries.
 Class
 -----
 
+Class description about **Person** table is under *./classes/person.py* file.
+
+.. code-block:: python
+
+	class Person:
+    def __init__(self, objectId, firstName, lastName, accountTypeId, eMail, password, gender, titleId, photoPath, deleted ):
+        self.ObjectId = objectId
+        self.FirstName = firstName
+        self.LastName = lastName
+        self.AccountTypeId = accountTypeId
+        self.Email = eMail
+        self.Password = password
+        self.Gender = gender
+        self.TitleId = titleId
+        self.PhotoPath = photoPath
+        self.Deleted = deleted
 
 
 Class Operations
@@ -91,6 +107,19 @@ Here, there are reference sql queries.
 Class
 -----
 
+Class description about **Followed Person** table is under *./classes/followed_person.py* file.
+
+.. code-block:: python
+
+	class FollowedPerson:
+    def __init__(self, objectId, personId, followedPersonId, startDate, deleted):
+        self.ObjectId = objectId
+        self.PersonId = personId
+        self.FollowedPersonId = followedPersonId
+        self.StartDate = startDate
+        self.Deleted = deleted
+
+
 
 
 Class Operations
@@ -138,6 +167,21 @@ Here, there are reference sql queries.
 
 Class
 -----
+
+Class description about **Education** table is under *./classes/education.py* file.
+
+.. code-block:: python
+
+	class Education:
+    def __init__(self, objectId, cvId, schoolName, description, graduationGrade, startDate, endDate, deleted ):
+        self.ObjectId = objectId
+        self.CVId = cvId
+        self.SchoolName = schoolName
+        self.Description = description
+        self.GraduationGrade = graduationGrade
+        self.StartDate = startDate
+        self.EndDate = endDate
+        self.Deleted = deleted
 
 
 
