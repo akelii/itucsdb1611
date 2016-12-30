@@ -55,7 +55,7 @@ If you are a member of a project, you can add worklog to that project in worklog
 
       Add worklog box
 
-.. figure:: member4/worklog_aa.PNG
+.. figure:: member4/worklogs_aa.PNG
       :scale: 50 %
       :align: center
       :alt: added worklog
