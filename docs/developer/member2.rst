@@ -271,7 +271,7 @@ And it returns the result of query to python code to used in code blocks.
 Templates Operations
 --------------------
 
-In this segment, there are person related web site pages GET/POST methods writtne in python.
+In this segment, there are person related web site pages GET/POST methods written in python.
 
 
 *Register Page* code behind
@@ -658,11 +658,56 @@ And other one does not delete row directly. It just set the **Deleted** attribut
 Templates
 ---------
 
+In this segment, there are followed person operations related in web site pages GET/POST methods written in python.
+
+
+*People Search* code behind
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Users can search and follow peoples server side python code explanation is below. Codes can be found under the *templates_operations/people/search_person.py*
+
+1. In **GET** and **POST** requests are explained together.
+
+
+.. code-block:: python
+
+	def people_search_person_page_config(request):
+		PersonProvider = person_operations()
+		FollowedPersonProvider = followed_person_operations()
+		Current_Person = PersonProvider.GetPerson(current_user.email)
+		listPerson = PersonProvider.GetPersonListExcludePersonId(Current_Person[0])
+		if request and 'follow' in request.form and request.method == 'POST':
+			toAdd = FollowedPerson(None,Current_Person[0], request.form['follow'], None, None)
+			FollowedPersonProvider.AddFollowedPerson(toAdd)
+		elif request and 'unfollow' in request.form and request.method == 'POST':
+			toDeletedFollowedPerson = FollowedPersonProvider.GetFollowedPersonByPersonIdAndFollowedPersonId(Current_Person[0], request.form['unfollow'])
+			FollowedPersonProvider.DeletePerson(toDeletedFollowedPerson[0])
+		count = 0
+		while (count < len(listPerson)):
+			temp = list(listPerson[count])
+			temp.append(
+				len(FollowedPersonProvider.GetFollowedPersonListByFollowedPersonId(listPerson[count][0])))  # Followers
+			temp.append(len(FollowedPersonProvider.GetFollowedPersonListByPersonId(listPerson[count][0])))  # Following
+			if not FollowedPersonProvider.GetFollowedPersonByPersonIdAndFollowedPersonId(Current_Person[0],
+                                                                                     listPerson[count][0]):
+				temp.append(False)  # Emtpy #O kisiyi takip etmiyor yani buton follow olacak
+			else:
+				temp.append(True)  # Full #O kisiyi takip ediyor yani buton unfollow olacak
+			listPerson[count] = tuple(temp)
+			count = count + 1
+		return render_template('people/search_person.html', listPerson=listPerson)
+
+
+*PersonProvider* and *FollowedPersonProvider*  are instnaces to connection related class operaitons. *GetPersonListExcludePersonId(Current_Person[0])* methos selects all people except for *Current User*.
+**while** code partition appends number of following and followers count to person list to show following/folloers numbers for each person in search person page. And also there is another thing which shows to decide **Follow** or **Unfollow** button.
+For this purpose, *GetFollowedPersonByPersonIdAndFollowedPersonId()* methos is used as true or false depends on the whether follow or not.
+
+For **POST** methods is written for take follow or unfollow comments.
+
 
 *********
 Education
 *********
-
 
 
 Table
@@ -820,3 +865,70 @@ And it returns the result of query to python code to used in code blocks
 
 Templates
 ---------
+
+In this segment, there are education operations related in web site pages GET/POST methods written in python.
+
+
+*CV Page* code behind
+^^^^^^^^^^^^^^^^^^^^^
+
+Users can search and follow peoples server side python code explanation is below. Codes can be found under the *templates_operations/personal/cv.py*
+
+1. In **POST** requests are explained follwing which include partition related to Education information.
+
+- Create education
+
+After clicking add button, user fills the value field in the opened modal.
+
+
+	.. code-block:: python
+
+        elif request and 'txtSchoolName' in request.form and request.method == 'POST':
+            txtSchoolName = request.form['txtSchoolName']
+            txtSchoolDesc = request.form['txtSchoolDesc']
+            dpSchoolStart = request.form['dpSchoolStart']
+            dpSchoolEnd = request.form['dpSchoolEnd']
+            txtGrade = request.form['txtGrade']
+            e = Education(None, key, txtSchoolName, txtSchoolDesc, txtGrade, dpSchoolStart, dpSchoolEnd, False)
+            store_education.AddEducation(e)
+            listEducation = store_education.GetEducationListByCVId(key)
+            updateCV = "TRUE"
+
+
+- Update education
+
+Update operations user interface is like adding. Opened modal page (in this time value field fills with updated information) includes updated properties.
+Coming values from user data is **POST** and updates its values. After updating operation, new list sent to front-end side.
+
+
+	.. code-block:: python
+
+        elif request and 'txtUpdateSchoolName' in request.form and request.method == 'POST':
+            txtUpdateSchoolName = request.form['txtUpdateSchoolName']
+            txtUpdateSchoolDesc = request.form['txtUpdateSchoolDesc']
+            dpUpdateSchoolStart = request.form['dpUpdateSchoolStart']
+            dpUpdateSchoolEnd = request.form['dpUpdateSchoolEnd']
+            txtUpdateGrade = request.form['txtUpdateGrade']
+            id = request.form['hfUpdateEducationId']
+            store_education.UpdateEducation(id, txtUpdateSchoolName,txtUpdateSchoolDesc,txtUpdateGrade,dpUpdateSchoolStart,dpUpdateSchoolEnd)
+            listEducation = store_education.GetEducationListByCVId(key)
+            updateCV = "TRUE"
+
+
+
+- Delete education
+
+Because of th Delete operation is a **POST** operations following code partitation is run **deleteEducation** button is triggered. Updated list is sent to front-end side.
+
+	.. code-block:: python
+
+        elif request and 'deleteEducation' in request.form and request.method == 'POST':
+            deleteIndex = request.form['deleteEducation']
+            store_education.DeleteEducationWithoutStore(deleteIndex)
+            listEducation = store_education.GetEducationListByCVId(key)
+            updateCV = "TRUE"
+
+
+
+
+
