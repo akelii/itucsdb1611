@@ -19,8 +19,7 @@ Every members of ITU can register and create projects. You will develop your ski
       :alt: Academic Freelance Entity Relation Diagram
 
 
-Code
-----
+
 
 **Note:** File folders indexing is following:
 
@@ -72,6 +71,11 @@ server side is printed Jinja 2 to html document.
         {% block container %}{% endblock %}
     </div>
     ## HTML templates ##
+
+
+
+Code
+----
 
 .. toctree::
    member1
