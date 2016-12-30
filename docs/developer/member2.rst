@@ -268,14 +268,139 @@ And it returns the result of query to python code to used in code blocks.
 
 
 
-Templates
----------
+Templates Operations
+--------------------
+
+In this segment, there are person related web site pages GET/POST methods writtne in python.
+
+
+*Register Page* code behind
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Users can be register in this page. Following python codes explain create person method. Codes can be found under the *templates_operations/register.py*
+
+1. In **GET** request, title and account type lists is sent to front-end side.
+
+
+.. code-block:: python
+
+	def register_page_config(request):
+		if request.method == 'GET':
+			listTitle = GetTitleList()
+			listAccount = GetAccountTypeList()
+			return render_template('register.html', listTitle=listTitle, listAccount=listAccount, info=' ')
+
+2. In **POST** request, it is taken value field coming from user and it is sent to save class operations.
+
+
+.. code-block:: python
+
+    else:
+        if 'register' in request.form:
+            PersonProvider = person_operations()
+            first_name = request.form['firstName']
+            last_name = request.form['lastName']
+            eMail = request.form['eMail']
+            p = PersonProvider.GetPerson(eMail)
+            error = "'"+eMail+"'" + ' is already in use. Do you forget your password?'
+            if p is not None:
+                listTitle = GetTitleList()
+                listAccount = GetAccountTypeList()
+                return render_template('register.html', listTitle=listTitle, listAccount=listAccount, info=error)
+            pswd = pwd_context.encrypt(request.form['pswd'])
+            accountType = request.form['account']
+            title = request.form['title']
+            file = request.files['file']
+            gender = request.form['r1']
+            if gender == 'male':
+                gender = False
+            elif gender == 'female':
+                gender = True
+            if file and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                file.save(os.path.join('static/user_images', filename))
+            else:
+                if gender == 'male':
+                    filename = 'noimage_male.jpg'
+                else:
+                    filename = 'noimage_female.jpg'
+            p = Person(None, first_name, last_name, accountType, eMail, pswd, gender, title, filename, False)
+            u = User(eMail, pswd)
+            PersonProvider.AddPerson(p)
+            AddUser(u)
+            return redirect(url_for('site.login_page', info=' '))
+
+
+Coming infromation after front-end side validation control, there are few things to do. It is necessary to control email, if there is already a user which is same email; another user should not register. Because email must be unique.
+And also user password is hashed to save securely. Another important thing is that saving image which uploaded by user. If user is not upload image, default images are assigned related to gender.
+User images is saved to servers and it is hold as PhotoPath in database. But there is alowed file controls in this point. User coudn't upload  file format except for 'png', 'jpg', 'jpeg', 'gif'.
+Following code shows the content of *allowed_file* function.
+
+.. code-block:: python
+
+	ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
+
+	def allowed_file(filename):
+		eturn '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
+
+
+*Personal Page/Settings Tab*  code behind
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Users can be register in this page. Following python codes explain update person methods. Codes can be found under the *templates_operations/personal/default.py*
+
+1. In **POST** request, value field is sent to class method after following code block. In like register page, password and profile page operations are done.
+Different thing is that if user could not upload photo or he/she does not enter new password, this value is not updated. Without this control, for example updating the *Name* field cause to set empty password and no-image.
+
+
+.. code-block:: python
+
+    elif request and 'saveProfileSettings' in request.form and request.method == 'POST':
+        FollowedPersonProvider = followed_person_operations()
+        listFollowing = FollowedPersonProvider.GetFollowedPersonListByPersonId(Current_Person[0])
+        listFollowers = FollowedPersonProvider.GetFollowedPersonListByFollowedPersonId(Current_Person[0])
+        personComments = comments.GetPersonCommentsByCommentedPersonId(Current_Person[0])
+        listTitle = GetTitleList()
+        listAccount = GetAccountTypeList()
+        first_name = request.form['firstName']
+        last_name = request.form['lastName']
+        pswd = request.form['pswd']
+        accountType = request.form['account']
+        title = request.form['title']
+        file = request.files['file']
+        gender = request.form['r1']
+        if gender == 'male':
+            gender = False
+        elif gender == 'female':
+            gender = True
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            if filename != Current_Person[7]:
+                file.save(os.path.join('static/user_images', filename))
+            else:
+                filename = Current_Person[7]
+        elif Current_Person[7] is None:
+            if gender:
+                filename = 'noimage_female.jpg'
+            else:
+               filename = 'noimage_male.jpg'
+        else:
+            filename = Current_Person[7]
+        if pswd != "":
+            pswd = pwd_context.encrypt(request.form['pswd'])
+            UpdateUser(pswd, current_user.email)
+        PersonProvider.UpdatePerson(Current_Person[0], first_name, last_name, accountType, ' ', gender, title, filename, False)
+        return redirect(url_for('site.personal_default_page', Current_Person=Current_Person,
+                            listFollowing=listFollowing, listFollowers=listFollowers,
+                            personComments=personComments, listAccount=listAccount, listTitle=listTitle))
+
+
 
 
 ***************
 Followed Person
 ***************
-
 
 Table
 -----
