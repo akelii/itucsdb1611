@@ -18,14 +18,14 @@ All projects are shown on search project page with a follow or unfollow button. 
 This buttons are also available on projects' detail page.
 
 .. figure:: member4/nonfollowing_project.PNG
-      :scale: 75 %
+      :scale: 65 %
       :align: left
       :alt: project with follow button
 
       Follow button
 
 .. figure:: member4/following_project.PNG
-      :scale: 75 %
+      :scale: 65 %
       :align: right
       :alt: project with unfollow button
 
