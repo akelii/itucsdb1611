@@ -69,11 +69,11 @@ Class operations about **Person** table is under *./classes/operations/person_op
 In this file there are **Person** class method which runs SQL scripts with taken parameter, if any.
 And it returns the result of query to python code to used in code blocks
 
-	The following *CRUD* operations are implemented in order.
+	The following **CRUD** operations are implemented in order.
 
-	1. **C**reate
+	1. **C** reate
 
-	- Basic add operation takes *person* object and add its to related database.
+- Basic add operation takes *person* object and add its to related database.
 
 
 .. code-block:: python
@@ -87,11 +87,11 @@ And it returns the result of query to python code to used in code blocks
             self.last_key = cursor.lastrowid
 
 
-	2. **R**ead
+2. **R** ead
 
-	Nuumber of select operations related to *person* is **five**. It can be found explanations and code blocks in below segment.
+    Nuumber of select operations related to *person* is **five**. It can be found explanations and code blocks in below segment.
 
-	- *GetPersonByObjectId()* selects one of all entities by given *ObjectId* as parameter.
+- *GetPersonByObjectId()* selects one of all entities by given *ObjectId* as parameter.
 
 
 .. code-block:: python
@@ -111,7 +111,8 @@ And it returns the result of query to python code to used in code blocks
 
 
 
-	- *GetPerson()* select *Current User* which means loggin user by its unique email from database.
+
+- *GetPerson()* select *Current User* which means loggin user by its unique email from database.
 
 .. code-block:: python
 
@@ -129,7 +130,7 @@ And it returns the result of query to python code to used in code blocks
 
 
 
-	- *GetPersonList()* selects all people in the database.
+- *GetPersonList()* selects all people in the database.
 
 .. code-block:: python
 
@@ -162,7 +163,7 @@ And it returns the result of query to python code to used in code blocks
 
 
 
-	- *GetLastThreePeople()* selects last three members which register to application.
+- *GetLastThreePeople()* selects last three members which register to application.
 
 
 
@@ -197,7 +198,7 @@ And it returns the result of query to python code to used in code blocks
 
 
 
-	- *GetPersonListExcludePersonId()* select all people except given *PersonId*. For example, selecting all members except for *Current User*.
+- *GetPersonListExcludePersonId()* select all people except given *PersonId*. For example, selecting all members except for *Current User*.
 
 
 .. code-block:: python
@@ -231,10 +232,11 @@ And it returns the result of query to python code to used in code blocks
         return results
 
 
-	3. **U**pdate
+
+3. **U** pdate
 
 
-	- Basic update operation takes all values related to *person* object and update its values.
+- Basic update operation takes all values related to *person* object and update its values.
 
 
 .. code-block:: python
@@ -249,9 +251,9 @@ And it returns the result of query to python code to used in code blocks
 
 
 
-	4. **D**elete
+4. **D** elete
 
-	- Delete method takes *ObjectId* and delete it from database.
+- Delete method takes *ObjectId* and delete it from database.
 
 
 .. code-block:: python
