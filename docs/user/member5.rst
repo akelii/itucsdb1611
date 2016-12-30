@@ -1,7 +1,7 @@
 Parts Implemented by Mehmet Barış Yaman
 =======================================
 
-**Language, Person Comment and Team tables are implemented.**
+**Language, PersonComment and Team tables are implemented.**
 
 Login Operations
 ----------------
@@ -27,7 +27,7 @@ If your E-Mail is wrong then the warning will be:
 
 
 
-After you type the email and password correctly, you will be redirected the dasboard(home) page as below.
+After you type the email and password correctly, you will be redirected the dashboard(home) page as below.
 
 .. figure:: member5/3.png
       :scale: 50 %
