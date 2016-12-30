@@ -7,7 +7,7 @@ If you have no account, you can register like using following steps.
 
 1. You can use the link to access `Register Page <http://itucsdb1611.mybluemix.net/register>`_
 
-.. figure:: member2/1-register_general.png
+.. image:: member2/1-register_general.png
       :scale: 50 %
       :align: center
       :alt: Register page view
@@ -19,7 +19,7 @@ There are some validation controls while register. You should be careful.
 
 2. While creating new account, you should fill the required information.
 
-.. figure:: member2/2-validation.png
+.. image:: member2/2-validation.png
       :scale: 50 %
       :align: center
       :alt: Required information
@@ -30,7 +30,7 @@ There are some validation controls while register. You should be careful.
 
 3. You shouldn’t register with same e-mail! E-mail must be unique.
 
-.. figure:: member2/3-unique_email.png
+.. image:: member2/3-unique_email.png
       :scale: 50 %
       :align: center
       :alt: Unique email
@@ -41,7 +41,7 @@ There are some validation controls while register. You should be careful.
 
 4. Passwords must match!
 
-.. figure:: member2/4-match-password.png
+.. image:: member2/4-match-password.png
       :scale: 50 %
       :align: center
       :alt: Passwords must match
@@ -52,7 +52,7 @@ There are some validation controls while register. You should be careful.
 
 5. You should enter proper values. For example, name value coudn't contain numbers.
 
-.. figure:: member2/5-proper-values.png
+.. image:: member2/5-proper-values.png
       :scale: 50 %
       :align: center
       :alt: Proper values
@@ -63,7 +63,7 @@ There are some validation controls while register. You should be careful.
 
 6. After a successful register, you direct to login page. Enjoy with Academic Freelance!
 
-.. figure:: member2/6-login.png
+.. image:: member2/6-login.png
       :scale: 50 %
       :align: center
       :alt: Login
@@ -76,7 +76,7 @@ After login to **AcFe** you can search other members by clicking to *Search for 
 1. You can also use the link to access `Search People Page <http://itucsdb1611.mybluemix.net/people_search>`_ or like following way.
 
 
-.. figure:: member2/7-searchpeople.png
+.. image:: member2/7-searchpeople.png
       :scale: 50 %
       :align: center
       :alt: Person search way
@@ -86,7 +86,7 @@ After login to **AcFe** you can search other members by clicking to *Search for 
 2. Here the list of all people.
 
 
-.. figure:: member2/8-list_people.png
+.. image:: member2/8-list_people.png
       :scale: 50 %
       :align: center
       :alt: Person search page view
@@ -98,14 +98,14 @@ After login to **AcFe** you can search other members by clicking to *Search for 
 	For example you can search for all assistant members in the **AcFe**
 
 
-.. figure:: member2/9-filtering.png
+.. image:: member2/9-filtering.png
       :scale: 50 %
       :align: center
       :alt: Person search by filtering
 
       Write any information (for example Asistant key word).
 
-.. figure:: member2/10-filtering_result.png
+.. image:: member2/10-filtering_result.png
       :scale: 50 %
       :align: center
       :alt: Person search by filtering result
@@ -116,7 +116,7 @@ After login to **AcFe** you can search other members by clicking to *Search for 
 4. You can sort the member information according to Title, Full Name, E-Mail and Followers|Following number.
 
 
-.. figure:: member2/11-sorting_result.png
+.. image:: member2/11-sorting_result.png
       :scale: 50 %
       :align: center
       :alt: Person sorting
@@ -137,7 +137,7 @@ To follow somebody, you can use following steps.
 (If you have already follow this man, you will see the *Unfollow* button instead of *Follow* button).
 
 
-.. figure:: member2/12-before_following.png
+.. image:: member2/12-before_following.png
       :scale: 50 %
       :align: center
       :alt: Person follow
@@ -145,7 +145,7 @@ To follow somebody, you can use following steps.
       Suppose that you want to follow Gülçin. You will see *Follow* button.
 
 
-.. figure:: member2/13-before_following_numbers.png
+.. image:: member2/13-before_following_numbers.png
       :scale: 50 %
       :align: center
       :alt: Person follow number before
@@ -156,7 +156,7 @@ To follow somebody, you can use following steps.
 2. That's all! Gülçin have a new Follower! Congratulations! When you want you can break the connection in this way.
 
 
-.. figure:: member2/14-after_following.png
+.. image:: member2/14-after_following.png
       :scale: 50 %
       :align: center
       :alt: Person follow before
@@ -165,7 +165,7 @@ To follow somebody, you can use following steps.
 
 
 
-.. figure:: member2/15-after_following_numbers.png
+.. image:: member2/15-after_following_numbers.png
       :scale: 50 %
       :align: center
       :alt: Person follow number before
@@ -181,7 +181,7 @@ When you view your own CV, you can add an Education information about you.
 
 
 
-.. figure:: member2/16-add-education.png
+.. image:: member2/16-add-education.png
       :scale: 50 %
       :align: center
       :alt: Education add
@@ -193,7 +193,7 @@ Here is the Education partition. You can list your education information which y
 
 
 
-.. figure:: member2/17-list-education.png
+.. image:: member2/17-list-education.png
       :scale: 50 %
       :align: center
       :alt: Education add
@@ -205,7 +205,7 @@ After clicking *Add* button, you will see *Education Modal* on the screen.
 
 
 
-.. figure:: member2/18-education_modal.png
+.. image:: member2/18-education_modal.png
       :scale: 50 %
       :align: center
       :alt: Education add
@@ -218,7 +218,7 @@ Here is a example of adding new University information.
 
 
 
-.. figure:: member2/19-adding_education.png
+.. image:: member2/19-adding_education.png
       :scale: 50 %
       :align: center
       :alt: Education add
@@ -228,7 +228,7 @@ Here is a example of adding new University information.
 
 
 
-.. figure:: member2/20-after_adding_education.png
+.. image:: member2/20-after_adding_education.png
       :scale: 50 %
       :align: center
       :alt: Education add
@@ -242,7 +242,7 @@ After cilicking to *Edit* icon, again it is opened modal page to edit informatio
 
 
 
-.. figure:: member2/21-update_education.png
+.. image:: member2/21-update_education.png
       :scale: 50 %
       :align: center
       :alt: Education update modal
@@ -251,7 +251,7 @@ After cilicking to *Edit* icon, again it is opened modal page to edit informatio
 
 
 
-.. figure:: member2/22-deletion_example.png
+.. image:: member2/22-deletion_example.png
       :scale: 50 %
       :align: center
       :alt: Education delete
@@ -261,7 +261,7 @@ After cilicking to *Edit* icon, again it is opened modal page to edit informatio
 
 
 
-.. figure:: member2/23-education_deleteion_warning.png
+.. image:: member2/23-education_deleteion_warning.png
       :scale: 50 %
       :align: center
       :alt: Education delete warning
@@ -271,7 +271,7 @@ After cilicking to *Edit* icon, again it is opened modal page to edit informatio
 
 
 
-.. figure:: member2/24-education_list_after.png
+.. image:: member2/24-education_list_after.png
       :scale: 50 %
       :align: center
       :alt: Education delete warning
@@ -284,7 +284,7 @@ After all of thinngs, here your **Personal Page**. There are a lot of thing to d
 
 
 
-.. figure:: member2/25-personal_page.png
+.. image:: member2/25-personal_page.png
       :scale: 50 %
       :align: center
       :alt: Personal Page
@@ -293,7 +293,7 @@ After all of thinngs, here your **Personal Page**. There are a lot of thing to d
 1. On the left bottom side, there is *About Panel* which you and other members can view your CV in profile page.
 
 
-.. figure:: member2/26-personal_page_education.png
+.. image:: member2/26-personal_page_education.png
       :scale: 50 %
       :align: center
       :alt: Personal page general view
@@ -301,7 +301,7 @@ After all of thinngs, here your **Personal Page**. There are a lot of thing to d
       If you want changing, you can click the edit button. Don't worry, you can only see your own CV edit button.
 
 
-.. figure:: member2/27-personal_page_education.png
+.. image:: member2/27-personal_page_education.png
       :scale: 50 %
       :align: center
       :alt: Personal site education
@@ -319,7 +319,7 @@ And also you can see *Skills* and *Langauge* Information by coloring. Yes, of co
 Here is a example.
 
 
-.. figure:: member2/28-personal_page_level.png
+.. image:: member2/28-personal_page_level.png
       :scale: 50 %
       :align: center
       :alt: Personal site level
@@ -333,7 +333,7 @@ There are a lot of tabs in the right hand side. You can see the explanations abo
 	You can see your followers and members which you follow in **Followers|Following** tab.
 
 
-.. figure:: member2/37-no_followers.png
+.. image:: member2/37-no_followers.png
       :scale: 50 %
       :align: center
       :alt: Personal site Followers|Following tab
@@ -345,7 +345,7 @@ There are a lot of tabs in the right hand side. You can see the explanations abo
 	In this case, current user has a lot of connection!
 
 
-.. figure:: member2/30-follower_following_tabs.png
+.. image:: member2/30-follower_following_tabs.png
       :scale: 50 %
       :align: center
       :alt: Personal site Followers|Following tab
@@ -357,7 +357,7 @@ There are a lot of tabs in the right hand side. You can see the explanations abo
 	Here is the **Settings** tab. You can change every profile information in this tab.
 
 
-.. figure:: member2/31-setting_tab.png
+.. image:: member2/31-setting_tab.png
       :scale: 50 %
       :align: center
       :alt: Settings tab
@@ -369,7 +369,7 @@ There are a lot of tabs in the right hand side. You can see the explanations abo
 	Settings tab is not shown while showing other’s profile pages.
 
 
-.. figure:: member2/32-setting_tab_others.png
+.. image:: member2/32-setting_tab_others.png
       :scale: 50 %
       :align: center
       :alt: Settings tab others
@@ -381,7 +381,7 @@ There are a lot of tabs in the right hand side. You can see the explanations abo
 In the top right hand side, you can also see your following and followers numbers.
 
 
-.. figure:: member2/33-follow_numbers.png
+.. image:: member2/33-follow_numbers.png
       :scale: 50 %
       :align: center
       :alt: Followers|Following numbers
@@ -393,7 +393,7 @@ Ont he other hand top of the navigation bar there are three icon. Most right han
 
 
 
-.. figure:: member2/34-top_icons.png
+.. image:: member2/34-top_icons.png
       :scale: 50 %
       :align: center
       :alt: Top icons
@@ -402,7 +402,7 @@ Ont he other hand top of the navigation bar there are three icon. Most right han
 
 
 
-.. figure:: member2/35-last_members.png
+.. image:: member2/35-last_members.png
       :scale: 50 %
       :align: center
       :alt: Last members
@@ -412,7 +412,7 @@ Ont he other hand top of the navigation bar there are three icon. Most right han
 
 
 
-.. figure:: member2/36-current_user.png
+.. image:: member2/36-current_user.png
       :scale: 50 %
       :align: center
       :alt: Current user
