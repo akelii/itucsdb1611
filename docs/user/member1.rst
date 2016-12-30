@@ -10,7 +10,6 @@ Related Parts to CV
       :scale: 75 %
       :align: center
       :alt: Academic Freelance is the best
-      Main CV page with no CV added.
 
 There is a warning in the main CV that encourages CV adding, if the user does not have any CVs.
 
@@ -18,7 +17,6 @@ There is a warning in the main CV that encourages CV adding, if the user does no
       :scale: 75 %
       :align: center
       :alt: Academic Freelance is the best
-      Modal pops-up take input of the new CV's name.
 
 A new CV can be added by clicking the ‘Add New One’ Button on the right top of the page.
 
@@ -28,7 +26,6 @@ A modal will pop-up asking for a name the new CV and by clicking 'Add' button it
       :scale: 65 %
       :align: center
       :alt: Academic Freelance is the best
-      CV page with added CVs
 
 More than one CV can be added to a profile. And they can be edited by clicking their ‘Let’s look right now’ link.
 
@@ -38,7 +35,6 @@ And CV details will be loaded to the page down below.
       :scale: 60 %
       :align: center
       :alt: Academic Freelance is the best
-      CV settings
 
 A CV can be set active or deleted from the CV setting.
 
@@ -48,7 +44,6 @@ Moreover, updates can be kept track on the Last Update Section.
       :scale: 60 %
       :align: center
       :alt: Academic Freelance is the best
-      View of an nonactive and an active CV
 
 If a CV is active, it will take a brighter blue color and the information it contains, can be shown on the user's profile page.
 
@@ -62,7 +57,6 @@ Related Parts to Experience
       :scale: 100 %
       :align: center
       :alt: Academic Freelance is the best
-      Experience section shown on CV page
 
 Experiences can be add to CVs through CV information accordion under 'Experience part'.
 
@@ -70,7 +64,6 @@ Experiences can be add to CVs through CV information accordion under 'Experience
       :scale: 100 %
       :align: center
       :alt: Academic Freelance is the best
-      Add button for adding new experiences
 
 When the user clicks to 'Add' button. A modal with textboxes and datepickers, would pop-up and wait for the user input.
 
@@ -82,7 +75,6 @@ Position is the position user worked under and lastly, Start Year and End Year a
       :scale: 70 %
       :align: center
       :alt: Academic Freelance is the best
-      Example experiences
 
 The way experience information shown on CV page is shown on above screenshot.
 
@@ -91,7 +83,6 @@ The way experience information shown on CV page is shown on above screenshot.
       :scale: 100 %
       :align: center
       :alt: Academic Freelance is the best
-      Experience to be edited
 
 Users can update their CV information by clicking the edit icon on that experience's section.
 
@@ -99,7 +90,6 @@ Users can update their CV information by clicking the edit icon on that experien
       :scale: 100 %
       :align: center
       :alt: Academic Freelance is the best
-      Update experience modal comes filled with previous information.
 
 A filled modal would pup-up and the user can make the changes on parts which he wants to update.
 
@@ -107,7 +97,6 @@ A filled modal would pup-up and the user can make the changes on parts which he 
       :scale: 100 %
       :align: center
       :alt: Academic Freelance is the best
-      The experience is updated.
 
 Lastly, any experience can be deleted by clicking the cross icon on that experience's section.
 
@@ -122,7 +111,6 @@ There are three ways for a user to reach messaging page.
       :scale: 70 %
       :align: center
       :alt: Academic Freelance is the best
-      There is a messagebox icon on the left main navigation bar.
 
 First, by clicking the message sub-menu on the left main navigation menu.
 
@@ -130,7 +118,6 @@ First, by clicking the message sub-menu on the left main navigation menu.
       :scale: 80 %
       :align: center
       :alt: Academic Freelance is the best
-      There is a messagebox icon also on the upper user bar.
 
 Secondly, by clicking the message icon on the upper user bar.
 
@@ -138,7 +125,6 @@ Secondly, by clicking the message icon on the upper user bar.
       :scale: 100 %
       :align: center
       :alt: Academic Freelance is the best
-      Main messaging page with no messagebox
 
 This way of reaching the messaging main page is implementing the first and second ways.
 
@@ -146,7 +132,6 @@ This way of reaching the messaging main page is implementing the first and secon
       :scale: 80 %
       :align: center
       :alt: Academic Freelance is the best
-      Search person page contains chat links to all users.
 
 Lastly, a user can direct to a messaging history page with a person by clicking the message icon beside the user name on search person page.
 
@@ -162,7 +147,6 @@ Moreover the user can go through all of his messaging history by simply clicking
       :scale: 80 %
       :align: center
       :alt: Academic Freelance is the best
-      Number of new messages shown on main message page.
 
 When the user directed to the messaging page, user can see how many unread messages he has on the upper left of the messagebox inside the blue circle.
 
@@ -170,13 +154,11 @@ When the user directed to the messaging page, user can see how many unread messa
       :scale: 60 %
       :align: center
       :alt: Academic Freelance is the best
-      The messages have not seen by the receiver
 
 .. image:: member1/seenmessage.png
       :scale: 60 %
       :align: center
       :alt: Academic Freelance is the best
-      The messages have been seen
 
 Through messaging, a user can see when his message is read or is it seen at all.
 
@@ -184,7 +166,6 @@ Through messaging, a user can see when his message is read or is it seen at all.
       :scale: 100 %
       :align: center
       :alt: Academic Freelance is the best
-      A message send by the user is in a brighter color of blue.
 
 Messages can be deleted by clicking the cross buttons on message boxes.
 
@@ -192,13 +173,11 @@ Messages can be deleted by clicking the cross buttons on message boxes.
       :scale: 65 %
       :align: left
       :alt: Academic Freelance is the best
-      'seen ya!' message was deleted by the sender.
 
 .. image:: member1/nondeletedMessages.png
       :scale: 65 %
       :align: right
       :alt: Academic Freelance is the best
-      Receiver receives it anyway.
 
 On our site when a user deletes a message, the other side of the conversation still keeps the message.
 
