@@ -139,6 +139,8 @@ To follow somebody, you can use following steps.
 1. Click the *Follow* button in the *Search for People* page.
 (If you have already follow this man, you will see the *Unfollow* button instead of *Follow* button).
       Suppose that you want to follow Gülçin. You will see *Follow* button.
+      (Before) Gülçin has 3 followers.
+
 
 .. image:: member2/12-before_following.png
       :scale: 50 %
@@ -147,7 +149,7 @@ To follow somebody, you can use following steps.
 
 
 
-      (Before) Gülçin has 3 followers.
+
 
 .. image:: member2/13-before_following_numbers.png
       :scale: 50 %
@@ -161,6 +163,8 @@ To follow somebody, you can use following steps.
 
       Now you follow Gülçin. You will see *Unfollow* button.
 
+      (After) Gülçin has 4 followers.
+
 .. image:: member2/14-after_following.png
       :scale: 50 %
       :align: center
@@ -169,8 +173,6 @@ To follow somebody, you can use following steps.
 
 
 
-      (After) Gülçin has 4 followers.
-s
 .. image:: member2/15-after_following_numbers.png
       :scale: 50 %
       :align: center
