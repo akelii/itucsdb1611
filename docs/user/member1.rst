@@ -196,8 +196,7 @@ When the user directed to the messaging page, user can see how many unread messa
       :alt: Academic Freelance is the best
 
       The messages have been seen
-
-|
+\n
 Through messaging, a user can see when his message is read or is it seen at all.
 
 .. figure:: member1/deletemessagex.png
@@ -222,8 +221,7 @@ Messages can be deleted by clicking the cross buttons on message boxes.
       :alt: Academic Freelance is the best
 
       Receiver receives it anyway.
-
-|
+\n
 On our site when a user deletes a message, the other side of the conversation still keeps the message.
 
 
