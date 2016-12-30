@@ -426,12 +426,14 @@ GET/POST Operations
 
     .. code-block:: python
 
-    def home_page_config(request):
-        PersonProvider = person_operations()
-        Current_Person = PersonProvider.GetPerson(current_user.email)
-        store_worklogs = work_log_operations()
-        worklogs = store_worklogs.GetFollowedProjectsWorkLogs(Current_Person[0])
-        return render_template('dashboard.html', worklogs=worklogs, active_projects=active_projects)
+        def home_page_config(request):
+            PersonProvider = person_operations()
+            Current_Person = PersonProvider.GetPerson(current_user.email)
+            store_worklogs = work_log_operations()
+            worklogs = store_worklogs.GetFollowedProjectsWorkLogs(Current_Person[0])
+            return render_template('dashboard.html', worklogs=worklogs, active_projects=active_projects)
+
+
 
 *****
 Skill
