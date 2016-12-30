@@ -185,14 +185,14 @@ When the user directed to the messaging page, user can see how many unread messa
 
 .. figure:: member1/notseenmessage.png
       :scale: 60 %
-      :align: left
+      :align: center
       :alt: Academic Freelance is the best
 
       The messages have not seen by the receiver
 
 .. figure:: member1/seenmessage.png
       :scale: 60 %
-      :align: right
+      :align: center
       :alt: Academic Freelance is the best
 
       The messages have been seen
@@ -209,14 +209,14 @@ Through messaging, a user can see when his message is read or is it seen at all.
 Messages can be deleted by clicking the cross buttons on message boxes.
 
 .. figure:: member1/deletedMessages.png
-      :scale: 70 %
+      :scale: 65 %
       :align: left
       :alt: Academic Freelance is the best
 
       'seen ya!' message was deleted by the sender.
 
 .. figure:: member1/nondeletedMessages.png
-      :scale: 70 %
+      :scale: 65 %
       :align: right
       :alt: Academic Freelance is the best
 
