@@ -11,7 +11,7 @@ Database Design
 **Every members of ITU can register and create projects. You will develop your skills by working on professional projects and  connect new people from the university!**
 
 
-    Following diagram shows Academic Freelance database design. In Academic Freelance, it is used sixteen dynamic and eight look-up tables ara implemented, which means totally twenty four tables are used.
+    Following diagram shows Academic Freelance database design. In Academic Freelance, fifteen dynamic and seven look-up tables ara implemented, which means totally twenty two tables are used.
 
 .. figure:: DB_ER.png
       :scale: 100 %
