@@ -407,7 +407,7 @@ Ont he other hand top of the navigation bar there are three icon. Most right han
       :align: center
       :alt: Last members
 
-	  You can see last members in real time. It is refresh automatically for you!
+      You can see last members in real time. It is refresh automatically for you!
 
 
 
@@ -417,4 +417,4 @@ Ont he other hand top of the navigation bar there are three icon. Most right han
       :align: center
       :alt: Current user
 
-	  You can see loggin information on the right hand side icon.
+      You can see loggin information on the right hand side icon.
