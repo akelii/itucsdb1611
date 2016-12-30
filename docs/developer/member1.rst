@@ -13,7 +13,7 @@ CV table exists in server.py file.
 
 ObjectId attribute holds the primary key of the CV table.
 
-    .. code-block::sql
+    .. code-block:: sql
 
         CREATE TABLE IF NOT EXISTS CV(
                 ObjectId SERIAL PRIMARY KEY,
@@ -25,7 +25,7 @@ ObjectId attribute holds the primary key of the CV table.
                 IsActive BOOLEAN
         )
 
-    .. code-block::sql
+    .. code-block:: sql
 
         ALTER TABLE CV ADD  FOREIGN KEY(PersonId)
         REFERENCES Person(ObjectId) ON DELETE CASCADE
@@ -220,7 +220,7 @@ Experience table exists in server.py file.
 ObjectId attribute holds the primary key of the Experience table.
 
 
-    .. code-block::sql
+    .. code-block:: sql
 
         CREATE TABLE IF NOT EXISTS Experience(
                 ObjectId SERIAL PRIMARY KEY,
@@ -233,7 +233,7 @@ ObjectId attribute holds the primary key of the Experience table.
                 Deleted BOOLEAN NOT NULL
         )
 
-    .. code-block::sql
+    .. code-block:: sql
 
         ALTER TABLE Experience ADD  FOREIGN KEY(CVId)
         REFERENCES CV(ObjectId) ON DELETE  CASCADE
@@ -410,7 +410,7 @@ Message table exists in server.py file.
 ObjectId attribute holds the primary key of the Message table.
 
 
-    .. code-block::sql
+    .. code-block:: sql
 
         CREATE TABLE IF NOT EXISTS Message(
                 ObjectId SERIAL PRIMARY KEY,
@@ -424,12 +424,12 @@ ObjectId attribute holds the primary key of the Message table.
                 DeletedByReceiver BOOLEAN NOT NULL
         )
 
-    .. code-block::sql
+    .. code-block:: sql
 
         ALTER TABLE Message ADD  FOREIGN KEY(SenderId)
         REFERENCES Person(ObjectId) ON DELETE CASCADE
 
-    .. code-block::sql
+    .. code-block:: sql
 
         ALTER TABLE Message ADD  FOREIGN KEY(ReceiverId)
         REFERENCES Person(ObjectId) ON DELETE CASCADE
