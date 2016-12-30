@@ -12,7 +12,7 @@ FollowedProject table exists in server.py file.
 
 ObjectId attribute holds the primary key of the FollowedProject table.
 
-    .. code-block::sql
+    .. code-block:: sql
 
         CREATE TABLE IF NOT EXISTS FollowedProject(
                 ObjectId SERIAL PRIMARY KEY,
@@ -24,13 +24,13 @@ ObjectId attribute holds the primary key of the FollowedProject table.
 
 PersonId is the foreign key that is connected to Person.ObjectId
 
-    .. code-block::sql
+    .. code-block:: sql
 
         ALTER TABLE FollowedProject ADD  FOREIGN KEY(PersonId) REFERENCES Person(ObjectId) ON DELETE CASCADE
 
 FollowedProjectId is the foreign key that is connected to Project.ObjectId
 
-    .. code-block::sql
+    .. code-block:: sql
 
         ALTER TABLE FollowedProject ADD  FOREIGN KEY(FollowedProjectId) REFERENCES Project(ObjectId) ON DELETE CASCADE
 
@@ -234,7 +234,7 @@ Worklog table exists in server.py file.
 
 ObjectId attribute holds the primary key of the Worklog table.
 
-    .. code-block::sql
+    .. code-block:: sql
 
         CREATE TABLE IF NOT EXISTS WorkLog (
                 ObjectId SERIAL PRIMARY KEY,
@@ -247,13 +247,13 @@ ObjectId attribute holds the primary key of the Worklog table.
 
 ProjectId is the foreign key that is connected to Project.ObjectId
 
-    .. code-block::sql
+    .. code-block:: sql
 
         ALTER TABLE Worklog ADD  FOREIGN KEY(CreatorPersonId) REFERENCES Person(ObjectId) ON DELETE CASCADE
 
 CreatorPersonId is the foreign key that is connected to Person.ObjectId
 
-    .. code-block::sql
+    .. code-block:: sql
 
         ALTER TABLE Worklog ADD  FOREIGN KEY(ProjectId) REFERENCES Project(ObjectId) ON DELETE CASCADE
 
