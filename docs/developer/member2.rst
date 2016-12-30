@@ -27,7 +27,7 @@ Person create table SQL query in *server.py* file under the *init_db()* function
                 Deleted BOOLEAN NOT NULL
 
 
-	Here, there are reference sql queries.
+Here, there are reference sql queries.
 
 
     .. code-block:: sql
@@ -76,7 +76,7 @@ Followed Person create table SQL query in *server.py* file under the *init_db()*
                 Deleted BOOLEAN NOT NULL
 
 
-	Here, there are reference sql queries.
+Here, there are reference sql queries.
 
 
     .. code-block:: sql
@@ -128,7 +128,7 @@ Education create table SQL query in *server.py* file under the *init_db()* funct
                 Deleted BOOLEAN NOT NULL
 
 
-	Here, there are reference sql queries.
+Here, there are reference sql queries.
 
 
     .. code-block:: sql
