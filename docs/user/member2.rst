@@ -386,7 +386,7 @@ In the top right hand side, you can also see your following and followers number
       :align: center
       :alt: Followers|Following numbers
 
-      For example, Elif Ak have 6 follower and she follow 9 members.
+      For example, Elif Ak has 6 followers and she follow 9 members.
 
 
 Ont he other hand top of the navigation bar there are three icon. Most right hand site can be used like following.
