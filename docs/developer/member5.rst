@@ -8,7 +8,7 @@ Language
 Table
 -----
 
-Project table exists in server.py file.
+Language table exists in server.py file.
 
 ObjectId attribute holds the primary key of the Language table.
 
@@ -114,31 +114,26 @@ Language class operations exists in language_operations.py which is in **classes
                 result = cursor.fetchall()
             return result
 
-
-    get_projects returns all language's and language's all attributes in a CV.
-
-    .. code-block:: python
-
-    def GetAllLanguagesByActiveCVAndByPersonId(self, key):
-        with dbapi2.connect(dsn) as connection:
-            cursor = connection.cursor()
-            query = """SELECT Language.ObjectId, Language.CVId, Language.Name, Language.Level
-                        FROM Language
-                        INNER JOIN CV ON (Language.CVId = CV.ObjectId)
-                        INNER JOIN Person ON (CV.PersonId = Person.ObjectId)
-                        WHERE (Language.CVId=(Select CV.ObjectId FROM CV
-                                              INNER JOIN Person ON (CV.PersonId = Person.ObjectId)
-                                              WHERE (Person.ObjectId = %s AND CV.IsActive=TRUE)))"""
-            cursor.execute(query, (key,))
-            result = cursor.fetchall()
-        return result
+        def GetAllLanguagesByActiveCVAndByPersonId(self, key):
+            with dbapi2.connect(dsn) as connection:
+                cursor = connection.cursor()
+                query = """SELECT Language.ObjectId, Language.CVId, Language.Name, Language.Level
+                            FROM Language
+                            INNER JOIN CV ON (Language.CVId = CV.ObjectId)
+                            INNER JOIN Person ON (CV.PersonId = Person.ObjectId)
+                            WHERE (Language.CVId=(Select CV.ObjectId FROM CV
+                                                  INNER JOIN Person ON (CV.PersonId = Person.ObjectId)
+                                                  WHERE (Person.ObjectId = %s AND CV.IsActive=TRUE)))"""
+                cursor.execute(query, (key,))
+                result = cursor.fetchall()
+            return result
 
    GetAllLanguagesByActiveCVAndByPersonId returns all languages and all language's attributes of a person if the person's CV is active
 
 Templates
 ---------
 
-crv.html is the related template for Language Table existing in **templates/personal** folder.
+cv.html is the related template for Language Table existing in **templates/personal** folder.
 
 GET/POST Operations
 -------------------
@@ -170,7 +165,7 @@ GET/POST Operations
 
     Therefore, user does not see the ObjectId's of the tuples, but ids come with a request.
 
-    After that, all Languages are still need to be gotten since there is a change with the deletion.
+    After that, all languages are still need to be gotten since there is a change with the deletion.
 
     -Updating a Language
 
@@ -187,7 +182,7 @@ GET/POST Operations
 
     With the another button near 'x' button in each languages that are shown, the user enters the information and those informations are held and sent to the update table operation.
 
-    After that all languages are gotten with a key for showing the change.
+    After that, all languages are gotten with a key for showing the change.
 
     -Getting the Languages
 
@@ -285,7 +280,7 @@ PersonComment Class operations exist in personComment_operations.py which is in 
                 cursor.execute(query, (key,))
                 connection.commit()
 
-    DeleteTeam function takes a key value as hidden input and deletes the tuple accrodingly
+    DeleteTeam function takes a key value as hidden input and deletes the tuple accordingly
 
     -Update Operation
 
@@ -305,48 +300,48 @@ PersonComment Class operations exist in personComment_operations.py which is in 
 
     .. code-block:: python
 
-    # Returns all comments made by a person, selected by person ID
-    def GetPersonCommentsByPersonId(self, personId):
-        with dbapi2.connect(dsn) as connection:
-            cursor = connection.cursor()
-            query = """SELECT PersonComment.ObjectId, p2.FirstName ||' '||  p2.LastName as FullName, PersonComment.Comment, PersonComment.UpdateDate, p1.ObjectId, p2.ObjectId
-                       FROM PersonComment
-                       INNER JOIN Person AS p1 ON(PersonComment.PersonId = p1.ObjectId)
-                       INNER JOIN Person AS p2 ON(PersonComment.CommentedPersonId = p2.ObjectId)
-                       WHERE (p1.ObjectId = %s)"""
-            cursor.execute(query, (personId,))
-            result = cursor.fetchall()
-        return result
+        # Returns all comments made by a person, selected by person ID
+        def GetPersonCommentsByPersonId(self, personId):
+            with dbapi2.connect(dsn) as connection:
+                cursor = connection.cursor()
+                query = """SELECT PersonComment.ObjectId, p2.FirstName ||' '||  p2.LastName as FullName, PersonComment.Comment, PersonComment.UpdateDate, p1.ObjectId, p2.ObjectId
+                           FROM PersonComment
+                           INNER JOIN Person AS p1 ON(PersonComment.PersonId = p1.ObjectId)
+                           INNER JOIN Person AS p2 ON(PersonComment.CommentedPersonId = p2.ObjectId)
+                           WHERE (p1.ObjectId = %s)"""
+                cursor.execute(query, (personId,))
+                result = cursor.fetchall()
+            return result
 
-    # Returns all comments received by a person, selected by person ID
-    def GetPersonCommentsByCommentedPersonId(self, commentedPersonId):
-        with dbapi2.connect(dsn) as connection:
-            cursor = connection.cursor()
-            query = """SELECT PersonComment.ObjectId ,p1.FirstName ||' '||  p1.LastName as FullName, PersonComment.Comment, PersonComment.UpdateDate, p1.ObjectId, p2.ObjectId, p1.PhotoPath
-                       FROM PersonComment
-                       INNER JOIN Person AS p1 ON(PersonComment.PersonId = p1.ObjectId)
-                       INNER JOIN Person AS p2 ON(PersonComment.CommentedPersonId = p2.ObjectId)
-                       WHERE (p2.ObjectId = %s) ORDER BY PersonComment.CreateDate DESC"""
-            cursor.execute(query, (commentedPersonId,))
-            result = cursor.fetchall()
-        return result
+        # Returns all comments received by a person, selected by person ID
+        def GetPersonCommentsByCommentedPersonId(self, commentedPersonId):
+            with dbapi2.connect(dsn) as connection:
+                cursor = connection.cursor()
+                query = """SELECT PersonComment.ObjectId ,p1.FirstName ||' '||  p1.LastName as FullName, PersonComment.Comment, PersonComment.UpdateDate, p1.ObjectId, p2.ObjectId, p1.PhotoPath
+                           FROM PersonComment
+                           INNER JOIN Person AS p1 ON(PersonComment.PersonId = p1.ObjectId)
+                           INNER JOIN Person AS p2 ON(PersonComment.CommentedPersonId = p2.ObjectId)
+                           WHERE (p2.ObjectId = %s) ORDER BY PersonComment.CreateDate DESC"""
+                cursor.execute(query, (commentedPersonId,))
+                result = cursor.fetchall()
+            return result
 
-    # Returns object ids of persons that one of them comments and one of them is commented
-    def GetRelatedPersonsIdByCommentId(self, commentId):
-        with dbapi2.connect(dsn) as connection:
-            cursor = connection.cursor()
-            query = """SELECT p1.ObjectId, p2.ObjectId
-                       FROM PersonComment
-                       INNER JOIN Person AS p1 ON(PersonComment.PersonId = p1.ObjectId)
-                       INNER JOIN Person AS p2 ON(PersonComment.CommentedPersonId = p2.ObjectId)
-                       WHERE (PersonComment.ObjectId = %s)"""
-            cursor.execute(query, (commentId,))
-            result = cursor.fetchall()
-        return result
+        # Returns object ids of persons that one of them comments and one of them is commented
+        def GetRelatedPersonsIdByCommentId(self, commentId):
+            with dbapi2.connect(dsn) as connection:
+                cursor = connection.cursor()
+                query = """SELECT p1.ObjectId, p2.ObjectId
+                           FROM PersonComment
+                           INNER JOIN Person AS p1 ON(PersonComment.PersonId = p1.ObjectId)
+                           INNER JOIN Person AS p2 ON(PersonComment.CommentedPersonId = p2.ObjectId)
+                           WHERE (PersonComment.ObjectId = %s)"""
+                cursor.execute(query, (commentId,))
+                result = cursor.fetchall()
+            return result
 
 GetPersonCommentsByPersonId and GetPersonCommentsByCommentedPersonId functions also works for the privilege that the users can adjust the tuples.
 
-All get functions also used for showing the tuples after each db operations.
+All get functions are also used for showing the tuples after each db operations.
 
 Templates
 ---------
@@ -394,7 +389,7 @@ GET/POST Operations
 
     And user enters new comment, that comes with html requests and used for updating a tuble in the database.
 
-    -Getting the ProjectComments
+    -Getting the PersonComments
 
     .. code-block:: python
 
@@ -509,38 +504,38 @@ Team's class operations exists in information_operations.py which is in **classe
 
     .. code-block:: python
 
-    # Returns project name, person's duty in the project selected by person's name
-    def GetAllTeamsByMemberId(self, personName):
-        with dbapi2.connect(dsn) as connection:
-            cursor = connection.cursor()
-            query = """SELECT Project.Name, Team.Duty, Person.Name FROM Team
-                       INNER JOIN Project ON(Team.ProjectId = Project.ObjectId)
-                       INNER JOIN Person ON (Team.MemberId = Person.ObjectId)
-                       WHERE (Person.Name = %s)"""
-            cursor.execute(query, (personName,))
-            result = cursor.fetchall()
-        return result
+        # Returns project name, person's duty in the project selected by person's name
+        def GetAllTeamsByMemberId(self, personName):
+            with dbapi2.connect(dsn) as connection:
+                cursor = connection.cursor()
+                query = """SELECT Project.Name, Team.Duty, Person.Name FROM Team
+                           INNER JOIN Project ON(Team.ProjectId = Project.ObjectId)
+                           INNER JOIN Person ON (Team.MemberId = Person.ObjectId)
+                           WHERE (Person.Name = %s)"""
+                cursor.execute(query, (personName,))
+                result = cursor.fetchall()
+            return result
 
-    # Returns all team members in a project
-    def GetAllMembersByProjectId(self, key):
-        with dbapi2.connect(dsn) as connection:
-            cursor = connection.cursor()
-            query = """SELECT Person.FirstName ||' '|| Person.LastName as PersonFullName, Person.PhotoPath, Team.Duty, Person.ObjectId, Team.ObjectId
-                       FROM Team
-                       INNER JOIN Project ON(Team.ProjectId = Project.ObjectId)
-                       INNER JOIN Person ON (Team.MemberId = Person.ObjectId)
-                       WHERE (Team.ProjectId = %s) ORDER BY PersonFullName"""
-            cursor.execute(query, (key,))
-            result = cursor.fetchall()
-        return result
+        # Returns all team members in a project
+        def GetAllMembersByProjectId(self, key):
+            with dbapi2.connect(dsn) as connection:
+                cursor = connection.cursor()
+                query = """SELECT Person.FirstName ||' '|| Person.LastName as PersonFullName, Person.PhotoPath, Team.Duty, Person.ObjectId, Team.ObjectId
+                           FROM Team
+                           INNER JOIN Project ON(Team.ProjectId = Project.ObjectId)
+                           INNER JOIN Person ON (Team.MemberId = Person.ObjectId)
+                           WHERE (Team.ProjectId = %s) ORDER BY PersonFullName"""
+                cursor.execute(query, (key,))
+                result = cursor.fetchall()
+            return result
 
-    def GetDutyByMemberId(self, memberId, projectId):
-        with dbapi2.connect(dsn) as connection:
-            cursor = connection.cursor()
-            query = """SELECT Duty FROM TEAM WHERE (MemberId=%s AND ProjectId=%s)"""
-            cursor.execute(query, (memberId, projectId))
-            result = cursor.fetchall()
-        return result
+        def GetDutyByMemberId(self, memberId, projectId):
+            with dbapi2.connect(dsn) as connection:
+                cursor = connection.cursor()
+                query = """SELECT Duty FROM TEAM WHERE (MemberId=%s AND ProjectId=%s)"""
+                cursor.execute(query, (memberId, projectId))
+                result = cursor.fetchall()
+            return result
 
 Those operations are used for taking the tuple arrays and showing the updated records in each time after a database operation.
 
@@ -613,7 +608,7 @@ GET/POST Operations
             teamList.UpdateMemberDuty(objectId, newDuty)
             return redirect(url_for('site.projects_details_page', key=key))
 
-    Here, updateMemberId came from the interface and updatedMemberDuty is written from user and Database tabl tuple is changed accordingly
+    Here, updateMemberId came from the interface and updatedMemberDuty is written from user and Database table tuple is changed accordingly
 
     -Getting the Member/Members
 
