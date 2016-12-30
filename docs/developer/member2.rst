@@ -881,7 +881,7 @@ Users can search and follow peoples server side python code explanation is below
 After clicking add button, user fills the value field in the opened modal.
 
 
-	.. code-block:: python
+.. code-block:: python
 
     elif request and 'txtSchoolName' in request.form and request.method == 'POST':
         txtSchoolName = request.form['txtSchoolName']
@@ -901,18 +901,18 @@ Update operations user interface is like adding. Opened modal page (in this time
 Coming values from user data is **POST** and updates its values. After updating operation, new list sent to front-end side.
 
 
-	.. code-block:: python
+.. code-block:: python
 
-	elif request and 'txtUpdateSchoolName' in request.form and request.method == 'POST':
-	txtUpdateSchoolName = request.form['txtUpdateSchoolName']
-	txtUpdateSchoolDesc = request.form['txtUpdateSchoolDesc']
-	dpUpdateSchoolStart = request.form['dpUpdateSchoolStart']
-	dpUpdateSchoolEnd = request.form['dpUpdateSchoolEnd']
-	txtUpdateGrade = request.form['txtUpdateGrade']
-	id = request.form['hfUpdateEducationId']
-	store_education.UpdateEducation(id, txtUpdateSchoolName,txtUpdateSchoolDesc,txtUpdateGrade,dpUpdateSchoolStart,dpUpdateSchoolEnd)
-	listEducation = store_education.GetEducationListByCVId(key)
-	updateCV = "TRUE"
+    elif request and 'txtUpdateSchoolName' in request.form and request.method == 'POST':
+    txtUpdateSchoolName = request.form['txtUpdateSchoolName']
+    txtUpdateSchoolDesc = request.form['txtUpdateSchoolDesc']
+    dpUpdateSchoolStart = request.form['dpUpdateSchoolStart']
+    dpUpdateSchoolEnd = request.form['dpUpdateSchoolEnd']
+    txtUpdateGrade = request.form['txtUpdateGrade']
+    id = request.form['hfUpdateEducationId']
+    store_education.UpdateEducation(id, txtUpdateSchoolName,txtUpdateSchoolDesc,txtUpdateGrade,dpUpdateSchoolStart,dpUpdateSchoolEnd)
+    listEducation = store_education.GetEducationListByCVId(key)
+    updateCV = "TRUE"
 
 
 
