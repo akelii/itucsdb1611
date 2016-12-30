@@ -883,16 +883,16 @@ After clicking add button, user fills the value field in the opened modal.
 
 	.. code-block:: python
 
-        elif request and 'txtSchoolName' in request.form and request.method == 'POST':
-            txtSchoolName = request.form['txtSchoolName']
-            txtSchoolDesc = request.form['txtSchoolDesc']
-            dpSchoolStart = request.form['dpSchoolStart']
-            dpSchoolEnd = request.form['dpSchoolEnd']
-            txtGrade = request.form['txtGrade']
-            e = Education(None, key, txtSchoolName, txtSchoolDesc, txtGrade, dpSchoolStart, dpSchoolEnd, False)
-            store_education.AddEducation(e)
-            listEducation = store_education.GetEducationListByCVId(key)
-            updateCV = "TRUE"
+    elif request and 'txtSchoolName' in request.form and request.method == 'POST':
+        txtSchoolName = request.form['txtSchoolName']
+        txtSchoolDesc = request.form['txtSchoolDesc']
+        dpSchoolStart = request.form['dpSchoolStart']
+        dpSchoolEnd = request.form['dpSchoolEnd']
+        txtGrade = request.form['txtGrade']
+        e = Education(None, key, txtSchoolName, txtSchoolDesc, txtGrade, dpSchoolStart, dpSchoolEnd, False)
+        store_education.AddEducation(e)
+        listEducation = store_education.GetEducationListByCVId(key)
+        updateCV = "TRUE"
 
 
 - Update education
@@ -903,16 +903,16 @@ Coming values from user data is **POST** and updates its values. After updating 
 
 	.. code-block:: python
 
-        elif request and 'txtUpdateSchoolName' in request.form and request.method == 'POST':
-            txtUpdateSchoolName = request.form['txtUpdateSchoolName']
-            txtUpdateSchoolDesc = request.form['txtUpdateSchoolDesc']
-            dpUpdateSchoolStart = request.form['dpUpdateSchoolStart']
-            dpUpdateSchoolEnd = request.form['dpUpdateSchoolEnd']
-            txtUpdateGrade = request.form['txtUpdateGrade']
-            id = request.form['hfUpdateEducationId']
-            store_education.UpdateEducation(id, txtUpdateSchoolName,txtUpdateSchoolDesc,txtUpdateGrade,dpUpdateSchoolStart,dpUpdateSchoolEnd)
-            listEducation = store_education.GetEducationListByCVId(key)
-            updateCV = "TRUE"
+	elif request and 'txtUpdateSchoolName' in request.form and request.method == 'POST':
+	txtUpdateSchoolName = request.form['txtUpdateSchoolName']
+	txtUpdateSchoolDesc = request.form['txtUpdateSchoolDesc']
+	dpUpdateSchoolStart = request.form['dpUpdateSchoolStart']
+	dpUpdateSchoolEnd = request.form['dpUpdateSchoolEnd']
+	txtUpdateGrade = request.form['txtUpdateGrade']
+	id = request.form['hfUpdateEducationId']
+	store_education.UpdateEducation(id, txtUpdateSchoolName,txtUpdateSchoolDesc,txtUpdateGrade,dpUpdateSchoolStart,dpUpdateSchoolEnd)
+	listEducation = store_education.GetEducationListByCVId(key)
+	updateCV = "TRUE"
 
 
 
@@ -920,13 +920,13 @@ Coming values from user data is **POST** and updates its values. After updating 
 
 Because of th Delete operation is a **POST** operations following code partitation is run **deleteEducation** button is triggered. Updated list is sent to front-end side.
 
-	.. code-block:: python
+.. code-block:: python
 
-        elif request and 'deleteEducation' in request.form and request.method == 'POST':
-            deleteIndex = request.form['deleteEducation']
-            store_education.DeleteEducationWithoutStore(deleteIndex)
-            listEducation = store_education.GetEducationListByCVId(key)
-            updateCV = "TRUE"
+    elif request and 'deleteEducation' in request.form and request.method == 'POST':
+    deleteIndex = request.form['deleteEducation']
+    store_education.DeleteEducationWithoutStore(deleteIndex)
+    listEducation = store_education.GetEducationListByCVId(key)
+    updateCV = "TRUE"
 
 
 
