@@ -47,7 +47,7 @@ Class description about **Person** table is under *./classes/person.py* file.
 
 .. code-block:: python
 
-	class Person:
+class Person:
     def __init__(self, objectId, firstName, lastName, accountTypeId, eMail, password, gender, titleId, photoPath, deleted ):
         self.ObjectId = objectId
         self.FirstName = firstName
@@ -111,7 +111,7 @@ Class description about **Followed Person** table is under *./classes/followed_p
 
 .. code-block:: python
 
-	class FollowedPerson:
+class FollowedPerson:
     def __init__(self, objectId, personId, followedPersonId, startDate, deleted):
         self.ObjectId = objectId
         self.PersonId = personId
@@ -172,7 +172,7 @@ Class description about **Education** table is under *./classes/education.py* fi
 
 .. code-block:: python
 
-	class Education:
+class Education:
     def __init__(self, objectId, cvId, schoolName, description, graduationGrade, startDate, endDate, deleted ):
         self.ObjectId = objectId
         self.CVId = cvId
