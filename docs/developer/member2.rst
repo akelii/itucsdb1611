@@ -67,11 +67,11 @@ Class Operations
 Class operations about **Person** table is under *./classes/operations/person_operations.py* file.
 
 In this file there are **Person** class method which runs SQL scripts with taken parameter, if any.
-And it returns the result of query to python code to used in code blocks
+And it returns the result of query to python code to used in code blocks.
 
 	The following **CRUD** operations are implemented in order.
 
-	1. **C** reate
+1. **C** reate
 
 - Basic add operation takes *person* object and add its to related database.
 
@@ -327,6 +327,207 @@ Class description about **Followed Person** table is under *./classes/followed_p
 Class Operations
 ----------------
 
+Class operations about **Followed Person** table is under *./classes/operations/followed_person_operations.py* file.
+
+In this file there are **Followed Person** class method which runs SQL scripts with taken parameters, if any.
+And it returns the result of query to python code to used in code blocks.
+
+	The following **CRUD** operations are implemented in order.
+
+1. **C** reate
+
+- Basic add operation takes *followed person* object and add its to related database.
+
+
+.. code-block:: python
+
+    def AddFollowedPerson(self, followed_person):
+        with dbapi2.connect(dsn) as connection:
+            cursor = connection.cursor()
+            query = "INSERT INTO FollowedPerson (PersonId, FollowedPersonId, StartDate, Deleted) VALUES (%s, %s,' "+str(datetime.datetime.now())+"', False)"
+            cursor.execute(query, (followed_person.PersonId, followed_person.FollowedPersonId))
+            connection.commit()
+            self.last_key = cursor.lastrowid
+
+
+2. **R** ead
+
+    Nuumber of select operations related to *followed person* is **five**. It can be found explanations and code blocks in below segment.
+
+- *GetFollowedPersonByObjectId()* selects one of all entities by given *ObjectId* as parameter.
+
+
+.. code-block:: python
+
+    def GetFollowedPersonByObjectId(self, key):
+        with dbapi2.connect(dsn) as connection:
+            cursor = connection.cursor()
+            query = """SELECT FollowedPerson.ObjectId ,PersonId ,p1.FirstName || ' ' || p1.LastName as PersonFullName
+                       ,FollowedPersonId ,p2.FirstName || ' ' || p2.LastName as FollowedPersonFullName,StartDate
+                       FROM FollowedPerson
+                       INNER JOIN Person as p1 ON (FollowedPerson.PersonId = p1.ObjectId)
+                       INNER JOIN Person as p2 ON (FollowedPerson.FollowedPersonId = p2.ObjectId)
+                       WHERE (FollowedPerson.ObjectId=%s and FollowedPerson.Deleted='0')"""
+            cursor.execute(query, (key,))
+            result = cursor.fetchone()
+        return result
+
+
+
+- *GetFollowedPersonList()* selects all entities which **Deleted** columns is false from *Followed Person* table.
+
+
+.. code-block:: python
+
+    def GetFollowedPersonList(self):
+        with dbapi2.connect(dsn) as connection:
+            cursor = connection.cursor()
+            query = """SELECT FollowedPerson.ObjectId ,PersonId ,p1.FirstName || ' ' || p1.LastName as PersonFullName
+                       ,FollowedPersonId ,p2.FirstName || ' ' || p2.LastName as FollowedPersonFullName,StartDate
+                       FROM FollowedPerson
+                       INNER JOIN Person as p1 ON (FollowedPerson.PersonId = p1.ObjectId)
+                       INNER JOIN Person as p2 ON (FollowedPerson.FollowedPersonId = p2.ObjectId)
+                       WHERE FollowedPerson.Deleted = '0' """
+            cursor.execute(query)
+            data_array = []
+            results = cursor.fetchall()
+            for followed_person in results:
+                data_array.append(
+                    {
+                        'ObjectId': followed_person[0],
+                        'PersonId': followed_person[1],
+                        'PersonFullName': followed_person[2],
+                        'FollowedPersonId': followed_person[3],
+                        'FollowedPersonFullName': followed_person[4],
+                        'StartDate': followed_person[5]
+                    }
+                )
+        return results
+
+
+- *GetFollowedPersonListByPersonId()* selects all people which following of given person as parameter.
+
+
+.. code-block:: python
+
+    def GetFollowedPersonListByPersonId(self, key):
+        with dbapi2.connect(dsn) as connection:
+            cursor = connection.cursor()
+            query = """SELECT FollowedPerson.ObjectId, PersonId, p1.FirstName || ' ' || p1.LastName as PersonFullName,
+                        FollowedPersonId, p2.FirstName || ' ' || p2.LastName as FollowedPersonFullName,p2.PhotoPath, StartDate
+                        FROM FollowedPerson
+                        INNER JOIN Person as p1 ON p1.ObjectId = FollowedPerson.PersonId
+                        INNER JOIN Person as p2 ON p2.ObjectId = FollowedPerson.FollowedPersonId
+                        WHERE FollowedPerson.PersonId = %s AND FollowedPerson.Deleted = '0' ORDER BY StartDate DESC"""
+            cursor.execute(query, (key,))
+            connection.commit()
+            data_array = []
+            results = cursor.fetchall()
+            for followed_person in results:
+                data_array.append(
+                    {
+                        'ObjectId': followed_person[0],
+                        'PersonId': followed_person[1],
+                        'PersonFullName': followed_person[2],
+                        'FollowedPersonId': followed_person[3],
+                        'FollowedPersonFullName': followed_person[4], #Takip ettigi insanlar
+                        'FollowedPersonPhotoPath': followed_person[5],
+                        'StartDate': followed_person[6]
+                    }
+                )
+        return results
+
+- *GetFollowedPersonListByFollowedPersonId()* selects all followers which follow given person as parameter.
+
+
+.. code-block:: python
+
+    def GetFollowedPersonListByFollowedPersonId(self, key):
+        with dbapi2.connect(dsn) as connection:
+            cursor = connection.cursor()
+            query = """SELECT FollowedPerson.ObjectId, PersonId, p1.FirstName || ' ' || p1.LastName as PersonFullName, p1.PhotoPath,
+                        FollowedPersonId, p2.FirstName || ' ' || p2.LastName as FollowedPersonFullName,StartDate
+                        FROM FollowedPerson
+                        INNER JOIN Person as p1 ON p1.ObjectId = FollowedPerson.PersonId
+                        INNER JOIN Person as p2 ON p2.ObjectId = FollowedPerson.FollowedPersonId
+                        WHERE FollowedPerson.FollowedPersonId = %s AND FollowedPerson.Deleted = '0' ORDER BY StartDate DESC"""
+            cursor.execute(query, (key,))
+            connection.commit()
+            data_array = []
+            results = cursor.fetchall()
+            for followed_person in results:
+                data_array.append(
+                    {
+                        'ObjectId': followed_person[0],
+                        'PersonId': followed_person[1],
+                        'PersonFullName': followed_person[2], #O kisiyi kimler takip ediyor
+                        'PersonPhotoPath': followed_person[3],
+                        'FollowedPersonId': followed_person[4],
+                        'FollowedPersonFullName': followed_person[5],
+                        'StartDate': followed_person[6]
+                    }
+                )
+        return results
+
+- *GetFollowedPersonByPersonIdAndFollowedPersonId()* selects Follower-Following pair result, if any.
+It can be used for searching whether 'A' person follows 'B' person, or not.
+
+.. code-block:: python
+
+    def GetFollowedPersonByPersonIdAndFollowedPersonId(self, personid, followedpersonid):
+        with dbapi2.connect(dsn) as connection:
+            cursor = connection.cursor()
+            query = """SELECT FollowedPerson.ObjectId
+                       FROM FollowedPerson
+                       WHERE (FollowedPerson.PersonId=%s and FollowedPerson.FollowedPersonId=%s AND FollowedPerson.Deleted='0')"""
+            cursor.execute(query, (personid, followedpersonid))
+            result = cursor.fetchone()
+        return result
+
+
+3. **U** pdate
+
+
+- Basic update operation takes all values related to *FollowedPerson* object and update its values.
+
+
+.. code-block:: python
+
+    def UpdatePerson(self, key, personId, followedPersonId, startDate, deleted):
+        with dbapi2.connect(dsn) as connection:
+            cursor = connection.cursor()
+            cursor.execute(
+                """UPDATE FollowedPerson SET PersonId = %s, FollowedPersonId = %s, StartDate = %s, Deleted = %s WHERE (ObjectId=%s)""",
+                (personId, followedPersonId, startDate, deleted, key))
+            connection.commit(
+
+
+
+4. **D** elete
+
+- There are two delete method for FollowedPerson. One of them deletes tuple from database as normal way.
+And other one does not delete row directly. It just set the **Deleted** attribute as true.
+
+
+.. code-block:: python
+
+    def DeletePersonWithoutStore(self, key):
+        with dbapi2.connect(dsn) as connection:
+            cursor = connection.cursor()
+            query = """DELETE FROM FollowedPerson WHERE (ObjectId=%s)"""
+            cursor.execute(query, (key,))
+            connection.commit()
+
+.. code-block:: python
+
+    def DeletePerson(self, key):
+        with dbapi2.connect(dsn) as connection:
+            cursor = connection.cursor()
+            cursor.execute(
+                """UPDATE FollowedPerson SET Deleted = TRUE WHERE (ObjectId=%s)""",
+                (key,))
+            connection.commit()
+
 
 
 Templates
@@ -389,6 +590,106 @@ Class description about **Education** table is under *./classes/education.py* fi
 
 Class Operations
 ----------------
+
+Class operations about **Education** table is under *./classes/operations/education_operations.py* file.
+
+In this file there are **Education** class method which runs SQL scripts with taken parameter, if any.
+And it returns the result of query to python code to used in code blocks
+
+	The following **CRUD** operations are implemented in order.
+
+1. **C** reate
+
+- Basic add operation takes *education* object and add its to related database.
+
+
+.. code-block:: python
+
+    def AddEducation(self, education):
+        with dbapi2.connect(dsn) as connection:
+            cursor = connection.cursor()
+            query = "INSERT INTO Education (CVId, SchoolName, Description, GraduationGrade, StartDate, EndDate, Deleted) VALUES (%s, %s, %s, %s, %s, %s, FALSE )"
+            cursor.execute(query, (education.CVId, education.SchoolName, education.Description, education.GraduationGrade, education.StartDate, education.EndDate))
+            connection.commit()
+            self.last_key = cursor.lastrowid
+
+
+2. **R** ead
+
+    Nuumber of select operations related to *person* is **two**. It can be found explanations and code blocks in below segment.
+
+- *GetEducationListByCVId()* selects all education row which belongs to given CV as parameter naming *CVId*.
+
+
+.. code-block:: python
+
+    def GetEducationListByCVId(self, key):
+        with dbapi2.connect(dsn) as connection:
+            cursor = connection.cursor()
+            query = """SELECT Education.ObjectId, SchoolName, Description, GraduationGrade, StartDate, EndDate
+                        FROM Education
+                        INNER JOIN CV ON (Education.CVId = CV.ObjectId)
+                        WHERE (Education.CVId=%s) ORDER BY Education.EndDate DESC """
+            cursor.execute(query, (key,))
+            connection.commit()
+            result = cursor.fetchall()
+        return result
+
+
+- *GetEducationListByActiveCVAndByPersonId()* selects all education information which belongs to given *Person* and also *Active CV* of given *Person*.
+
+
+.. code-block:: python
+
+    def GetEducationListByActiveCVAndByPersonId(self, personId):
+        with dbapi2.connect(dsn) as connection:
+            cursor = connection.cursor()
+            query = """SELECT Education.ObjectId, SchoolName, Description, GraduationGrade, StartDate, EndDate
+                        FROM Education
+                        INNER JOIN CV ON (Education.CVId = CV.ObjectId)
+                        INNER JOIN Person ON (CV.PersonId = Person.ObjectId)
+                        WHERE (Education.CVId=(Select CV.ObjectId FROM CV
+                                              INNER JOIN Person ON (CV.PersonId = Person.ObjectId)
+                                              WHERE (Person.ObjectId = %s AND CV.IsActive=TRUE))) ORDER BY Education.EndDate DESC"""
+            cursor.execute(query, (personId,))
+            connection.commit()
+            result = cursor.fetchall()
+        return result
+
+
+
+3. **U** pdate
+
+
+- Basic update operation takes all values related to *education* object and update its values.
+
+
+.. code-block:: python
+
+    def UpdateEducation(self, key, schoolname, description, grade, startdate, enddate):
+        with dbapi2.connect(dsn) as connection:
+            cursor = connection.cursor()
+            cursor.execute(
+                """UPDATE Education SET SchoolName = %s, Description = %s, GraduationGrade = %s, StartDate = %s, EndDate = %s WHERE (ObjectId=%s)""",
+                (schoolname, description, grade, startdate, enddate, key))
+            connection.commit()
+
+
+
+4. **D** elete
+
+- Delete method takes *ObjectId* and delete it from database.
+
+
+.. code-block:: python
+
+    def DeleteEducation(self, key):
+        with dbapi2.connect(dsn) as connection:
+            cursor = connection.cursor()
+            query = """UPDATE Education SET Deleted = True WHERE (ObjectId=%s)"""
+            cursor.execute(query, (key,))
+            connection.commit()
+
 
 
 
