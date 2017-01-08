@@ -10,7 +10,7 @@ When you try to open the web site the first page will be the login page. In that
 .. image:: member5/0.png
       :scale: 50 %
       :align: center
-      :alt: map to buried treasure
+      :alt: 1
 
 
 
@@ -20,7 +20,7 @@ If your E-Mail is wrong then the warning will be:
 .. image:: member5/1.png
       :scale: 50 %
       :align: center
-      :alt: map to buried treasure
+      :alt: 2
 
 
 
@@ -30,7 +30,7 @@ After you type the email and password correctly, you will be redirected the dash
 .. image:: member5/3.png
       :scale: 50 %
       :align: center
-      :alt: map to buried treasure
+      :alt: 3
 
 
 
@@ -42,7 +42,7 @@ Then for adjusting the language held in CV, you need to choose "CV" in left pane
 .. image:: member5/4.png
       :scale: 50 %
       :align: center
-      :alt: map to buried treasure
+      :alt: 4
 
 
 
@@ -52,7 +52,7 @@ Now, CV page is opened. At first, the page looks like:
 .. image:: member5/5.png
       :scale: 50 %
       :align: center
-      :alt: map to buried treasure
+      :alt: 5
 
 
 
@@ -62,7 +62,7 @@ You need to click "Let's Look At your CV" row in order to see the parts related 
 .. image:: member5/6.png
       :scale: 50 %
       :align: center
-      :alt: map to buried treasure
+      :alt: 6
 
 
 
@@ -71,7 +71,7 @@ You can add new language by clicking the add button.
 .. image:: member5/7.png
       :scale: 50 %
       :align: center
-      :alt: map to buried treasure
+      :alt: 7
 
 
 
@@ -81,7 +81,7 @@ Fill necessary information and click "Save" button in the popup opened.
 .. image:: member5/8.png
       :scale: 50 %
       :align: center
-      :alt: map to buried treasure
+      :alt: 8
 
 
 
@@ -93,7 +93,7 @@ Note that, updating German is an example in the photo below. You can update any 
 .. image:: member5/9.png
       :scale: 50 %
       :align: center
-      :alt: map to buried treasure
+      :alt: 9
 
 
 
@@ -103,7 +103,7 @@ Then, fill necessary information and click "Update".
 .. image:: member5/10.png
       :scale: 50 %
       :align: center
-      :alt: map to buried treasure
+      :alt: 10
 
 
 
@@ -115,7 +115,7 @@ Click "OK" in order to delete the language.
 .. image:: member5/12.png
       :scale: 50 %
       :align: center
-      :alt: map to buried treasure
+      :alt: 11
 
 
 
@@ -131,7 +131,7 @@ At first, you need to click "Search For People" in the left panel.
 .. image:: member5/13.png
       :scale: 50 %
       :align: center
-      :alt: map to buried treasure
+      :alt: 12
 
 
 
@@ -141,7 +141,7 @@ Write any attribute of a person that you search for on the search bar, which is 
 .. image:: member5/14.png
       :scale: 50 %
       :align: center
-      :alt: map to buried treasure
+      :alt: 13
 
 
 
@@ -151,7 +151,7 @@ Click the button which is in the photo below, in order to access the profile pag
 .. image:: member5/15.png
       :scale: 50 %
       :align: center
-      :alt: map to buried treasure
+      :alt: 14
 
 
 
@@ -161,7 +161,7 @@ Click "Comments" Tab in order to see the comments in te profile page.
 .. image:: member5/16.png
       :scale: 50 %
       :align: center
-      :alt: map to buried treasure
+      :alt: 15
 
 
 
@@ -171,7 +171,7 @@ Now look at the comments.
 .. image:: member5/17.png
       :scale: 50 %
       :align: center
-      :alt: map to buried treasure
+      :alt: 16
 
 
 
@@ -183,7 +183,7 @@ Write a comment and click "Add Comment" button.
 .. image:: member5/18.png
       :scale: 50 %
       :align: center
-      :alt: map to buried treasure
+      :alt: 17
 
 
 
@@ -193,7 +193,7 @@ You can update your comments (only yours!) by using the button that is:
 .. image:: member5/19.png
       :scale: 50 %
       :align: center
-      :alt: map to buried treasure
+      :alt: 18
 
 
 
@@ -203,7 +203,7 @@ Write the new comment in the popup shown and click "Update".
 .. image:: member5/20.png
       :scale: 50 %
       :align: center
-      :alt: map to buried treasure
+      :alt: 19
 
 
 
@@ -213,7 +213,7 @@ You can delete any comments using the "x" button and clicking "OK" after that.
 .. image:: member5/21.png
       :scale: 50 %
       :align: center
-      :alt: map to buried treasure
+      :alt: 20
 
 
 
@@ -229,7 +229,7 @@ At first, you need to click "Search For Projects" in the left panel as below.
 .. image:: member5/22.png
       :scale: 50 %
       :align: center
-      :alt: map to buried treasure
+      :alt: 21
 
 
 
@@ -241,7 +241,7 @@ Click "Details" to access the project details.
 .. image:: member5/23.png
       :scale: 50 %
       :align: center
-      :alt: map to buried treasure
+      :alt: 22
 
 
 
@@ -253,7 +253,7 @@ Note that, independent of the creator or not, all users can see the members in a
 .. image:: member5/24.png
       :scale: 50 %
       :align: center
-      :alt: map to buried treasure
+      :alt: 23
 
 
 
@@ -265,7 +265,7 @@ Therefore other users can not adjust the project that you created.
 .. image:: member5/25.png
       :scale: 50 %
       :align: center
-      :alt: map to buried treasure
+      :alt: 24
 
 
 
@@ -275,7 +275,7 @@ For adding new members in a project, write any name in the adding part below.
 .. image:: member5/26.png
       :scale: 50 %
       :align: center
-      :alt: map to buried treasure
+      :alt: 25
 
 
 
@@ -285,7 +285,7 @@ Choose the person corresponding to your search key.
 .. image:: member5/27.png
       :scale: 50 %
       :align: center
-      :alt: map to buried treasure
+      :alt: 26
 
 
 
@@ -297,7 +297,7 @@ Click "Settings" tab again. Now look at each member in the project.
 .. image:: member5/28.png
       :scale: 50 %
       :align: center
-      :alt: map to buried treasure
+      :alt: 27
 
 
 
@@ -315,4 +315,4 @@ After your work is finished you can logout using the up right corner of the page
 .. image:: member5/29.png
       :scale: 50 %
       :align: center
-      :alt: map to buried treasure
+      :alt: 28

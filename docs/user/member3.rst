@@ -8,13 +8,13 @@ Related Parts to Project
 .. image:: member3/Resim1.png
       :scale: 50 %
       :align: center
-      :alt: map to buried treasure
+      :alt: 1
 
 
 .. image:: member3/Resim2.png
       :scale: 50 %
       :align: center
-      :alt: map to buried treasure
+      :alt: 2
 
 
 There are many choices for you to select!
@@ -28,7 +28,7 @@ You can set a member limit for your project and assign a person as the manager o
 .. image:: member3/Resim3.png
       :scale: 50 %
       :align: center
-      :alt: map to buried treasure
+      :alt: 3
 
 
 If you click Details to see more information about a Project, you will be directed to that project’s details page.
@@ -36,7 +36,7 @@ If you click Details to see more information about a Project, you will be direct
 .. image:: member3/Resim4.png
       :scale: 50 %
       :align: center
-      :alt: map to buried treasure
+      :alt: 4
 
 
 On the left part of the page, you can see specific information about the Project. Since the logged in user is viewing the Project, Settings tab is shown. When you want to see a project’s detail which you are not the creator of, you cannot see Settings tab.
@@ -44,7 +44,7 @@ On the left part of the page, you can see specific information about the Project
 .. image:: member3/1.PNG
       :scale: 50 %
       :align: center
-      :alt: map to buried treasure
+      :alt: 5
 
 
 If you are the creator of the project, in the Settings tab, you will see Delete and Update buttons. You can delete your own project and update it!
@@ -52,7 +52,7 @@ If you are the creator of the project, in the Settings tab, you will see Delete 
 .. image:: member3/2.PNG
       :scale: 50 %
       :align: center
-      :alt: map to buried treasure
+      :alt: 6
 
 
 You can update specific information about your project.
@@ -60,13 +60,13 @@ You can update specific information about your project.
 .. image:: member3/Resim11.png
       :scale: 50 %
       :align: center
-      :alt: map to buried treasure
+      :alt: 7
 
 
 .. image:: member3/Resim12.png
       :scale: 50 %
       :align: center
-      :alt: map to buried treasure
+      :alt: 8
 
 
 Since the user is the member of “Nuclei Counting in Histopathology Images” Project, when she/he goes to her/his Profile, she/he can see active projects of herself/hisself. Her/his responsibility number is also shown. You can see everybody’s active projects in her/his profile.
@@ -74,7 +74,7 @@ Since the user is the member of “Nuclei Counting in Histopathology Images” P
 .. image:: member3/Resim13.png
       :scale: 50 %
       :align: center
-      :alt: map to buried treasure
+      :alt: 9
 
 
 When you come to your dashboard, you can see your current projects and it is a reminder for you to work!
@@ -86,7 +86,7 @@ Related Parts to Project Comment
 .. image:: member3/Resim6.png
       :scale: 50 %
       :align: center
-      :alt: map to buried treasure
+      :alt: 10
 
 
 You can leave a comment to the Project in Project's Comments tab.
@@ -94,20 +94,20 @@ You can leave a comment to the Project in Project's Comments tab.
 .. image:: member3/Resim7.png
       :scale: 50 %
       :align: center
-      :alt: map to buried treasure
+      :alt: 11
 
 You can make changes only on your own comments.
 
 .. image:: member3/Resim8.png
       :scale: 50 %
       :align: center
-      :alt: map to buried treasure
+      :alt: 12
 
 
 .. image:: member3/3.PNG
       :scale: 50 %
       :align: center
-      :alt: map to buried treasure
+      :alt: 13
 
 
 You can update your comment.
@@ -115,7 +115,7 @@ You can update your comment.
 .. image:: member3/Resim10.png
       :scale: 50 %
       :align: center
-      :alt: map to buried treasure
+      :alt: 14
 
 
 Related Parts to Information
@@ -124,14 +124,14 @@ Related Parts to Information
 .. image:: member3/Resim14.png
       :scale: 50 %
       :align: center
-      :alt: map to buried treasure
+      :alt: 15
 
 When you view your own CV, you can add E-Mail, Telephone, Twitter, LinkedIn, Facebook, Instagram, Blog, MySpace, Tumblr, Address information  to your CV!
 
 .. image:: member3/Resim15.png
       :scale: 50 %
       :align: center
-      :alt: map to buried treasure
+      :alt: 16
 
 
 Add information by clicking ‘Add’ icon.
@@ -139,7 +139,7 @@ Add information by clicking ‘Add’ icon.
 .. image:: member3/Resim16.png
       :scale: 50 %
       :align: center
-      :alt: map to buried treasure
+      :alt: 17
 
 
 E-Mail information is added by the user.
@@ -147,7 +147,7 @@ E-Mail information is added by the user.
 .. image:: member3/Resim17.png
       :scale: 50 %
       :align: center
-      :alt: map to buried treasure
+      :alt: 18
 
 
 Added information can be updated.
@@ -155,7 +155,7 @@ Added information can be updated.
 .. image:: member3/Resim18.png
       :scale: 50 %
       :align: center
-      :alt: map to buried treasure
+      :alt: 19
 
 
 Here is the result.
@@ -163,7 +163,7 @@ Here is the result.
 .. image:: member3/Resim19.png
       :scale: 50 %
       :align: center
-      :alt: map to buried treasure
+      :alt: 20
 
 
 When you click cross symbol, you can delete an information and before deletion, a warning is shown.
@@ -171,7 +171,7 @@ When you click cross symbol, you can delete an information and before deletion, 
 .. image:: member3/Resim20.png
       :scale: 50 %
       :align: center
-      :alt: map to buried treasure
+      :alt: 21
 
 
 Now, your information is deleted!
